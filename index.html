@@ -135,5 +135,25 @@ var table2 = new Tabulator("#example-table2", {
 });
 </script>
 
+
+<h2>The XMLHttpRequest Object</h2>
+
+<button type="button" onclick="loadDoc()">Request data</button>
+
+<pre id="demoRequest"></pre>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demoRequest").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);
+  xhttp.send();
+}
+</script>
+
 </body>
 </html>
