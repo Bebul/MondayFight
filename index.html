@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html>
-<body>
-
-<h2>Create Monday Fight list</h2>
-
-<p id="demo"></p>
-
+<head>
+<link href="dist/css/tabulator.min.css" rel="stylesheet">
+<script type="text/javascript" src="dist/js/tabulator.min.js"></script>
 <script>
 var mondayFights = [
 {"nbPlayers":14,"duels":[],"standing":{"page":1,"players":[{"name":"DJ-Pesec","rank":1,"rating":1924,"score":41,"sheet":{"scores":[0,[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],[5,3],[4,3],[4,3],[4,3]],"total":41,"fire":true}},{"name":"bukowskic","rank":2,"rating":1917,"score":32,"sheet":{"scores":[[2,2],[3,2],[4,3],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],0,[3,2]],"total":32}},{"name":"bebul","rank":3,"rating":1610,"score":21,"sheet":{"scores":[0,2,1,[2,2],[2,2],[4,3],[4,3],[4,3],0,2,0],"total":21}},{"name":"Mrazek","rank":4,"rating":1608,"score":18,"sheet":{"scores":[0,0,0,[2,2],[2,2],[2,3],[2,2],[2,2],[4,3],0,[2,2],[2,2]],"total":18,"fire":true}},{"name":"hrobotron","rank":5,"rating":1354,"score":16,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],0,0,2,0,0,2,0,0,0],"total":16}},{"name":"Jouzolean","rank":6,"rating":1656,"score":16,"sheet":{"scores":[2,0,0,2,0,[2,2],[2,2],[4,3],[4,3],0],"total":16}},{"name":"Arytmik","rank":7,"rating":1350,"score":10,"sheet":{"scores":[0,[2,2],[2,2],0,0,[2,2],[2,2],0,2,0,0],"total":10}},{"name":"RychlyLenochod","rank":8,"rating":1321,"score":7,"sheet":{"scores":[0,1,0,2,0,0,2,0,2,0],"total":7}},{"name":"Sedmilety_kluk","rank":9,"rating":1284,"score":6,"sheet":{"scores":[2,0,2,0,2,0,0],"total":6},"provisional":true},{"name":"mracek","rank":10,"rating":1054,"score":4,"sheet":{"scores":[2,0,2,0,0],"total":4}},{"name":"travinho","rank":11,"rating":1086,"score":4,"sheet":{"scores":[0,0,0,0,0,0,0,0,0,0,0,[2,2],[2,2]],"total":4,"fire":true}},{"name":"Tekele","rank":12,"rating":1069,"score":3,"sheet":{"scores":[0,0,2,1,0,0,0,0,0,0,0],"total":3}},{"name":"JiriSlayer","rank":13,"rating":986,"score":2,"sheet":{"scores":[0,0,2,0],"total":2}},{"name":"Uzivatel1994","rank":14,"rating":800,"score":0,"sheet":{"scores":[0],"total":0},"provisional":true}]},"isFinished":true,"podium":[{"name":"DJ-Pesec","rank":1,"rating":1924,"score":41,"sheet":{"scores":[0,[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],[5,3],[4,3],[4,3],[4,3]],"total":41,"fire":true},"nb":{"game":14,"berserk":1,"win":12},"performance":1791},{"name":"bukowskic","rank":2,"rating":1917,"score":32,"sheet":{"scores":[[2,2],[3,2],[4,3],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],0,[3,2]],"total":32},"nb":{"game":12,"berserk":2,"win":10},"performance":1814},{"name":"bebul","rank":3,"rating":1610,"score":21,"sheet":{"scores":[0,2,1,[2,2],[2,2],[4,3],[4,3],[4,3],0,2,0],"total":21},"nb":{"game":11,"berserk":0,"win":7},"performance":1583}],"pairingsClosed":true,"stats":{"games":67,"moves":4589,"whiteWins":30,"blackWins":35,"draws":2,"berserks":5,"averageRating":1358},"id":"lxf6Jw3q","createdBy":"bebul","startsAt":"2020-10-26T19:03:27.691Z","system":"arena","fullName":"Monday Fight Arena","minutes":90,"perf":{"icon":")","name":"Blitz"},"clock":{"limit":180,"increment":2},"variant":"standard","berserkable":true,"verdicts":{"list":[],"accepted":true},"private":true},
@@ -52,18 +49,6 @@ var mondayFights = [
 {"nbPlayers":6,"duels":[],"standing":{"page":1,"players":[{"name":"bukowskic","rank":1,"rating":1932,"score":40,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3]],"total":40,"fire":true}},{"name":"Mates7824","rank":2,"rating":1693,"score":12,"sheet":{"scores":[0,0,0,[2,2],[2,2],0,[2,2],[2,2],[4,3],0],"total":12}},{"name":"mozkomor","rank":3,"rating":1585,"score":12,"sheet":{"scores":[0,[2,2],[2,2],[4,3],0,0,0,2,0,0,[2,2]],"total":12}},{"name":"bebul","rank":4,"rating":1623,"score":10,"sheet":{"scores":[2,0,0,[2,2],[2,2],0,[2,2],[2,2]],"total":10,"fire":true}},{"name":"Jouzolean","rank":5,"rating":1515,"score":8,"sheet":{"scores":[[2,2],[2,2],0,0,0,[2,2],[2,2],0,0,0,0,0],"total":8}},{"name":"Tekele","rank":6,"rating":884,"score":0,"sheet":{"scores":[0,0,0,0,0,0,0,0],"total":0},"provisional":true}]},"isFinished":true,"podium":[{"name":"bukowskic","rank":1,"rating":1932,"score":40,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3]],"total":40,"fire":true},"nb":{"game":11,"berserk":0,"win":11},"performance":1855},{"name":"Mates7824","rank":2,"rating":1693,"score":12,"sheet":{"scores":[0,0,0,[2,2],[2,2],0,[2,2],[2,2],[4,3],0],"total":12},"nb":{"game":10,"berserk":0,"win":5},"performance":1674},{"name":"mozkomor","rank":3,"rating":1585,"score":12,"sheet":{"scores":[0,[2,2],[2,2],[4,3],0,0,0,2,0,0,[2,2]],"total":12},"nb":{"game":11,"berserk":0,"win":5},"performance":1518}],"pairingsClosed":true,"stats":{"games":30,"moves":2144,"whiteWins":11,"blackWins":19,"draws":0,"berserks":0,"averageRating":1538},"id":"9viDXgBS","createdBy":"jouzolean","startsAt":"2020-03-09T19:10:22.288Z","system":"arena","fullName":"Monday fight Arena","minutes":90,"perf":{"icon":")","name":"Blitz"},"clock":{"limit":180,"increment":2},"variant":"standard","berserkable":true,"verdicts":{"list":[],"accepted":true},"private":true}
 ];
 
-mondayFights.sort(function(a,b){
-  var x = a.startsAt;
-  var y = b.startsAt;
-  if (x < y) {return -1;}
-  if (x > y) {return 1;}
-  return 0;
-});
-
-text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
-mondayFights.forEach(myFunction);
-text += "</table>";
-
 function myFunction(value) {
   info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
   info += '<td>' + value.nbPlayers + '</td>';
@@ -84,12 +69,70 @@ function myFunction(value) {
     info += '<td>' + winner.rating + '</td>';
   }
   text += "<tr>" + info + "</tr>";
+
+  document.getElementById("demo").innerHTML = text;
 }
 
-// var jjj = "";
-// for (x in mondayFights[0]) jjj += x + "=" + mondayFights[0][x] + "<br>";
+function init() {
+  mondayFights.sort(function(a,b){
+    var x = a.startsAt;
+    var y = b.startsAt;
+    if (x < y) {return -1;}
+    if (x > y) {return 1;}
+    return 0;
+  });
+  
+  text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
+  mondayFights.forEach(myFunction);
+  text += "</table>";
+}
+</script>
 
-document.getElementById("demo").innerHTML = text;
+</head>
+
+<body onload="init()">
+
+<h2>Create Monday Fight list</h2>
+
+<p id="demo""></p>
+
+<div id="example-table"></div>
+<hr>
+<div id="example-table2"></div>
+
+<script>
+  //sample data to be used in all tabulators
+  var tabledata = [
+    {id:1, name:"Oli Bob", progress:12, location:"United Kingdom", gender:"male", rating:1, col:"red", dob:"14/04/1984", car:1, lucky_no:5, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:2, name:"Mary May", progress:1, location:"Germany", gender:"female", rating:2, col:"blue", dob:"14/05/1982", car:true, lucky_no:10, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:3, name:"Christine Lobowski", progress:42, location:"France", gender:"female", rating:0, col:"green", dob:"22/05/1982", car:"true", lucky_no:12, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:4, name:"Brendon Philips", progress:100, location:"USA", gender:"male", rating:1, col:"orange", dob:"01/08/1980", car:false, lucky_no:18, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:5, name:"Margret Marmajuke", progress:16, location:"Canada", gender:"female", rating:5, col:"yellow", dob:"31/01/1999", car:false, lucky_no:33, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:6, name:"Frank Harbours", progress:38, location:"Russia", gender:"male", rating:4, col:"red", dob:"12/05/1966", car:1, lucky_no:2, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:7, name:"Jamie Newhart", progress:23, location:"India", gender:"male", rating:3, col:"green", dob:"14/05/1985", car:true, lucky_no:63, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:8, name:"Gemma Jane", progress:60, location:"China", gender:"female", rating:0, col:"red", dob:"22/05/1982", car:"true", lucky_no:72, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:9, name:"Emily Sykes", progress:42, location:"South Korea", gender:"female", rating:1, col:"maroon", dob:"11/11/1970", car:false, lucky_no:44, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+    {id:10, name:"James Newman", progress:73, location:"Japan", gender:"male", rating:5, col:"red", dob:"22/03/1998", car:false, lucky_no:9, lorem:"Lorem ipsum dolor sit amet, elit consectetur adipisicing "},
+  ];
+
+
+  var table = new Tabulator("#example-table", {
+      height:"311px",
+      data:tabledata,
+      columns:[
+          {title:"Name", field:"name", headerSort:true, headerVertical:false},
+          {title:"Progress", field:"progress", sorter:"number", hozAlign:"left", formatter:"progress",  editable:true, headerSort:true, headerVertical:true},
+          {title:"Gender", field:"gender", headerSort:false, headerVertical:true},
+          {title:"Rating", field:"rating", hozAlign:"center", headerSort:true, headerVertical:true},
+          {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date", headerSort:true, headerVertical:true},
+          {title:"Driver", field:"car", hozAlign:"center", formatter:"tickCross", headerSort:false, headerVertical:true},
+      ],
+  });
+  
+var table2 = new Tabulator("#example-table2", {
+    data:tabledata,
+    autoColumns:true,
+});
 </script>
 
 </body>
