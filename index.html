@@ -4,6 +4,7 @@
     <title>"Monday Fight Tournaments on Lichess"</title>
     <link href="dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
     <script>
       const mondayFights = [
         {"nbPlayers":14,"duels":[],"standing":{"page":1,"players":[{"name":"DJ-Pesec","rank":1,"rating":1924,"score":41,"sheet":{"scores":[0,[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],[5,3],[4,3],[4,3],[4,3]],"total":41,"fire":true}},{"name":"bukowskic","rank":2,"rating":1917,"score":32,"sheet":{"scores":[[2,2],[3,2],[4,3],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],0,[3,2]],"total":32}},{"name":"bebul","rank":3,"rating":1610,"score":21,"sheet":{"scores":[0,2,1,[2,2],[2,2],[4,3],[4,3],[4,3],0,2,0],"total":21}},{"name":"Mrazek","rank":4,"rating":1608,"score":18,"sheet":{"scores":[0,0,0,[2,2],[2,2],[2,3],[2,2],[2,2],[4,3],0,[2,2],[2,2]],"total":18,"fire":true}},{"name":"hrobotron","rank":5,"rating":1354,"score":16,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],0,0,2,0,0,2,0,0,0],"total":16}},{"name":"Jouzolean","rank":6,"rating":1656,"score":16,"sheet":{"scores":[2,0,0,2,0,[2,2],[2,2],[4,3],[4,3],0],"total":16}},{"name":"Arytmik","rank":7,"rating":1350,"score":10,"sheet":{"scores":[0,[2,2],[2,2],0,0,[2,2],[2,2],0,2,0,0],"total":10}},{"name":"RychlyLenochod","rank":8,"rating":1321,"score":7,"sheet":{"scores":[0,1,0,2,0,0,2,0,2,0],"total":7}},{"name":"Sedmilety_kluk","rank":9,"rating":1284,"score":6,"sheet":{"scores":[2,0,2,0,2,0,0],"total":6},"provisional":true},{"name":"mracek","rank":10,"rating":1054,"score":4,"sheet":{"scores":[2,0,2,0,0],"total":4}},{"name":"travinho","rank":11,"rating":1086,"score":4,"sheet":{"scores":[0,0,0,0,0,0,0,0,0,0,0,[2,2],[2,2]],"total":4,"fire":true}},{"name":"Tekele","rank":12,"rating":1069,"score":3,"sheet":{"scores":[0,0,2,1,0,0,0,0,0,0,0],"total":3}},{"name":"JiriSlayer","rank":13,"rating":986,"score":2,"sheet":{"scores":[0,0,2,0],"total":2}},{"name":"Uzivatel1994","rank":14,"rating":800,"score":0,"sheet":{"scores":[0],"total":0},"provisional":true}]},"isFinished":true,"podium":[{"name":"DJ-Pesec","rank":1,"rating":1924,"score":41,"sheet":{"scores":[0,[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],[5,3],[4,3],[4,3],[4,3]],"total":41,"fire":true},"nb":{"game":14,"berserk":1,"win":12},"performance":1791},{"name":"bukowskic","rank":2,"rating":1917,"score":32,"sheet":{"scores":[[2,2],[3,2],[4,3],[4,3],[4,3],[4,3],[4,3],0,[2,2],[2,2],0,[3,2]],"total":32},"nb":{"game":12,"berserk":2,"win":10},"performance":1814},{"name":"bebul","rank":3,"rating":1610,"score":21,"sheet":{"scores":[0,2,1,[2,2],[2,2],[4,3],[4,3],[4,3],0,2,0],"total":21},"nb":{"game":11,"berserk":0,"win":7},"performance":1583}],"pairingsClosed":true,"stats":{"games":67,"moves":4589,"whiteWins":30,"blackWins":35,"draws":2,"berserks":5,"averageRating":1358},"id":"lxf6Jw3q","createdBy":"bebul","startsAt":"2020-10-26T19:03:27.691Z","system":"arena","fullName":"Monday Fight Arena","minutes":90,"perf":{"icon":")","name":"Blitz"},"clock":{"limit":180,"increment":2},"variant":"standard","berserkable":true,"verdicts":{"list":[],"accepted":true},"private":true},
@@ -148,11 +149,19 @@
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState === 4 && this.status === 200) {
-        document.getElementById("demoRequest").innerHTML = this.responseText;
+        // see https://github.com/mliebelt/pgn-parser and https://github.com/Bebul/MondayFight/issues/7#issuecomment-721996465
+        let gameList = parsePgn(this.responseText, {startRule: "games"});   // or sample: '[White "Me"] [Black "Magnus"] 1. f4 e5 2. g4 Qh4#'
+        let theList = "<ol>";
+        gameList.forEach(function(x) {
+          theList += '<li>'+ x.tags.UTCTime + ' ' + x.tags.White + ' : ' + x.tags.Black + ' ' + x.tags.Result + '</li>';
+        });
+        theList += "</ol>";
+        document.getElementById("demoRequest").innerHTML = theList;
       }
     };
     // CORS policy problem: FIX - Enabling "Allow Unsigned Requests" in Build Execution and Deployment -> Debugger setting of Webstorm fixed it for now.
-    xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
+    //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
+    xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
     xhttp.send();
   }
 </script>
