@@ -52,7 +52,7 @@
       ];
 
       function loadDoc() {
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState === 4 && this.status === 200) {
             // see https://github.com/mliebelt/pgn-parser and https://github.com/Bebul/MondayFight/issues/7#issuecomment-721996465
@@ -72,49 +72,22 @@
       }
 
       function downloadPerformances(fight) {
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
           if (this.readyState === 4 && this.status === 200) {
             // special json with \n separated items
             let json = "[" + this.responseText.replace(/\n{/g, ",{") + "]";
             let results = JSON.parse(json);
             let performance = {};
-            results.forEach(function (pl) {
-              performance[pl.username] = pl.performance;
-            });
-            fight.standing.players = fight.standing.players.map(function (pl) {
-              pl.performance = performance[pl.name];
-              return pl;
-            });
+            results.forEach((pl) => performance[pl.username] = pl.performance)
+            fight.standing.players = fight.standing.players.map((pl) => { pl.performance = performance[pl.name]; return pl})
             document.getElementById("updated").innerHTML = JSON.stringify(fight, null, 0);
           }
-        };
+        }
 
         let url = "https://lichess.org/api/tournament/" + fight.id + "/results";
         xhttp.open("GET", url, true);
         xhttp.send();
-      }
-
-      function myFunction(value) {
-        let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
-        info += '<td>' + value.nbPlayers + '</td>';
-        info += '<td>' + value.stats.games + '</td>';
-        info += '<td>' + value.startsAt + '</td>';
-        let winner = value.standing.players[0];
-        info += '<td>' + winner.name + '</td>';
-        info += '<td>' + winner.score + '</td>';
-        info += '<td>' + winner.rating + '</td>';
-        winner = value.standing.players[1];
-        info += '<td>' + winner.name + '</td>';
-        info += '<td>' + winner.score + '</td>';
-        info += '<td>' + winner.rating + '</td>';
-        if (value.nbPlayers > 2) {
-          winner = value.standing.players[2];
-          info += '<td>' + winner.name + '</td>';
-          info += '<td>' + winner.score + '</td>';
-          info += '<td>' + winner.rating + '</td>';
-        }
-        text += "<tr>" + info + "</tr>";
       }
 
       function init() {
@@ -126,8 +99,28 @@
           return 0;
         });
 
-        text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
-        mondayFights.forEach(myFunction);
+        let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
+        mondayFights.forEach( function myFunction(value) {
+          let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
+          info += '<td>' + value.nbPlayers + '</td>';
+          info += '<td>' + value.stats.games + '</td>';
+          info += '<td>' + value.startsAt + '</td>';
+          let winner = value.standing.players[0];
+          info += '<td>' + winner.name + '</td>';
+          info += '<td>' + winner.score + '</td>';
+          info += '<td>' + winner.rating + '</td>';
+          winner = value.standing.players[1];
+          info += '<td>' + winner.name + '</td>';
+          info += '<td>' + winner.score + '</td>';
+          info += '<td>' + winner.rating + '</td>';
+          if (value.nbPlayers > 2) {
+            winner = value.standing.players[2];
+            info += '<td>' + winner.name + '</td>';
+            info += '<td>' + winner.score + '</td>';
+            info += '<td>' + winner.rating + '</td>';
+          }
+          text += "<tr>" + info + "</tr>";
+        });
         text += "</table>";
         document.getElementById("demo").innerHTML = text;
 
@@ -182,7 +175,7 @@ The following should contain downloaded <b>performances</b> for each player:
     ],
   });
 
-  var table2 = new Tabulator("#example-table2", {
+  let table2 = new Tabulator("#example-table2", {
     data:tabledata,
     autoColumns:true,
   });
