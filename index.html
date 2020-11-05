@@ -51,6 +51,26 @@
         {"nbPlayers":6,"duels":[],"standing":{"page":1,"players":[{"name":"bukowskic","rank":1,"rating":1932,"score":40,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3]],"total":40,"fire":true}},{"name":"Mates7824","rank":2,"rating":1693,"score":12,"sheet":{"scores":[0,0,0,[2,2],[2,2],0,[2,2],[2,2],[4,3],0],"total":12}},{"name":"mozkomor","rank":3,"rating":1585,"score":12,"sheet":{"scores":[0,[2,2],[2,2],[4,3],0,0,0,2,0,0,[2,2]],"total":12}},{"name":"bebul","rank":4,"rating":1623,"score":10,"sheet":{"scores":[2,0,0,[2,2],[2,2],0,[2,2],[2,2]],"total":10,"fire":true}},{"name":"Jouzolean","rank":5,"rating":1515,"score":8,"sheet":{"scores":[[2,2],[2,2],0,0,0,[2,2],[2,2],0,0,0,0,0],"total":8}},{"name":"Tekele","rank":6,"rating":884,"score":0,"sheet":{"scores":[0,0,0,0,0,0,0,0],"total":0},"provisional":true}]},"isFinished":true,"podium":[{"name":"bukowskic","rank":1,"rating":1932,"score":40,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3],[4,3]],"total":40,"fire":true},"nb":{"game":11,"berserk":0,"win":11},"performance":1855},{"name":"Mates7824","rank":2,"rating":1693,"score":12,"sheet":{"scores":[0,0,0,[2,2],[2,2],0,[2,2],[2,2],[4,3],0],"total":12},"nb":{"game":10,"berserk":0,"win":5},"performance":1674},{"name":"mozkomor","rank":3,"rating":1585,"score":12,"sheet":{"scores":[0,[2,2],[2,2],[4,3],0,0,0,2,0,0,[2,2]],"total":12},"nb":{"game":11,"berserk":0,"win":5},"performance":1518}],"pairingsClosed":true,"stats":{"games":30,"moves":2144,"whiteWins":11,"blackWins":19,"draws":0,"berserks":0,"averageRating":1538},"id":"9viDXgBS","createdBy":"jouzolean","startsAt":"2020-03-09T19:10:22.288Z","system":"arena","fullName":"Monday fight Arena","minutes":90,"perf":{"icon":")","name":"Blitz"},"clock":{"limit":180,"increment":2},"variant":"standard","berserkable":true,"verdicts":{"list":[],"accepted":true},"private":true}
       ];
 
+      function loadDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            // see https://github.com/mliebelt/pgn-parser and https://github.com/Bebul/MondayFight/issues/7#issuecomment-721996465
+            let gameList = parsePgn(this.responseText, {startRule: "games"});   // or sample: '[White "Me"] [Black "Magnus"] 1. f4 e5 2. g4 Qh4#'
+            let theList = "<ol>";
+            gameList.forEach(function(x) {
+              theList += '<li>'+ x.tags.UTCTime + ' ' + x.tags.White + ' : ' + x.tags.Black + ' ' + x.tags.Result + '</li>';
+            });
+            theList += "</ol>";
+            document.getElementById("demoRequest").innerHTML = theList;
+          }
+        };
+        // CORS policy problem: FIX - Enabling "Allow Unsigned Requests" in Build Execution and Deployment -> Debugger setting of Webstorm fixed it for now.
+        //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
+        xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
+        xhttp.send();
+      }
+
       function myFunction(value) {
         let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
         info += '<td>' + value.nbPlayers + '</td>';
@@ -71,8 +91,11 @@
           info += '<td>' + winner.rating + '</td>';
         }
         text += "<tr>" + info + "</tr>";
+      }
 
-        document.getElementById("demo").innerHTML = text;
+      function addPerformance(player) {
+        player.performance = 1240;
+        return player;
       }
 
       function init() {
@@ -87,6 +110,11 @@
         text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
         mondayFights.forEach(myFunction);
         text += "</table>";
+        document.getElementById("demo").innerHTML = text;
+
+        let lastFight = mondayFights[mondayFights.length-1]
+        lastFight.standing.players = lastFight.standing.players.map(addPerformance);
+        document.getElementById("updated").innerHTML = JSON.stringify(lastFight, null, 2);
       }
     </script>
 
@@ -98,9 +126,14 @@
 
 <p id="demo"></p>
 
+<hr>
 <div id="example-table"></div>
 <hr>
+The following should contain <b>identical</b> performances for each player:
+<div id="updated"></div>
+<hr>
 <div id="example-table2"></div>
+<hr>
 
 <script>
   //sample data to be used in all tabulators
@@ -143,28 +176,6 @@
 <button type="button" onclick="loadDoc()">Request data</button>
 
 <pre id="demoRequest"></pre>
-
-<script>
-  function loadDoc() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        // see https://github.com/mliebelt/pgn-parser and https://github.com/Bebul/MondayFight/issues/7#issuecomment-721996465
-        let gameList = parsePgn(this.responseText, {startRule: "games"});   // or sample: '[White "Me"] [Black "Magnus"] 1. f4 e5 2. g4 Qh4#'
-        let theList = "<ol>";
-        gameList.forEach(function(x) {
-          theList += '<li>'+ x.tags.UTCTime + ' ' + x.tags.White + ' : ' + x.tags.Black + ' ' + x.tags.Result + '</li>';
-        });
-        theList += "</ol>";
-        document.getElementById("demoRequest").innerHTML = theList;
-      }
-    };
-    // CORS policy problem: FIX - Enabling "Allow Unsigned Requests" in Build Execution and Deployment -> Debugger setting of Webstorm fixed it for now.
-    //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
-    xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
-    xhttp.send();
-  }
-</script>
 
 </body>
 </html>
