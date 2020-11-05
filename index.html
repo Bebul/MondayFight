@@ -71,6 +71,30 @@
         xhttp.send();
       }
 
+      function downloadPerformances(fight) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            // special json with \n separated items
+            let json = "[" + this.responseText.replace(/\n{/g, ",{") + "]";
+            let results = JSON.parse(json);
+            let performance = {};
+            results.forEach(function (pl) {
+              performance[pl.username] = pl.performance;
+            });
+            fight.standing.players = fight.standing.players.map(function (pl) {
+              pl.performance = performance[pl.name];
+              return pl;
+            });
+            document.getElementById("updated").innerHTML = JSON.stringify(fight, null, 0);
+          }
+        };
+
+        let url = "https://lichess.org/api/tournament/" + fight.id + "/results";
+        xhttp.open("GET", url, true);
+        xhttp.send();
+      }
+
       function myFunction(value) {
         let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
         info += '<td>' + value.nbPlayers + '</td>';
@@ -93,11 +117,6 @@
         text += "<tr>" + info + "</tr>";
       }
 
-      function addPerformance(player) {
-        player.performance = 1240;
-        return player;
-      }
-
       function init() {
         mondayFights.sort(function(a,b){
           let x = a.startsAt;
@@ -112,9 +131,8 @@
         text += "</table>";
         document.getElementById("demo").innerHTML = text;
 
-        let lastFight = mondayFights[mondayFights.length-1]
-        lastFight.standing.players = lastFight.standing.players.map(addPerformance);
-        document.getElementById("updated").innerHTML = JSON.stringify(lastFight, null, 2);
+        let lastFight = mondayFights[mondayFights.length-1];
+        downloadPerformances(lastFight);
       }
     </script>
 
@@ -129,7 +147,7 @@
 <hr>
 <div id="example-table"></div>
 <hr>
-The following should contain <b>identical</b> performances for each player:
+The following should contain downloaded <b>performances</b> for each player:
 <div id="updated"></div>
 <hr>
 <div id="example-table2"></div>
