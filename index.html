@@ -84,6 +84,43 @@
         return total;
       }
 
+      function playersCountWhoPlayed(fight) {
+        let total = 0;
+        fight.standing.players.forEach((pl) => {
+          if (playedAGame(pl)) total += 1;
+        })
+        return total;
+      }
+
+      function jouzocoins(fight, player) {
+        if (!playedAGame(player)) return 0;
+        let plCount = playersCountWhoPlayed(fight);
+        let rank = player.rank;
+        if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1];
+        else if (rank <= 4) return [10, 7, 5, 3][rank-1];
+        return 1;
+      }
+
+      function getTotalJouzocoinsList(player) {
+        let total = [];
+        mondayFights.forEach((fight) => {
+          fight.standing.players.forEach((pl) => {
+            if (pl.name==player) total.push(jouzocoins(fight, pl));
+          })
+        })
+        return total;
+      }
+
+      function getTotalJouzocoins(player) {
+        let total = 0;
+        mondayFights.forEach((fight) => {
+          fight.standing.players.forEach((pl) => {
+            if (pl.name==player) total += jouzocoins(fight, pl);
+          })
+        })
+        return total;
+      }
+
       function getPlayers() {
         let playersAr = [];
         mondayFights.forEach((fight) => {
@@ -100,6 +137,7 @@
         players.forEach( (player) => {
           let thePlayer = {
             name: player,
+            jouzoCoins: getTotalJouzocoins(player),
             totalScore: getTotalScore(player),
             present: getTotalPresence(player)
           }
