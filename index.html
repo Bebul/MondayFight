@@ -141,7 +141,8 @@
             name: player,
             jouzoCoins: getTotalJouzocoins(player),
             totalScore: getTotalScore(player),
-            present: getTotalPresence(player)
+            present: getTotalPresence(player),
+            t1: Math.floor(Math.random()*Math.random() * 12)
           }
           tableData.push(thePlayer);
           }
@@ -325,22 +326,78 @@
 <div id="mondayFightsLeaderboard"></div>
 
 <script>
+  function jouzoCoinsFormatter(cell, formatterParams) {
+    var value = cell.getValue();
+    if (value >= 5) cell.getElement().style.backgroundColor = "red";
+    else if(value >= 2) cell.getElement().style.backgroundColor = "orange";
+    if (value > 0) return value;
+    else return "";
+  }
+
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#mondayFightsLeaderboard", {
     layout: "fitDataTable",
     data: playersTableData,
     columns:[
       {//create column group
-        title:"Monday Fights Leaderboard",
-        columns:[
-          {formatter:"rownum", headerSort:false}, //add auto incrementing row number
-          {title:"Name", field:"name"},
-          {title:"JouzoCoins", field:"jouzoCoins"},
-          {title:"Score", field:"totalScore"},
-          {title:"Presence", field:"present"}
+        title: "Monday Fights Leaderboard",
+        columns: [
+          {formatter: "rownum", headerSort: false}, //add auto incrementing row number
+          {title: "Name", field: "name"},
+          {title: "JouzoCoins", field: "jouzoCoins"},
+          {title: "Score", field: "totalScore"},
+          {title: "Presence", field: "present"}
         ]
-      }
-    ]
+      },
+      {
+        title: "Leden",
+        columns: [
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>1</a>", field:"t1", headerSort:false, headerTooltip:"26.10.2020"},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>2</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>3</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>4</a>", field:"t1", headerSort:false},
+        ]
+      },
+      {
+        title: "Únor",
+        columns: [
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>5</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>6</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>7</a>", field:"t1", headerSort:false},
+        ]
+      },
+      {
+        title: "Březen",
+        columns: [
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>8</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>9</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>10</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>11</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>12</a>", field:"t1", headerSort:false},
+        ]
+      },
+      {
+        title: "Duben",
+        columns: [
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>13</a>", field:"t1", headerSort:false, align:"center", formatter:jouzoCoinsFormatter},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>14</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>15</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>16</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>17</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>18</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>19</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>20</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>21</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>32</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>33</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>34</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>35</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>36</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>37</a>", field:"t1", headerSort:false},
+          {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>38</a>", field:"t1", headerSort:false},
+        ]
+      },
+     ]
   });
   table2.setSort("jouzoCoins", "desc");
 </script>
