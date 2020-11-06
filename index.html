@@ -321,15 +321,22 @@
 <script>
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#mondayFightsLeaderboard", {
+    layout: "fitDataTable",
     data: playersTableData,
     columns:[
-      {formatter:"rownum", headerSort:false}, //add auto incrementing row number
-      {title:"Name", field:"name"},
-      {title:"JouzoCoins", field:"jouzoCoins"},
-      {title:"Score", field:"totalScore"},
-      {title:"Presence", field:"present"}
+      {//create column group
+        title:"Monday Fights Leaderboard",
+        columns:[
+          {formatter:"rownum", headerSort:false}, //add auto incrementing row number
+          {title:"Name", field:"name"},
+          {title:"JouzoCoins", field:"jouzoCoins"},
+          {title:"Score", field:"totalScore"},
+          {title:"Presence", field:"present"}
+        ]
+      }
     ]
   });
+  table2.setSort("jouzoCoins", "desc");
 </script>
 
 <div id="adminStuff">
