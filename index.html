@@ -51,6 +51,40 @@
         {"nbPlayers":10,"duels":[],"standing":{"page":1,"players":[{"name":"Jouzolean","rank":1,"rating":1585,"score":30,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],0,[2,2],[2,2],[4,3],[4,3],[4,3],0,[2,2]],"total":30},"performance":1746},{"name":"mozkomor","rank":2,"rating":1625,"score":20,"sheet":{"scores":[[2,2],[2,2],[4,3],0,[2,2],[2,2],0,[2,2],[2,2],[4,3]],"total":20,"fire":true},"performance":1860},{"name":"Mrazek","rank":3,"rating":1652,"score":14,"sheet":{"scores":[0,2,0,[2,2],[2,2],[4,3],0,2,0,2,0],"total":14},"performance":1544},{"name":"bebul","rank":4,"rating":1592,"score":14,"sheet":{"scores":[2,0,[2,2],[2,2],[4,3],0,2,0,0,[2,2]],"total":14},"performance":1511},{"name":"DJ-Pesec","rank":5,"rating":1912,"score":12,"sheet":{"scores":[0,[2,2],[2,2],[4,3],[4,3]],"total":12,"fire":true},"performance":1762},{"name":"travinho","rank":6,"rating":1116,"score":8,"sheet":{"scores":[2,0,0,2,0,2,0,0,[2,2]],"total":8},"performance":1468},{"name":"RychlyLenochod","rank":7,"rating":1346,"score":8,"sheet":{"scores":[0,2,0,2,0,0,2,0,2,0],"total":8},"performance":1398},{"name":"dzin69","rank":8,"rating":1410,"score":4,"sheet":{"scores":[0,0,0,2,0,2,0,0],"total":4},"performance":1196},{"name":"hrobotron","rank":9,"rating":1295,"score":2,"sheet":{"scores":[0,0,0,2,0,0,0,0,0,0,0,0],"total":2},"performance":1026},{"name":"Tekele","rank":10,"rating":1067,"score":0,"sheet":{"scores":[0,0,0],"total":0},"performance":1039}]},"isFinished":true,"podium":[{"name":"Jouzolean","rank":1,"rating":1585,"score":30,"sheet":{"scores":[[2,2],[2,2],[4,3],[4,3],0,[2,2],[2,2],[4,3],[4,3],[4,3],0,[2,2]],"total":30},"nb":{"game":12,"berserk":0,"win":10},"performance":1746},{"name":"mozkomor","rank":2,"rating":1625,"score":20,"sheet":{"scores":[[2,2],[2,2],[4,3],0,[2,2],[2,2],0,[2,2],[2,2],[4,3]],"total":20,"fire":true},"nb":{"game":10,"berserk":0,"win":8},"performance":1860},{"name":"Mrazek","rank":3,"rating":1652,"score":14,"sheet":{"scores":[0,2,0,[2,2],[2,2],[4,3],0,2,0,2,0],"total":14},"nb":{"game":11,"berserk":0,"win":6},"performance":1544}],"pairingsClosed":true,"stats":{"games":45,"moves":2995,"whiteWins":25,"blackWins":20,"draws":0,"berserks":0,"averageRating":1460},"id":"5upWReOp","createdBy":"jouzolean","startsAt":"2020-11-02T19:05:08.587Z","system":"arena","fullName":"Monday fight arena Arena","minutes":90,"perf":{"icon":")","name":"Blitz"},"clock":{"limit":180,"increment":2},"variant":"standard","berserkable":true,"verdicts":{"list":[],"accepted":true},"private":true}
         ];
 
+      function getTotalScore(player) {
+        let total = 0;
+        mondayFights.forEach((fight) => {
+          fight.standing.players.forEach((pl) => {
+            if (pl.name==player) total += pl.score;
+          })
+        })
+        return total;
+      }
+
+      function getPlayers() {
+        let playersAr = [];
+        mondayFights.forEach((fight) => {
+          fight.standing.players.forEach((player) => {
+            if (!playersAr.includes(player.name)) playersAr.push(player.name);
+          })
+        })
+        return playersAr;
+      }
+
+      function getDataOfPlayers() {
+        let players = getPlayers();
+        let tableData = [];
+        players.forEach( (player) => {
+          let thePlayer = {
+            name: player,
+            totalScore: getTotalScore(player)
+          }
+          tableData.push(thePlayer);
+          }
+        )
+        return tableData;
+      }
+
       function loadDoc() {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -228,23 +262,12 @@ The following should contain downloaded <b>performances</b> for each player:
   ];
 
 
-  const table = new Tabulator("#example-table", {
-    height:"311px",
-    data:tabledata,
-    columns:[
-      {title:"Name", field:"name", headerSort:true, headerVertical:false},
-      {title:"Progress", field:"progress", sorter:"number", hozAlign:"left", formatter:"progress",  editable:true, headerSort:true, headerVertical:true},
-      {title:"Gender", field:"gender", headerSort:false, headerVertical:true},
-      {title:"Rating", field:"rating", hozAlign:"center", headerSort:true, headerVertical:true},
-      {title:"Date Of Birth", field:"dob", hozAlign:"center", sorter:"date", headerSort:true, headerVertical:true},
-      {title:"Driver", field:"car", hozAlign:"center", formatter:"tickCross", headerSort:false, headerVertical:true},
-    ],
-  });
-
+  let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#example-table2", {
-    data:tabledata,
+    data: playersTableData,
     autoColumns:true,
   });
+
 </script>
 
 
