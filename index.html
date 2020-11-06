@@ -339,7 +339,13 @@ The following should contain downloaded <b>performances</b> for each player:
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#example-table2", {
     data: playersTableData,
-    autoColumns:true,
+    columns:[
+      {formatter:"rownum", headerSort:false}, //add auto incrementing row number
+      {title:"Name", field:"name"},
+      {title:"JouzoCoins", field:"jouzoCoins"},
+      {title:"Score", field:"totalScore"},
+      {title:"Presence", field:"present"}
+    ]
   });
 
 </script>
