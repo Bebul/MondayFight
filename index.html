@@ -61,6 +61,20 @@
         return total;
       }
 
+      function playedAGame(player) {
+        return player.performance !== undefined;
+      }
+
+      function getTotalPresence(player) {
+        let total = 0;
+        mondayFights.forEach((fight) => {
+          fight.standing.players.forEach((pl) => {
+            if (pl.name==player && playedAGame(pl)) total += 1;
+          })
+        })
+        return total;
+      }
+
       function getPlayers() {
         let playersAr = [];
         mondayFights.forEach((fight) => {
@@ -77,7 +91,8 @@
         players.forEach( (player) => {
           let thePlayer = {
             name: player,
-            totalScore: getTotalScore(player)
+            totalScore: getTotalScore(player),
+            present: getTotalPresence(player)
           }
           tableData.push(thePlayer);
           }
