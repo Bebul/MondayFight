@@ -170,6 +170,14 @@
         xhttp.send();
       }
 
+      function textFile2String(path) {
+        fetch(path)
+          .then(response => response.text())
+          .then((data) => {
+            console.log(data)
+          })
+      }
+
       function download(filename, text) {
         var pom = document.createElement('a');
         pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -253,6 +261,10 @@
       }
 
       function init() {
+
+        // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
+        //textFile2String('pgn/parsePgn.js');
+
         mondayFights.sort(function(a,b){
           let x = a.startsAt;
           let y = b.startsAt;
