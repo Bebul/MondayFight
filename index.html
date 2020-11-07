@@ -345,17 +345,23 @@
 <div id="mondayFightsLeaderboard"></div>
 
 <script>
+  let mfMode = 'Jouzc';
   function jouzoCoinsFormatter(cell, formatterParams) {
-    var value = cell.getValue();
-    if (value >= 5) cell.getElement().style.backgroundColor = "red";
-    else if(value >= 2) cell.getElement().style.backgroundColor = "orange";
-    if (value > 0) return value;
-    else return "";
+    if (mfMode === 'Jouzc' || mfMode === 'Name') {
+      var value = cell.getValue();
+      if (value >= 5) cell.getElement().style.backgroundColor = "red";
+      else if(value >= 2) cell.getElement().style.backgroundColor = "orange";
+      if (value > 0) return value;
+      else return "";
+    } else return "";
   }
 
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#mondayFightsLeaderboard", {
     layout: "fitDataTable",
+    dataSorted:function(sorters){
+      mfMode = 'Jouzc'; //and we must call something like row.reformat() or column.reformat for each column
+    },
     data: playersTableData,
     columns:[
       {//create column group
