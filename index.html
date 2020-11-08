@@ -112,6 +112,32 @@
         return 1
       }
 
+      function playerPoints(fight, playerName) {
+        let player = fight.standing.players.find( pl => pl.name==playerName )
+        if (player === undefined || !playedAGame(player)) return [0, 0];
+        let myPts = 0;
+        let opPts = 0;
+        player.sheet.scores.forEach( score => {
+          let pts = 0;
+          if (Array.isArray(score)) {
+            if (score[0] <= 1) pts = score[0]/2;
+            else if (score[0] == 2) {
+              if (score[1] == 3) pts = 0.5;
+              else pts = 1;
+            } else pts = 1;
+          } else pts = score / 2;
+          myPts += pts;
+          opPts += 1-pts;
+        })
+        return [myPts, opPts]
+      }
+
+      function getTotalPoints(playerName) {
+        let total = 0;
+        mondayFights.forEach( fight => total += playerPoints(fight, playerName)[0] )
+        return total;
+      }
+
       function jouzocoins(fight, playerName) {
         let player = fight.standing.players.find( pl => pl.name==playerName )
         if (player === undefined || !playedAGame(player)) return 0;
@@ -155,8 +181,8 @@
             players : playersCountWhoPlayed(fight),
             rank : playerRank(fight, playerName),
             jouzoCoins : jouzocoins(fight, playerName),
-            present : playerPresence(fight, playerName),
-            score : playerScore(fight, playerName)
+            score : playerScore(fight, playerName),
+            points : playerPoints(fight, playerName)[0],
           }
         )
       }
@@ -169,6 +195,7 @@
             name: player,
             jouzoCoins: getTotalJouzocoins(player),
             totalScore: getTotalScore(player),
+            totalPts: getTotalPoints(player),
             present: getTotalPresence(player),
           }
           addFightsPoints(thePlayer, player)
@@ -188,6 +215,7 @@
               {title: "Name", field: "name", resizable:false},
               {title: "Jz", field: "jouzoCoins", resizable:false},
               {title: "Sc", field: "totalScore", resizable:false},
+              {title: "Pt", field: "totalPts", resizable:false},
               {title: "#", field: "present", resizable:false}
             ]
           }
@@ -404,6 +432,7 @@
   <ul>
      <li><b>JouzoCoins</b> je bodování, které používá Jouzolean ve své tabulce.
       <li><b>Score</b> je součet uhraného skóre.
+      <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
       <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
   </ul>
 
@@ -430,9 +459,10 @@
     else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange";
 
     let value = '';
-    if (mfMode === 'jouzoCoins' || mfMode === 'name') value = cellValue.jouzoCoins;
+    if (mfMode === 'jouzoCoins') value = cellValue.jouzoCoins;
     else if (mfMode === 'present') value = cellValue.present;
     else if (mfMode === 'totalScore') value = cellValue.score;
+    else if (mfMode === 'totalPts') value = cellValue.points;
 
     if (value > 0) return value;
     else return "";
@@ -444,7 +474,7 @@
     dataSorted:function(sorters){
       let newMode = undefined
       sorters.forEach( function(srt) {
-          if (srt.field === 'jouzoCoins' || srt.field === 'totalScore') newMode = srt.field;
+          if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts') newMode = srt.field;
         }
       )
       if (newMode !== undefined && mfMode != newMode) {
