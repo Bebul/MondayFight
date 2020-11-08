@@ -195,6 +195,7 @@
         players.forEach( player => {
           let thePlayer = {
             name: player,
+            nameUrl: "https://lichess.org/@/" + player,
             jouzoCoins: getTotalJouzocoins(player),
             totalScore: getTotalScore(player),
             totalPts: getTotalPoints(player),
@@ -214,7 +215,7 @@
             frozen:true,//frozen column group on left of table
             columns: [
               {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
-              {title: "Name", field: "name", resizable:false},
+              {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name"}},
               {title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc"},
               {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc"},
               {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc"},
