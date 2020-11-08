@@ -56,7 +56,7 @@
       let mondayFights = filterFights();
       function filterFights() {
         let filtered = [];
-        jouzoleanAndBebulsTournaments.forEach((fight) => {
+        jouzoleanAndBebulsTournaments.forEach(fight => {
           if (playersCountWhoPlayed(fight)>3 && fight.fullName.toLowerCase().includes("fight")) filtered.push(fight);
         })
         return filtered;
@@ -64,8 +64,8 @@
 
       function getTotalScore(player) {
         let total = 0;
-        mondayFights.forEach((fight) => {
-          fight.standing.players.forEach((pl) => {
+        mondayFights.forEach(fight => {
+          fight.standing.players.forEach(pl => {
             if (pl.name==player) total += pl.score;
           })
         })
@@ -78,8 +78,8 @@
 
       function getTotalPresence(player) {
         let total = 0;
-        mondayFights.forEach((fight) => {
-          fight.standing.players.forEach((pl) => {
+        mondayFights.forEach(fight => {
+          fight.standing.players.forEach(pl => {
             if (pl.name==player && playedAGame(pl)) total += 1;
           })
         })
@@ -88,7 +88,7 @@
 
       function playersCountWhoPlayed(fight) {
         let total = 0;
-        fight.standing.players.forEach((pl) => {
+        fight.standing.players.forEach(pl => {
           if (playedAGame(pl)) total += 1;
         })
         return total;
@@ -124,7 +124,7 @@
 
       function getTotalJouzocoinsList(playerName) {
         let total = [];
-        mondayFights.forEach((fight) => {
+        mondayFights.forEach(fight => {
           fight.standing.players.forEach( pl => {
             if (pl.name==playerName) total.push(jouzocoins(fight, playerName));
           })
@@ -140,7 +140,7 @@
 
       function getPlayers() {
         let playersAr = [];
-        mondayFights.forEach((fight) => {
+        mondayFights.forEach(fight => {
           fight.standing.players.forEach((player) => {
             if (!playersAr.includes(player.name)) playersAr.push(player.name);
           })
@@ -164,7 +164,7 @@
       function getDataOfPlayers() {
         let players = getPlayers();
         let tableData = [];
-        players.forEach( (player) => {
+        players.forEach( player => {
           let thePlayer = {
             name: player,
             jouzoCoins: getTotalJouzocoins(player),
@@ -179,7 +179,7 @@
       }
 
       function generatePlayersTableColumns() {
-        return [
+        let columnsBuilder = [
           {//create column group
             title: "Monday Fights Leaderboard",
             frozen:true,//frozen column group on left of table
@@ -190,70 +190,48 @@
               {title: "Score", field: "totalScore", resizable:false},
               {title: "Trn#", field: "present", resizable:false}
             ]
-          },
-          {
-            title: "Leden",
-            columns: [
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>1</a>", field:"t1", headerSort:false, headerTooltip:"26.10.2020", resizable:false, formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>2</a>", field:"t2", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>3</a>", field:"t3", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>4</a>", field:"t4", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-            ]
-          },
-          {
-            title: "Únor",
-            columns: [
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>5</a>", field:"t5", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>6</a>", field:"t6", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>7</a>", field:"t7", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-            ]
-          },
-          {
-            title: "Březen",
-            columns: [
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>8</a>", field:"t8", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>9</a>", field:"t9", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>10</a>", field:"t10", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>11</a>", field:"t11", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>12</a>", field:"t12", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-            ]
-          },
-          {
-            title: "Duben",
-            columns: [
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>13</a>", field:"t13", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>14</a>", field:"t14", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>15</a>", field:"t15", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>16</a>", field:"t16", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>17</a>", field:"t17", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>18</a>", field:"t18", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>19</a>", field:"t19", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>20</a>", field:"t20", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>21</a>", field:"t21", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>22</a>", field:"t22", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>23</a>", field:"t23", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>24</a>", field:"t24", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>25</a>", field:"t25", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>26</a>", field:"t26", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>27</a>", field:"t27", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>28</a>", field:"t28", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-            ]
-          },
-          {
-            title: "Květen",
-            columns: [
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>29</a>", field:"t29", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>30</a>", field:"t30", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>31</a>", field:"t31", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>32</a>", field:"t32", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>33</a>", field:"t33", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>34</a>", field:"t34", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>35</a>", field:"t35", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>36</a>", field:"t36", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-              {title:"<a href='https://lichess.org/tournament/lxf6Jw3q'>37</a>", field:"t37", headerSort:false, resizable:false, align:"center", formatter:jouzoCoinsFormatter},
-            ]
-          },
-        ]
+          }
+        ];
+        let curMonth = undefined;
+        let curColumns = [];
+        let colNo = 1;
+
+        function pushFight(fight, tooltip) {
+          curColumns.push(
+            {
+              title: "<a href='https://lichess.org/tournament/" + fight.id + "'>" + colNo + "</a>",
+              field: "t" + colNo++,
+              headerTooltip: tooltip,
+              headerSort: false,
+              align: "center",
+              resizable: false,
+              formatter: jouzoCoinsFormatter
+            }
+          )
+        }
+
+        function pushMonth() {
+          columnsBuilder.push(
+            {
+              title: curMonth,
+              columns: curColumns
+            }
+          )
+          curColumns = [];
+        }
+
+        mondayFights.forEach( fight => {
+          let date = new Date(fight.startsAt);
+          let month = ['Leden','Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'][date.getMonth()];
+          if (curMonth !== month) {
+            if (curMonth !== undefined) pushMonth()
+            curMonth = month;
+          }
+          pushFight(fight, date.toDateString())
+        });
+        pushMonth()
+
+        return columnsBuilder;
       }
 
       function loadDoc() {
