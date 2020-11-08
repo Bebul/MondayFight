@@ -176,15 +176,17 @@
 
       function addFightsPoints(playerOut, playerName) {
         var ix = 1
-        mondayFights.forEach(fight =>
-          playerOut['t' + ix++] = {
-            players : playersCountWhoPlayed(fight),
-            rank : playerRank(fight, playerName),
-            jouzoCoins : jouzocoins(fight, playerName),
-            score : playerScore(fight, playerName),
-            points : playerPoints(fight, playerName)[0],
+        mondayFights.forEach(fight => {
+          let rank = playerRank(fight, playerName);
+          if (rank === undefined) playerOut['t' + ix++] = undefined;
+          else playerOut['t' + ix++] = {
+            players: playersCountWhoPlayed(fight),
+            rank: playerRank(fight, playerName),
+            jouzoCoins: jouzocoins(fight, playerName),
+            score: playerScore(fight, playerName),
+            points: playerPoints(fight, playerName)[0],
           }
-        )
+        })
       }
 
       function getDataOfPlayers() {
@@ -233,7 +235,8 @@
               headerSort: false,
               align: "center",
               resizable: false,
-              formatter: jouzoCoinsFormatter
+              formatter: jouzoCoinsFormatter,
+              bottomCalc: "count"
             }
           )
         }
@@ -454,6 +457,7 @@
   let mfMode = '';
   function jouzoCoinsFormatter(cell, formatterParams) {
     let cellValue = cell.getValue();
+    if (cellValue===undefined) return "";
     if (cellValue.rank <=3) cell.getElement().style.backgroundColor = "red";
     else if (cellValue.rank == 4) cell.getElement().style.backgroundColor = "lightgreen";
     else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange";
