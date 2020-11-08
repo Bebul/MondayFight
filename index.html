@@ -384,7 +384,7 @@
 
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#mondayFightsLeaderboard", {
-    layout: "fitDataStretch",
+    layout: "fitDataTable",
     dataSorted:function(sorters){
       let newMode = undefined
       sorters.forEach( function(srt) {
