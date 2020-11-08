@@ -94,10 +94,27 @@
         return total;
       }
 
+      function playerRank(fight, playerName) {
+        let player = fight.standing.players.find( pl => pl.name==playerName )
+        if (player === undefined) return undefined;
+        return player.rank
+      }
+
+      function playerScore(fight, playerName) {
+        let player = fight.standing.players.find( pl => pl.name==playerName )
+        if (player === undefined || !playedAGame(player)) return 0;
+        return player.score
+      }
+
+      function playerPresence(fight, playerName) {
+        let player = fight.standing.players.find( pl => pl.name==playerName )
+        if (player === undefined || !playedAGame(player)) return 0;
+        return 1
+      }
+
       function jouzocoins(fight, playerName) {
         let player = fight.standing.players.find( pl => pl.name==playerName )
-        if (player === undefined) return 0;
-        if (!playedAGame(player)) return 0;
+        if (player === undefined || !playedAGame(player)) return 0;
         let plCount = playersCountWhoPlayed(fight);
         let rank = player.rank;
         if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1];
@@ -131,13 +148,17 @@
         return playersAr;
       }
 
-      function addFightsPoints(playerOut, playerName, mode) {
-        if (mode === 'jouzoCoins') {
-          var ix = 1
-          mondayFights.forEach(fight =>
-            playerOut['t' + ix++] = jouzocoins(fight, playerName)
-          )
-        }
+      function addFightsPoints(playerOut, playerName) {
+        var ix = 1
+        mondayFights.forEach(fight =>
+          playerOut['t' + ix++] = {
+            players : playersCountWhoPlayed(fight),
+            rank : playerRank(fight, playerName),
+            jouzoCoins : jouzocoins(fight, playerName),
+            present : playerPresence(fight, playerName),
+            score : playerScore(fight, playerName)
+          }
+        )
       }
 
       function getDataOfPlayers() {
@@ -150,7 +171,7 @@
             totalScore: getTotalScore(player),
             present: getTotalPresence(player),
           }
-          addFightsPoints(thePlayer, player, 'jouzoCoins')
+          addFightsPoints(thePlayer, player)
           tableData.push(thePlayer);
           }
         )
@@ -345,22 +366,36 @@
 <div id="mondayFightsLeaderboard"></div>
 
 <script>
-  let mfMode = 'Jouzc';
+  let mfMode = '';
   function jouzoCoinsFormatter(cell, formatterParams) {
-    if (mfMode === 'Jouzc' || mfMode === 'Name') {
-      var value = cell.getValue();
-      if (value >= 5) cell.getElement().style.backgroundColor = "red";
-      else if(value >= 2) cell.getElement().style.backgroundColor = "orange";
-      if (value > 0) return value;
-      else return "";
-    } else return "";
+    let cellValue = cell.getValue();
+    if (cellValue.rank <=3) cell.getElement().style.backgroundColor = "red";
+    else if (cellValue.rank == 4) cell.getElement().style.backgroundColor = "lightgreen";
+    else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange";
+
+    let value = '';
+    if (mfMode === 'jouzoCoins' || mfMode === 'name') value = cellValue.jouzoCoins;
+    else if (mfMode === 'present') value = cellValue.present;
+    else if (mfMode === 'totalScore') value = cellValue.score;
+
+    if (value > 0) return value;
+    else return "";
   }
 
   let playersTableData = getDataOfPlayers();
   let table2 = new Tabulator("#mondayFightsLeaderboard", {
     layout: "fitDataTable",
     dataSorted:function(sorters){
-      mfMode = 'Jouzc'; //and we must call something like row.reformat() or column.reformat for each column
+      let newMode = undefined
+      sorters.forEach( function(srt) {
+          if (srt.field === 'name' || srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'present') newMode = srt.field;
+        }
+      )
+      if (newMode !== undefined && mfMode != newMode) {
+        mfMode = newMode;
+        //and we must call something like row.reformat() or column.reformat for each column
+        playersTable.redraw(true);
+      }
     },
     data: playersTableData,
     columns:[
@@ -438,6 +473,7 @@
       },
      ]
   });
+  let playersTable = table2;
   table2.setSort("jouzoCoins", "desc");
 </script>
 
