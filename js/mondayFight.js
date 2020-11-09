@@ -274,6 +274,7 @@ var lichessAPI = new LichessAPI();
 setInterval(function() { lichessAPI.check(); }, 1000); // initialization inside
 
 var downloadedFightsCount = 0;
+var downloadedFights = [];
 function downloadPerformances(fight) {
   let somePerformanceIsMissing = false;
   fight.standing.players.forEach((player) => somePerformanceIsMissing ||= (player.performance === undefined) && (player.sheet.scores.length!==0))
@@ -287,6 +288,7 @@ function downloadPerformances(fight) {
         let performance = new Map();
         results.forEach((pl) => performance.set(pl.username, pl.performance))
         fight.standing.players = fight.standing.players.map((pl) => { pl.performance = performance.get(pl.name); return pl})
+        downloadedFights.push(fight)
         document.getElementById("updated").innerHTML = "success(" + ++downloadedFightsCount + "):" + url;
       } else if (this.readyState === 4 && this.status === 429) {
         document.getElementById("updated").innerHTML = "HTTP Status 429:" + url;
@@ -305,7 +307,7 @@ function downloadPerformances(fight) {
 
 // insert current merged data into web page to be able to copy & paste it in the tournamentsData.js
 function getDataJSON() {
-  document.getElementById("jsonData").innerHTML = JSON.stringify(mondayFights, null, 0);
+  document.getElementById("jsonData").innerHTML = JSON.stringify(downloadedFights, null, 0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +317,8 @@ function init() {
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js');
 
-  mondayFights.sort(function(a,b){
+  let allFights = jouzoleanAndBebulsTournaments;
+  allFights.sort(function(a,b){
     let x = a.startsAt;
     let y = b.startsAt;
     if (x < y) {return -1;}
@@ -333,7 +336,7 @@ function init() {
   }
 
   let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
-  mondayFights.forEach( function myFunction(value) {
+  allFights.forEach( function myFunction(value) {
     let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
     info += '<td>' + value.nbPlayers + '</td>';
     info += '<td>' + value.stats.games + '</td>';
@@ -357,7 +360,7 @@ function init() {
   text += "</table>";
   if (admin) {
     document.getElementById("demo").innerHTML = text;
-    mondayFights.forEach(downloadPerformances)
+    allFights.forEach(downloadPerformances)
   }
 }
 
