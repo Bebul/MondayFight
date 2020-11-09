@@ -62,11 +62,9 @@ function jouzocoins(fight, playerName) {
 
 
 
-
-
-function getTotalScore(player) {
+function getTotalScore(player, theFights) {
   let total = 0;
-  mondayFights.forEach(fight => {
+  theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
       if (pl.name==player) total += pl.score;
     })
@@ -74,9 +72,9 @@ function getTotalScore(player) {
   return total;
 }
 
-function getTotalPresence(player) {
+function getTotalPresence(player, theFights) {
   let total = 0;
-  mondayFights.forEach(fight => {
+  theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
       if (pl.name==player && playedAGame(pl)) total += 1;
     })
@@ -84,15 +82,15 @@ function getTotalPresence(player) {
   return total;
 }
 
-function getTotalPoints(playerName) {
+function getTotalPoints(playerName, theFights) {
   let total = 0;
-  mondayFights.forEach( fight => total += playerPoints(fight, playerName)[0] )
+  theFights.forEach( fight => total += playerPoints(fight, playerName)[0] )
   return total;
 }
 
-function getTotalJouzocoinsList(playerName) {
+function getTotalJouzocoinsList(playerName, theFights) {
   let total = [];
-  mondayFights.forEach(fight => {
+  theFights.forEach(fight => {
     fight.standing.players.forEach( pl => {
       if (pl.name==playerName) total.push(jouzocoins(fight, playerName));
     })
@@ -100,15 +98,15 @@ function getTotalJouzocoinsList(playerName) {
   return total;
 }
 
-function getTotalJouzocoins(playerName) {
+function getTotalJouzocoins(playerName, theFights) {
   let total = 0;
-  mondayFights.forEach( fight => total += jouzocoins(fight, playerName) )
+  theFights.forEach( fight => total += jouzocoins(fight, playerName) )
   return total;
 }
 
-function getPlayers() {
+function getPlayers(theFights) {
   let playersAr = [];
-  mondayFights.forEach(fight => {
+  theFights.forEach(fight => {
     fight.standing.players.forEach((player) => {
       if (!playersAr.includes(player.name)) playersAr.push(player.name);
     })
@@ -116,9 +114,9 @@ function getPlayers() {
   return playersAr;
 }
 
-function addFightsPoints(playerOut, playerName) {
+function addFightsPoints(playerOut, playerName, theFights) {
   var ix = 1
-  mondayFights.forEach(fight => {
+  theFights.forEach(fight => {
     let rank = playerRank(fight, playerName);
     if (rank === undefined) playerOut['t' + ix++] = undefined;
     else playerOut['t' + ix++] = {
@@ -131,26 +129,26 @@ function addFightsPoints(playerOut, playerName) {
   })
 }
 
-function getDataOfPlayers() {
-  let players = getPlayers();
+function getDataOfPlayers(theFights) {
+  let players = getPlayers(theFights);
   let tableData = [];
   players.forEach( player => {
       let thePlayer = {
         name: player,
         nameUrl: "https://lichess.org/@/" + player,
-        jouzoCoins: getTotalJouzocoins(player),
-        totalScore: getTotalScore(player),
-        totalPts: getTotalPoints(player),
-        present: getTotalPresence(player),
+        jouzoCoins: getTotalJouzocoins(player, theFights),
+        totalScore: getTotalScore(player, theFights),
+        totalPts: getTotalPoints(player, theFights),
+        present: getTotalPresence(player, theFights),
       }
-      addFightsPoints(thePlayer, player)
+      addFightsPoints(thePlayer, player, theFights)
       tableData.push(thePlayer);
     }
   )
   return tableData;
 }
 
-function generatePlayersTableColumns() {
+function generatePlayersTableColumns(theFights) {
   let columnsBuilder = [
     {//create column group
       title: "Monday Fights Leaderboard",
@@ -194,7 +192,7 @@ function generatePlayersTableColumns() {
     curColumns = [];
   }
 
-  mondayFights.forEach( fight => {
+  theFights.forEach( fight => {
     let date = new Date(fight.startsAt);
     let month = ['Leden','Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'][date.getMonth()];
     if (curMonth !== month) {
@@ -396,12 +394,22 @@ function dataSortedFunc(sorters) {
   }
 }
 
-function createPlayersTable() {
-  let playersTable = new Tabulator("#mondayFightsLeaderboard", {
+function createPlayersTable(theFights, tableId) {
+  let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
     dataSorted: dataSortedFunc,
-    data: getDataOfPlayers(),
-    columns: generatePlayersTableColumns()
+    data: getDataOfPlayers(theFights),
+    columns: generatePlayersTableColumns(theFights)
   });
   playersTable.setSort("jouzoCoins", "desc");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// mondayFight filters
+function last10(theFights) {
+  let filtered = theFights
+  while(filtered.length > 10) {
+    filtered.shift();
+  }
+  return filtered;
 }

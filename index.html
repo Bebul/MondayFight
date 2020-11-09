@@ -14,17 +14,8 @@
 
 <body onload="init()">
 
-<h1>Monday Fight</h1>
-  <ul>
-     <li><b>JouzoCoins</b> je bodování, které používá Jouzolean ve své tabulce.
-      <li><b>Score</b> je součet uhraného skóre.
-      <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
-      <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
-  </ul>
-
-<p id="demo"></p>
-
 <div id="adminStuff2">
+    <p id="demo"></p>
     <hr>
     The following should contain downloaded <b>performances</b> for each player:
     <div id="updated"></div>
@@ -34,10 +25,23 @@
     <hr>
 </div>
 
+<h1>Monday Fight</h1>
+<ul>
+    <li><b>JouzoCoins</b> je bodování, které používá Jouzolean ve své tabulce.
+    <li><b>Score</b> je součet uhraného skóre.
+    <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
+    <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
+</ul>
+
+<h1>Posledních 10 turnajů</h1>
+<div id="last10"></div>
+
+<h1>Celý rok 2020</h1>
 <div id="mondayFightsLeaderboard"></div>
 
 <script>
-  createPlayersTable()
+  createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
+  createPlayersTable(last10(mondayFights), "#last10")
 </script>
 
 <div id="adminStuff">
