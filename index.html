@@ -14,17 +14,6 @@
 
 <body onload="init()">
 
-<div id="adminStuff2">
-    <p id="demo"></p>
-    <hr>
-    The following should contain downloaded <b>performances</b> for each player:
-    <div id="updated"></div>
-    <hr>
-    <button type="button" onclick="getDataJSON()">Get JSON</button>
-    <pre id="jsonData"></pre>
-    <hr>
-</div>
-
 <h1>Monday Fight</h1>
 <ul>
     <li><b>JouzoCoins</b> je bodování, které používá Jouzolean ve své tabulce.
@@ -43,11 +32,26 @@
   createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
   createPlayersTable(last10(mondayFights), "#last10")
 </script>
+<div id="adminStuff" style="display: none">
+    <hr>
+    The following should contain downloaded <b>performances</b> for each player:
+    <pre id="updated"></pre>
 
-<div id="adminStuff">
+    <hr>
+    <pre id="finalJson">Tady se za chvíli objeví downloadované turnaje.</pre>
+
+    <hr>
+    <div  style="display: none">
+        <button type="button" onclick="getDataJSON()">Get JSON</button>
+        <pre id="jsonData"></pre>
+    </div>
+
     <h2>The XMLHttpRequest Object</h2>
     <button type="button" onclick="loadDoc()">Request data</button>
     <pre id="demoRequest"></pre>
+
+    <hr>
+    <p id="demo"></p>
 </div>
 
 </body>
