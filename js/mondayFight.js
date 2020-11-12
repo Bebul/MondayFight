@@ -217,6 +217,49 @@ function generatePlayersTableColumns(theFights) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Parse.pgn demo
 function loadDoc() {
+  function status(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response)
+    } else {
+      return Promise.reject(new Error(response.statusText))
+    }
+  }
+  function text(response) {
+    return response.text()
+  }
+  function ndjson2array(text) {
+    let json = "[" + text.replace(/\n{/g, ",{") + "]";
+    return json
+  }
+  function parse(response) {
+    return JSON.parse(response)
+  }
+
+  // possibly also pgnInJson=true
+  // return last 10 blitz games
+  fetch("https://lichess.org/api/games/user/bebul?vs=mozkomor;max=10;perfType=blitz;opening=true", {
+    headers: {
+      'Accept': 'application/x-ndjson'
+    }
+  })
+    .then(status)
+    .then(text)
+    .then(ndjson2array)
+    .then(parse)
+    .then(games => {
+      let lines = ""
+      games.forEach( g => {
+        let line = g.players.white.user.name + " : " + g.players.black.user.name + " "
+        if (g.winner === "black") line += "0 - 1"
+        else if (g.winner === "white") line += "1 - 0"
+        else line += "1/2 - 1/2"
+        line += "\n"
+        lines += line
+      })
+      document.getElementById("demoRequest").innerHTML = lines;
+    })
+
+  /*
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
@@ -234,6 +277,7 @@ function loadDoc() {
   //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
   xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
   xhttp.send();
+*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,77 +288,6 @@ function textFile2String(path) {
     .then((data) => {
       console.log(data)
     })
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Ensuring only one XmlHttpRequest is active at any moment
-//
-class LichessAPI {
-  constructor() {
-    this.busy = false;
-    this.current = undefined;
-    this.requests = [];  // array of requests waiting to process
-  }
-  // xhttp should be already opened, we can make only one request per time we also do at most one request per second
-  addHttpRequest(xhttp, url) {
-    this.requests.push({ "xhttp": xhttp, "url": url });
-  }
-  check() {
-    if (this.busy === undefined) {
-      console.log("Bebul: this.busy is undefined");
-    } else if (!this.busy) {
-      let request = this.requests.shift();
-      if (request !== undefined) {
-        this.busy = true;
-        let userOnReadyStateChange = request.xhttp.onreadystatechange
-        request.xhttp.onreadystatechange = function() {
-          if (request.xhttp.readyState === 4) lichessAPI.busy = false;  //unblock
-          userOnReadyStateChange.apply(request.xhttp);
-        }
-        this.current = request;
-        request.xhttp.send();
-      }
-    }
-  }
-}
-var lichessAPI = new LichessAPI();
-setInterval(function() { lichessAPI.check(); }, 1000); // initialization inside
-
-var downloadedFightsCount = 0;
-var downloadedFights = [];
-function downloadPerformances(fight) {
-  let somePerformanceIsMissing = false;
-  fight.standing.players.forEach((player) => somePerformanceIsMissing ||= (player.performance === undefined) && (player.sheet.scores.length!==0))
-  if (somePerformanceIsMissing) {
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        // special json with \n separated items
-        let json = "[" + this.responseText.replace(/\n{/g, ",{") + "]";
-        let results = JSON.parse(json);
-        let performance = new Map();
-        results.forEach((pl) => performance.set(pl.username, pl.performance))
-        fight.standing.players = fight.standing.players.map((pl) => { pl.performance = performance.get(pl.name); return pl})
-        downloadedFights.push(fight)
-        document.getElementById("updated").innerHTML = "success(" + ++downloadedFightsCount + "):" + url;
-      } else if (this.readyState === 4 && this.status === 429) {
-        document.getElementById("updated").innerHTML = "HTTP Status 429:" + url;
-        clearInterval(lichessAPI.check); // things went wrong, do not overkill Lichess and our reputation
-      }
-    }
-
-    let url = "https://lichess.org/api/tournament/" + fight.id + "/results";
-
-    xhttp.open("GET", url, true);
-    lichessAPI.addHttpRequest(xhttp, url);
-  } else {
-    document.getElementById("updated").innerHTML = "alreadyDownloaded(" + ++downloadedFightsCount + "):" + fight.id;
-  }
-}
-
-// insert current merged data into web page to be able to copy & paste it in the tournamentsData.js
-function getDataJSON() {
-  document.getElementById("jsonData").innerHTML = JSON.stringify(downloadedFights, null, 0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
