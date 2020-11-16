@@ -253,6 +253,7 @@ function loadDoc() {
         if (g.winner === "black") line += "0 - 1"
         else if (g.winner === "white") line += "1 - 0"
         else line += "1/2 - 1/2"
+        line += "  " + g.opening.name
         line += "\n"
         lines += line
       })
