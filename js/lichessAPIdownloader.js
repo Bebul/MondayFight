@@ -102,12 +102,25 @@ async function downloadMissingTournaments(fights, users) {
 
   let tag = document.getElementById("finalJson")
   tag.innerHTML = JSON.stringify(downloadedTournaments, null, 0);
-/*
-  // recalculate tables
+
+  // recalculate data and tables
   if (downloadedTournaments.length > 0) {
-    createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
-    createPlayersTable(last10(mondayFights), "#last10")
+    addTournaments(downloadedTournaments) // updates mondayFights and everything
+
+    let table10 = allMyTables.get("#last10")
+    if (table10 !== undefined) {
+      let theFights = last10(mondayFights)
+      table10.setColumns(generatePlayersTableColumns(theFights))
+      table10.setData(getDataOfPlayers(theFights))
+    }
+
+    let tableAll = allMyTables.get("#mondayFightsLeaderboard")
+    if (tableAll !== undefined) {
+      let theFights = mondayFights
+      tableAll.setColumns(generatePlayersTableColumns(theFights))
+      tableAll.setData(getDataOfPlayers(theFights))
+    }
   }
-*/
+
   return downloadedTournaments
 }

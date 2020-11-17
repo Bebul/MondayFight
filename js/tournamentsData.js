@@ -64,3 +64,8 @@ function filterFights() {
   })
   return filtered;
 }
+
+function addTournaments(downloadedTournaments) {
+  jouzoleanAndBebulsTournaments = jouzoleanAndBebulsTournaments.concat(downloadedTournaments)
+  mondayFights = filterFights()
+}

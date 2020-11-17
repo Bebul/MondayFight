@@ -376,20 +376,24 @@ function dataSortedFunc(sorters) {
   }
 }
 
+var allMyTables = new Map()
 function createPlayersTable(theFights, tableId) {
+  document.getElementById(tableId.substring(1)).innerHTML = ""
   let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
+    reactiveData:true, // we want setData having effect
     dataSorted: dataSortedFunc,
     data: getDataOfPlayers(theFights),
     columns: generatePlayersTableColumns(theFights)
   });
+  allMyTables.set(tableId, playersTable)
   playersTable.setSort("jouzoCoins", "desc");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // mondayFight filters
 function last10(theFights) {
-  let filtered = theFights
+  let filtered = Array.from(theFights)
   while(filtered.length > 10) {
     filtered.shift();
   }
