@@ -8,7 +8,7 @@ function updateHTMLurlRequestsList(url) {
 }
 
 async function downloadMissingTournaments(fights, users) {
-  let timeout = 5000
+  let timeout = 1500
   const promiseTimeout = time => result => new Promise(resolve => setTimeout(resolve, time, result));
 
   function status(response) {
