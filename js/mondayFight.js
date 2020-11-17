@@ -237,7 +237,10 @@ function loadDoc() {
 
   // possibly also pgnInJson=true
   // return last 10 blitz games
-  fetch("https://lichess.org/api/games/user/bebul?vs=mozkomor;max=10;perfType=blitz;opening=true", {
+  // "https://lichess.org/api/games/user/bebul?vs=mozkomor;max=10;perfType=blitz;opening=true"
+
+  let lastFight = mondayFights[mondayFights.length-1]
+  fetch("https://lichess.org/api/tournament/" + lastFight.id + "/games?opening=true", {
     headers: {
       'Accept': 'application/x-ndjson'
     }
@@ -253,7 +256,8 @@ function loadDoc() {
         if (g.winner === "black") line += "0 - 1"
         else if (g.winner === "white") line += "1 - 0"
         else line += "1/2 - 1/2"
-        line += "  " + g.opening.name
+        if (g.opening !== undefined) line += "  " + g.opening.name
+        else if (g.status == "noStart") line += "  *** NO START ***"
         line += "\n"
         lines += line
       })
