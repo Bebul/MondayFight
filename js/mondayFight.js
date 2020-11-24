@@ -239,6 +239,7 @@ function loadDoc() {
   // return last 10 blitz games
   // "https://lichess.org/api/games/user/bebul?vs=mozkomor;max=10;perfType=blitz;opening=true"
 
+  let tableData = []
   let lastFight = mondayFights[mondayFights.length-1]
   fetch("https://lichess.org/api/tournament/" + lastFight.id + "/games?opening=true", {
     headers: {
@@ -250,19 +251,40 @@ function loadDoc() {
     .then(ndjson2array)
     .then(parse)
     .then(games => {
-      let lines = ""
+      let gamesJson = {
+        "id": lastFight.id,
+        "games":games
+      }
+      document.getElementById("gamesJson").innerHTML = JSON.stringify(gamesJson, null, 0)
       games.forEach( g => {
-        let line = g.players.white.user.name + " : " + g.players.black.user.name + " "
-        if (g.winner === "black") line += "0 - 1"
-        else if (g.winner === "white") line += "1 - 0"
-        else line += "1/2 - 1/2"
-        if (g.opening !== undefined) line += "  " + g.opening.name
-        else if (g.status == "noStart") line += "  *** NO START ***"
-        line += "\n"
-        lines += line
+        let result = ""
+        if (g.winner === "black") result = "0-1"
+        else if (g.winner === "white") result = "1-0"
+        else result = "1/2-1/2"
+        let opening = ""
+        if (g.opening !== undefined) opening = g.opening.name
+        let ply = g.moves.split(" ").length
+        let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
+
+        let row = {
+          "id": g.id,
+          "url": "https://lichess.org/" + g.id,
+          "white": g.players.white.user.name,
+          "black": g.players.black.user.name,
+          "result": result,
+          "moves": ply,
+          "time": time,
+          "opening": opening,
+          "status": g.status
+        }
+        tableData.push(row)
       })
-      document.getElementById("demoRequest").innerHTML = lines;
+      return tableData
     })
+    .then( tdata =>
+      createGameListTable(tableData, "#gameListTable")
+    )
+
 
   /*
   let xhttp = new XMLHttpRequest();
@@ -283,6 +305,32 @@ function loadDoc() {
   xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
   xhttp.send();
 */
+}
+
+const zeroPad = (num, places) => String(num).padStart(places, '0')
+function formatTime(time) {
+  let minutes = Math.floor(time / 60)
+  let seconds = time % 60
+  return minutes + ":" + zeroPad(seconds, 2)
+}
+
+function createGameListTable(gamesData, tableId) {
+  document.getElementById(tableId.substring(1)).innerHTML = ""
+  let playersTable = new Tabulator(tableId, {
+    layout: "fitDataTable",
+    data: gamesData,
+    columns: [
+      {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
+      {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
+      {title: "white", field: "white"},
+      {title: "black", field: "black"},
+      {title: "result", field: "result", align: "center"},
+      {title: "moves", field: "moves", align: "center", formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
+      {title: "time", field: "time", align: "center", formatter: (cell, pars) => formatTime(cell.getValue()) },
+      {title: "opening", field: "opening"},
+      {title: "status", field: "status", align: "center"},
+    ]
+  });
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
