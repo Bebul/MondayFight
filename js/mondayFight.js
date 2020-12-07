@@ -241,6 +241,7 @@ function loadDoc() {
 
   let tableData = []
   let lastFight = mondayFights[mondayFights.length-1]
+
   fetch("https://lichess.org/api/tournament/" + lastFight.id + "/games?opening=true", {
     headers: {
       'Accept': 'application/x-ndjson'
@@ -256,6 +257,7 @@ function loadDoc() {
         "games":games
       }
       document.getElementById("gamesJson").innerHTML = JSON.stringify(gamesJson, null, 0)
+
       games.forEach( g => {
         let result = ""
         if (g.winner === "black") result = "0-1"
@@ -314,8 +316,35 @@ function formatTime(time) {
   return minutes + ":" + zeroPad(seconds, 2)
 }
 
+function gameListData(games) {
+  let tableData = []
+  games.games.forEach( g => {
+    let result = ""
+    if (g.winner === "black") result = "0-1"
+    else if (g.winner === "white") result = "1-0"
+    else result = "1/2-1/2"
+    let opening = ""
+    if (g.opening !== undefined) opening = g.opening.name
+    let ply = g.moves.split(" ").length
+    let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
+
+    let row = {
+      "id": g.id,
+      "url": "https://lichess.org/" + g.id,
+      "white": g.players.white.user.name,
+      "black": g.players.black.user.name,
+      "result": result,
+      "moves": ply,
+      "time": time,
+      "opening": opening,
+      "status": g.status
+    }
+    tableData.push(row)
+  })
+  return tableData
+}
+
 function createGameListTable(gamesData, tableId) {
-  document.getElementById(tableId.substring(1)).innerHTML = ""
   let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
     data: gamesData,
@@ -357,38 +386,35 @@ function init() {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const admin = urlParams.get('bebul')!=null
 
+  const admin = urlParams.get('bebul')!=null
   if (admin) {
     document.getElementById("adminStuff").style.display = "block";
-  }
 
-  let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
-  allFights.forEach( function myFunction(value) {
-    let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
-    info += '<td>' + value.nbPlayers + '</td>';
-    info += '<td>' + value.stats.games + '</td>';
-    info += '<td>' + value.startsAt + '</td>';
-    let winner = value.standing.players[0];
-    info += '<td>' + winner.name + '</td>';
-    info += '<td>' + winner.score + '</td>';
-    info += '<td>' + winner.rating + '</td>';
-    winner = value.standing.players[1];
-    info += '<td>' + winner.name + '</td>';
-    info += '<td>' + winner.score + '</td>';
-    info += '<td>' + winner.rating + '</td>';
-    if (value.nbPlayers > 2) {
-      winner = value.standing.players[2];
+    let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
+    allFights.forEach( function myFunction(value) {
+      let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
+      info += '<td>' + value.nbPlayers + '</td>';
+      info += '<td>' + value.stats.games + '</td>';
+      info += '<td>' + value.startsAt + '</td>';
+      let winner = value.standing.players[0];
       info += '<td>' + winner.name + '</td>';
       info += '<td>' + winner.score + '</td>';
       info += '<td>' + winner.rating + '</td>';
-    }
-    text += "<tr>" + info + "</tr>";
-  });
-  text += "</table>";
+      winner = value.standing.players[1];
+      info += '<td>' + winner.name + '</td>';
+      info += '<td>' + winner.score + '</td>';
+      info += '<td>' + winner.rating + '</td>';
+      if (value.nbPlayers > 2) {
+        winner = value.standing.players[2];
+        info += '<td>' + winner.name + '</td>';
+        info += '<td>' + winner.score + '</td>';
+        info += '<td>' + winner.rating + '</td>';
+      }
+      text += "<tr>" + info + "</tr>";
+    });
+    text += "</table>";
 
-
-  if (admin) {
     document.getElementById("demo").innerHTML = text;
 
     downloadMissingTournaments(allFights, ["bebul","Jouzolean"])

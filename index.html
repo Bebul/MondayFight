@@ -16,7 +16,10 @@
 
 <body onload="init()">
 
-<h1>Monday Fight</h1>
+<h1>Poslední Monday Fight</h1>
+<div id="gameListTable"></div>
+
+<h1>Legenda k tabulkám</h1>
 <ul>
     <li><b>JouzoCoins</b> je bodování, které používá Jouzolean ve své tabulce.
     <li><b>Score</b> je součet uhraného skóre.
@@ -30,10 +33,6 @@
 <h1>Celý rok 2020</h1>
 <div id="mondayFightsLeaderboard"></div>
 
-<script>
-  createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
-  createPlayersTable(last10(mondayFights), "#last10")
-</script>
 <div id="adminStuff" style="display: none">
     <hr>
     The following should contain downloaded <b>performances</b> for each player:
@@ -50,11 +49,16 @@
 
     <hr>
 
-    <div id="gameListTable"></div>
     <pre id="gamesJson"></pre>
 
     <p id="demo"></p>
 </div>
+
+<script>
+  createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
+  createPlayersTable(last10(mondayFights), "#last10")
+  createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable")
+</script>
 
 </body>
 </html>
