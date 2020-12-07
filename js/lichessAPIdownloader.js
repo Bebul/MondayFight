@@ -124,3 +124,94 @@ async function downloadMissingTournaments(fights, users) {
 
   return downloadedTournaments
 }
+
+async function downloadMissingTournamentGames() {
+  let timeout = 5000
+  const promiseTimeout = time => result => new Promise(resolve => setTimeout(resolve, time, result));
+
+  function status(response) {
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response)
+    } else {
+      return Promise.reject(new Error(response.statusText))
+    }
+  }
+  function text(response) {
+    return response.text()
+  }
+  function ndjson2array(text) {
+    let json = "[" + text.replace(/\n{/g, ",{") + "]";
+    return json
+  }
+  function parse(response) {
+    return JSON.parse(response)
+  }
+
+  function getMissingTournaments(tournaments) {
+    let missing = []
+    tournaments.forEach(tr => {
+      if (!containsId(fights, tr.id)) missing.push(tr.id)
+    })
+    return missing
+  }
+
+  async function downloadGames(id) {
+    let games = await fetch("https://lichess.org/api/tournament/" + id + "/games?opening=true", {
+      headers: {
+        'Accept': 'application/x-ndjson'
+      }
+    })
+      .then(promiseTimeout(timeout))
+      .then(status)
+      .then(text)
+      .then(ndjson2array)
+      .then(parse)
+      .then(games => {
+        let gamesJson = {
+          "id": id,
+          "games": games
+        }
+        return gamesJson
+     })
+    return games
+  }
+
+  let downloadedTournamentsGames = []
+
+  let ix = 0
+  while (ix < mondayFights.length) {
+    let mf = mondayFights[ix++]
+    if (tournamentGames.find(tg => tg.id==mf.id) === undefined) {
+      let games = await downloadGames(mf.id)
+      downloadedTournamentsGames.push(games)
+      document.getElementById("gamesJson").innerHTML = "<b>Downloading in progress: " + ix + "</b>"
+    }
+  }
+  document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
+
+/*
+  while (users.length > 0) {
+    let user = users.shift()
+    let url = "https://lichess.org/api/user/" + user + "/tournament/created";
+    updateHTMLurlRequestsList(url)
+    let missing = await fetch(url)
+      .then(promiseTimeout(timeout))
+      .then(status)
+      .then(text)
+      .then(ndjson2array)
+      .then(parse)
+      .then(getMissingTournaments)
+      .catch(function(error) {
+        console.log('Request failed: ' + url, error);
+      });
+
+    while (missing.length > 0) {
+      let id = missing.pop()
+      let newT = await downloadTournament(id)
+      downloadedTournaments.push(newT)
+    }
+  }
+*/
+
+  return downloadedTournamentsGames
+}

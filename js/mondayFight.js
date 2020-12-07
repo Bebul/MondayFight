@@ -217,76 +217,8 @@ function generatePlayersTableColumns(theFights) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Parse.pgn demo
 function loadDoc() {
-  function status(response) {
-    if (response.status >= 200 && response.status < 300) {
-      return Promise.resolve(response)
-    } else {
-      return Promise.reject(new Error(response.statusText))
-    }
-  }
-  function text(response) {
-    return response.text()
-  }
-  function ndjson2array(text) {
-    let json = "[" + text.replace(/\n{/g, ",{") + "]";
-    return json
-  }
-  function parse(response) {
-    return JSON.parse(response)
-  }
 
-  // possibly also pgnInJson=true
-  // return last 10 blitz games
-  // "https://lichess.org/api/games/user/bebul?vs=mozkomor;max=10;perfType=blitz;opening=true"
-
-  let tableData = []
-  let lastFight = mondayFights[mondayFights.length-1]
-
-  fetch("https://lichess.org/api/tournament/" + lastFight.id + "/games?opening=true", {
-    headers: {
-      'Accept': 'application/x-ndjson'
-    }
-  })
-    .then(status)
-    .then(text)
-    .then(ndjson2array)
-    .then(parse)
-    .then(games => {
-      let gamesJson = {
-        "id": lastFight.id,
-        "games":games
-      }
-      document.getElementById("gamesJson").innerHTML = JSON.stringify(gamesJson, null, 0)
-
-      games.forEach( g => {
-        let result = ""
-        if (g.winner === "black") result = "0-1"
-        else if (g.winner === "white") result = "1-0"
-        else result = "1/2-1/2"
-        let opening = ""
-        if (g.opening !== undefined) opening = g.opening.name
-        let ply = g.moves.split(" ").length
-        let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
-
-        let row = {
-          "id": g.id,
-          "url": "https://lichess.org/" + g.id,
-          "white": g.players.white.user.name,
-          "black": g.players.black.user.name,
-          "result": result,
-          "moves": ply,
-          "time": time,
-          "opening": opening,
-          "status": g.status
-        }
-        tableData.push(row)
-      })
-      return tableData
-    })
-    .then( tdata =>
-      createGameListTable(tableData, "#gameListTable")
-    )
-
+  downloadMissingTournamentGames()
 
   /*
   let xhttp = new XMLHttpRequest();
