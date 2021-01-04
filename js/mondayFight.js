@@ -132,6 +132,7 @@ function addFightsPoints(playerOut, playerName, theFights) {
       jouzoCoins: jouzocoins(fight, playerName),
       score: playerScore(fight, playerName),
       points: playerPoints(fight, playerName)[0],
+      present: playerPresence(fight, playerName)
     }
   })
 }
@@ -370,7 +371,7 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'totalScore') value = cellValue.score;
   else if (mfMode === 'totalPts') value = cellValue.points;
 
-  if (value > 0) return value;
+  if (cellValue.present) return value;
   else return "";
 }
 
