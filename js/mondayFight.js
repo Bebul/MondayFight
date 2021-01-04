@@ -360,10 +360,13 @@ function init() {
 function jouzoCoinsFormatter(cell, formatterParams) {
   let cellValue = cell.getValue();
   if (cellValue===undefined) return "";
-  if (cellValue.rank <=3) cell.getElement().style.backgroundColor = "red";
+  if (cellValue.rank == 1) cell.getElement().style.backgroundColor = "gold";
+  else if (cellValue.rank == 2) cell.getElement().style.backgroundColor = "silver";
+  else if (cellValue.rank == 3) cell.getElement().style.backgroundColor = "#cd7f32";
+/*
   else if (cellValue.rank == 4) cell.getElement().style.backgroundColor = "lightgreen";
   else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange";
-
+*/
   let value = '';
   let mfMode = this.table.mfMode;
   if (mfMode === 'jouzoCoins') value = cellValue.jouzoCoins;
