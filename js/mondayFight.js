@@ -155,19 +155,20 @@ function getDataOfPlayers(theFights) {
   return tableData;
 }
 
-function generatePlayersTableColumns(theFights) {
+function generatePlayersTableColumns(theFights, enableJouzocoins) {
+  let leaderboardColumns = [
+    {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
+    {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name"}},
+    {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc"},
+    {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc"},
+    {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc"}
+  ]
+  if (enableJouzocoins) leaderboardColumns.push({title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc"})
   let columnsBuilder = [
     {//create column group
       title: "Monday Fights Leaderboard",
       frozen:true,//frozen column group on left of table
-      columns: [
-        {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
-        {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name"}},
-        {title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc"},
-        {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc"},
-        {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc"},
-        {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc"}
-      ]
+      columns: leaderboardColumns
     }
   ];
   let curMonth = undefined;
@@ -387,17 +388,18 @@ function dataSortedFunc(sorters) {
 }
 
 var allMyTables = new Map()
-function createPlayersTable(theFights, tableId) {
+function createPlayersTable(theFights, tableId, enableJouzocoins) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
     reactiveData:true, // we want setData having effect
     dataSorted: dataSortedFunc,
     data: getDataOfPlayers(theFights),
-    columns: generatePlayersTableColumns(theFights)
+    columns: generatePlayersTableColumns(theFights, enableJouzocoins)
   });
   allMyTables.set(tableId, playersTable)
-  playersTable.setSort("jouzoCoins", "desc");
+  if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc");
+  else playersTable.setSort("totalPts", "desc");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

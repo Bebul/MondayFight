@@ -63,8 +63,8 @@
 </div>
 
 <script>
-  createPlayersTable(mondayFights, "#mondayFightsLeaderboard")
-  createPlayersTable(last10(mondayFights), "#last10")
+  createPlayersTable(mondayFights, "#mondayFightsLeaderboard", true)
+  createPlayersTable(last10(mondayFights), "#last10", false)
   createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable")
 </script>
 
