@@ -28,6 +28,12 @@ function playerPresence(fight, playerName) {
   return 1
 }
 
+function playerPerformance(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0;
+  return player.performance
+}
+
 function playerPoints(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
   if (player === undefined || !playedAGame(player)) return [0, 0];
@@ -94,6 +100,20 @@ function getTotalPoints(playerName, theFights) {
   return total;
 }
 
+function getAvgPerformance(playerName, theFights) {
+  let games = getTotalGames(playerName, theFights);
+  if (games > 0) {
+    let total = 0;
+    theFights.forEach(
+      fight => {
+        let fgames = playerPoints(fight, playerName)[0] + playerPoints(fight, playerName)[1]
+        total += playerPerformance(fight, playerName) * fgames
+      }
+    )
+    return Math.round(total / games);
+  } else return 0
+}
+
 function getTotalJouzocoinsList(playerName, theFights) {
   let total = [];
   theFights.forEach(fight => {
@@ -144,7 +164,7 @@ function addFightsPoints(playerOut, playerName, theFights) {
       points: playerPoints(fight, playerName)[0],
       present: playerPresence(fight, playerName),
       games: playerPoints(fight, playerName)[0]+playerPoints(fight, playerName)[1],
-      //performance: playerPerformance(fight, playerName)
+      performance: playerPerformance(fight, playerName)
     }
   })
 }
@@ -161,6 +181,7 @@ function getDataOfPlayers(theFights) {
         totalPts: getTotalPoints(player, theFights),
         present: getTotalPresence(player, theFights),
         games: getTotalGames(player, theFights),
+        avgPerformance: getAvgPerformance(player, theFights)
       }
       addFightsPoints(thePlayer, player, theFights)
       tableData.push(thePlayer);
@@ -176,6 +197,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
     {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc"},
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc"},
+    {title: "P", field: "avgPerformance", resizable:false, headerSortStartingDir:"desc"},
     {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc"}
   ]
   if (enableJouzocoins) leaderboardColumns.push({title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc"})
@@ -388,6 +410,7 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'totalScore') value = cellValue.score;
   else if (mfMode === 'totalPts') value = cellValue.points;
   else if (mfMode === 'games') value = cellValue.games;
+  else if (mfMode === 'avgPerformance') value = cellValue.performance;
 
   if (cellValue.present) return value;
   else return "";
@@ -396,7 +419,7 @@ function jouzoCoinsFormatter(cell, formatterParams) {
 function dataSortedFunc(sorters) {
   let newMode = undefined
   sorters.forEach( function(srt) {
-      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games') newMode = srt.field;
+      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games' || srt.field === 'avgPerformance') newMode = srt.field;
     }
   )
   if (newMode !== undefined && this.mfMode != newMode) {
