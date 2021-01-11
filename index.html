@@ -21,7 +21,12 @@
 <h2>Řady Královských gambiterů houstnou</h2>
 A nejen, že houstnou, královskému gambitu se i nečekaně daří. Gratulujeme novému gambiterovi <b>Travinhovi</b> k ukořistěnému sedmitahovému skalpu.
 <p>
-<img src="img/hommageKingsGambit.png" width=100%>
+    <img src="img/hommageKingsGambit.png" width=100%>
+
+<h2>Překvapivý průběh úvodního turnaje</h2>
+Takto vypadadá tabulka aktuální sezóny po prvním turnaji. Výkony borců ponecháváme bez komentáře. Za povšimnutí stojí, že barvičky Zlato, Stříbro a Bronz z turnaje neodpovídají pořadí, neboť pořadí pro rok 2021 se nepočítá ani ze score, ani z Jouzacoins, které zanikly, ale z uhraných turnajových bodů, Points, tak, jak je na turnajích zvykem. Pokud se to neosvědčí, lze to kdykoli změnit.
+<p>
+<img src="img/uvodniTurnaj.png">
 
 <h2>Bukowskic potvrdil svou extratřídu</h2>
 <b>Gratulujeme šampiónovi Bukowskic k vítězství v superturnaji šampionů a slibujeme, že příště mu vášnivou noc nedopřejeme tak snadno ;-).</b>
@@ -111,7 +116,7 @@ tak vznešenou hru, jako jsou šachy”....tak dnes nevím 🤔«
 
 <script>
   let the2021 = year2021(mondayFights)
-  createPlayersTable(the2021, "#mondayFightsLeaderboard", true)
+  createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins for 2021
   createPlayersTable(last10(mondayFights), "#last10", false)
   createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable")
 </script>
