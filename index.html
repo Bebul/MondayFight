@@ -85,7 +85,7 @@ tak vznešenou hru, jako jsou šachy”....tak dnes nevím 🤔«
 <h1>Posledních 10 turnajů</h1>
 <div id="last10"></div>
 
-<h1>Mega tlustá tabulka 2020-21</h1>
+<h1>Aktuální sezóna 2021</h1>
 <div id="mondayFightsLeaderboard"></div>
 
 <div id="adminStuff" style="display: none">
@@ -110,7 +110,8 @@ tak vznešenou hru, jako jsou šachy”....tak dnes nevím 🤔«
 </div>
 
 <script>
-  createPlayersTable(mondayFights, "#mondayFightsLeaderboard", true)
+  let the2021 = year2021(mondayFights)
+  createPlayersTable(the2021, "#mondayFightsLeaderboard", true)
   createPlayersTable(last10(mondayFights), "#last10", false)
   createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable")
 </script>
