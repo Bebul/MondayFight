@@ -1,4 +1,4 @@
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var MoveColumns = function MoveColumns(table) {
 	this.table = table; //hold Tabulator object
@@ -220,12 +220,12 @@ MoveColumns.prototype.moveColumn = function (column, after) {
 
 	if (after) {
 		column.getCells().forEach(function (cell, i) {
-			var cellEl = cell.getElement();
+			var cellEl = cell.getElement(true);
 			cellEl.parentNode.insertBefore(movingCells[i].getElement(), cellEl.nextSibling);
 		});
 	} else {
 		column.getCells().forEach(function (cell, i) {
-			var cellEl = cell.getElement();
+			var cellEl = cell.getElement(true);
 			cellEl.parentNode.insertBefore(movingCells[i].getElement(), cellEl);
 		});
 	}

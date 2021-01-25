@@ -1,4 +1,4 @@
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var Persistence = function Persistence(table) {
 	this.table = table; //hold Tabulator object
@@ -112,6 +112,10 @@ Persistence.prototype.initialize = function () {
 			}
 		}
 	}
+
+	if (this.config.columns) {
+		this.table.options.columns = this.load("columns", this.table.options.columns);
+	}
 };
 
 Persistence.prototype.initializeColumn = function (column) {
@@ -195,7 +199,7 @@ Persistence.prototype.mergeDefinition = function (oldCols, newCols) {
 			}
 
 			keys.forEach(function (key) {
-				if (typeof column[key] !== "undefined") {
+				if (key !== "columns" && typeof column[key] !== "undefined") {
 					from[key] = column[key];
 				}
 			});

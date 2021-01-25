@@ -1,6 +1,6 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var SelectRow = function SelectRow(table) {
 	this.table = table; //hold Tabulator object
@@ -221,6 +221,7 @@ SelectRow.prototype._selectRow = function (rowInfo, silent, force) {
 
 	if (row) {
 		if (this.selectedRows.indexOf(row) == -1) {
+			row.getElement().classList.add("tabulator-selected");
 			if (!row.modules.select) {
 				row.modules.select = {};
 			}
@@ -229,7 +230,6 @@ SelectRow.prototype._selectRow = function (rowInfo, silent, force) {
 			if (row.modules.select.checkboxEl) {
 				row.modules.select.checkboxEl.checked = true;
 			}
-			row.getElement().classList.add("tabulator-selected");
 
 			this.selectedRows.push(row);
 
@@ -294,6 +294,7 @@ SelectRow.prototype._deselectRow = function (rowInfo, silent) {
 
 		if (index > -1) {
 
+			row.getElement().classList.remove("tabulator-selected");
 			if (!row.modules.select) {
 				row.modules.select = {};
 			}
@@ -302,7 +303,6 @@ SelectRow.prototype._deselectRow = function (rowInfo, silent) {
 			if (row.modules.select.checkboxEl) {
 				row.modules.select.checkboxEl.checked = false;
 			}
-			row.getElement().classList.remove("tabulator-selected");
 			self.selectedRows.splice(index, 1);
 
 			if (this.table.options.dataTreeSelectPropagate) {
@@ -375,7 +375,7 @@ SelectRow.prototype.registerHeaderSelectCheckbox = function (element) {
 };
 
 SelectRow.prototype.childRowSelection = function (row, select) {
-	var children = this.table.modules.dataTree.getChildren(row);
+	var children = this.table.modules.dataTree.getChildren(row, true);
 
 	if (select) {
 		for (var _iterator = children, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
