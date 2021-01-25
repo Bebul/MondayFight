@@ -136,10 +136,29 @@ function getCrossScores(players, fights) {
   return playerScore
 }
 
-function myCellClick(players){
+function myCellClick(players, fights){
+  function allGames(playerA, playerB) {
+    let selectedGames = []
+    fights.forEach( fight => {
+      let games = tournamentGames.find(tg => tg.id==fight.id);
+      if (games !== undefined) {
+        games.games.forEach(game => {
+          let white = game.players.white.user.name
+          let black = game.players.black.user.name
+          if ((white == playerA && black == playerB) || (white == playerB && black == playerA)) selectedGames.push(game)
+        })
+      }
+    })
+    return {"games": selectedGames}
+  }
+
   function mcl(e, cell) {
-    let secondPl = players[cell._cell.column.field.substring(2)]
-    console.log("cell click: " + cell._cell.row.data.name + " vs " + secondPl)
+    let playerA = cell._cell.row.data.name
+    let playerB = players[cell._cell.column.field.substring(2)]
+    console.log("cell click: " + playerA + " vs " + playerB)
+    document.getElementById("gamesList").style.display = "block";
+    document.getElementById("gamesListTitle").innerText = playerA + " vs " + playerB;
+    gameListTable.setData(gameListData(allGames(playerA, playerB)))
     //e - the click event object
     //cell - cell component
   }
@@ -158,7 +177,7 @@ function generateCrossTableColumns(theFights, players) {
       {
         title: player,
         field: "pl"+ix,
-        cellClick: myCellClick(players),
+        cellClick: myCellClick(players, theFights),
         hozAlign: "center",
         headerVertical: true
       }

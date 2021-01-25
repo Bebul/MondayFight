@@ -21,9 +21,15 @@
 
 <div id="crossTable"></div>
 
+<div id="gamesList" style="display: none">
+<h2 id="gamesListTitle">Games list</h2>
+<div id="gameListTable"></div>
+</div>
+
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
   createCrossTable(mondayFights, "#crossTable")
+  createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable")
 </script>
 
 </body>

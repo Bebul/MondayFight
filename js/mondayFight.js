@@ -314,10 +314,11 @@ function gameListData(games) {
   return tableData
 }
 
+var gameListTable
 function createGameListTable(gamesData, tableId) {
-  let playersTable = new Tabulator(tableId, {
+  gameListTable = new Tabulator(tableId, {
     layout: "fitDataTable",
-    data: gamesData,
+    reactiveData: true, // we want setData having effect
     columns: [
       {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
       {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
@@ -330,6 +331,7 @@ function createGameListTable(gamesData, tableId) {
       {title: "status", field: "status", align: "center"},
     ]
   });
+  gameListTable.setData(gamesData)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
