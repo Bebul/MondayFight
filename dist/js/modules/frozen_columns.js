@@ -1,4 +1,4 @@
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var FrozenColumns = function FrozenColumns(table) {
 	this.table = table; //hold Tabulator object
@@ -154,7 +154,7 @@ FrozenColumns.prototype.layoutColumnPosition = function (allCells) {
 
 		if (allCells) {
 			column.cells.forEach(function (cell) {
-				_this2.layoutElement(cell.getElement(), column);
+				_this2.layoutElement(cell.getElement(true), column);
 			});
 		}
 	});
@@ -176,7 +176,7 @@ FrozenColumns.prototype.layoutColumnPosition = function (allCells) {
 
 		if (allCells) {
 			column.cells.forEach(function (cell) {
-				_this2.layoutElement(cell.getElement(), column);
+				_this2.layoutElement(cell.getElement(true), column);
 			});
 		}
 	});
@@ -233,7 +233,7 @@ FrozenColumns.prototype.layoutRow = function (row) {
 		var cell = row.getCell(column);
 
 		if (cell) {
-			_this3.layoutElement(cell.getElement(), column);
+			_this3.layoutElement(cell.getElement(true), column);
 		}
 	});
 
@@ -241,7 +241,7 @@ FrozenColumns.prototype.layoutRow = function (row) {
 		var cell = row.getCell(column);
 
 		if (cell) {
-			_this3.layoutElement(cell.getElement(), column);
+			_this3.layoutElement(cell.getElement(true), column);
 		}
 	});
 };

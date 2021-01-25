@@ -1,6 +1,6 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var DataTree = function DataTree(table) {
 	this.table = table;
@@ -135,7 +135,7 @@ DataTree.prototype.layoutRow = function (row) {
 
 	this.generateControlElement(row, el);
 
-	row.element.classList.add("tabulator-tree-level-" + config.index);
+	row.getElement().classList.add("tabulator-tree-level-" + config.index);
 
 	if (config.index) {
 		if (this.branchEl) {
@@ -213,12 +213,15 @@ DataTree.prototype.getRows = function (rows) {
 
 		if (row instanceof Row) {
 
+			row.create();
+
 			config = row.modules.dataTree.children;
 
 			if (!config.index && config.children !== false) {
 				children = _this2.getChildren(row);
 
 				children.forEach(function (child) {
+					child.create();
 					output.push(child);
 				});
 			}
@@ -228,14 +231,14 @@ DataTree.prototype.getRows = function (rows) {
 	return output;
 };
 
-DataTree.prototype.getChildren = function (row) {
+DataTree.prototype.getChildren = function (row, allChildren) {
 	var _this3 = this;
 
 	var config = row.modules.dataTree,
 	    children = [],
 	    output = [];
 
-	if (config.children !== false && config.open) {
+	if (config.children !== false && (config.open || allChildren)) {
 		if (!Array.isArray(config.children)) {
 			config.children = this.generateChildren(row);
 		}
@@ -277,8 +280,12 @@ DataTree.prototype.generateChildren = function (row) {
 
 	childArray.forEach(function (childData) {
 		var childRow = new Row(childData || {}, _this4.table.rowManager);
+
+		childRow.create();
+
 		childRow.modules.dataTree.index = row.modules.dataTree.index + 1;
 		childRow.modules.dataTree.parent = row;
+
 		if (childRow.modules.dataTree.children) {
 			childRow.modules.dataTree.open = _this4.startOpen(childRow.getComponent(), childRow.modules.dataTree.index);
 		}

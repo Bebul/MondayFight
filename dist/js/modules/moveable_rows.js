@@ -1,6 +1,6 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var MoveRows = function MoveRows(table) {
 
@@ -96,15 +96,15 @@ MoveRows.prototype.initializeRow = function (row) {
 
 	//same table drag drop
 	config.mousemove = function (e) {
-		if (e.pageY - Tabulator.prototype.helpers.elOffset(row.element).top + self.table.rowManager.element.scrollTop > row.getHeight() / 2) {
+		var rowEl = row.getElement();
+
+		if (e.pageY - Tabulator.prototype.helpers.elOffset(rowEl).top + self.table.rowManager.element.scrollTop > row.getHeight() / 2) {
 			if (self.toRow !== row || !self.toRowAfter) {
-				var rowEl = row.getElement();
 				rowEl.parentNode.insertBefore(self.placeholderElement, rowEl.nextSibling);
 				self.moveRow(row, true);
 			}
 		} else {
 			if (self.toRow !== row || self.toRowAfter) {
-				var rowEl = row.getElement();
 				rowEl.parentNode.insertBefore(self.placeholderElement, rowEl);
 				self.moveRow(row, false);
 			}
@@ -139,7 +139,7 @@ MoveRows.prototype.initializeRow = function (row) {
 
 MoveRows.prototype.initializeCell = function (cell) {
 	var self = this,
-	    cellEl = cell.getElement();
+	    cellEl = cell.getElement(true);
 
 	cellEl.addEventListener("mousedown", function (e) {
 		if (e.which === 1) {
@@ -157,7 +157,7 @@ MoveRows.prototype.initializeCell = function (cell) {
 		}
 	});
 
-	this.bindTouchEvents(cell.row, cell.getElement());
+	this.bindTouchEvents(cell.row, cellEl);
 };
 
 MoveRows.prototype.bindTouchEvents = function (row, element) {
@@ -547,8 +547,6 @@ MoveRows.prototype.dropComplete = function (table, row, success) {
 MoveRows.prototype.tableRowDrop = function (e, row) {
 	var receiver = false,
 	    success = false;
-
-	console.trace("drop");
 
 	e.stopImmediatePropagation();
 

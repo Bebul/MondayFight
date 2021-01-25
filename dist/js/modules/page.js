@@ -1,4 +1,4 @@
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var Page = function Page(table) {
 
@@ -322,7 +322,7 @@ Page.prototype.setPage = function (page) {
 
 		page = parseInt(page);
 
-		if (page > 0 && page <= _this2.max) {
+		if (page > 0 && page <= _this2.max || _this2.mode !== "local") {
 			_this2.page = page;
 			_this2.trigger().then(function () {
 				resolve();

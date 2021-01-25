@@ -298,8 +298,17 @@ function gameListData(games) {
     let ply = g.moves.split(" ").length
     let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
 
+    Number.prototype.padLeft = function(base,chr){
+      var  len = (String(base || 10).length - String(this).length)+1;
+      return len > 0? new Array(len).join(chr || '0')+this : this;
+    }
+    let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(g.createdAt/1000);
+    let date = [d.getFullYear().padLeft(), (d.getMonth()+1).padLeft(), d.getDate().padLeft()].join('/')+' '+ [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':');
+
     let row = {
       "id": g.id,
+      "date": date,
       "url": "https://lichess.org/" + g.id,
       "white": g.players.white.user.name,
       "black": g.players.black.user.name,
@@ -314,22 +323,36 @@ function gameListData(games) {
   return tableData
 }
 
-function createGameListTable(gamesData, tableId) {
-  let playersTable = new Tabulator(tableId, {
+var gameListTable
+function createGameListTable(gamesData, tableId, addDate) {
+  function detectWhiteWinner(cell, pars) {
+    if (cell._cell.row.data.result=="1-0") return "<b>"+cell.getValue()+"</b>"
+    else return cell.getValue()
+  }
+  function detectBlackWinner(cell, pars) {
+    if (cell._cell.row.data.result=="0-1") return "<b>"+cell.getValue()+"</b>"
+    else return cell.getValue()
+  }
+  let columnsAr = [{formatter: "rownum", headerSort: false, resizable:false}] //add auto incrementing row number
+  if (addDate) {
+    columnsAr.push({title: "date", field: "date", resizable:false})
+  }
+  columnsAr = columnsAr.concat([
+    {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
+    {title: "white", field: "white", formatter: detectWhiteWinner},
+    {title: "black", field: "black", formatter: detectBlackWinner},
+    {title: "result", field: "result", align: "center"},
+    {title: "moves", field: "moves", align: "center", formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
+    {title: "time", field: "time", align: "center", formatter: (cell, pars) => formatTime(cell.getValue()) },
+    {title: "opening", field: "opening"},
+    {title: "status", field: "status", align: "center"},
+  ])
+  gameListTable = new Tabulator(tableId, {
     layout: "fitDataTable",
-    data: gamesData,
-    columns: [
-      {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
-      {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
-      {title: "white", field: "white"},
-      {title: "black", field: "black"},
-      {title: "result", field: "result", align: "center"},
-      {title: "moves", field: "moves", align: "center", formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
-      {title: "time", field: "time", align: "center", formatter: (cell, pars) => formatTime(cell.getValue()) },
-      {title: "opening", field: "opening"},
-      {title: "status", field: "status", align: "center"},
-    ]
+    reactiveData: true, // we want setData having effect
+    columns: columnsAr
   });
+  gameListTable.setData(gamesData)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

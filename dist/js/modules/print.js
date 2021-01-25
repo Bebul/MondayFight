@@ -1,4 +1,4 @@
-/* Tabulator v4.8.4 (c) Oliver Folkerd */
+/* Tabulator v4.9.3 (c) Oliver Folkerd */
 
 var Print = function Print(table) {
 	this.table = table; //hold Tabulator object
@@ -38,7 +38,7 @@ Print.prototype.printFullscreen = function (visible, style, config) {
 	    scrollY = window.scrollY,
 	    headerEl = document.createElement("div"),
 	    footerEl = document.createElement("div"),
-	    tableEl = this.table.modules.export.genereateTable(typeof config != "undefined" ? config : this.table.options.printConfig, typeof style != "undefined" ? style : this.table.options.printStyled, visible, "print"),
+	    tableEl = this.table.modules.export.genereateTable(typeof config != "undefined" ? config : this.table.options.printConfig, typeof style != "undefined" ? style : this.table.options.printStyled, visible || this.table.options.printRowRange, "print"),
 	    headerContent,
 	    footerContent;
 
