@@ -339,13 +339,13 @@ function createGameListTable(gamesData, tableId, addDate) {
   }
   columnsAr = columnsAr.concat([
     {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
-    {title: "white", field: "white", formatter: detectWhiteWinner},
-    {title: "black", field: "black", formatter: detectBlackWinner},
-    {title: "result", field: "result", align: "center"},
-    {title: "moves", field: "moves", align: "center", formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
-    {title: "time", field: "time", align: "center", formatter: (cell, pars) => formatTime(cell.getValue()) },
-    {title: "opening", field: "opening"},
-    {title: "status", field: "status", align: "center"},
+    {title: "white", field: "white", resizable:false, formatter: detectWhiteWinner},
+    {title: "black", field: "black", resizable:false, formatter: detectBlackWinner},
+    {title: "result", field: "result", resizable:false, align: "center"},
+    {title: "moves", field: "moves", align: "center", resizable:false, formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
+    {title: "time", field: "time", align: "center", resizable:false, formatter: (cell, pars) => formatTime(cell.getValue()) },
+    {title: "opening", field: "opening", resizable:false},
+    {title: "status", field: "status", align: "center", resizable:false},
   ])
   gameListTable = new Tabulator(tableId, {
     layout: "fitDataTable",
