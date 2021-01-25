@@ -8,7 +8,13 @@ function initCross() {
 }
 
 function createCrossTable(theFights, tableId) {
-  let players = getPlayers(theFights);
+  let players = getPlayers(theFights).sort(function(a, b){
+    var x = a.toLowerCase();
+    var y = b.toLowerCase();
+    if (x < y) {return -1;}
+    if (x > y) {return 1;}
+    return 0;
+  });
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let crossTable = new Tabulator(tableId, {
     layout: "fitDataTable",
