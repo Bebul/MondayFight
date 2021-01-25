@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
+    <meta charset="UTF-8">
+    <title>"Monday Fight Tournaments on Lichess"</title>
+    <link href="dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
+
+    <script type="text/javascript" src="js/mondayFight.js"></script>
+    <script type="text/javascript" src="js/cross.js"></script>
+    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
+    <script type="text/javascript" src="js/tournamentsData.js"></script>
+</head>
+
+<body onload="init()">
+
+<h1>Cross table</h1>
+
+<div id="crossTable"></div>
+
+<script>
+  //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
+  createCrossTable(mondayFights, "#crossTable")
+</script>
+
+</body>
+</html>
