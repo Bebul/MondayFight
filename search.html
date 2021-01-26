@@ -10,29 +10,41 @@
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
     <script type="text/javascript" src="js/mondayFight.js"></script>
-    <script type="text/javascript" src="js/cross.js"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
+    <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
 </head>
 
-<body onload="initCross()">
+<body onload="initSearch()">
 
-<h1>Monday Fights Cross table</h1>
+<h1>Monday Fights Search Engine</h1>
 
-<b>Tip:</b> klik do tabulky na políčko odpovídající dvěma hráčům vygeneruje tabulku obsahující všechny vzájemné Monday Fight partie. Bohužel chybí ty partie, které se dohrály až po vypršení turnajového limitu. Všichni zde jistě postrádáme cenné skalpy.
-<h2><a href="tables.html">Pro Aktuality a tabulky klikněte zde!</a></h2>
+<b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli.
+<pre>
+    bebul jouzolean gambit accepted
+    travinho b22
+    e4 e6 Nf3 d5 e5
+</pre>
 <br>
-<div id="crossTable"></div>
-
-<div id="gamesList" style="display: none">
-    <h2 id="gamesListTitle">Games list</h2>
-    <div id="gameListTable"></div>
+<div>Můžete mi, prosím Vás, najít toto?
+    <input type="text" id="searchInput" value="bebul jouzolean Rh1#" style="width:100%">
+    <button id="searchButton" onclick="onSearchClicked()">Hledaj šmudlo, hledej</button>
 </div>
+
+<br>
+<div id="gameListTable"></div>
 
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-  createCrossTable(mondayFights, "#crossTable")
   createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable", true)
+
+  var input = document.getElementById("searchInput");
+  input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("searchButton").click();
+    }
+  });
+
 </script>
 
 </body>
