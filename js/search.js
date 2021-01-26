@@ -26,6 +26,11 @@ function searchGames(fights, tokens) {
 
 function processSearch(searchStr) {
   let theFights = mondayFights
+  // RegEx manual:
+  //    (?<=y)x ... Lookbehind assertion: Matches "x" only if "x" is preceded by "y". But only x is part of match, the y not.
+  //    x(?=y) .... Lookahead assertion: Matches "x" only if "x" is followed by "y". But y is not part of match, only x is.
+  // So: (?<=\")[^\"]*(?=\") ... stands for something between quotation marks
+  // and: [^\" ]+ ... of course everything what is not quotation mark or space, so some word
   const regex = /(?<=\")[^\"]*(?=\")|[^\" ]+/g;
   const tokens = searchStr.toLowerCase().match(regex);
   //let tokens = searchStr.toLowerCase().split(" ").filter(token => token.length>0)
