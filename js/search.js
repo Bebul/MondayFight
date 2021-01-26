@@ -15,7 +15,7 @@ function searchGames(fights, tokens) {
       games.games.forEach(game => {
         let jsonGame = JSON.stringify(game, null, 0).toLowerCase();
         let found = tokens.find(token => {
-          return (jsonGame.search(token) < 0)
+          return (jsonGame.indexOf(token) < 0)
         })
         if (found === undefined) selectedGames.push(game)
       })
@@ -26,7 +26,9 @@ function searchGames(fights, tokens) {
 
 function processSearch(searchStr) {
   let theFights = mondayFights
-  let tokens = searchStr.toLowerCase().split(" ").filter(token => token.length>0)
+  const regex = /(?<=\")[^\"]*(?=\")|[^\" ]+/g;
+  const tokens = searchStr.toLowerCase().match(regex);
+  //let tokens = searchStr.toLowerCase().split(" ").filter(token => token.length>0)
   //document.getElementById("gamesList").style.display = "block";
   gameListTable.setData(gameListData(searchGames(theFights, tokens))).then(function(){
     gameListTable.redraw(true)

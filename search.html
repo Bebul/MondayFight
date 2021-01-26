@@ -18,15 +18,25 @@
 
 <h1>Monday Fights Search Engine</h1>
 
-<b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli.
+<b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
+Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
+kde on nebo protihráč skončil takto neslavně. Ano, i on :-)
+<br>
+<b>Příklady:</b>
 <pre>
     bebul jouzolean gambit accepted
-    travinho b22
-    e4 e6 Nf3 d5 e5
+    travinho Bxf7+
+    "e4 e5 f4 exf4 Nf3 Nf6 e5 Nd5"
+    "Zukertort Variation"
+    bebul travinho scandi
+    nostart
+    jouzolean f7#
+    bukowskic stalemate
+    =R
 </pre>
 <br>
-<div>Můžete mi, prosím Vás, najít toto?
-    <input type="text" id="searchInput" value="bebul jouzolean Rh1#" style="width:100%">
+<div>Zadejte, prosím, svá ctěnná kritéria:
+    <input type="text" id="searchInput" value="jouzolean f7#" style="width:100%">
     <button id="searchButton" onclick="onSearchClicked()">Hledaj šmudlo, hledej</button>
 </div>
 
@@ -35,7 +45,7 @@
 
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-  createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable", true)
+  createGameListTable(gameListData(searchGames(mondayFights, ["jouzolean", "f7#"])), "#gameListTable", true)
 
   var input = document.getElementById("searchInput");
   input.addEventListener("keyup", function(event) {
