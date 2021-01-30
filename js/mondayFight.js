@@ -324,7 +324,7 @@ function gameListData(games) {
 }
 
 var gameListTable
-function createGameListTable(gamesData, tableId, addDate) {
+function createGameListTable(gamesData, tableId, addDate, noStats) {
   function detectWhiteWinner(cell, pars) {
     if (cell._cell.row.data.result=="1-0") return "<b>"+cell.getValue()+"</b>"
     else return cell.getValue()
@@ -353,6 +353,68 @@ function createGameListTable(gamesData, tableId, addDate) {
     columns: columnsAr
   });
   gameListTable.setData(gamesData)
+
+  if (noStats != true) createStatsBar4GameList(gamesData, tableId)
+}
+
+function getGameListResultStats(gamesData) {
+  let white = 0, draw = 0, black = 0
+  gamesData.forEach(row => {
+    if (row.result == '1-0') white++
+    else if (row.result == '0-1') black++
+    else draw++
+  })
+  return ['', white, draw, black, '']
+}
+
+var myGoogleCharts = new Map();
+
+function updateGoogleBar(barid, gamesData) {
+  let barData = myGoogleCharts.get(barid)
+  if (barData !== undefined) {
+    let statsData = getGameListResultStats(gamesData)
+    let data = google.visualization.arrayToDataTable([
+      ['Genre', 'White wins', 'Draw', 'Black wins', { role: 'annotation' } ],
+      statsData
+    ]);
+    barData.chart.draw(data, barData.options)
+  }
+}
+
+function createStatsBar4GameList(gamesData, tableId) {
+  let id = tableId.match(/(?<=#).+/)
+  if (id != null) {
+    let barElement = document.getElementById(id+"Bar")
+    if (barElement != null) {
+      // Load google charts
+      google.charts.load('current', {'packages':['corechart']});
+      let statsData = getGameListResultStats(gamesData)
+
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Draw the chart and set the chart values
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Genre', 'White wins', 'Draw', 'Black wins', { role: 'annotation' } ],
+          statsData
+        ]);
+
+        var options = {
+          width: 600,
+          height: 80,
+          legend: { position: 'top', maxLines: 3 },
+          bar: { groupWidth: '75%' },
+          colors: ['white', 'grey', 'black'],
+          backgroundColor: '#E4E4E4',
+          isStacked: true
+        };
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.BarChart(barElement);
+        myGoogleCharts.set(id+"Bar", {'chart': chart, 'options': options})
+        chart.draw(data, options);
+      }
+    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -164,7 +164,9 @@ function myCellClick(players, fights){
     console.log("cell click: " + playerA + " vs " + playerB)
     document.getElementById("gamesList").style.display = "block";
     document.getElementById("gamesListTitle").innerText = playerA + " vs " + playerB;
-    gameListTable.setData(gameListData(allGames(playerA, playerB))).then(function(){
+    let gameData = gameListData(allGames(playerA, playerB))
+    updateGoogleBar("gameListTableBar", gameData)
+    gameListTable.setData(gameData).then(function(){
       gameListTable.redraw(true)
     })
     //e - the click event object
