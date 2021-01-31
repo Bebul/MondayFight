@@ -1,0 +1,75 @@
+body {
+    background: #e9ecef;
+    /*background: #00b5ad;*/
+    margin: 10px;
+}
+
+.body {
+    width: 940px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 0px;
+        margin: 0px;
+    }
+    .body {
+        width: 590px;
+        padding: 0px;
+        margin: 0px;
+    }
+    .article {
+        padding: 5px;
+    }
+}
+
+.mondayFightCaption {
+    max-height:40px;
+    padding: 5px 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 5;
+    background-color: #00b5ad;
+    color: #ffeeba;
+}
+
+.first {
+    margin-top:85px;
+}
+.first h1 {
+    margin-left: 70px;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #00b5ad;
+    position: relative;
+    width:200px;
+}
+
+.topnav #myLinks {
+    display: none;
+}
+
+.topnav a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.hamburger {
+    font-size:40px;
+    color:#f2c037;
+}
+
+.hamburger:hover {
+    color: #fdfdfe;
+}

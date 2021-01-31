@@ -3,8 +3,6 @@ function initCross() {
 
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-
-  const admin = urlParams.get('bebul')!=null
 }
 
 function createCrossTable(theFights, tableId) {
