@@ -419,7 +419,7 @@ function updateMostActivePlayer(id, gamesData) {
       ['Genre', 'White wins', 'Draw', 'Black wins'],
       [plStats.player + ' Black', plStats.blackStats.loss, plStats.blackStats.draw, plStats.blackStats.win]
     ]);
-    barData2.chart.draw(data, barData.options)
+    barData2.chart.draw(data, barData2.options)
   }
   let barData3 = myGoogleCharts.get(id+'plall')
   if (barData3 !== undefined) {
@@ -427,7 +427,7 @@ function updateMostActivePlayer(id, gamesData) {
       ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
       ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
     ]);
-    barData3.chart.draw(data, barData.options)
+    barData3.chart.draw(data, barData3.options)
   }
 }
 
@@ -465,11 +465,12 @@ function createStatisticsBars(gamesData, tableId) {
       ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
       ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
     ]
-    createStatsBar4GameList(plallData, id+"plall")
+    createStatsBar4GameList(plallData, id+"plall", ['#9c0', 'grey', 'red'])
   }
 }
 
-function createStatsBar4GameList(arrayData, id) {
+function createStatsBar4GameList(arrayData, id, colorListPar) {
+    let colorList = (colorListPar !== undefined) ? colorListPar : ['white', 'grey', 'black']
     let barElement = document.getElementById(id)
     if (barElement != null) {
       // Load google charts
@@ -486,7 +487,7 @@ function createStatsBar4GameList(arrayData, id) {
           height: 80,
           legend: { position: 'top', maxLines: 3 },
           bar: { groupWidth: '75%' },
-          colors: ['white', 'grey', 'black'],
+          colors: colorList,
           backgroundColor: '#E4E4E4',
           isStacked: 'percent'
         };
