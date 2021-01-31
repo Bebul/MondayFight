@@ -354,7 +354,7 @@ function createGameListTable(gamesData, tableId, addDate, noStats) {
   });
   gameListTable.setData(gamesData)
 
-  if (noStats != true) createStatsBar4GameList(gamesData, tableId)
+  if (noStats != true) createStatisticsBars(gamesData, tableId)
 }
 
 function getGameListResultStats(gamesData) {
@@ -364,40 +364,122 @@ function getGameListResultStats(gamesData) {
     else if (row.result == '0-1') black++
     else draw++
   })
-  return ['', white, draw, black, '']
+  return ['', white, draw, black]
+}
+
+function getGameListMostActivePlayerStats(gamesData) {
+  let players = new Map()
+  function incrementPlayer(player) {
+    let data = players.get(player)
+    if (data === undefined) data = 0
+    data++
+    players.set(player, data)
+  }
+  gamesData.forEach(row => {
+    incrementPlayer(row.white)
+    incrementPlayer(row.black)
+  })
+  let max = ["", -1]
+  for(let [pl, num] of players){
+    if (num > max[1]) max=[pl, num]
+  }
+  let bossPlayer = max[0]
+  let bossWhite = {win: 0, draw: 0, loss: 0}
+  let bossBlack = {win: 0, draw: 0, loss: 0}
+  gamesData.forEach(row => {
+    if (row.white==bossPlayer) {
+      if (row.result == "1-0") bossWhite.win++
+      else if (row.result == "0-1") bossWhite.loss++
+      else bossWhite.draw++
+    } else if (row.black==bossPlayer) {
+      if (row.result == "0-1") bossBlack.win++
+      else if (row.result == "1-0") bossBlack.loss++
+      else bossBlack.draw++
+    }
+  })
+  return {player: bossPlayer, whiteStats: bossWhite, blackStats: bossBlack}
 }
 
 var myGoogleCharts = new Map();
+
+function updateMostActivePlayer(id, gamesData) {
+  let plStats = getGameListMostActivePlayerStats(gamesData)
+
+  let barData = myGoogleCharts.get(id+'plwhite')
+  if (barData !== undefined) {
+    let data = google.visualization.arrayToDataTable([
+      ['Genre', 'White wins', 'Draw', 'Black wins'],
+      [plStats.player + ' White', plStats.whiteStats.win, plStats.whiteStats.draw, plStats.whiteStats.loss]
+    ]);
+    barData.chart.draw(data, barData.options)
+  }
+  let barData2 = myGoogleCharts.get(id+'plblack')
+  if (barData2 !== undefined) {
+    let data = google.visualization.arrayToDataTable([
+      ['Genre', 'White wins', 'Draw', 'Black wins'],
+      [plStats.player + ' Black', plStats.blackStats.loss, plStats.blackStats.draw, plStats.blackStats.win]
+    ]);
+    barData2.chart.draw(data, barData.options)
+  }
+  let barData3 = myGoogleCharts.get(id+'plall')
+  if (barData3 !== undefined) {
+    let data = google.visualization.arrayToDataTable([
+      ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
+      ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
+    ]);
+    barData3.chart.draw(data, barData.options)
+  }
+}
 
 function updateGoogleBar(barid, gamesData) {
   let barData = myGoogleCharts.get(barid)
   if (barData !== undefined) {
     let statsData = getGameListResultStats(gamesData)
     let data = google.visualization.arrayToDataTable([
-      ['Genre', 'White wins', 'Draw', 'Black wins', { role: 'annotation' } ],
+      ['Genre', 'White wins', 'Draw', 'Black wins'],
       statsData
     ]);
     barData.chart.draw(data, barData.options)
   }
 }
 
-function createStatsBar4GameList(gamesData, tableId) {
+function createStatisticsBars(gamesData, tableId) {
+  let wbStat = getGameListResultStats(gamesData)
+  let wbArrayData = [['Genre', 'White wins', 'Draw', 'Black wins'], wbStat]
   let id = tableId.match(/(?<=#).+/)
   if (id != null) {
-    let barElement = document.getElementById(id+"Bar")
+    createStatsBar4GameList(wbArrayData, id+"Bar")
+
+    let plStats = getGameListMostActivePlayerStats(gamesData)
+    let plwhiteData = [
+      ['Genre', 'White wins', 'Draw', 'Black wins'],
+      [plStats.player + ' White', plStats.whiteStats.win, plStats.whiteStats.draw, plStats.whiteStats.loss]
+    ]
+    createStatsBar4GameList(plwhiteData, id+"plwhite")
+    let plblackData = [
+      ['Genre', 'White wins', 'Draw', 'Black wins'],
+      [plStats.player + ' Black', plStats.blackStats.loss, plStats.blackStats.draw, plStats.blackStats.win]
+    ]
+    createStatsBar4GameList(plblackData, id+"plblack")
+    let plallData = [
+      ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
+      ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
+    ]
+    createStatsBar4GameList(plallData, id+"plall")
+  }
+}
+
+function createStatsBar4GameList(arrayData, id) {
+    let barElement = document.getElementById(id)
     if (barElement != null) {
       // Load google charts
       google.charts.load('current', {'packages':['corechart']});
-      let statsData = getGameListResultStats(gamesData)
 
       google.charts.setOnLoadCallback(drawChart);
 
       // Draw the chart and set the chart values
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Genre', 'White wins', 'Draw', 'Black wins', { role: 'annotation' } ],
-          statsData
-        ]);
+        var data = google.visualization.arrayToDataTable(arrayData);
 
         var options = {
           width: 600,
@@ -406,15 +488,14 @@ function createStatsBar4GameList(gamesData, tableId) {
           bar: { groupWidth: '75%' },
           colors: ['white', 'grey', 'black'],
           backgroundColor: '#E4E4E4',
-          isStacked: true
+          isStacked: 'percent'
         };
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.BarChart(barElement);
-        myGoogleCharts.set(id+"Bar", {'chart': chart, 'options': options})
+        myGoogleCharts.set(id, {'chart': chart, 'options': options})
         chart.draw(data, options);
       }
     }
-  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -165,6 +165,7 @@ function myCellClick(players, fights){
     document.getElementById("gamesList").style.display = "block";
     document.getElementById("gamesListTitle").innerText = playerA + " vs " + playerB;
     let gameData = gameListData(allGames(playerA, playerB))
+    updateMostActivePlayer("gameListTable", gameData)
     updateGoogleBar("gameListTableBar", gameData)
     gameListTable.setData(gameData).then(function(){
       gameListTable.redraw(true)

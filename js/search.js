@@ -37,6 +37,7 @@ function processSearch(searchStr) {
   //document.getElementById("gamesList").style.display = "block";
   let gameData = gameListData(searchGames(theFights, tokens))
 
+  updateMostActivePlayer("gameListTable", gameData)
   updateGoogleBar("gameListTableBar", gameData)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
