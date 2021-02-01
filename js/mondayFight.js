@@ -447,7 +447,7 @@ function createStatisticsBars(gamesData, tableId) {
   let wbStat = getGameListResultStats(gamesData)
   let wbArrayData = [['Genre', 'White wins', 'Draw', 'Black wins'], wbStat]
   let id = null
-  let idHash = str.match(/#(.+)/)
+  let idHash = tableId.match(/#(.+)/)
   if (Array.isArray(idHash)) id = idHash[1]
   if (id != null) {
     createStatsBar4GameList(wbArrayData, id+"Bar")
