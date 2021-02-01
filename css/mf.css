@@ -4,22 +4,37 @@ body {
     margin: 10px;
 }
 
-.body {
-    width: 940px;
+.article {
+    padding: 5px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 500px) {
     body {
         padding: 0px;
         margin: 0px;
     }
     .body {
-        width: 590px;
+        width: 480px;
         padding: 0px;
         margin: 0px;
     }
-    .article {
-        padding: 5px;
+}
+
+@media only screen and (min-width: 600px) {
+    .body {
+        width: 600px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .body {
+        width: 768px;
+    }
+}
+
+@media only screen and (min-width: 940px) {
+    .body {
+        width: 940px;
     }
 }
 
@@ -28,7 +43,7 @@ body {
     padding: 5px 0px;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: 1200px;
     z-index: 5;
     background-color: #00b5ad;
     color: #ffeeba;
