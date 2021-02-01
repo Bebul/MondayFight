@@ -15,6 +15,7 @@
     <script type="text/javascript" src="js/mondayFight.js"></script>
     <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
@@ -67,7 +68,7 @@
 
         <div style="margin: 10px 0">
             <div>Zadejte, prosím, svá ctěnná kritéria:
-                <input type="text" id="searchInput" value="jouzolean french advance" style="width:100%">
+                <input type="text" id="searchInput" value="mozkomor 1=Q" style="width:100%">
                 <br>
                 <button id="searchButton" onclick="onSearchClicked()">Hledej šmudlo, hledej</button>
             </div>
@@ -85,7 +86,7 @@
 
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-  createGameListTable(gameListData(searchGames(mondayFights, ["jouzolean", "f7#"])), "#gameListTable", true)
+  createGameListTable(gameListData(searchGames(mondayFights, ["mozkomor", "1=q"])), "#gameListTable", true)
 
   var input = document.getElementById("searchInput");
   input.addEventListener("keyup", function(event) {

@@ -627,14 +627,3 @@ function year2021(theFights) {
       return date.getFullYear() >= 2021
   })
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// mondayFight onClick
-function showMondayFightMenu() {
-  var x = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
