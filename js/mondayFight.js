@@ -446,7 +446,9 @@ function updateGoogleBar(barid, gamesData) {
 function createStatisticsBars(gamesData, tableId) {
   let wbStat = getGameListResultStats(gamesData)
   let wbArrayData = [['Genre', 'White wins', 'Draw', 'Black wins'], wbStat]
-  let id = tableId.match(/(?<=#).+/)
+  let id = null
+  let idHash = str.match(/#(.+)/)
+  if (Array.isArray(idHash)) id = idHash[1]
   if (id != null) {
     createStatsBar4GameList(wbArrayData, id+"Bar")
 
