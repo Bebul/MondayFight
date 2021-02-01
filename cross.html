@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=940px, initial-scale=1.0"/>
     <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
     <meta charset="UTF-8">
     <title>"Monday Fight Tournaments on Lichess"</title>
     <link href="dist/css/tabulator.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
@@ -13,20 +16,52 @@
     <script type="text/javascript" src="js/cross.js"></script>
     <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/minimal.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+
 </head>
 
-<body onload="init()">
+<body onload="initCross()">
 
-<h1>Monday Fights Cross table</h1>
+<div class="body">
 
-<b>Tip:</b> klik do tabulky na políčko odpovídající dvěma hráčům vygeneruje tabulku obsahující všechny vzájemné Monday Fight partie. Bohužel chybí ty partie, které se dohrály až po vypršení turnajového limitu. Všichni zde jistě postrádáme cenné skalpy.
-<h2><a href="tables.html">Pro Aktuality a tabulky klikněte zde!</a></h2>
-<br>
-<div id="crossTable"></div>
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span><a href="javascript:void(0);" class="icon" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights - Cross Table</span>
+        <div class="topnav">
+            <div id="myLinks">
+                <a href="index.html">Main page</a>
+                <a href="actualities.html">Hot News</a>
+                <a href="tables.html">Leaderboards</a>
+                <a href="cross.html">Cross table</a>
+                <a href="search.html">Search Engine</a>
+                <a href="players.html">Players</a>
+            </div>
+        </div>
+    </div>
 
-<div id="gamesList" style="display: none">
-    <h2 id="gamesListTitle">Games list</h2>
-    <div id="gameListTable"></div>
+    <div class="article first">
+        <b>Tip:</b> klik do tabulky na políčko odpovídající dvěma hráčům vygeneruje tabulku obsahující všechny vzájemné Monday Fight partie. Bohužel chybí ty partie, které se dohrály až po vypršení turnajového limitu. Všichni zde jistě postrádáme cenné skalpy.
+    </div>
+
+    <br>
+    <div id="crossTable"></div>
+
+    <div id="gamesList">
+        <h2 id="gamesListTitle">Games list</h2>
+        <div id="gameListTableplwhite"></div>
+        <div id="gameListTableplblack"></div>
+        <div id="gameListTableplall"></div>
+        <div id="gameListTableBar"></div>
+        <div id="gameListTable"></div>
+    </div>
+
 </div>
 
 <script>

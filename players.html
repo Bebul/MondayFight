@@ -5,23 +5,14 @@
     <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
     <meta charset="UTF-8">
     <title>"Monday Fight Tournaments on Lichess"</title>
-    <link href="dist/css/tabulator.min.css" rel="stylesheet">
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
-    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
-
-    <script type="text/javascript" src="js/mondayFight.js"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onload="init()">
+<body>
 
 <div class="body">
 
@@ -31,7 +22,7 @@
             <i class="fa fa-bars hamburger"></i>
               </a>
         </span>
-        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights Arena</span>
+        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights - Players</span>
         <div class="topnav">
             <div id="myLinks">
                 <a href="index.html">Main page</a>
@@ -40,24 +31,21 @@
                 <a href="cross.html">Cross table</a>
                 <a href="search.html">Search Engine</a>
                 <a href="players.html">Players</a>
+
             </div>
         </div>
     </div>
 
     <div class="article first">
-        <h1>Poslední Monday Fight</h1>
-        <div id="gameListTableplwhite"></div>
-        <div id="gameListTableplblack"></div>
-        <div id="gameListTableplall"></div>
-        <div id="gameListTableBar"></div>
-        <div id="gameListTable"></div>
+        <h2>Z ohlasů slavných</h2>
+        <p>"Sledujíc váš turnaj, mnohdy jsem spálila večeři." <i>Zuzana Čaputová</i>
+        <p>"Občas sleduji Monday Fight místo horrorů od Hitchcocka!" <i>Anish Giri</i>
+        <p>"Podle stylu hry bych hádala, že Jouzolean je žena." <i>Judith Polgárová</i>
+        <p>"Ten Bébul, jak hraje, tak bych také chtěl umět hrát!" <i>Magnus Carlsen</i>
+        <div><img src="img/tlama-animate2.gif"></div>
     </div>
 
 </div>
-
-<script>
-  createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable", false)
-</script>
 
 </body>
 </html>

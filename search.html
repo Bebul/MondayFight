@@ -1,51 +1,92 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="Cache-Control" content="no-store, max-age=0" />
+    <meta name="viewport" content="width=940px, initial-scale=1.0"/>
     <meta charset="UTF-8">
     <title>"Monday Fight Tournaments on Lichess"</title>
+
     <link href="dist/css/tabulator.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
     <script type="text/javascript" src="js/mondayFight.js"></script>
     <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/minimal.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+
 </head>
 
 <body onload="initSearch()">
 
-<h1>Monday Fights Search Engine</h1>
+<div class="body">
 
-<b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
-Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
-kde on nebo protihráč skončil takto neslavně. Ano, i on :-)
-<br>
-<b>Příklady:</b>
-<pre>
-    bebul jouzolean gambit accepted
-    travinho Bxf7+
-    "e4 e5 f4 exf4 Nf3 Nf6 e5 Nd5"
-    "Zukertort Variation"
-    bebul travinho scandi
-    nostart
-    jouzolean f7#
-    bukowskic stalemate
-    =R
-</pre>
-<br>
-<div>Zadejte, prosím, svá ctěnná kritéria:
-    <input type="text" id="searchInput" value="jouzolean f7#" style="width:100%">
-    <button id="searchButton" onclick="onSearchClicked()">Hledaj šmudlo, hledej</button>
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span><a href="javascript:void(0);" class="icon" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights - Search Engine</span>
+        <div class="topnav">
+            <div id="myLinks">
+                <a href="index.html">Main page</a>
+                <a href="actualities.html">Hot News</a>
+                <a href="tables.html">Leaderboards</a>
+                <a href="cross.html">Cross table</a>
+                <a href="search.html">Search Engine</a>
+                <a href="players.html">Players</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="article first">
+        <b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
+        Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
+        kde on nebo protihráč skončil takto neslavně. Ano, i on :-)
+        <br>
+
+        <div style="margin: 10px 0 0 0">
+            <b>Příklady:</b>
+            <pre style="margin: 0px">
+  bebul jouzolean gambit accepted
+  travinho Bxf7+
+  "e4 e5 f4 exf4 Nf3 Nf6 e5 Nd5"
+  "Zukertort Variation"
+  bebul travinho scandi
+  nostart
+  jouzolean f7#
+  bukowskic stalemate
+  =R
+            </pre>
+        </div>
+
+        <div style="margin: 10px 0">
+            <div>Zadejte, prosím, svá ctěnná kritéria:
+                <input type="text" id="searchInput" value="mozkomor 1=Q" style="width:100%">
+                <br>
+                <button id="searchButton" onclick="onSearchClicked()">Hledej šmudlo, hledej</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="gameListTableplwhite"></div>
+    <div id="gameListTableplblack"></div>
+    <div id="gameListTableplall"></div>
+    <div id="gameListTableBar"></div>
+    <div id="gameListTable"></div>
+
 </div>
-
-<br>
-<div id="gameListTable"></div>
 
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-  createGameListTable(gameListData(searchGames(mondayFights, ["jouzolean", "f7#"])), "#gameListTable", true)
+  createGameListTable(gameListData(searchGames(mondayFights, ["mozkomor", "1=q"])), "#gameListTable", true)
 
   var input = document.getElementById("searchInput");
   input.addEventListener("keyup", function(event) {

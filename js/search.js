@@ -35,7 +35,11 @@ function processSearch(searchStr) {
   const tokens = searchStr.toLowerCase().match(regex);
   //let tokens = searchStr.toLowerCase().split(" ").filter(token => token.length>0)
   //document.getElementById("gamesList").style.display = "block";
-  gameListTable.setData(gameListData(searchGames(theFights, tokens))).then(function(){
+  let gameData = gameListData(searchGames(theFights, tokens))
+
+  updateMostActivePlayer("gameListTable", gameData)
+  updateGoogleBar("gameListTableBar", gameData)
+  gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
   })
 }
