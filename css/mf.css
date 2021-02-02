@@ -6,6 +6,11 @@ body {
 
 .article {
     padding: 5px;
+    text-align: justify;
+}
+
+.article img {
+    width: 100%;
 }
 
 @media only screen and (max-width: 500px) {
@@ -14,7 +19,7 @@ body {
         margin: 0px;
     }
     .body {
-        width: 480px;
+        width: 100%;
         padding: 0px;
         margin: 0px;
     }
@@ -22,7 +27,7 @@ body {
 
 @media only screen and (min-width: 600px) {
     .body {
-        width: 600px;
+        width: 100%;
     }
 }
 
