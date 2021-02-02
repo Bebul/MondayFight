@@ -1,7 +1,7 @@
 body {
     background: #e9ecef;
     /*background: #00b5ad;*/
-    margin: 10px;
+    margin: 0 10px;
 }
 
 .article {
@@ -39,9 +39,9 @@ body {
 }
 
 .mondayFightCaption {
-    max-height:40px;
-    padding: 5px 0px;
-    position: fixed;
+    max-height: 40px;
+    padding: 5px 0;
+    position: sticky;
     top: 0;
     width: 1200px;
     z-index: 5;
@@ -50,7 +50,7 @@ body {
 }
 
 .first {
-    margin-top:85px;
+    margin-top:5px;
 }
 
 .topnav {
