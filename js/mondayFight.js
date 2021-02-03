@@ -484,8 +484,10 @@ function createStatsBar4GameList(arrayData, id, colorListPar) {
       function drawChart() {
         var data = google.visualization.arrayToDataTable(arrayData);
 
+        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
         var options = {
-          width: 600,
+          width: Math.min(vw, 600),
           height: 80,
           legend: { position: 'top', maxLines: 3 },
           bar: { groupWidth: '75%' },
