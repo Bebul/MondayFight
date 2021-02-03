@@ -450,28 +450,32 @@ function createStatisticsBars(gamesData, tableId) {
   let idHash = tableId.match(/#(.+)/)
   if (Array.isArray(idHash)) id = idHash[1]
   if (id != null) {
-    createStatsBar4GameList(wbArrayData, id+"Bar")
+    // see: https://stackoverflow.com/questions/1248081/how-to-get-the-browser-viewport-dimensions
+    //const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+    const vw = Math.max(document.documentElement.clientWidth || 0, 360)
+
+    createStatsBar4GameList(wbArrayData, id+"Bar", vw)
 
     let plStats = getGameListMostActivePlayerStats(gamesData)
     let plwhiteData = [
       ['Genre', plStats.player + ' wins', 'Draw', 'Black wins'],
       [plStats.player + ' White', plStats.whiteStats.win, plStats.whiteStats.draw, plStats.whiteStats.loss]
     ]
-    createStatsBar4GameList(plwhiteData, id+"plwhite")
+    createStatsBar4GameList(plwhiteData, id+"plwhite", vw)
     let plblackData = [
       ['Genre', 'White wins', 'Draw', plStats.player + ' wins'],
       [plStats.player + ' Black', plStats.blackStats.loss, plStats.blackStats.draw, plStats.blackStats.win]
     ]
-    createStatsBar4GameList(plblackData, id+"plblack")
+    createStatsBar4GameList(plblackData, id+"plblack", vw)
     let plallData = [
       ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
       ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
     ]
-    createStatsBar4GameList(plallData, id+"plall", ['#9c0', 'grey', 'red'])
+    createStatsBar4GameList(plallData, id+"plall", vw, ['#9c0', 'grey', 'red'])
   }
 }
 
-function createStatsBar4GameList(arrayData, id, colorListPar) {
+function createStatsBar4GameList(arrayData, id, vw, colorListPar) {
     let colorList = (colorListPar !== undefined) ? colorListPar : ['white', 'grey', 'black']
     let barElement = document.getElementById(id)
     if (barElement != null) {
@@ -483,8 +487,6 @@ function createStatsBar4GameList(arrayData, id, colorListPar) {
       // Draw the chart and set the chart values
       function drawChart() {
         var data = google.visualization.arrayToDataTable(arrayData);
-
-        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
 
         var options = {
           width: Math.min(vw, 600),

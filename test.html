@@ -44,8 +44,9 @@
         </div>
     </div>
 
-    <div class="">
-        <h2>Poslední Monday Fight</h2>
+    <div class="article first">
+        <h1>Poslední Monday Fight</h1>
+        <div id="test">*** to be replaced ***</div>
         <div id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
         <div id="gameListTableplall"></div>
@@ -57,6 +58,8 @@
 
 <script>
   createGameListTable(gameListData(tournamentGames[currentGameListTableIx]), "#gameListTable", false)
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  document.getElementById("test").innerText = "width is " + vw.toString() + " clientWidth is " + document.documentElement.clientWidth + " innerWidth is " + window.innerWidth
 </script>
 
 </body>
