@@ -6,11 +6,11 @@ body {
 
 .article {
     padding: 5px;
-    text-align: justify;
 }
 
 .article img {
-    width: 100%;
+    max-width:100%;
+    height:auto
 }
 
 @media only screen and (max-width: 500px) {
