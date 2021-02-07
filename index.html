@@ -50,6 +50,8 @@
     <div style="position: absolute; margin-top: -35px">
         <div id="podium" class="podium">
         </div>
+        <div id="info">
+        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
@@ -63,6 +65,7 @@
 <script>
   let games = tournamentGames[currentGameListTableIx]
   createPodium(games.id)
+  createTournamentInfo(games.id)
   createGameListTable(gameListData(games), "#gameListTable", false)
 </script>
 

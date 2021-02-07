@@ -137,3 +137,7 @@ function addTournaments(downloadedTournaments) {
 function findTournament(id) {
   return jouzoleanAndBebulsTournaments.find(tr => tr.id==id)
 }
+
+function tournamentIsRated(id) {
+  return tournamentGames.find(g => g.id==id).games[0].rated
+}
