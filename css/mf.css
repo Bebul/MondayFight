@@ -90,3 +90,92 @@ body {
 .hamburger:hover {
     color: #fdfdfe;
 }
+
+
+.user-link {
+    color: #4d4d4d;
+}
+
+.second a, .first a, .third a {
+    color: #1b78d0;
+    text-decoration: none;
+}
+
+.podium {
+    width: 600px;
+}
+
+.podium .first {
+    width: 40%;
+    font-size: 1.9em;
+}
+
+.podium .second {
+    font-size: 1.6em;
+    width: 29%;
+}
+
+.podium .third {
+    font-size: 1.6em;
+    width: 27%;
+}
+
+.podium>div {
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.podium .first .trophy {
+    height: 9em;
+    width: 7.7em;
+    background-image: url(../img/lichess-massive.svg);
+}
+
+.podium .second .trophy {
+    height: 9em;
+    width: 6.6em;
+    background-image: url(../img/lichess-silver-1.svg);
+}
+
+.podium .third .trophy {
+    height: 7em;
+    width: 6.6em;
+    background-image: url(../img/lichess-bronze-2.svg);
+}
+
+.podium .trophy {
+    margin: 0 auto .5em auto;
+    background: center / contain no-repeat;
+}
+
+
+table, tbody, tfoot, thead, tr, th, td {
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: middle;
+    text-align: inherit;
+}
+
+.podium .stats {
+    margin: .5em auto 0 auto;
+    font-size: .7em;
+}
+
+.podium .stats td {
+    font-weight: bold;
+    padding-left: 5px;
+    text-align: right;
+}
+
+.podium .stats th {
+    letter-spacing: -1px;
+    text-align: left;
+}
+
+
+td, th {
+    display: table-cell;
+}
