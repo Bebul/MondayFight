@@ -179,3 +179,13 @@ table, tbody, tfoot, thead, tr, th, td {
 td, th {
     display: table-cell;
 }
+
+.lImg {
+    float: left;
+    margin: 5px 5px 5px 0px;
+}
+
+.rImg {
+   float: right;
+   margin: 5px 0px 5px 5px;
+}
