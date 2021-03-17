@@ -309,6 +309,7 @@ function gameListData(games) {
     let row = {
       "id": g.id,
       "date": date,
+      "speed": g.speed,
       "url": "https://lichess.org/" + g.id,
       "white": g.players.white.user.name,
       "black": g.players.black.user.name,
@@ -339,6 +340,7 @@ function createGameListTable(gamesData, tableId, addDate, noStats) {
   }
   columnsAr = columnsAr.concat([
     {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
+    {title: "speed", field: "speed", resizable:false, align: "center"},
     {title: "white", field: "white", resizable:false, formatter: detectWhiteWinner},
     {title: "black", field: "black", resizable:false, formatter: detectBlackWinner},
     {title: "result", field: "result", resizable:false, align: "center"},

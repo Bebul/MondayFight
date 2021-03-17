@@ -141,7 +141,7 @@ function filterFights() {
 
   let filtered = [];
   jouzoleanAndBebulsTournaments.forEach(fight => {
-    if (playersCountWhoPlayed(fight)>3 && fight.fullName.toLowerCase().includes("fight")) filtered.push(fight);
+    if (playersCountWhoPlayed(fight)>3 && fight.fullName.toLowerCase().includes("fight") && fight.perf.name.toLowerCase()==="blitz") filtered.push(fight);
   })
   return filtered;
 }

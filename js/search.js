@@ -25,7 +25,7 @@ function searchGames(fights, tokens) {
 }
 
 function processSearch(searchStr) {
-  let theFights = mondayFights
+  let theFights = jouzoleanAndBebulsTournaments
   // RegEx manual:
   //    (?<=y)x ... Lookbehind assertion: Matches "x" only if "x" is preceded by "y". But only x is part of match, the y not.
   //    x(?=y) .... Lookahead assertion: Matches "x" only if "x" is followed by "y". But y is not part of match, only x is.
