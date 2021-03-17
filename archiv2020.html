@@ -46,7 +46,7 @@
     </div>
 
     <div class="article first">
-        <h1>Legenda k tabulkám</h1>
+        <h1>Jouzocoins-Board roku 2020</h1>
         <ul>
             <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
             <li><b>Score</b> je součet uhraného skóre.
@@ -57,39 +57,40 @@
         </ul>
     </div>
 
-<h1>Posledních 10 turnajů</h1>
-<div id="last10"></div>
+    <h1>Posledních 10 turnajů</h1>
+    <div id="last10"></div>
 
-<h1>Aktuální sezóna 2021</h1>
-<div id="mondayFightsLeaderboard"></div>
+    <h1>Kompletní rok 2020</h1>
+    <div id="mondayFightsLeaderboard"></div>
 
-<div id="adminStuff" style="display: none">
-    <hr>
-    The following should contain downloaded <b>performances</b> for each player:
-    <pre id="updated"></pre>
+    <div class="article">
+        <h1>Závěrečný PlayOFF turnaj</h1>
+        <p>Na závěr roku se uskutečnil turnaj, kde se deset hráčů z čela tabulky utkalo ve vyřazovacích turnajích.
+            Hrálo se v <b><i>MondayFight</i></b> tempu 3+2, vždy 6 partií. Pokud boj skončil nerozhodně,
+            pokračovalo se dvěma Bullet partiemi v tempu 2+1. Partie se hrály v různé dny a těšily se velkému zájmu
+            ostatních hráčů. Zvlášť bujaře sledované bylo utkání RychlehoLenochoda s Travinho, které skončilo až bulletovým rozstřelem.
+        <p> Matche nebyly hrány v turnaji, proto je nelze v systému těchto webových stránek dohledat.
+        <p> Na připomínky bebula a mozkomora, že by se slušelo hráče spárovat tak,
+            aby se mohlo udát finále DJ-Pesce s Bukowskicem nebyl brán zřetel. Bébul se turnaje dlouho nechtěl zúčastnit, ale nakonec
+            urputnému Jouzoleanovu bombardování po paralelní domluvě od mozkomora podlehl.
+         <p>Soudě podle akademických soudů whatsAppera Jouzoleana bylo jasné, že DJ-Pesec všechny snadno porazí a ukáže Bukowskic,
+            kdo je ve skutečnosti Monday Fight šampion. Jenže, navzdory tomuto očekávání, Bukowskic potvrdil svou extratřídu a udělal
+            jedněm grandiozní radost a druhé tuze zarmoutil, když DJ-Pescovi dovolil jen půl bodu.
+            Škoda toho blunderu ve vyhrané koncovce, kdyby to bylo 4-0, povýšili bychom radost grandiozní na gargantuelovskou,
+            na což ovšem finálové 4-0 proti Jouzoleanovi nestačí.
+        <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+        <p>
+            <img src="img/grats-champion.jpg" width=100%>
 
-    <hr>
-    <pre id="finalJson">Tady se za chvíli objeví downloadované turnaje.</pre>
-
-    <hr>
-
-    <h2>Seznam her z posledního Monday Fight</h2>
-    <button type="button" onclick="loadDoc()">Request data</button>
-    <pre id="demoRequest"></pre>
-
-    <hr>
-
-    <pre id="gamesJson"></pre>
-
-    <p id="demo"></p>
-</div>
-
+        <p>
+            <img src="img/turnajPavouk.jpg" style="max-width:1900px; width:1500px">
+    </div>
 </div>
 
 <script>
-  let the2021 = filterYear(mondayFights, 2021)
-  createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins for 2021
-  createPlayersTable(last10(mondayFights), "#last10", false)
+  let the2020 = filterYear(mondayFights, 2020)
+  createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
+  createPlayersTable(last10(the2020), "#last10", true)
 </script>
 
 </br>

@@ -116,7 +116,7 @@ async function downloadMissingTournaments(fights, users) {
 
     let tableAll = allMyTables.get("#mondayFightsLeaderboard")
     if (tableAll !== undefined) {
-      let theFights = year2021(mondayFights)
+      let theFights = filterYear(mondayFights, 2021)
       tableAll.setColumns(generatePlayersTableColumns(theFights))
       tableAll.setData(getDataOfPlayers(theFights))
     }

@@ -629,9 +629,9 @@ function last10(theFights) {
   return filtered;
 }
 
-function year2021(theFights) {
+function filterYear(theFights, year) {
   return Array.from(theFights).filter(fight => {
       let date = new Date(fight.startsAt);
-      return date.getFullYear() >= 2021
+      return date.getFullYear() == year
   })
 }
