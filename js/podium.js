@@ -4,7 +4,7 @@ function percent(num) {
   return Math.round(100 * num) + "%"
 }
 
-function getPlayerPodiumHTML(gambler) {
+function getPlayerPodiumHTML(gambler, showBullet = false) {
   let place = placeTxt[gambler.rank]
   let player = gambler.name
   let elo = gambler.rating
@@ -12,8 +12,14 @@ function getPlayerPodiumHTML(gambler) {
   let games = gambler.nb.game
   let winRate = percent(gambler.nb.win / gambler.nb.game)
   let berserkRate = percent(gambler.nb.berserk / gambler.nb.game)
+  let bulletPistol = ""
+  if (showBullet) {
+    bulletPistol = `<img src="img/westernPistol.png" style="position:absolute; right:0px; top:50px; width:70%">`
+  }
   let html = `<div class="${place}">
-  <div class="trophy"></div>
+  <div class="trophy" style="position:relative;overflow:visible">
+    ${bulletPistol}
+  </div>
   <a class="text user-link" href = "https://lichess.org/@/${player}">${player}</a>
   <table class="stats">
     <tr><th>ELO</th><td>${elo}</td></tr>
@@ -28,10 +34,12 @@ function getPlayerPodiumHTML(gambler) {
 
 function getPodiumHTML(tournament) {
   let podium = tournament.podium
-  let first = getPlayerPodiumHTML(podium[0])
+  let showBullet = tournament.perf.name.toLowerCase()=="bullet"
+  let first = getPlayerPodiumHTML(podium[0], showBullet)
   let second = getPlayerPodiumHTML(podium[1])
   let third = getPlayerPodiumHTML(podium[2])
   let html = second + first + third
+  html = html
   return html
 }
 
