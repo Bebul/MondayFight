@@ -7,9 +7,13 @@
     <title>"Monday Fight Tournaments on Lichess"</title>
 
     <script type="text/javascript" src="js/minimal.js"></script>
+    <script src="./lib/pgnv.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
+    <style>
+        .moves {height: 700px}
+    </style>
 </head>
 
 <body>
@@ -46,7 +50,36 @@
         <div><img src="img/tlama-animate2.gif"></div>
     </div>
 
-</div>
+    <div class="article">
 
+        <div id='board'></div>
+        <script>
+          config = {
+            "pgn":"[Result \"1-0\"] [White \"Adolf Anderssen\"] [Black \"Dufresne\"]1.e4 e5 2.Nf3 Nc6 3.Bc4 Bc5 4.b4 { This is the Evan's Gambit in the Giuco Piano, a violent opening leading to attacks that was popular in Anderssen's time. } 4...Bxb4 { Accepting gambits was a manly thing to do } 5.c3 Ba5 6.d4 { Gaining more time } 6...exd4 7.O-O d3D { Wasting time } 8.Qb3 { Threatening Bxf7 } 8...Qf6 9.e5 Qg6 { Black does not capture because he would open the e-file } 10.Re1!D Nge7 11.Ba3 b5 { Trying to counterattack?! } 12.Qxb5 Rb8 13.Qa4 Bb6\r\n            14.Nbd2 Bb7 15.Ne4 Qf5 { Note that the king is still stuck in the center } 16.Bxd3 { Threatening a discovery with Nd6+, winning the queen } 16...Qh5\r\n          17.Nf6+ { Forces a capture of the knight. After gxf6 exf6, white rooks will be able to attack down the e-file at blacks exposed king. That is why you have to castle early! }\r\n          17...gxf6 18.exf6 Rg8 19.Rad1!D { Getting another rook in the fight. } 19...Qxf3 { Oh no! Black threatens mate by Qxg2 and the g pawn is pinned. }\r\n          20.Rxe7+ Nxe7 { Forced checkmate for white now } 21.Qxd7+!!D { White has to keep on checking since black is threatening mate. } 21...Kxd7 ( 21...Kf8 22.Qxe7# )\r\n          22.Bf5+ { The king has to move because of double check } 22...Ke8 { Now can you see it? } ( 22...Kc6 { allows an immediate } 23.Bd7# ) 23.Bd7+ Kf8 ( { or } 23...Kd8 )\r\n          24.Bxe7#D { Mate!! }  1-0",
+            "position":"start",
+            "showCoords":false,
+            "orientation":"white",
+            "theme":"brown",
+            "pieceStyle":"wikipedia",
+            "locale":"cs",
+            "timerTime":"",
+            "layout":"top",
+            "movesWidth":"400px",
+            "movesHeight":"700px",
+            "showFen":false,
+            "coordsInner":true,
+            "headers":true,
+            "coordsFactor":"1.0",
+            "colorMarker":"",
+            "startPlay":"",
+            "hideMovesBefore":true,
+            "notation":"short"
+          };
+          PGNV.pgnView('board', config);
+        </script>
+
+    </div>
+
+</div>
 </body>
 </html>
