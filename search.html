@@ -54,7 +54,8 @@
         <b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
         Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
         kde on nebo protihráč skončil takto neslavně. Ano, i on :-) Pokud chcete partie, které skončily matem, je lépe pužít <b>status:mate</b>, protože samotné <b>mate</b> vypíše i všechny Matesy.
-        Kritéria, která naopak nesmí být splněna, začínají znakem mínus <b>-</b>, např.:<b>-berserk</b> nebo <b>-noStart</b> nebo si zakázat nějakého hráče přes <b>-lenochod</b>.
+        Kritéria, která naopak nesmí být splněna, začínají znakem mínus <b>-</b>, např.:<b>-berserk</b> nebo <b>-noStart</b>.
+        Dvojtečkové užitečné jsou: <b>status:mate white:bebul black:bebul date:2021/06 winner:bebul loser:bebul</b>
         <br>
 
         <div style="margin: 10px 0 0 0">
@@ -62,6 +63,7 @@
             <pre style="margin: 0px">
   bebul jouzolean gambit accepted
   travinho Bxf7+
+  "englund gambit" -black:dj-pesec
   winner:bebul winner:white
   date:2021/06/14 berserk
   "e4 e5 f4 exf4 Nf3 Nf6 e5 Nd5"
@@ -77,7 +79,7 @@
 
         <div style="margin: 10px 0">
             <div>Zadejte, prosím, svá ctěnná kritéria:
-                <input type="text" id="searchInput" value="bebul jouzolean winner:bebul" style="width:100%">
+                <input type="text" id="searchInput" value="jouzolean winner:bebul black:bebul" style="width:100%">
                 <br>
                 <button id="searchButton" onclick="onSearchClicked()">Hledej šmudlo, hledej</button>
             </div>
@@ -98,7 +100,7 @@
 
   let url = new URL(window.location.href)
   let searchParam = url.searchParams.get("q")
-  if (searchParam === null) searchParam = "bebul jouzolean winner:bebul"
+  if (searchParam === null) searchParam = "jouzolean winner:bebul black:bebul"
   document.getElementById("searchInput").value = searchParam
 
   let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)

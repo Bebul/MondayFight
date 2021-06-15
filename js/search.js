@@ -38,7 +38,9 @@ function searchGames(fights, tokens) {
         let appended = {
           date: [date.getFullYear().padLeft(), (date.getMonth()+1).padLeft(), date.getDate().padLeft()].join('/'),
           winner: winnerName,
-          loser: loserName
+          loser: loserName,
+          white: game.players.white.user.name,
+          black: game.players.black.user.name
         }
         stringBuilder.push(
           ` `,
