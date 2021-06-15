@@ -7,11 +7,48 @@ function initSearch() {
   const admin = urlParams.get('bebul')!=null
 }
 
+function movesToArrayOfFen(moves) {
+  let chess = new Chess()
+  return moves.split(" ").map(function(move) {
+    chess.move(move);
+    return chess.fen();
+  });
+}
+
+function movesContainFen(moves, fen) {
+  // Extract the move number and replay the game only until the correct plyes
+  let mnReq = (/ (\d+)$/g.exec(fen))[1]
+  let movesAr = moves.split(" ")
+  if (movesAr.length >= 2*mnReq-2) {
+    let chess = new Chess()
+    let num = 0
+    let found = false
+    for (i = 0; i < Math.min(movesAr.length, 2*mnReq-1); i++) {
+      chess.move(movesAr[i])
+      if (i == 2*mnReq-3 || i == 2*mnReq-2) {
+        let moveFEN = chess.fen()
+        found = found || moveFEN==fen;
+      }
+    }
+    return found
+  }
+/*
+  // The following is Extremely slow
+  return moves.split(" ").find(function(move) {
+    chess.move(move);
+    let moveFEN = chess.fen()
+    return moveFEN==fen;
+  });
+ */
+}
+
 function searchGames(fights, tokens) {
   let selectedGames = []
 
-  let tokensYes = tokens.filter(token => token[0]!='-')
-  let tokensNo = tokens.filter(token => token[0]==='-').map(token => token.substring(1))
+  let tokensLow = tokens.map(token => token.toLowerCase())
+  let fen = tokens.find(token => token.toLowerCase().startsWith("fen:"))
+  let tokensYes = tokensLow.filter(token => token[0]!='-').filter(token => !token.startsWith("fen:"))
+  let tokensNo = tokensLow.filter(token => token[0]==='-').map(token => token.substring(1))
 
   Number.prototype.padLeft = function(base,chr){
     var  len = (String(base || 10).length - String(this).length)+1;
@@ -56,8 +93,12 @@ function searchGames(fights, tokens) {
         let existsTokenNo = tokensNo.find(token => {
           return (jsonGame.indexOf(token) >= 0)
         })
+
         if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
-          selectedGames.push(game)
+          if (fen) {
+            let theFen = fen.substring(4)
+            if(movesContainFen(game.moves, theFen)) selectedGames.push(game)
+          } else selectedGames.push(game)
         }
       })
     }
@@ -77,7 +118,7 @@ function searchStrintToTokens(searchStr) {
   // const regex = /(?<=\")[^\"]*(?=\")|[^\" ]+/g;
 
   const regex = /(\"[^\"]*\")|[^\" ]+/g;
-  const tokens = searchStr.toLowerCase().match(regex).map(token => {
+  const tokens = searchStr.match(regex).map(token => {
     let insideQ = token.match(/\"([^\"]*)\"/)
     if (insideQ != null) return insideQ[1]
     else return token
