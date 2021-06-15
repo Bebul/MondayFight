@@ -19,6 +19,8 @@
     <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
+    <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
 
@@ -51,7 +53,7 @@
     <div class="article first">
         <b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
         Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
-        kde on nebo protihráč skončil takto neslavně. Ano, i on :-)
+        kde on nebo protihráč skončil takto neslavně. Ano, i on :-) Pokud chcete partie, které skončily matem, je lépe pužít <b>status:mate</b>, protože samotné <b>mate</b> vypíše i všechny Matesy.
         <br>
 
         <div style="margin: 10px 0 0 0">
@@ -59,19 +61,21 @@
             <pre style="margin: 0px">
   bebul jouzolean gambit accepted
   travinho Bxf7+
+  winner:bebul winner:white
+  date:2021/06/14 berserk
   "e4 e5 f4 exf4 Nf3 Nf6 e5 Nd5"
   "Zukertort Variation"
-  bebul travinho scandi
   nostart
   jouzolean f7#
   bukowskic stalemate
+  date:2021 loser:jouzolean caro-kann winner:white status:mate
   =R
             </pre>
         </div>
 
         <div style="margin: 10px 0">
             <div>Zadejte, prosím, svá ctěnná kritéria:
-                <input type="text" id="searchInput" value="mozkomor 1=Q" style="width:100%">
+                <input type="text" id="searchInput" value="bebul jouzolean winner:bebul" style="width:100%">
                 <br>
                 <button id="searchButton" onclick="onSearchClicked()">Hledej šmudlo, hledej</button>
             </div>
@@ -89,7 +93,17 @@
 
 <script>
   //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-  createGameListTable(gameListData(searchGames(mondayFights, ["mozkomor", "1=q"])), "#gameListTable", true)
+
+  let url = new URL(window.location.href)
+  let searchParam = url.searchParams.get("q")
+  if (searchParam === null) searchParam = "bebul jouzolean winner:bebul"
+  document.getElementById("searchInput").value = searchParam
+
+  let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)
+  History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
+
+  let tokens = searchStrintToTokens(searchParam)
+  createGameListTable(gameListData(searchGames(jouzoleanAndBebulsTournaments, tokens)), "#gameListTable", true)
 
   var input = document.getElementById("searchInput");
   input.addEventListener("keyup", function(event) {
@@ -97,6 +111,11 @@
       event.preventDefault();
       document.getElementById("searchButton").click();
     }
+  });
+
+  History.Adapter.bind(window,'statechange',function(){
+    var query = History.getState().data['q'];
+    console.log("state changed: " + query)
   });
 
 </script>
