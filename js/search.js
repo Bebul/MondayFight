@@ -10,6 +10,9 @@ function initSearch() {
 function searchGames(fights, tokens) {
   let selectedGames = []
 
+  let tokensYes = tokens.filter(token => token[0]!='-')
+  let tokensNo = tokens.filter(token => token[0]==='-').map(token => token.substring(1))
+
   Number.prototype.padLeft = function(base,chr){
     var  len = (String(base || 10).length - String(this).length)+1;
     return len > 0? new Array(len).join(chr || '0')+this : this;
@@ -44,10 +47,16 @@ function searchGames(fights, tokens) {
         let jsonGame = stringBuilder.join("")
           .toLowerCase()
           .replace(/"/g, '')
-        let found = tokens.find(token => {
+
+        let foundUnsatisfiedTokenYes = tokensYes.find(token => {
           return (jsonGame.indexOf(token) < 0)
         })
-        if (found === undefined) selectedGames.push(game)
+        let existsTokenNo = tokensNo.find(token => {
+          return (jsonGame.indexOf(token) >= 0)
+        })
+        if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
+          selectedGames.push(game)
+        }
       })
     }
   })
