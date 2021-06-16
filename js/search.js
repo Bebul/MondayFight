@@ -15,19 +15,20 @@ function movesToArrayOfFen(moves) {
   });
 }
 
+var mfChess = new Chess() // global, to avoid initialization again and again. mfChess.reset() is used instead
 function movesContainFen(moves, fen) {
   // Extract the move number and replay the game only until the correct plyes
   let mnReq = (/ (\d+)$/g.exec(fen))[1]
   let movesAr = moves.split(" ")
   if (movesAr.length >= 2*mnReq-2) {
-    let chess = new Chess()
+    mfChess.reset()
     let num = 0
     let found = false
     for (i = 0; i < Math.min(movesAr.length, 2*mnReq-1); i++) {
-      chess.move(movesAr[i])
-      if (i == 2*mnReq-3 || i == 2*mnReq-2) {
-        let moveFEN = chess.fen()
-        found = found || moveFEN==fen;
+      mfChess.move(movesAr[i])
+      if (i === 2*mnReq-3 || i === 2*mnReq-2) {
+        let moveFEN = mfChess.fen()
+        found = found || moveFEN===fen;
       }
     }
     return found
