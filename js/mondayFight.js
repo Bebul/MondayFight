@@ -256,7 +256,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
 // Parse.pgn demo
 function loadDoc() {
 
-  downloadMissingTournamentGames()
+  gamesDownloaderAPI().downloadMissingTournamentGames()
 
   /*
   let xhttp = new XMLHttpRequest();
@@ -560,9 +560,19 @@ function init() {
     });
     text += "</table>";
 
+    text += "      <div style=\"margin: 10px 0\">\n" +
+      "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
+      "                <input type=\"text\" id=\"tournamentDwnlID\" style=\"width:100%\">\n" +
+      "                <br>\n" +
+      "                <button id=\"dwnl\" onclick=\"onDwnlTournamentClicked()\">Download</button>\n" +
+      "            </div>\n" +
+      "        </div>\n" +
+      "  <hr><pre id='tournamentDwnlResult'>Tady se objeví výsledek downloadu</pre>" +
+      "  <hr><pre id='tournamentGamesResult'>Tady se objeví výsledek downloadu her</pre>"
+
     document.getElementById("demo").innerHTML = text;
 
-    downloadMissingTournaments(allFights, ["bebul","Jouzolean"])
+    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing()
   }
 }
 
