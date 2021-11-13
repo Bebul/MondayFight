@@ -189,3 +189,94 @@ td, th {
    float: right;
    margin: 5px 0px 5px 5px;
 }
+
+.results {
+    width: 600px;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.tour__standing {
+  /*font-family: 'Noto Sans', Sans-Serif;*/
+  /*border: 1px solid black;*/
+    vertical-align: middle;
+}
+
+.results table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tour__standing .sheet {
+    text-align: right;
+    padding-right: 0;
+    padding-left: 0;
+    letter-spacing: 0.1em;
+}
+
+.slist {
+    width: 500px;
+    vertical-align: middle;
+    margin: 0 auto;
+}
+
+.slist td {
+    padding: 0.2rem;
+}
+
+.user-link {
+    color: #4d4d4d;
+}
+
+.tour__standing .player .user-link {
+    align-items: center;
+    color: #1b78d0;
+}
+
+.tour__standing .player .name {
+    display: inline-block;
+    padding-right: 5px;
+    max-width: 140px;
+}
+
+.tour__standing .user-link .rating {
+    display: inline-block;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.tour__standing .sheet score {
+    opacity: 0.7;
+}
+
+.tour__standing .sheet>* {
+    display: inline-block;
+}
+
+.tour__standing streak {
+    color: #629924;
+}
+
+.tour__standing double {
+    color: #d59020;
+}
+
+.tour__standing .total {
+    text-align: right;
+    font-weight: bold;
+    padding-left: 2vmin;
+}
+
+.tour__standing .rating-diff {
+    text-align: right;
+    padding-right: 2vmin;
+}
+
+.tour__standing .rating-diff loss {
+    color: red;
+}
+
+.tour__standing .rating-diff win {
+    color: green;
+}
+
