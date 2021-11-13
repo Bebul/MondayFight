@@ -88,7 +88,7 @@
   let games = tournamentGames[currentGameListTableIx]
   let gamesData = gameListData(games)
   createPodium(games.id)
-  createResults(games.id, gamesData)
+  createResults(games.id, games)
   createTournamentInfo(games.id)
   createGameListTable(gamesData, "#gameListTable", false)
 </script>

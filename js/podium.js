@@ -95,6 +95,23 @@ function createTournamentInfo(tournamentID, id="info") {
   }
 }
 
+function ratingDiffTag(player, games) {
+  let initialRating = player.rating
+  for (i=games.games.length-1; i>=0; i--) {
+    let players = games.games[i].players
+    if (players.white.user.name === player.name) {
+      initialRating = players.white.rating
+      break
+    } else if (players.black.user.name === player.name) {
+      initialRating = players.black.rating
+      break
+    }
+  }
+  let diff = player.rating - initialRating
+  if (diff < 0) return `<loss>${diff}</loss>`
+  else return `<win>+${diff}</win>`
+}
+
 function createResults(tournamentID, gamesData, id = "results") {
   let tournament = findTournament(tournamentID)
   if (tournament!=undefined) {
@@ -123,6 +140,7 @@ function createResults(tournamentID, gamesData, id = "results") {
       )
         html = html + `</td>
 <td class="total"><strong>${player.score}</strong></td>
+<td class="rating-diff">${ratingDiffTag(player, gamesData)}</td>
 `
 
       html = html + "</tr>"
@@ -141,7 +159,7 @@ function nextTournament(diff=1) {
   let gameData = gameListData(games)
 
   createPodium(games.id)
-  createResults(games.id, gameData)
+  createResults(games.id, games)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
