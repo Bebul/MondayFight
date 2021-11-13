@@ -70,6 +70,8 @@
     <div style="position: absolute; margin-top: -35px">
         <div id="podium" class="podium">
         </div>
+        <div id="results" class="results">
+        </div>
         <div id="info">
         </div>
 
@@ -84,9 +86,11 @@
 
 <script>
   let games = tournamentGames[currentGameListTableIx]
+  let gamesData = gameListData(games)
   createPodium(games.id)
+  createResults(games.id, games)
   createTournamentInfo(games.id)
-  createGameListTable(gameListData(games), "#gameListTable", false)
+  createGameListTable(gamesData, "#gameListTable", false)
 </script>
 
 </body>

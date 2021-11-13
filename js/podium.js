@@ -95,6 +95,62 @@ function createTournamentInfo(tournamentID, id="info") {
   }
 }
 
+function ratingDiffTag(player, games) {
+  let initialRating = player.rating
+  for (i=games.games.length-1; i>=0; i--) {
+    let players = games.games[i].players
+    if (players.white.user.name === player.name) {
+      initialRating = players.white.rating
+      break
+    } else if (players.black.user.name === player.name) {
+      initialRating = players.black.rating
+      break
+    }
+  }
+  let diff = player.rating - initialRating
+  if (diff < 0) return `<loss>${diff}</loss>`
+  else return `<win>+${diff}</win>`
+}
+
+function createResults(tournamentID, gamesData, id = "results") {
+  let tournament = findTournament(tournamentID)
+  if (tournament!=undefined) {
+    let el = document.getElementById(id)
+
+    let htmlBegin = '<table class="slist tour__standing"><tbody>'
+
+    let htmlEnd = '</tbody></table>'
+    let html = ''
+
+    tournament.standing.players.forEach( function(player) {
+        html = html + `<tr><td = class="rank">${player.rank}</td>
+<td class="player">
+  <a class="user-link" href="https://lichess.org/@/${player.name}">
+    <span class="name">${player.name}</span><span class="rating">${player.rating}</span>
+  </a>
+</td>
+<td class="sheet">
+`
+      player.sheet.scores.forEach(function(score) {
+          if (Array.isArray(score)) {
+            if (score[1] > 2) html = html + `<double>${score[0]}</double>`
+            else html = html + `<streak>${score[0]}</streak>`
+          } else html = html + `<score>${score}</score>`
+        }
+      )
+        html = html + `</td>
+<td class="total"><strong>${player.score}</strong></td>
+<td class="rating-diff">${ratingDiffTag(player, gamesData)}</td>
+`
+
+      html = html + "</tr>"
+      }
+    )
+
+    el.innerHTML = htmlBegin + html + htmlEnd
+  }
+}
+
 function nextTournament(diff=1) {
   currentGameListTableIx += diff
   currentGameListTableIx = Math.max(Math.min(currentGameListTableIx, tournamentGames.length - 1),0)
@@ -103,6 +159,7 @@ function nextTournament(diff=1) {
   let gameData = gameListData(games)
 
   createPodium(games.id)
+  createResults(games.id, games)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
