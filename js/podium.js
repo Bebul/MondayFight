@@ -147,8 +147,35 @@ function createResults(tournamentID, gamesData, id = "results") {
       }
     )
 
-    el.innerHTML = htmlBegin + html + htmlEnd
+   el.innerHTML = htmlBegin + html + htmlEnd
   }
+}
+
+function fastestMateBoard(gamesData, fastMateId = "fastMateBoard") {
+  let fastestMate = gamesData.games.reduce(function(minGame, game) {
+      if (minGame.status !== "mate") return game
+      else if (game.status !== "mate") return minGame
+      let minMoves = minGame.moves.split(" ").length
+      let moves = game.moves.split(" ").length
+      if (moves < minMoves) return game
+      else return minGame
+    }
+  )
+  let mfChess = new Chess()
+  let moves = fastestMate.moves.split(" ")
+  moves.forEach((move) => mfChess.move(move))
+
+  let config = {
+    pgn: `[White \"${fastestMate.players.white.user.name}\"]
+[Black \"${fastestMate.players.black.user.name}\"]
+${fastestMate.moves}
+`,
+    coordsInner: false, headers: true,
+    theme: 'brown',
+    startPlay: `${moves.length}`
+  }
+
+  PGNV.pgnView(fastMateId, config)
 }
 
 function nextTournament(diff=1) {
@@ -160,6 +187,7 @@ function nextTournament(diff=1) {
 
   createPodium(games.id)
   createResults(games.id, games)
+  fastestMateBoard(games)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)

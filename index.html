@@ -28,6 +28,9 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script src="chess.js/chess.js"></script>
+    <script src="./lib/pgnv.js" type="text/javascript"></script>
+
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
@@ -74,6 +77,12 @@
         </div>
         <div id="info">
         </div>
+        <div class="results">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Nejrychlejší MAT turnaje</h2>
+                <div id="fastMateBoard"></div>
+            </div>
+        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
@@ -90,6 +99,7 @@
   createPodium(games.id)
   createResults(games.id, games)
   createTournamentInfo(games.id)
+  fastestMateBoard(games)
   createGameListTable(gamesData, "#gameListTable", false)
 </script>
 
