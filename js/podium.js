@@ -161,7 +161,8 @@ function fastestMateBoard(gamesData, fastMateId = "fastMateBoard") {
       else return minGame
     }
   )
-  let mfChess = new Chess()
+  let fen = fastestMate.initialFen
+  let mfChess = new Chess(fen) // maybe undefined, which is ok
   let moves = fastestMate.moves.split(" ")
   moves.forEach((move) => mfChess.move(move))
 
@@ -174,6 +175,7 @@ ${fastestMate.moves}
     theme: 'brown',
     startPlay: `${moves.length}`
   }
+  if (fen) config.position = `${fen}`
 
   PGNV.pgnView(fastMateId, config)
 }
