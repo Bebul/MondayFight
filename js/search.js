@@ -7,8 +7,8 @@ function initSearch() {
   const admin = urlParams.get('bebul')!=null
 }
 
-function movesToArrayOfFen(moves) {
-  let chess = new Chess()
+function movesToArrayOfFen(initialPosition, moves) {
+  let chess = new Chess(initialPosition)
   return moves.split(" ").map(function(move) {
     chess.move(move);
     return chess.fen();
@@ -16,19 +16,26 @@ function movesToArrayOfFen(moves) {
 }
 
 var mfChess = new Chess() // global, to avoid initialization again and again. mfChess.reset() is used instead
-function movesContainFen(moves, fen) {
+function movesContainFen(initialPosition, moves, fen) {
   // Extract the move number and replay the game only until the correct plyes
-  let mnReq = (/ (\d+)$/g.exec(fen))[1]
+  let mnReqEx = /(.*) (\S+) (\d+) (\d+)$/g.exec(fen)
+  let mnReq = mnReqEx[4]
+  let fenToEnPassant = mnReqEx[1]
   let movesAr = moves.split(" ")
   if (movesAr.length >= 2*mnReq-2) {
-    mfChess.reset()
+    let sh = 0
+    if (initialPosition) {
+      mfChess.load(initialPosition)
+      sh = (/ (\d+)$/g.exec(initialPosition))[1]
+    }
+    else mfChess.reset()
     let num = 0
     let found = false
     for (i = 0; i < Math.min(movesAr.length, 2*mnReq-1); i++) {
       mfChess.move(movesAr[i])
-      if (i === 2*mnReq-3 || i === 2*mnReq-2) {
+      if (i+sh >= 2*mnReq-3) {
         let moveFEN = mfChess.fen()
-        found = found || moveFEN===fen;
+        found = found || moveFEN.startsWith(fenToEnPassant);
       }
     }
     return found
@@ -98,7 +105,7 @@ function searchGames(fights, tokens) {
         if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
           if (fen) {
             let theFen = fen.substring(4)
-            if(movesContainFen(game.moves, theFen)) selectedGames.push(game)
+            if(movesContainFen(game.initialFen, game.moves, theFen)) selectedGames.push(game)
           } else selectedGames.push(game)
         }
       })
