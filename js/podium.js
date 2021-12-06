@@ -175,7 +175,8 @@ ${fastestMate.moves}
     theme: 'brown',
     startPlay: `${moves.length}`
   }
-  if (fen) config.position = `${fen}`
+  if (fen) config.position = fen
+  config.orientation = fastestMate.winner
 
   PGNV.pgnView(fastMateId, config)
 }
