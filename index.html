@@ -83,6 +83,12 @@
                 <div id="fastMateBoard"></div>
             </div>
         </div>
+        <div class="results" id="surpriseGameId">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Překvapení turnaje</h2>
+                <div id="surpriseGameBoard"></div>
+            </div>
+        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
@@ -100,6 +106,7 @@
   createResults(games.id, games)
   createTournamentInfo(games.id)
   selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
+  selectGame(games, "surpriseGameId", "surpriseGameBoard", biggestDifferenceWinSelector)
   createGameListTable(gamesData, "#gameListTable", false)
 </script>
 

@@ -161,6 +161,20 @@ function fastestMateSelector(minGame, game) {
   } else return game
 }
 
+function biggestDifferenceWinSelector(minGame, game) {
+  function getRatingDiff(game) {
+    let ratingDiff = game.players.white.rating - game.players.black.rating
+    if (game.winner === "black") ratingDiff = -ratingDiff
+    return ratingDiff
+  }
+  let ratingDiff = getRatingDiff(game)
+  if (!game.winner || game.status === "noStart" || ratingDiff > -100) return minGame
+  let minGameDiff = -100 // more than 100 diff is necessary for display
+  if (minGame !== null) minGameDiff = getRatingDiff(minGame)
+  if (ratingDiff < minGameDiff) return game
+  else return minGame
+}
+
 function selectGame(gamesData, hideId, boardId, selector) {
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
   if (selectedGame !== null) {
@@ -199,6 +213,7 @@ function nextTournament(diff=1) {
   createPodium(games.id)
   createResults(games.id, games)
   selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
+  selectGame(games, "surpriseGameId", "surpriseGameBoard", biggestDifferenceWinSelector)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
