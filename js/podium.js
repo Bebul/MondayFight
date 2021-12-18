@@ -185,11 +185,11 @@ function selectGame(gamesData, hideId, boardId, selector) {
     moves.forEach((move) => mfChess.move(move))
 
     let config = {
-      pgn: `[White \"${selectedGame.players.white.user.name}\"]
-[Black \"${selectedGame.players.black.user.name}\"]
+      pgn: `[White \"${selectedGame.players.white.user.name} ${selectedGame.players.white.rating}\"]
+[Black \"${selectedGame.players.black.user.name} ${selectedGame.players.black.rating}\"]
 ${selectedGame.moves}
 `,
-      coordsInner: false, headers: true,
+      showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
       startPlay: `${moves.length}`
     }
