@@ -94,6 +94,12 @@
                 <div id="surpriseGameBoard"></div>
             </div>
         </div>
+        <div class="results" id="fastestId">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Nejrychlejší hra</h2>
+                <div id="fastestBoard"></div>
+            </div>
+        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
@@ -120,8 +126,7 @@
   createPodium(games.id)
   createResults(games.id, games)
   createTournamentInfo(games.id)
-  selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
-  sensationGame(games, "surpriseGameId", "surpriseGameBoard")
+  updateSpecialBoards(games)
   createGameListTable(gamesData, "#gameListTable", false)
 </script>
 

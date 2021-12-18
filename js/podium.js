@@ -153,7 +153,7 @@ function createResults(tournamentID, gamesData, id = "results") {
 
 function fastestMateSelector(minGame, game) {
   if (game.status !== "mate") return minGame
-  if (minGame !== null) {
+  if (minGame) {
     let minMoves = minGame.moves.split(" ").length
     let moves = game.moves.split(" ").length
     if (moves < minMoves) return game
@@ -170,14 +170,24 @@ function biggestDifferenceWinSelector(minGame, game) {
   let ratingDiff = getRatingDiff(game)
   if (!game.winner || game.status === "noStart" || ratingDiff > -100) return minGame
   let minGameDiff = -100 // more than 100 diff is necessary for display
-  if (minGame !== null) minGameDiff = getRatingDiff(minGame)
+  if (minGame) minGameDiff = getRatingDiff(minGame)
   if (ratingDiff < minGameDiff) return game
   else return minGame
 }
 
+function fastestGameSelector(minGame, game) {
+  if (game.status === "noStart") return minGame
+  if (minGame) {
+    let minMoves = minGame.moves.split(" ").length
+    let moves = game.moves.split(" ").length
+    if (moves < minMoves) return game
+    else return minGame
+  } else return game
+}
+
 function selectGame(gamesData, hideId, boardId, selector) {
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
-  if (selectedGame !== null) {
+  if (selectedGame) {
     document.getElementById(hideId).style.display = "block";
     let fen = selectedGame.initialFen
     let mfChess = new Chess(fen) // maybe undefined, which is ok
@@ -200,20 +210,30 @@ ${selectedGame.moves}
     return selectedGame
   } else {
     // hide the board when no game was selected
-    document.getElementById(hideId).style.display = "none";
+    document.getElementById(hideId).style.display = "none"
     return null
   }
 }
 
 function sensationGame(games, hideid, boardId) {
   let game = selectGame(games, hideid, boardId, biggestDifferenceWinSelector)
-  if (game !== null) {
+  if (game) {
     if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
     else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
     document.getElementById("senzaceDiff").innerHTML = Math.abs(game.players.white.rating - game.players.black.rating)
   }
+  return game
 }
 
+
+function updateSpecialBoards(games) {
+  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
+  let sensaGame = sensationGame(games, "surpriseGameId", "surpriseGameBoard")
+  let fastestGame = selectGame(games, "fastestId", "fastestBoard", fastestGameSelector)
+  if (fastestGame && (fastestGame === mateGame || fastestGame === sensaGame)) {
+    document.getElementById("fastestId").style.display = "none" // hide it, because it is already shown
+  }
+}
 
 function nextTournament(diff=1) {
   currentGameListTableIx += diff
@@ -227,8 +247,7 @@ function nextTournament(diff=1) {
 
   createPodium(games.id)
   createResults(games.id, games)
-  selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
-  sensationGame(games, "surpriseGameId", "surpriseGameBoard")
+  updateSpecialBoards(games)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
