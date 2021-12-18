@@ -1,150 +1,150 @@
 function playersCountWhoPlayed(fight) {
-  let total = 0;
+  let total = 0
   fight.standing.players.forEach(pl => {
-    if (playedAGame(pl)) total += 1;
+    if (playedAGame(pl)) total += 1
   })
-  return total;
+  return total
 }
 
 function playedAGame(player) {
-  return player.performance !== undefined;
+  return player.performance !== undefined
 }
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined) return undefined;
+  if (player === undefined) return undefined
   return player.rank
 }
 
 function playerScore(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0;
+  if (player === undefined || !playedAGame(player)) return 0
   return player.score
 }
 
 function playerPresence(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0;
+  if (player === undefined || !playedAGame(player)) return 0
   return 1
 }
 
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0;
+  if (player === undefined || !playedAGame(player)) return 0
   return player.performance
 }
 
 function playerPoints(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return [0, 0];
-  let myPts = 0;
-  let opPts = 0;
+  if (player === undefined || !playedAGame(player)) return [0, 0]
+  let myPts = 0
+  let opPts = 0
   player.sheet.scores.forEach( score => {
-    let pts = 0;
+    let pts = 0
     if (Array.isArray(score)) {
-      if (score[0] <= 1) pts = score[0]/2;
+      if (score[0] <= 1) pts = score[0]/2
       else if (score[0] == 2) {
-        if (score[1] == 3) pts = 0.5;
-        else pts = 1;
-      } else pts = 1;
-    } else pts = score / 2;
-    myPts += pts;
-    opPts += 1-pts;
+        if (score[1] == 3) pts = 0.5
+        else pts = 1
+      } else pts = 1
+    } else pts = score / 2
+    myPts += pts
+    opPts += 1-pts
   })
   return [myPts, opPts]
 }
 
 function jouzocoins(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0;
-  let plCount = playersCountWhoPlayed(fight);
-  let rank = player.rank;
-  if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1];
-  else if (rank <= 4) return [10, 7, 5, 3][rank-1];
-  return 1;
+  if (player === undefined || !playedAGame(player)) return 0
+  let plCount = playersCountWhoPlayed(fight)
+  let rank = player.rank
+  if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1]
+  else if (rank <= 4) return [10, 7, 5, 3][rank-1]
+  return 1
 }
 
 function getTotalScore(player, theFights) {
-  let total = 0;
+  let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player) total += pl.score;
+      if (pl.name==player) total += pl.score
     })
   })
-  return total;
+  return total
 }
 
 function getTotalPresence(player, theFights) {
-  let total = 0;
+  let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player && playedAGame(pl)) total += 1;
+      if (pl.name==player && playedAGame(pl)) total += 1
     })
   })
-  return total;
+  return total
 }
 
 function getTotalGames(player, theFights) {
-  let total = 0;
+  let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player) total += pl.sheet.scores.length;
+      if (pl.name==player) total += pl.sheet.scores.length
     })
   })
-  return total;
+  return total
 }
 
 function getTotalPoints(playerName, theFights) {
-  let total = 0;
+  let total = 0
   theFights.forEach( fight => total += playerPoints(fight, playerName)[0] )
-  return total;
+  return total
 }
 
 function getAvgPerformance(playerName, theFights) {
-  let games = getTotalGames(playerName, theFights);
+  let games = getTotalGames(playerName, theFights)
   if (games > 0) {
-    let total = 0;
+    let total = 0
     theFights.forEach(
       fight => {
         let fgames = playerPoints(fight, playerName)[0] + playerPoints(fight, playerName)[1]
         total += playerPerformance(fight, playerName) * fgames
       }
     )
-    return Math.round(total / games);
+    return Math.round(total / games)
   } else return 0
 }
 
 function getTotalJouzocoinsList(playerName, theFights) {
-  let total = [];
+  let total = []
   theFights.forEach(fight => {
     fight.standing.players.forEach( pl => {
-      if (pl.name==playerName) total.push(jouzocoins(fight, playerName));
+      if (pl.name==playerName) total.push(jouzocoins(fight, playerName))
     })
   })
-  return total;
+  return total
 }
 
 function getTotalJouzocoins(playerName, theFights) {
-  let total = 0;
+  let total = 0
   theFights.forEach( fight => total += jouzocoins(fight, playerName) )
-  return total;
+  return total
 }
 
 function getPlayers(theFights) {
-  let playersAr = [];
+  let playersAr = []
   theFights.forEach(fight => {
     fight.standing.players.forEach((player) => {
-      if (!playersAr.includes(player.name)) playersAr.push(player.name);
+      if (!playersAr.includes(player.name)) playersAr.push(player.name)
     })
   })
-  return playersAr;
+  return playersAr
 }
 
 function containsId(fights, id) {
   let ret = false
   fights.forEach(fight => {
     if (fight.id===id) {
-      ret = true;
+      ret = true
       return
     }
   })
@@ -154,8 +154,8 @@ function containsId(fights, id) {
 function addFightsPoints(playerOut, playerName, theFights) {
   var ix = 1
   theFights.forEach(fight => {
-    let rank = playerRank(fight, playerName);
-    if (rank === undefined) playerOut['t' + ix++] = undefined;
+    let rank = playerRank(fight, playerName)
+    if (rank === undefined) playerOut['t' + ix++] = undefined
     else playerOut['t' + ix++] = {
       players: playersCountWhoPlayed(fight),
       rank: playerRank(fight, playerName),
@@ -170,8 +170,8 @@ function addFightsPoints(playerOut, playerName, theFights) {
 }
 
 function getDataOfPlayers(theFights) {
-  let players = getPlayers(theFights);
-  let tableData = [];
+  let players = getPlayers(theFights)
+  let tableData = []
   players.forEach( player => {
       let thePlayer = {
         name: player,
@@ -184,10 +184,10 @@ function getDataOfPlayers(theFights) {
         avgPerformance: getAvgPerformance(player, theFights)
       }
       addFightsPoints(thePlayer, player, theFights)
-      tableData.push(thePlayer);
+      tableData.push(thePlayer)
     }
   )
-  return tableData;
+  return tableData
 }
 
 function generatePlayersTableColumns(theFights, enableJouzocoins) {
@@ -207,10 +207,10 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
       frozen:true,//frozen column group on left of table
       columns: leaderboardColumns
     }
-  ];
-  let curMonth = undefined;
-  let curColumns = [];
-  let colNo = 1;
+  ]
+  let curMonth = undefined
+  let curColumns = []
+  let colNo = 1
 
   function pushFight(fight, tooltip) {
     curColumns.push(
@@ -234,21 +234,21 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
         columns: curColumns
       }
     )
-    curColumns = [];
+    curColumns = []
   }
 
   theFights.forEach( fight => {
-    let date = new Date(fight.startsAt);
-    let month = ['Leden','Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'][date.getMonth()];
+    let date = new Date(fight.startsAt)
+    let month = ['Leden','Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'][date.getMonth()]
     if (curMonth !== month) {
       if (curMonth !== undefined) pushMonth()
-      curMonth = month;
+      curMonth = month
     }
     pushFight(fight, date.toDateString())
-  });
+  })
   pushMonth()
 
-  return columnsBuilder;
+  return columnsBuilder
 }
 
 
@@ -259,23 +259,23 @@ function loadDoc() {
   gamesDownloaderAPI().downloadMissingTournamentGames()
 
   /*
-  let xhttp = new XMLHttpRequest();
+  let xhttp = new XMLHttpRequest()
   xhttp.onreadystatechange = function() {
     if (this.readyState === 4 && this.status === 200) {
       // see https://github.com/mliebelt/pgn-parser and https://github.com/Bebul/MondayFight/issues/7#issuecomment-721996465
-      let gameList = parsePgn(this.responseText, {startRule: "games"});   // or sample: '[White "Me"] [Black "Magnus"] 1. f4 e5 2. g4 Qh4#'
-      let theList = "<ol>";
+      let gameList = parsePgn(this.responseText, {startRule: "games"})   // or sample: '[White "Me"] [Black "Magnus"] 1. f4 e5 2. g4 Qh4#'
+      let theList = "<ol>"
       gameList.forEach(function(x) {
-        theList += '<li>'+ x.tags.UTCTime + ' ' + x.tags.White + ' : ' + x.tags.Black + ' ' + x.tags.Result + '</li>';
-      });
-      theList += "</ol>";
-      document.getElementById("demoRequest").innerHTML = theList;
+        theList += '<li>'+ x.tags.UTCTime + ' ' + x.tags.White + ' : ' + x.tags.Black + ' ' + x.tags.Result + '</li>'
+      })
+      theList += "</ol>"
+      document.getElementById("demoRequest").innerHTML = theList
     }
-  };
+  }
   // CORS policy problem: FIX - Enabling "Allow Unsigned Requests" in Build Execution and Deployment -> Debugger setting of Webstorm fixed it for now.
-  //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true);   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
-  xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true);
-  xhttp.send();
+  //xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/results", true)   // Pgn can be downloaded like this: "https://lichess.org/api/tournament/5upWReOp/games?pgnInJson=true"
+  xhttp.open("GET", "https://lichess.org/api/tournament/5upWReOp/games", true)
+  xhttp.send()
 */
 }
 
@@ -299,12 +299,12 @@ function gameListData(games) {
     let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
 
     Number.prototype.padLeft = function(base,chr){
-      var  len = (String(base || 10).length - String(this).length)+1;
-      return len > 0? new Array(len).join(chr || '0')+this : this;
+      var  len = (String(base || 10).length - String(this).length)+1
+      return len > 0? new Array(len).join(chr || '0')+this : this
     }
-    let d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-    d.setUTCSeconds(g.createdAt/1000);
-    let date = [d.getFullYear().padLeft(), (d.getMonth()+1).padLeft(), d.getDate().padLeft()].join('/')+' '+ [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':');
+    let d = new Date(0) // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(g.createdAt/1000)
+    let date = [d.getFullYear().padLeft(), (d.getMonth()+1).padLeft(), d.getDate().padLeft()].join('/')+' '+ [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':')
 
     let row = {
       "id": g.id,
@@ -353,7 +353,7 @@ function createGameListTable(gamesData, tableId, addDate, noStats) {
     layout: "fitDataTable",
     reactiveData: true, // we want setData having effect
     columns: columnsAr
-  });
+  })
   gameListTable.setData(gamesData)
 
   if (noStats != true) createStatisticsBars(gamesData, tableId)
@@ -402,7 +402,7 @@ function getGameListMostActivePlayerStats(gamesData) {
   return {player: bossPlayer, whiteStats: bossWhite, blackStats: bossBlack}
 }
 
-var myGoogleCharts = new Map();
+var myGoogleCharts = new Map()
 
 function updateMostActivePlayer(id, gamesData) {
   let plStats = getGameListMostActivePlayerStats(gamesData)
@@ -412,7 +412,7 @@ function updateMostActivePlayer(id, gamesData) {
     let data = google.visualization.arrayToDataTable([
       ['Genre', plStats.player + ' wins', 'Draw', 'Black wins'],
       [plStats.player + ' White', plStats.whiteStats.win, plStats.whiteStats.draw, plStats.whiteStats.loss]
-    ]);
+    ])
     barData.chart.draw(data, barData.options)
   }
   let barData2 = myGoogleCharts.get(id+'plblack')
@@ -420,7 +420,7 @@ function updateMostActivePlayer(id, gamesData) {
     let data = google.visualization.arrayToDataTable([
       ['Genre', 'White wins', 'Draw', plStats.player + ' wins'],
       [plStats.player + ' Black', plStats.blackStats.loss, plStats.blackStats.draw, plStats.blackStats.win]
-    ]);
+    ])
     barData2.chart.draw(data, barData2.options)
   }
   let barData3 = myGoogleCharts.get(id+'plall')
@@ -428,7 +428,7 @@ function updateMostActivePlayer(id, gamesData) {
     let data = google.visualization.arrayToDataTable([
       ['Genre', plStats.player + ' wins', plStats.player + ' draw', plStats.player + ' loss'],
       ['', plStats.whiteStats.win+plStats.blackStats.win, plStats.whiteStats.draw+plStats.blackStats.draw, plStats.whiteStats.loss+plStats.blackStats.loss]
-    ]);
+    ])
     barData3.chart.draw(data, barData3.options)
   }
 }
@@ -440,7 +440,7 @@ function updateGoogleBar(barid, gamesData) {
     let data = google.visualization.arrayToDataTable([
       ['Genre', 'White wins', 'Draw', 'Black wins'],
       statsData
-    ]);
+    ])
     barData.chart.draw(data, barData.options)
   }
 }
@@ -482,13 +482,13 @@ function createStatsBar4GameList(arrayData, id, vw, colorListPar) {
     let barElement = document.getElementById(id)
     if (barElement != null) {
       // Load google charts
-      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['corechart']})
 
-      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart)
 
       // Draw the chart and set the chart values
       function drawChart() {
-        var data = google.visualization.arrayToDataTable(arrayData);
+        var data = google.visualization.arrayToDataTable(arrayData)
 
         var options = {
           width: Math.min(vw, 600),
@@ -498,11 +498,11 @@ function createStatsBar4GameList(arrayData, id, vw, colorListPar) {
           colors: colorList,
           backgroundColor: '#E4E4E4',
           isStacked: 'percent'
-        };
+        }
         // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.BarChart(barElement);
+        var chart = new google.visualization.BarChart(barElement)
         myGoogleCharts.set(id, {'chart': chart, 'options': options})
-        chart.draw(data, options);
+        chart.draw(data, options)
       }
     }
 }
@@ -525,40 +525,40 @@ let urlRequestsList = []
 function init() {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
-  //textFile2String('pgn/parsePgn.js');
+  //textFile2String('pgn/parsePgn.js')
 
-  let allFights = jouzoleanAndBebulsTournaments;
+  let allFights = jouzoleanAndBebulsTournaments
 
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+  const queryString = window.location.search
+  const urlParams = new URLSearchParams(queryString)
 
   const admin = urlParams.get('bebul')!=null
   if (admin) {
-    document.getElementById("adminStuff").style.display = "block";
+    document.getElementById("adminStuff").style.display = "block"
 
-    let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>";
+    let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>"
     allFights.forEach( function myFunction(value) {
-      let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>';
-      info += '<td>' + value.nbPlayers + '</td>';
-      info += '<td>' + value.stats.games + '</td>';
-      info += '<td>' + value.startsAt + '</td>';
-      let winner = value.standing.players[0];
-      info += '<td>' + winner.name + '</td>';
-      info += '<td>' + winner.score + '</td>';
-      info += '<td>' + winner.rating + '</td>';
-      winner = value.standing.players[1];
-      info += '<td>' + winner.name + '</td>';
-      info += '<td>' + winner.score + '</td>';
-      info += '<td>' + winner.rating + '</td>';
+      let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>'
+      info += '<td>' + value.nbPlayers + '</td>'
+      info += '<td>' + value.stats.games + '</td>'
+      info += '<td>' + value.startsAt + '</td>'
+      let winner = value.standing.players[0]
+      info += '<td>' + winner.name + '</td>'
+      info += '<td>' + winner.score + '</td>'
+      info += '<td>' + winner.rating + '</td>'
+      winner = value.standing.players[1]
+      info += '<td>' + winner.name + '</td>'
+      info += '<td>' + winner.score + '</td>'
+      info += '<td>' + winner.rating + '</td>'
       if (value.nbPlayers > 2) {
-        winner = value.standing.players[2];
-        info += '<td>' + winner.name + '</td>';
-        info += '<td>' + winner.score + '</td>';
-        info += '<td>' + winner.rating + '</td>';
+        winner = value.standing.players[2]
+        info += '<td>' + winner.name + '</td>'
+        info += '<td>' + winner.score + '</td>'
+        info += '<td>' + winner.rating + '</td>'
       }
-      text += "<tr>" + info + "</tr>";
-    });
-    text += "</table>";
+      text += "<tr>" + info + "</tr>"
+    })
+    text += "</table>"
 
     text += "      <div style=\"margin: 10px 0\">\n" +
       "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
@@ -570,7 +570,7 @@ function init() {
       "  <hr><pre id='tournamentDwnlResult'>Tady se objeví výsledek downloadu</pre>" +
       "  <hr><pre id='tournamentGamesResult'>Tady se objeví výsledek downloadu her</pre>"
 
-    document.getElementById("demo").innerHTML = text;
+    document.getElementById("demo").innerHTML = text
 
     lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing()
   }
@@ -579,38 +579,38 @@ function init() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Table helpers, formatters etc.
 function jouzoCoinsFormatter(cell, formatterParams) {
-  let cellValue = cell.getValue();
-  if (cellValue===undefined) return "";
-  if (cellValue.rank == 1) cell.getElement().style.backgroundColor = "gold";
-  else if (cellValue.rank == 2) cell.getElement().style.backgroundColor = "silver";
-  else if (cellValue.rank == 3) cell.getElement().style.backgroundColor = "#cd7f32";
+  let cellValue = cell.getValue()
+  if (cellValue===undefined) return ""
+  if (cellValue.rank == 1) cell.getElement().style.backgroundColor = "gold"
+  else if (cellValue.rank == 2) cell.getElement().style.backgroundColor = "silver"
+  else if (cellValue.rank == 3) cell.getElement().style.backgroundColor = "#cd7f32"
 /*
-  else if (cellValue.rank == 4) cell.getElement().style.backgroundColor = "lightgreen";
-  else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange";
+  else if (cellValue.rank == 4) cell.getElement().style.backgroundColor = "lightgreen"
+  else if (cellValue.rank <= 6 && cellValue.players >= 10) cell.getElement().style.backgroundColor = "orange"
 */
-  let value = '';
-  let mfMode = this.table.mfMode;
-  if (mfMode === 'jouzoCoins') value = cellValue.jouzoCoins;
-  else if (mfMode === 'present') value = cellValue.present;
-  else if (mfMode === 'totalScore') value = cellValue.score;
-  else if (mfMode === 'totalPts') value = cellValue.points;
-  else if (mfMode === 'games') value = cellValue.games;
-  else if (mfMode === 'avgPerformance') value = cellValue.performance;
+  let value = ''
+  let mfMode = this.table.mfMode
+  if (mfMode === 'jouzoCoins') value = cellValue.jouzoCoins
+  else if (mfMode === 'present') value = cellValue.present
+  else if (mfMode === 'totalScore') value = cellValue.score
+  else if (mfMode === 'totalPts') value = cellValue.points
+  else if (mfMode === 'games') value = cellValue.games
+  else if (mfMode === 'avgPerformance') value = cellValue.performance
 
-  if (cellValue.present) return value;
-  else return "";
+  if (cellValue.present) return value
+  else return ""
 }
 
 function dataSortedFunc(sorters) {
   let newMode = undefined
   sorters.forEach( function(srt) {
-      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games' || srt.field === 'avgPerformance') newMode = srt.field;
+      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games' || srt.field === 'avgPerformance') newMode = srt.field
     }
   )
   if (newMode !== undefined && this.mfMode != newMode) {
-    this.mfMode = newMode;
+    this.mfMode = newMode
     //and we must call something like row.reformat() or column.reformat for each column
-   this.redraw(true);
+   this.redraw(true)
   }
 }
 
@@ -623,10 +623,10 @@ function createPlayersTable(theFights, tableId, enableJouzocoins) {
     dataSorted: dataSortedFunc,
     data: getDataOfPlayers(theFights),
     columns: generatePlayersTableColumns(theFights, enableJouzocoins)
-  });
+  })
   allMyTables.set(tableId, playersTable)
-  if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc");
-  else playersTable.setSort("totalPts", "desc");
+  if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc")
+  else playersTable.setSort("totalPts", "desc")
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -634,14 +634,14 @@ function createPlayersTable(theFights, tableId, enableJouzocoins) {
 function last10(theFights) {
   let filtered = Array.from(theFights)
   while(filtered.length > 10) {
-    filtered.shift();
+    filtered.shift()
   }
-  return filtered;
+  return filtered
 }
 
 function filterYear(theFights, year) {
   return Array.from(theFights).filter(fight => {
-      let date = new Date(fight.startsAt);
+      let date = new Date(fight.startsAt)
       return date.getFullYear() == year
   })
 }
