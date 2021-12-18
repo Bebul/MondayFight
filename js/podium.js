@@ -222,6 +222,9 @@ function nextTournament(diff=1) {
   let games = tournamentGames[currentGameListTableIx]
   let gameData = gameListData(games)
 
+  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(tournamentGames[currentGameListTableIx].id)
+  History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
+
   createPodium(games.id)
   createResults(games.id, games)
   selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)

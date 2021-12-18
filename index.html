@@ -40,6 +40,8 @@
     <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
+    <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
 </head>
@@ -103,6 +105,16 @@
 </div>
 
 <script>
+  let url = new URL(window.location.href)
+  let mfId = url.searchParams.get("mf")
+  if (mfId !== null) {
+    let ix = findTournamentIx(mfId)
+    if (ix >= 0) currentGameListTableIx = ix
+  }
+
+  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(tournamentGames[currentGameListTableIx].id)
+  History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
+
   let games = tournamentGames[currentGameListTableIx]
   let gamesData = gameListData(games)
   createPodium(games.id)
