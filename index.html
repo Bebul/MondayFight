@@ -79,13 +79,16 @@
         </div>
         <div class="results" id="fastMateId">
             <div style="display: table; margin: 0 auto">
-                <h2 style="margin-bottom: 0px">Nejrychlejší MAT turnaje</h2>
+                <h2 style="margin-bottom: 0px">Nejrychlejší Mat</h2>
                 <div id="fastMateBoard"></div>
             </div>
         </div>
         <div class="results" id="surpriseGameId">
             <div style="display: table; margin: 0 auto">
-                <h2 style="margin-bottom: 0px">Překvapení turnaje</h2>
+                <h2 style="margin-bottom: 0px">Senzace turnaje</h2>
+                <div style="margin:0 auto; width:320px">
+                    Gratulujeme <b id="senzacionist"></b> k vítězství nad soupeřem o <b id="senzaceDiff"></b> bodů silnějším.
+                </div>
                 <div id="surpriseGameBoard"></div>
             </div>
         </div>
@@ -106,7 +109,7 @@
   createResults(games.id, games)
   createTournamentInfo(games.id)
   selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
-  selectGame(games, "surpriseGameId", "surpriseGameBoard", biggestDifferenceWinSelector)
+  sensationGame(games, "surpriseGameId", "surpriseGameBoard")
   createGameListTable(gamesData, "#gameListTable", false)
 </script>
 

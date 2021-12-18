@@ -197,11 +197,23 @@ ${selectedGame.moves}
     config.orientation = selectedGame.winner
 
     PGNV.pgnView(boardId, config)
+    return selectedGame
   } else {
     // hide the board when no game was selected
     document.getElementById(hideId).style.display = "none";
+    return null
   }
 }
+
+function sensationGame(games, hideid, boardId) {
+  let game = selectGame(games, hideid, boardId, biggestDifferenceWinSelector)
+  if (game !== null) {
+    if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
+    else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
+    document.getElementById("senzaceDiff").innerHTML = Math.abs(game.players.white.rating - game.players.black.rating)
+  }
+}
+
 
 function nextTournament(diff=1) {
   currentGameListTableIx += diff
@@ -213,7 +225,7 @@ function nextTournament(diff=1) {
   createPodium(games.id)
   createResults(games.id, games)
   selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
-  selectGame(games, "surpriseGameId", "surpriseGameBoard", biggestDifferenceWinSelector)
+  sensationGame(games, "surpriseGameId", "surpriseGameBoard")
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
