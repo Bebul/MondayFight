@@ -193,7 +193,7 @@ function getDataOfPlayers(theFights) {
 function generatePlayersTableColumns(theFights, enableJouzocoins) {
   let leaderboardColumns = [
     {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
-    {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name"}},
+    {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name", target:"_blank"}},
     {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc"},
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc"},
@@ -341,7 +341,7 @@ function createGameListTable(gamesData, tableId, addDate, noStats) {
     columnsAr.push({title: "date", field: "date", resizable:false})
   }
   columnsAr = columnsAr.concat([
-    {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id"}},
+    {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id", target:"_blank"}},
     {title: "speed", field: "speed", resizable:false, align: "center"},
     {title: "white", field: "white", resizable:false, formatter: detectWhiteWinner},
     {title: "black", field: "black", resizable:false, formatter: detectBlackWinner},

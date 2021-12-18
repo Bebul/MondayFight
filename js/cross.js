@@ -176,7 +176,7 @@ function myCellClick(players, fights){
 
 function generateCrossTableColumns(theFights, players) {
   let leaderboardColumns = [
-    {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name"}},
+    {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name", target:"_blank"}},
     {title: "Score", field: "score", resizable:false, hozAlign:"center", headerSortStartingDir:"desc"},
   ]
 

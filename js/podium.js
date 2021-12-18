@@ -20,7 +20,7 @@ function getPlayerPodiumHTML(gambler, showBullet = false) {
   <div class="trophy" style="position:relative;overflow:visible">
     ${bulletPistol}
   </div>
-  <a class="text user-link" href = "https://lichess.org/@/${player}">${player}</a>
+  <a class="text user-link" href="https://lichess.org/@/${player}" target="_blank">${player}</a>
   <table class="stats">
     <tr><th>ELO</th><td>${elo}</td></tr>
     <tr><th>Performance</th><td>${performance}</td></tr>
@@ -84,7 +84,7 @@ function createTournamentInfo(tournamentID, id="info") {
    <br>
    Moves: ${tournament.stats.moves} -
    Berserks: ${tournament.stats.berserks}<br>
-   Link: <a href="https://lichess.org/tournament/${tournamentID}">https://lichess.org/tournament/${tournamentID}</a>
+   Link: <a href="https://lichess.org/tournament/${tournamentID}" target="_blank">https://lichess.org/tournament/${tournamentID}</a>
 </div>
         <div style="float:right; vertical-align: middle; display: table-cell">
             <a href="javascript:void(0);" onclick="nextTournament()"><img src="img/bishopNext.png"></a>
@@ -125,7 +125,7 @@ function createResults(tournamentID, gamesData, id = "results") {
     tournament.standing.players.forEach( function(player) {
         html = html + `<tr><td = class="rank">${player.rank}</td>
 <td class="player">
-  <a class="user-link" href="https://lichess.org/@/${player.name}">
+  <a class="user-link" href="https://lichess.org/@/${player.name}" target="_blank">
     <span class="name">${player.name}</span><span class="rating">${player.rating}</span>
   </a>
 </td>
