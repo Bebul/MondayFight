@@ -212,10 +212,12 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
   let curColumns = []
   let colNo = 1
 
+  let mainMFURL = (window.location.origin + window.location.pathname).replace("/tables.html", "/index.html")
+
   function pushFight(fight, tooltip) {
     curColumns.push(
       {
-        title: "<a href='https://lichess.org/tournament/" + fight.id + "'>" + colNo + "</a>",
+        title: `<a href='${mainMFURL}?mf=${fight.id}'>${colNo}</a>`,
         field: "t" + colNo++,
         headerTooltip: tooltip,
         headerSort: false,
