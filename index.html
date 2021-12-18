@@ -77,7 +77,7 @@
         </div>
         <div id="info">
         </div>
-        <div class="results">
+        <div class="results" id="fastMateId">
             <div style="display: table; margin: 0 auto">
                 <h2 style="margin-bottom: 0px">Nejrychlejší MAT turnaje</h2>
                 <div id="fastMateBoard"></div>
@@ -99,7 +99,7 @@
   createPodium(games.id)
   createResults(games.id, games)
   createTournamentInfo(games.id)
-  fastestMateBoard(games)
+  selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
   createGameListTable(gamesData, "#gameListTable", false)
 </script>
 

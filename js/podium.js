@@ -151,34 +151,42 @@ function createResults(tournamentID, gamesData, id = "results") {
   }
 }
 
-function fastestMateBoard(gamesData, fastMateId = "fastMateBoard") {
-  let fastestMate = gamesData.games.reduce(function(minGame, game) {
-      if (minGame.status !== "mate") return game
-      else if (game.status !== "mate") return minGame
-      let minMoves = minGame.moves.split(" ").length
-      let moves = game.moves.split(" ").length
-      if (moves < minMoves) return game
-      else return minGame
-    }
-  )
-  let fen = fastestMate.initialFen
-  let mfChess = new Chess(fen) // maybe undefined, which is ok
-  let moves = fastestMate.moves.split(" ")
-  moves.forEach((move) => mfChess.move(move))
+function fastestMateSelector(minGame, game) {
+  if (game.status !== "mate") return minGame
+  if (minGame !== null) {
+    let minMoves = minGame.moves.split(" ").length
+    let moves = game.moves.split(" ").length
+    if (moves < minMoves) return game
+    else return minGame
+  } else return game
+}
 
-  let config = {
-    pgn: `[White \"${fastestMate.players.white.user.name}\"]
-[Black \"${fastestMate.players.black.user.name}\"]
-${fastestMate.moves}
+function selectGame(gamesData, hideId, boardId, selector) {
+  let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
+  if (selectedGame !== null) {
+    document.getElementById(hideId).style.display = "block";
+    let fen = selectedGame.initialFen
+    let mfChess = new Chess(fen) // maybe undefined, which is ok
+    let moves = selectedGame.moves.split(" ")
+    moves.forEach((move) => mfChess.move(move))
+
+    let config = {
+      pgn: `[White \"${selectedGame.players.white.user.name}\"]
+[Black \"${selectedGame.players.black.user.name}\"]
+${selectedGame.moves}
 `,
-    coordsInner: false, headers: true,
-    theme: 'brown',
-    startPlay: `${moves.length}`
-  }
-  if (fen) config.position = fen
-  config.orientation = fastestMate.winner
+      coordsInner: false, headers: true,
+      theme: 'brown',
+      startPlay: `${moves.length}`
+    }
+    if (fen) config.position = fen
+    config.orientation = selectedGame.winner
 
-  PGNV.pgnView(fastMateId, config)
+    PGNV.pgnView(boardId, config)
+  } else {
+    // hide the board when no game was selected
+    document.getElementById(hideId).style.display = "none";
+  }
 }
 
 function nextTournament(diff=1) {
@@ -190,7 +198,7 @@ function nextTournament(diff=1) {
 
   createPodium(games.id)
   createResults(games.id, games)
-  fastestMateBoard(games)
+  selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
   createTournamentInfo(games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
