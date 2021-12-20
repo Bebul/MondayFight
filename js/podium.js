@@ -221,10 +221,20 @@ function sensationGame(games, hideid, boardId) {
     if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
     else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
     document.getElementById("senzaceDiff").innerHTML = Math.abs(game.players.white.rating - game.players.black.rating)
+    if (loser(game).berserk) document.getElementById("senzaBerserk").innerHTML = `${loser(game).user.name} hrál berserk.`
+    else document.getElementById("senzaBerserk").innerHTML = ""
   }
   return game
 }
 
+function loser(game) {
+  if (game.winner === 'black') return game.players.white
+  else return game.players.black
+}
+function winner(game) {
+  if (game.winner === 'black') return game.players.black
+  else return game.players.white
+}
 
 function updateSpecialBoards(games) {
   let mateGame = selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
