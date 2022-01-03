@@ -74,7 +74,7 @@
 <h1>Posledních 10 turnajů</h1>
 <div id="last10"></div>
 
-<h1>Aktuální sezóna 2021</h1>
+<h1>Aktuální sezóna</h1>
 <div id="mondayFightsLeaderboard"></div>
 
 <div id="adminStuff" style="display: none">
@@ -101,8 +101,9 @@
 </div>
 
 <script>
-  let the2021 = filterYear(mondayFights, 2021)
-  createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins for 2021
+  let year = (new Date()).getFullYear()
+  let thisYear = filterYear(mondayFights, year)
+  createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
   createPlayersTable(last10(mondayFights), "#last10", false)
 </script>
 
