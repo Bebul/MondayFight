@@ -638,6 +638,13 @@ function last10(theFights) {
   while(filtered.length > 10) {
     filtered.shift()
   }
+  // and only last year
+  let lastTournamentYear = (new Date(filtered.at(-1).startsAt)).getFullYear()
+  do {
+    let firstTournamentYear = (new Date(filtered.at(0).startsAt)).getFullYear()
+    if (firstTournamentYear < lastTournamentYear) filtered.shift()
+    else break
+  } while (true)
   return filtered
 }
 
