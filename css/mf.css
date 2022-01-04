@@ -23,11 +23,37 @@ body {
         padding: 0px;
         margin: 0px;
     }
+
+    .flow50 {
+        width: 100%;
+        margin: 0px;
+        display: inline-block; /*or table */
+    }
+
+    .flow33 {
+        width: 100%;
+        margin: 0px;
+        display: inline-block; /*or table */
+    }
 }
 
 @media only screen and (min-width: 600px) {
     .body {
         width: 100%;
+    }
+
+    .flow50 {
+        width: 45%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 290px;
+    }
+
+    .flow33 {
+        width: 45%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 290px;
     }
 }
 
@@ -35,11 +61,38 @@ body {
     .body {
         width: 768px;
     }
+
+    .flow50 {
+        width: 45%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 320px;
+    }
+
+    .flow33 {
+        width: 31%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 240px;
+    }
 }
 
 @media only screen and (min-width: 940px) {
     .body {
         width: 940px;
+    }
+    .flow50 {
+        width: 45%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 300px;
+    }
+
+    .flow33 {
+        width: 31%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 300px;
     }
 }
 
@@ -279,4 +332,3 @@ td, th {
 .tour__standing .rating-diff win {
     color: green;
 }
-

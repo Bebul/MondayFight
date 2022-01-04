@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="max-age=3600" />
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <meta charset="UTF-8">
+    <title>"Monday Fight Tournaments on Lichess"</title>
+    <link href="dist/css/tabulator.min.css" rel="stylesheet">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
+
+    <script type="text/javascript" src="js/mondayFight.js"></script>
+    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
+    <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/minimal.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+</head>
+
+<body onload="init()">
+
+<div class="body">
+
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span><a href="javascript:void(0);" class="icon" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights - Cross Table</span>
+        <div class="topnav">
+            <div id="myLinks">
+                <a href="index.html">Main page</a>
+                <a href="actualities.html">Hot News</a>
+                <a href="tables.html">Leaderboards</a>
+                <a href="cross.html">Cross table</a>
+                <a href="search.html">Search Engine</a>
+                <a href="archiv2020.html">Archiv 2020</a>
+                <a href="players.html">Players</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="article first">
+        <h1>LeaderBoard roku 2021</h1>
+        <ul>
+            <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
+            <li><b>Score</b> je součet uhraného skóre.
+            <li><b>Games</b> počet odehraných her.
+            <li><b>Performance</b> průměrná performance hráče (váženo počtem her) v turnaji.
+            <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
+        </ul>
+    </div>
+
+    <h1>Kompletní rok 2021</h1>
+    <div id="mondayFightsLeaderboard"></div>
+
+    <div class="article">
+        <h1>Závěrečný PlayOFF turnaj</h1>
+        <p>Na závěr roku se uskutečnil turnaj, kde se deset hráčů z čela tabulky utkalo ve vyřazovacích turnajích.
+            Hrálo se v <b><i>MondayFight</i></b> tempu 3+2, vždy 6 partií. Pokud by boj skončil nerozhodně,
+            pokračovalo by se dvěma Bullet partiemi v tempu 2+1. Toto štěstí nám letos nebylo dopřáno.
+        <p> Matche nebyly hrány v turnaji, proto je nelze v systému těchto webových stránek dohledat.
+        <p>Přinesl turnaj nějaká překvapení, ňáká nečekaná vítězství? To sice ano, ale kam se to hrabe na překvapení v podobě epesních
+           vyzyvatelských kartiček, kterými pánové DJ-Pesec a Jouzolean
+           vábili hráče k šachovnicím...
+        <p>
+        <img src="img/epesni-karticka.jpg" class="flow33">
+        <img src="img/epesni-karticka2.jpg" class="flow33">
+        <img src="img/epesni-karticka3.jpg" class="flow33">
+
+        <p> Na loňské Bébulovo kafrání bylo letos vzpomenuto a párování hráčů bylo zvoleno novým způsobem - totiž podle
+            průměrné performance za rok 2021. To posunulo Bukowskice na první místo a mohl tak být nasazený jako jednička,
+            jak se na celkového vítěze Monday Fights 2021 turné sluší, ačkoli podle ratingu byl až hluboko pod DJ-Pescem, který
+            byl, přes slabou účast na turnajích, nasazen po zásluze jako druhý.
+        <p> Bukowskic vstoupil do turnaje vymrzlý z běžkování a měl štěstí, že nenarazil hned na Mrázka, protože to by se zbytek
+            turnaje už odehrál bez jeho drtivé přítomnosti. Hned první dvě partie s RychlymLenochodem dostal výprask, jaký
+            dlouho nezažil, ale pak stihnul roztát, obvody se zahřály, panely se dovřely, kontakty se propojily a síla Malého Boha vzrostla.
+            Následující 4 hry už vyhrál, ačkoli v jedné měl Lenochod Buka na talíři. Veliká škoda!
+            To by byla bžunda, kdyby se nakonec vítězný šampion musel z prvního kola vysekávat přes Bulletový rozstřel.
+        <p> Již rozehřátý, narazil náš hrdina na Mrázka. Chlad vanul silný a v obvodech to zajiskřilo. Mrázek sehrál s Bukowskicem
+            moc pěkný zápas a boj to byl tuhý. Nakonec Mrázek uhrál dvě výhry, stejně jako před ním Lenochod a všichni se těšili,
+            jak dopadne zápas s DJ-Pescem, jehož rating na začátku turnaje neutrpěl žádných drastických propadů a
+            s odrbaným Bukowskicem začínal finálový souboj s hrozivým ratingem 2189 proti 2031. To je zhruba rozdíl mezi
+            Jouzoleanem a Bébulkem, a věřte mi, to se hraje věru nesnadno.
+        <p> Finále začalo velmistrovsky, totiž dvěma remízami, což naše PlayOff krom těchto cápků ještě nezažilo. A pak se země
+            zatřásla poprvé a tlaková vlna oběhla Zeměkouli, když DJ-Pesec svým blunderem na posledním ranku dovolil bukowskicovi
+            bez námahy vyhrát.
+        <p>
+            <a href="https://lichess.org/Q9MssTxq#43"><img src="img/buk-pesec-last-rank.png" width=100%></a>
+        <p>
+        Následovala další remíza, ve které měl Bukowskic z pekla štěstí. No a pak ze země zatřásla podruhé,
+            tlaková vlna oběhla Zeměkouli dvakrát a v táboře obhájce titulu se mohlo slavit.
+            <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+        <p>
+            <img src="img/turnajPavouk2021.jpg" style="max-width:1900px; width:1500px">
+    </div>
+</div>
+
+<script>
+  let the2021 = filterYear(mondayFights, 2021)
+  createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins
+</script>
+
+</br>
+
+</body>
+</html>
