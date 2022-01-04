@@ -212,7 +212,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
   let curColumns = []
   let colNo = 1
 
-  let mainMFURL = (window.location.origin + window.location.pathname).replace("/tables.html", "/index.html")
+  let mainMFURL = window.location.origin + "/MondayFight"
 
   function pushFight(fight, tooltip) {
     curColumns.push(
