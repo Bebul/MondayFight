@@ -58,9 +58,6 @@
         </ul>
     </div>
 
-    <h1>Posledních 10 turnajů</h1>
-    <div id="last10"></div>
-
     <h1>Kompletní rok 2020</h1>
     <div id="mondayFightsLeaderboard"></div>
 
@@ -91,7 +88,6 @@
 <script>
   let the2020 = filterYear(mondayFights, 2020)
   createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
-  createPlayersTable(last10(the2020), "#last10", true)
 </script>
 
 </br>
