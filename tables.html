@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onload="init()">
+<body>
 
 <div class="body">
 
@@ -103,10 +103,11 @@
 
 <script>
   function mainPage(data) {
+    processAdmin(data)
     let year = (new Date()).getFullYear()
-    let thisYear = filterYear(data.mondayFights, year)
+    let thisYear = filterYear(data.mondayFights(), year)
     createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
-    createPlayersTable(last10(data.mondayFights), "#last10", false)
+    createPlayersTable(last10(data.mondayFights()), "#last10", false)
   }
 
   LoadMFData(mainPage)

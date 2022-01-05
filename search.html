@@ -27,7 +27,7 @@
 
 </head>
 
-<body onload="initSearch()">
+<body>
 
 <div class="body">
 
@@ -114,7 +114,7 @@
     History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
 
     let tokens = searchStrintToTokens(searchParam)
-    createGameListTable(gameListData(searchGames(data, data.jouzoleanAndBebulsTournaments, tokens)), "#gameListTable", true)
+    createGameListTable(gameListData(searchGames(data, data.jouzoleanAndBebulsTournaments(), tokens)), "#gameListTable", true)
 
     var input = document.getElementById("searchInput");
     input.addEventListener("keyup", function(event) {

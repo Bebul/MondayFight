@@ -70,7 +70,7 @@ function getScores(data, players, fights) {
   }
 
   fights.forEach( fight => {
-    let games = data.tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         if (game.status === "noStart") {
@@ -116,7 +116,7 @@ function getCrossScores(data, players, fights) {
   }
 
   fights.forEach( fight => {
-    let games = data.tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         let white = game.players.white.user.name
@@ -142,7 +142,7 @@ function myCellClick(data, players, fights){
   function allGames(playerA, playerB) {
     let selectedGames = []
     fights.forEach( fight => {
-      let games = data.tournamentGames.find(tg => tg.id==fight.id);
+      let games = data.tournamentGames().find(tg => tg.id==fight.id);
       if (games !== undefined) {
         games.games.forEach(game => {
           let white = game.players.white.user.name

@@ -70,8 +70,8 @@
 <script>
   function mainPage(data) {
     //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-    createCrossTable(data, data.mondayFights, "#crossTable")
-    createGameListTable(gameListData(data.tournamentGames[data.currentGameListTableIx]), "#gameListTable", true)
+    createCrossTable(data, data.mondayFights(), "#crossTable")
+    createGameListTable(gameListData(data.tournamentGames()[data.currentGameListTableIx]), "#gameListTable", true)
   }
 
   LoadMFData(mainPage)

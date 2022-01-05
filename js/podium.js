@@ -254,12 +254,12 @@ function updateSpecialBoards(games) {
 
 function nextTournament(data, diff=1) {
   data.currentGameListTableIx += diff
-  data.currentGameListTableIx = Math.max(Math.min(data.currentGameListTableIx, data.tournamentGames.length - 1),0)
+  data.currentGameListTableIx = Math.max(Math.min(data.currentGameListTableIx, data.tournamentGames().length - 1),0)
 
-  let games = data.tournamentGames[data.currentGameListTableIx]
+  let games = data.tournamentGames()[data.currentGameListTableIx]
   let gameData = gameListData(games)
 
-  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames[data.currentGameListTableIx].id)
+  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames()[data.currentGameListTableIx].id)
   History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
 
   createPodium(data, games.id)

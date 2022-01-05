@@ -258,7 +258,11 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
 // Parse.pgn demo
 function loadDoc() {
 
-  gamesDownloaderAPI().downloadMissingTournamentGames()
+  function logger(logLine) {
+    document.getElementById("gamesJson").innerHTML = logLine
+  }
+  let downloadedTournamentsGames = gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
   let xhttp = new XMLHttpRequest()
@@ -524,17 +528,59 @@ function textFile2String(path) {
 
 let urlRequestsList = []
 
-function init() {
+function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
+  let tag = document.getElementById("finalJson")
+  tag.innerHTML = JSON.stringify(downloadedTournaments, null, 0);
+
+  // recalculate data and tables
+  if (downloadedTournaments.length > 0) {
+    let table10 = allMyTables.get("#last10")
+    if (table10 !== undefined) {
+      let theFights = last10(data.mondayFights())
+      table10.setColumns(generatePlayersTableColumns(theFights))
+      table10.setData(getDataOfPlayers(theFights))
+    }
+
+    let tableAll = allMyTables.get("#mondayFightsLeaderboard")
+    if (tableAll !== undefined) {
+      let theFights = filterYear(data.mondayFights(), 2022)
+      tableAll.setColumns(generatePlayersTableColumns(theFights))
+      tableAll.setData(getDataOfPlayers(theFights))
+    }
+  }
+}
+
+function processAdmin(data) {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
+
+
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+  }
+
+  function toNDJson(arr) {
+    return arr.reduce(function(ndjson, obj) {
+      return ndjson + JSON.stringify(obj) + "\n"
+    }, "")
+  }
 
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
 
   const admin = urlParams.get('bebul')!=null
   if (admin) {
-    let allFights = jouzoleanAndBebulsTournaments
+    let allFights = data.jouzoleanAndBebulsTournaments()
 
     document.getElementById("adminStuff").style.display = "block"
 
@@ -566,15 +612,32 @@ function init() {
       "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
       "                <input type=\"text\" id=\"tournamentDwnlID\" style=\"width:100%\">\n" +
       "                <br>\n" +
-      "                <button id=\"dwnl\" onclick=\"onDwnlTournamentClicked()\">Download</button>\n" +
+      "                <button id=\"dwnl\">Download</button>\n" +
       "            </div>\n" +
       "        </div>\n" +
       "  <hr><pre id='tournamentDwnlResult'>Tady se objeví výsledek downloadu</pre>" +
       "  <hr><pre id='tournamentGamesResult'>Tady se objeví výsledek downloadu her</pre>"
 
     document.getElementById("demo").innerHTML = text
+    document.getElementById("dwnl").onclick = function() {
+      onDwnlTournamentClicked(data)
+    }
 
-    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing()
+    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(updateHTMLurlRequestsList)
+      .then(function(downloadedTournaments) {
+          if (downloadedTournaments.length) {
+            data.addTournaments(downloadedTournaments) // updates mondayFights and everything
+            updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
+            gamesDownloaderAPI().downloadMissingTournamentGames(data, updateHTMLurlRequestsList)
+              .then(function(games) {
+                  data.addGames(games)
+                  download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
+                  download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+                }
+              )
+          }
+        }
+      )
   }
 }
 

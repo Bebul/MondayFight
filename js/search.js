@@ -1,10 +1,3 @@
-function initSearch() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-
-  const admin = urlParams.get('bebul')!=null
-}
-
 function movesToArrayOfFen(initialPosition, moves) {
   let chess = new Chess(initialPosition)
   return moves.split(" ").map(function(move) {
@@ -61,7 +54,7 @@ function searchGames(data, fights, tokens) {
     return len > 0? new Array(len).join(chr || '0')+this : this;
   }
   fights.forEach( fight => {
-    let games = data.tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         let date = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -133,7 +126,7 @@ function searchStrintToTokens(searchStr) {
 }
 
 function processSearch(data, searchStr) {
-  let theFights = data.jouzoleanAndBebulsTournaments
+  let theFights = data.jouzoleanAndBebulsTournaments()
   let tokens = searchStrintToTokens(searchStr)
   let gameData = gameListData(searchGames(data, theFights, tokens))
 

@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onload="init()">
+<body>
 
 <div class="body">
 
@@ -87,7 +87,7 @@
 
 <script>
   function mainPage(data) {
-    let the2020 = filterYear(data.mondayFights, 2020)
+    let the2020 = filterYear(data.mondayFights(), 2020)
     createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
   }
 
