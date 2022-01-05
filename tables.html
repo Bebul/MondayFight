@@ -102,10 +102,14 @@
 </div>
 
 <script>
-  let year = (new Date()).getFullYear()
-  let thisYear = filterYear(mondayFights, year)
-  createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
-  createPlayersTable(last10(mondayFights), "#last10", false)
+  function mainPage(data) {
+    let year = (new Date()).getFullYear()
+    let thisYear = filterYear(data.mondayFights, year)
+    createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
+    createPlayersTable(last10(data.mondayFights), "#last10", false)
+  }
+
+  LoadMFData(mainPage)
 </script>
 
 </br>

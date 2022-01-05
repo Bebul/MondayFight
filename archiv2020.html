@@ -86,8 +86,12 @@
 </div>
 
 <script>
-  let the2020 = filterYear(mondayFights, 2020)
-  createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
+  function mainPage(data) {
+    let the2020 = filterYear(data.mondayFights, 2020)
+    createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
+  }
+
+  LoadMFData(mainPage)
 </script>
 
 </br>

@@ -217,7 +217,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
   function pushFight(fight, tooltip) {
     curColumns.push(
       {
-        title: `<a href='${mainMFURL}?mf=${fight.id}'>${colNo}</a>`,
+        title: `<a href='${mainMFURL}/?mf=${fight.id}'>${colNo}</a>`,
         field: "t" + colNo++,
         headerTooltip: tooltip,
         headerSort: false,
@@ -529,13 +529,13 @@ function init() {
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
 
-  let allFights = jouzoleanAndBebulsTournaments
-
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
 
   const admin = urlParams.get('bebul')!=null
   if (admin) {
+    let allFights = jouzoleanAndBebulsTournaments
+
     document.getElementById("adminStuff").style.display = "block"
 
     let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>"

@@ -1,6 +1,4 @@
 function initSearch() {
-  let allFights = jouzoleanAndBebulsTournaments;
-
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 
@@ -50,7 +48,7 @@ function movesContainFen(initialPosition, moves, fen) {
  */
 }
 
-function searchGames(fights, tokens) {
+function searchGames(data, fights, tokens) {
   let selectedGames = []
 
   let tokensLow = tokens.map(token => token.toLowerCase())
@@ -63,7 +61,7 @@ function searchGames(fights, tokens) {
     return len > 0? new Array(len).join(chr || '0')+this : this;
   }
   fights.forEach( fight => {
-    let games = tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames.find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         let date = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -134,10 +132,10 @@ function searchStrintToTokens(searchStr) {
   return tokens
 }
 
-function processSearch(searchStr) {
-  let theFights = jouzoleanAndBebulsTournaments
+function processSearch(data, searchStr) {
+  let theFights = data.jouzoleanAndBebulsTournaments
   let tokens = searchStrintToTokens(searchStr)
-  let gameData = gameListData(searchGames(theFights, tokens))
+  let gameData = gameListData(searchGames(data, theFights, tokens))
 
   updateMostActivePlayer("gameListTable", gameData)
   updateGoogleBar("gameListTableBar", gameData)
@@ -146,9 +144,9 @@ function processSearch(searchStr) {
   })
 }
 
-function onSearchClicked() {
+function onSearchClicked(data) {
   var searchText = document.getElementById("searchInput").value
   let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchText)
   History.pushState({'q': searchText}, 'Search Engine', newUrl)
-  processSearch(searchText)
+  processSearch(data, searchText)
 }

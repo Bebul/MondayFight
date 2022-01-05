@@ -113,23 +113,28 @@
 </div>
 
 <script>
-  let url = new URL(window.location.href)
-  let mfId = url.searchParams.get("mf")
-  if (mfId !== null) {
-    let ix = findTournamentIx(mfId)
-    if (ix >= 0) currentGameListTableIx = ix
+  let mfId = null
+  function mainPage(data) {
+    let url = new URL(window.location.href)
+    mfId = url.searchParams.get("mf")
+    if (mfId !== null) {
+      let ix = data.findTournamentIx(mfId)
+      if (ix >= 0) data.currentGameListTableIx = ix
+    }
+
+    let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames[data.currentGameListTableIx].id)
+    History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
+
+    let games = data.tournamentGames[data.currentGameListTableIx]
+    let gamesData = gameListData(games)
+    createPodium(data, games.id)
+    createResults(data, games.id, games)
+    createTournamentInfo(data, games.id)
+    updateSpecialBoards(games)
+    createGameListTable(gamesData, "#gameListTable", false)
   }
 
-  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(tournamentGames[currentGameListTableIx].id)
-  History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
-
-  let games = tournamentGames[currentGameListTableIx]
-  let gamesData = gameListData(games)
-  createPodium(games.id)
-  createResults(games.id, games)
-  createTournamentInfo(games.id)
-  updateSpecialBoards(games)
-  createGameListTable(gamesData, "#gameListTable", false)
+  LoadMFData(mainPage)
 </script>
 
 </body>

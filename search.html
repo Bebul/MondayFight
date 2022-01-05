@@ -84,7 +84,7 @@
             <div>Zadejte, prosím, svá ctěnná kritéria:
                 <input type="text" id="searchInput" value="jouzolean winner:bebul black:bebul" style="width:100%">
                 <br>
-                <button id="searchButton" onclick="onSearchClicked()">Hledej šmudlo, hledej</button>
+                <button id="searchButton">Hledej šmudlo, hledej</button>
             </div>
         </div>
 
@@ -99,31 +99,38 @@
 </div>
 
 <script>
-  //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-
-  let url = new URL(window.location.href)
-  let searchParam = url.searchParams.get("q")
-  if (searchParam === null) searchParam = "jouzolean winner:bebul black:bebul"
-  document.getElementById("searchInput").value = searchParam
-
-  let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)
-  History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
-
-  let tokens = searchStrintToTokens(searchParam)
-  createGameListTable(gameListData(searchGames(jouzoleanAndBebulsTournaments, tokens)), "#gameListTable", true)
-
-  var input = document.getElementById("searchInput");
-  input.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("searchButton").click();
+  function mainPage(data) {
+    //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
+    document.getElementById("searchButton").onclick = function() {
+      onSearchClicked(data)
     }
-  });
 
-  History.Adapter.bind(window,'statechange',function(){
-    var query = History.getState().data['q'];
-    console.log("state changed: " + query)
-  });
+    let url = new URL(window.location.href)
+    let searchParam = url.searchParams.get("q")
+    if (searchParam === null) searchParam = "jouzolean winner:bebul black:bebul"
+    document.getElementById("searchInput").value = searchParam
+
+    let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)
+    History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
+
+    let tokens = searchStrintToTokens(searchParam)
+    createGameListTable(gameListData(searchGames(data, data.jouzoleanAndBebulsTournaments, tokens)), "#gameListTable", true)
+
+    var input = document.getElementById("searchInput");
+    input.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("searchButton").click();
+      }
+    });
+
+    History.Adapter.bind(window,'statechange',function(){
+      var query = History.getState().data['q'];
+      console.log("state changed: " + query)
+    });
+  }
+
+  LoadMFData(mainPage)
 
 </script>
 
