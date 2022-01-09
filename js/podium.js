@@ -102,7 +102,7 @@ function createTournamentInfo(data, tournamentID, id="info") {
   }
 }
 
-function ratingDiffTag(player, games) {
+function ratingDiff(player, games) {
   let initialRating = player.rating
   for (i=games.games.length-1; i>=0; i--) {
     let players = games.games[i].players
@@ -114,9 +114,12 @@ function ratingDiffTag(player, games) {
       break
     }
   }
-  let diff = player.rating - initialRating
-  if (diff < 0) return `<loss>${diff}</loss>`
-  else return `<win>+${diff}</win>`
+  return player.rating - initialRating
+}
+
+function ratingDiffTag(player) {
+  if (player.diff < 0) return `<loss>${(player.diff)}</loss>`
+  else return `<win>+${(player.diff)}</win>`
 }
 
 function createResults(data, tournamentID, gamesData, id = "results") {
@@ -147,7 +150,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
       )
         html = html + `</td>
 <td class="total"><strong>${player.score}</strong></td>
-<td class="rating-diff">${ratingDiffTag(player, gamesData)}</td>
+<td class="rating-diff">${ratingDiffTag(player)}</td>
 `
 
       html = html + "</tr>"
@@ -161,9 +164,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
 function fastestMateSelector(minGame, game) {
   if (game.status !== "mate") return minGame
   if (minGame) {
-    let minMoves = minGame.moves.split(" ").length
-    let moves = game.moves.split(" ").length
-    if (moves < minMoves) return game
+    if (game.ply < minGame.ply) return game
     else return minGame
   } else return game
 }
@@ -185,9 +186,7 @@ function biggestDifferenceWinSelector(minGame, game) {
 function fastestGameSelector(minGame, game) {
   if (game.status === "noStart") return minGame
   if (minGame) {
-    let minMoves = minGame.moves.split(" ").length
-    let moves = game.moves.split(" ").length
-    if (moves < minMoves) return game
+    if (game.ply < minGame.ply) return game
     else return minGame
   } else return game
 }
@@ -239,8 +238,10 @@ function loser(game) {
   else return game.players.black
 }
 function winner(game) {
-  if (game.winner === 'black') return game.players.black
-  else return game.players.white
+  if (game) {
+    if (game.winner === 'black') return game.players.black
+    else return game.players.white
+  }
 }
 
 function updateSpecialBoards(games) {

@@ -28,6 +28,31 @@ function playerPresence(fight, playerName) {
   return 1
 }
 
+function playerRatingDiff(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.diff
+}
+
+function playerFastestMate(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.mate
+}
+
+function playerFastestGame(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.fast
+}
+
+function playerSensation(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.sensation
+}
+
+
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
   if (player === undefined || !playedAGame(player)) return 0
@@ -79,6 +104,46 @@ function getTotalPresence(player, theFights) {
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
       if (pl.name==player && playedAGame(pl)) total += 1
+    })
+  })
+  return total
+}
+
+function getTotalRatingDiff(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.diff) total += pl.diff
+    })
+  })
+  return total
+}
+
+function getTotalMates(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.mate) total += pl.mate
+    })
+  })
+  return total
+}
+
+function getTotalFastest(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.fast) total += pl.fast
+    })
+  })
+  return total
+}
+
+function getTotalSensations(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.sensation) total += pl.sensation
     })
   })
   return total
@@ -164,7 +229,11 @@ function addFightsPoints(playerOut, playerName, theFights) {
       points: playerPoints(fight, playerName)[0],
       present: playerPresence(fight, playerName),
       games: playerPoints(fight, playerName)[0]+playerPoints(fight, playerName)[1],
-      performance: playerPerformance(fight, playerName)
+      performance: playerPerformance(fight, playerName),
+      diff: playerRatingDiff(fight, playerName),
+      mate: playerFastestMate(fight, playerName),
+      fast: playerFastestGame(fight, playerName),
+      sensation: playerSensation(fight, playerName)
     }
   })
 }
@@ -181,7 +250,11 @@ function getDataOfPlayers(theFights) {
         totalPts: getTotalPoints(player, theFights),
         present: getTotalPresence(player, theFights),
         games: getTotalGames(player, theFights),
-        avgPerformance: getAvgPerformance(player, theFights)
+        avgPerformance: getAvgPerformance(player, theFights),
+        ratingDiff: getTotalRatingDiff(player, theFights),
+        fastestMates: getTotalMates(player, theFights),
+        fastestGames: getTotalFastest(player, theFights),
+        sensations: getTotalSensations(player, theFights)
       }
       addFightsPoints(thePlayer, player, theFights)
       tableData.push(thePlayer)
@@ -198,6 +271,10 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkové skóre"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet her"},
     {title: "P", field: "avgPerformance", resizable:false, headerSortStartingDir:"desc", headerTooltip:"průměrná performance"},
+    {title: "R", field: "ratingDiff", resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
+    {title: "M", field: "fastestMates", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší mat"},
+    {title: "S", field: "sensations", resizable:false, headerSortStartingDir:"desc", headerTooltip:"senzace turnaje"},
+    {title: "F", field: "fastestGames", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší hra"},
     {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet odehraných turnajů"}
   ]
   if (enableJouzocoins) leaderboardColumns.push({title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc", headerTooltip:"slavné Jouzocoins"})
@@ -301,7 +378,7 @@ function gameListData(games) {
     else result = "1/2-1/2"
     let opening = ""
     if (g.opening !== undefined) opening = g.opening.name
-    let ply = g.moves.split(" ").length
+    let ply = g.ply
     let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
 
     Number.prototype.padLeft = function(base,chr){
@@ -661,6 +738,10 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'totalPts') value = cellValue.points
   else if (mfMode === 'games') value = cellValue.games
   else if (mfMode === 'avgPerformance') value = cellValue.performance
+  else if (mfMode === 'ratingDiff') value = cellValue.diff
+  else if (mfMode === 'fastestMates') value = cellValue.mate
+  else if (mfMode === 'fastestGames') value = cellValue.fast
+  else if (mfMode === 'sensations') value = cellValue.sensation
 
   if (cellValue.present) return value
   else return ""
@@ -669,7 +750,16 @@ function jouzoCoinsFormatter(cell, formatterParams) {
 function dataSortedFunc(sorters) {
   let newMode = undefined
   sorters.forEach( function(srt) {
-      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games' || srt.field === 'avgPerformance') newMode = srt.field
+      if (srt.field === 'jouzoCoins' ||
+        srt.field === 'totalScore' ||
+        srt.field === 'totalPts' ||
+        srt.field === 'games' ||
+        srt.field === 'avgPerformance' ||
+        srt.field === 'ratingDiff' ||
+        srt.field === 'fastestMates' ||
+        srt.field === 'fastestGames' ||
+        srt.field === 'sensations'
+      ) newMode = srt.field
     }
   )
   if (newMode !== undefined && this.mfMode != newMode) {

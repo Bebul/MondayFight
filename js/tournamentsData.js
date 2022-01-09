@@ -45,6 +45,75 @@ async function LoadMFData(callback) {
     return filtered
   }
 
+  function filterGames(f, games) {
+    let filtered = []
+    games.forEach( game => {
+      if (f(game)) filtered.push(game)
+    })
+    return filtered
+  }
+
+  // add each game length ... ply
+  tournamentGames.forEach(games => {
+      games.games.forEach(game => {
+        game.ply = game.moves.split(" ").length
+      })
+    }
+  )
+
+  function getPlayer(tournament, name) {
+    return tournament.standing.players.find(function(player) {
+      return player.name === name
+    })
+  }
+
+  // add extra statistics into tournament
+  //   * ratingDiff
+  //   * fastestMate
+  //   * sensation
+  //   * fastestFinisher
+  function addExtraTournamentStats(tournament, games) {
+    // sensation
+    let sensationPlayer = winner(games.games.reduce(biggestDifferenceWinSelector, null))
+    if (sensationPlayer) {
+      let player = getPlayer(tournament, sensationPlayer.user.name)
+      player.sensation = 1
+    }
+    // fastestMate
+    let mateGame = games.games.reduce(fastestMateSelector, null)
+    if (mateGame) {
+      let fastestMates = filterGames(g => g.status === 'mate' && g.ply === mateGame.ply, games.games)
+      fastestMates.forEach( game => {
+          let matingPlayer = getPlayer(tournament, winner(game).user.name)
+          matingPlayer.mate = 1
+        }
+      )
+    }
+    // fastestFinisher
+    let fastestGame = games.games.reduce(fastestGameSelector, null)
+    if (fastestGame) {
+      let fastestGames = filterGames(g => g.status !== 'noStart' && g.ply === fastestGame.ply, games.games)
+      fastestGames.forEach( game => {
+          let thePlayer = getPlayer(tournament, winner(game).user.name)
+          thePlayer.fast = 1
+        }
+      )
+    }
+    // ratingDiff
+    tournament.standing.players.forEach( function(player) {
+      let diff = ratingDiff(player, games)
+      if (diff) player.diff = diff
+    })
+  }
+  // add extra statistics into jouzoleanAndBebulsTournaments
+  jouzoleanAndBebulsTournaments.forEach(fight => {
+      let games = tournamentGames.find(tg => tg.id==fight.id);
+      if (games !== undefined) {
+        addExtraTournamentStats(fight, games)
+      }
+    }
+  )
+
   let api = {
     jouzoleanAndBebulsTournaments: function() {
       return jouzoleanAndBebulsTournaments
