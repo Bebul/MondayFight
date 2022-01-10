@@ -708,6 +708,7 @@ function processAdmin(data) {
             gamesDownloaderAPI().downloadMissingTournamentGames(data, updateHTMLurlRequestsList)
               .then(function(games) {
                   data.addGames(games)
+                  data.addExtras()
                   download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
                   download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
                 }

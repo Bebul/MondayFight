@@ -53,14 +53,6 @@ async function LoadMFData(callback) {
     return filtered
   }
 
-  // add each game length ... ply
-  tournamentGames.forEach(games => {
-      games.games.forEach(game => {
-        game.ply = game.moves.split(" ").length
-      })
-    }
-  )
-
   function getPlayer(tournament, name) {
     return tournament.standing.players.find(function(player) {
       return player.name === name
@@ -68,11 +60,16 @@ async function LoadMFData(callback) {
   }
 
   // add extra statistics into tournament
+  //   * ply count for each game
   //   * ratingDiff
   //   * fastestMate
   //   * sensation
   //   * fastestFinisher
   function addExtraTournamentStats(tournament, games) {
+    // add each game length ... ply
+    games.games.forEach(game => {
+      game.ply = game.moves.split(" ").length
+    })
     // sensation
     let sensationPlayer = winner(games.games.reduce(biggestDifferenceWinSelector, null))
     if (sensationPlayer) {
@@ -102,17 +99,22 @@ async function LoadMFData(callback) {
     // ratingDiff
     tournament.standing.players.forEach( function(player) {
       let diff = ratingDiff(player, games)
-      if (diff) player.diff = diff
+      if (diff!==undefined) player.diff = diff
     })
   }
+
   // add extra statistics into jouzoleanAndBebulsTournaments
-  jouzoleanAndBebulsTournaments.forEach(fight => {
-      let games = tournamentGames.find(tg => tg.id==fight.id);
-      if (games !== undefined) {
-        addExtraTournamentStats(fight, games)
+  function addExtras() {
+    jouzoleanAndBebulsTournaments.forEach(fight => {
+        let games = tournamentGames.find(tg => tg.id==fight.id);
+        if (games !== undefined) {
+          addExtraTournamentStats(fight, games)
+        }
       }
-    }
-  )
+    )
+  }
+
+  // addExtras() // no need to add, as all these stats should be already downloaded and saved in data folder
 
   let api = {
     jouzoleanAndBebulsTournaments: function() {
@@ -131,6 +133,9 @@ async function LoadMFData(callback) {
     },
     addGames: function (downloadedGames) {
       tournamentGames = tournamentGames.concat(downloadedGames)
+    },
+    addExtras: function () {
+      addExtras()
     },
     findTournament: function (id) {
       return jouzoleanAndBebulsTournaments.find(tr => tr.id==id)
