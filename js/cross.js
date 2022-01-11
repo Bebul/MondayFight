@@ -1,11 +1,9 @@
 function initCross() {
-  let allFights = jouzoleanAndBebulsTournaments;
-
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
 }
 
-function createCrossTable(theFights, tableId) {
+function createCrossTable(data, theFights, tableId) {
   let players = getPlayers(theFights).sort(function(a, b){
     var x = a.toLowerCase();
     var y = b.toLowerCase();
@@ -16,13 +14,13 @@ function createCrossTable(theFights, tableId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let crossTable = new Tabulator(tableId, {
     layout: "fitDataTable",
-    data: getCrossData(theFights, players),
-    columns: generateCrossTableColumns(theFights, players)
+    data: getCrossData(data, theFights, players),
+    columns: generateCrossTableColumns(data, theFights, players)
   });
   allMyTables.set(tableId, crossTable)
 }
 
-function getCrossData(theFights, players) {
+function getCrossData(data, theFights, players) {
   function addPlayerCrossData(player, scores, columns) {
     let ix = 0
     players.forEach( pl => {
@@ -34,8 +32,8 @@ function getCrossData(theFights, players) {
     )
   }
   let tableData = [];
-  let scores = getScores(players, theFights)
-  let crossScores = getCrossScores(players, theFights)
+  let scores = getScores(data, players, theFights)
+  let crossScores = getCrossScores(data, players, theFights)
   players.forEach( player => {
       let thePlayer = {
         name: player,
@@ -49,7 +47,7 @@ function getCrossData(theFights, players) {
   return tableData;
 }
 
-function getScores(players, fights) {
+function getScores(data, players, fights) {
   let playerScore = new Map();
   players.forEach( pl => playerScore.set(pl, [0,0,0]) )
 
@@ -72,7 +70,7 @@ function getScores(players, fights) {
   }
 
   fights.forEach( fight => {
-    let games = tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         if (game.status === "noStart") {
@@ -94,7 +92,7 @@ function getScores(players, fights) {
   return playerScore
 }
 
-function getCrossScores(players, fights) {
+function getCrossScores(data, players, fights) {
   let playerScore = new Map();
   function emptyMap() {
     let theMap = new Map();
@@ -118,7 +116,7 @@ function getCrossScores(players, fights) {
   }
 
   fights.forEach( fight => {
-    let games = tournamentGames.find(tg => tg.id==fight.id);
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
         let white = game.players.white.user.name
@@ -140,11 +138,11 @@ function getCrossScores(players, fights) {
   return playerScore
 }
 
-function myCellClick(players, fights){
+function myCellClick(data, players, fights){
   function allGames(playerA, playerB) {
     let selectedGames = []
     fights.forEach( fight => {
-      let games = tournamentGames.find(tg => tg.id==fight.id);
+      let games = data.tournamentGames().find(tg => tg.id==fight.id);
       if (games !== undefined) {
         games.games.forEach(game => {
           let white = game.players.white.user.name
@@ -174,7 +172,7 @@ function myCellClick(players, fights){
   return mcl
 }
 
-function generateCrossTableColumns(theFights, players) {
+function generateCrossTableColumns(data, theFights, players) {
   let leaderboardColumns = [
     {title: "Name", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name", target:"_blank"}},
     {title: "Score", field: "score", resizable:false, hozAlign:"center", headerSortStartingDir:"desc"},
@@ -187,7 +185,7 @@ function generateCrossTableColumns(theFights, players) {
         title: player,
         field: "pl"+ix,
         resizable:false,
-        cellClick: myCellClick(players, theFights),
+        cellClick: myCellClick(data, players, theFights),
         hozAlign: "center",
         headerVertical: true
       }

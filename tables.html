@@ -26,16 +26,18 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
+    <script type="text/javascript" src="js/podium.js"></script>
     <script type="text/javascript" src="js/mondayFight.js"></script>
     <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onload="init()">
+<body>
 
 <div class="body">
 
@@ -68,7 +70,7 @@
             <li><b>Games</b> počet odehraných her.
             <li><b>Performance</b> průměrná performance hráče (váženo počtem her) v turnaji.
             <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
-            <li><b>JouzaCoins</b> je bodování, které používá Jouzolean ve své tabulce.
+            <li><b>R,M,S,F</b> je změna ratingu během turnaje, počet nejrychlejších matů, senzací a nejrychlejších her
         </ul>
     </div>
 
@@ -102,10 +104,15 @@
 </div>
 
 <script>
-  let year = (new Date()).getFullYear()
-  let thisYear = filterYear(mondayFights, year)
-  createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
-  createPlayersTable(last10(mondayFights), "#last10", false)
+  function mainPage(data) {
+    processAdmin(data)
+    let year = (new Date()).getFullYear()
+    let thisYear = filterYear(data.mondayFights(), year)
+    createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
+    createPlayersTable(last10(data.mondayFights()), "#last10", false)
+  }
+
+  LoadMFData(mainPage)
 </script>
 
 </br>

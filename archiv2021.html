@@ -23,6 +23,7 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
+    <script type="text/javascript" src="js/podium.js"></script>
     <script type="text/javascript" src="js/mondayFight.js"></script>
     <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
@@ -32,7 +33,7 @@
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onload="init()">
+<body>
 
 <div class="body">
 
@@ -64,6 +65,7 @@
             <li><b>Games</b> počet odehraných her.
             <li><b>Performance</b> průměrná performance hráče (váženo počtem her) v turnaji.
             <li><b>Presence</b> je počet turnajů, které danný hráč odehrál.
+            <li><b>R,M,S,F</b> je změna ratingu během turnaje, počet nejrychlejších matů, senzací a nejrychlejších her
         </ul>
     </div>
 
@@ -113,8 +115,12 @@
 </div>
 
 <script>
-  let the2021 = filterYear(mondayFights, 2021)
-  createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins
+  function mainPage(data) {
+    let the2021 = filterYear(data.mondayFights(), 2021)
+    createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins
+  }
+
+  LoadMFData(mainPage)
 </script>
 
 </br>

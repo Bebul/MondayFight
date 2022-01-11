@@ -28,6 +28,31 @@ function playerPresence(fight, playerName) {
   return 1
 }
 
+function playerRatingDiff(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.diff
+}
+
+function playerFastestMate(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.mate
+}
+
+function playerFastestGame(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.fast
+}
+
+function playerSensation(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !playedAGame(player)) return 0
+  return player.sensation
+}
+
+
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
   if (player === undefined || !playedAGame(player)) return 0
@@ -79,6 +104,46 @@ function getTotalPresence(player, theFights) {
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
       if (pl.name==player && playedAGame(pl)) total += 1
+    })
+  })
+  return total
+}
+
+function getTotalRatingDiff(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.diff) total += pl.diff
+    })
+  })
+  return total
+}
+
+function getTotalMates(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.mate) total += pl.mate
+    })
+  })
+  return total
+}
+
+function getTotalFastest(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.fast) total += pl.fast
+    })
+  })
+  return total
+}
+
+function getTotalSensations(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.sensation) total += pl.sensation
     })
   })
   return total
@@ -164,7 +229,11 @@ function addFightsPoints(playerOut, playerName, theFights) {
       points: playerPoints(fight, playerName)[0],
       present: playerPresence(fight, playerName),
       games: playerPoints(fight, playerName)[0]+playerPoints(fight, playerName)[1],
-      performance: playerPerformance(fight, playerName)
+      performance: playerPerformance(fight, playerName),
+      diff: playerRatingDiff(fight, playerName),
+      mate: playerFastestMate(fight, playerName),
+      fast: playerFastestGame(fight, playerName),
+      sensation: playerSensation(fight, playerName)
     }
   })
 }
@@ -181,7 +250,11 @@ function getDataOfPlayers(theFights) {
         totalPts: getTotalPoints(player, theFights),
         present: getTotalPresence(player, theFights),
         games: getTotalGames(player, theFights),
-        avgPerformance: getAvgPerformance(player, theFights)
+        avgPerformance: getAvgPerformance(player, theFights),
+        ratingDiff: getTotalRatingDiff(player, theFights),
+        fastestMates: getTotalMates(player, theFights),
+        fastestGames: getTotalFastest(player, theFights),
+        sensations: getTotalSensations(player, theFights)
       }
       addFightsPoints(thePlayer, player, theFights)
       tableData.push(thePlayer)
@@ -198,6 +271,10 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkové skóre"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet her"},
     {title: "P", field: "avgPerformance", resizable:false, headerSortStartingDir:"desc", headerTooltip:"průměrná performance"},
+    {title: "R", field: "ratingDiff", resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
+    {title: "M", field: "fastestMates", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší mat"},
+    {title: "S", field: "sensations", resizable:false, headerSortStartingDir:"desc", headerTooltip:"senzace turnaje"},
+    {title: "F", field: "fastestGames", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší hra"},
     {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet odehraných turnajů"}
   ]
   if (enableJouzocoins) leaderboardColumns.push({title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc", headerTooltip:"slavné Jouzocoins"})
@@ -217,7 +294,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
   function pushFight(fight, tooltip) {
     curColumns.push(
       {
-        title: `<a href='${mainMFURL}?mf=${fight.id}'>${colNo}</a>`,
+        title: `<a href='${mainMFURL}/?mf=${fight.id}'>${colNo}</a>`,
         field: "t" + colNo++,
         headerTooltip: tooltip,
         headerSort: false,
@@ -258,7 +335,11 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
 // Parse.pgn demo
 function loadDoc() {
 
-  gamesDownloaderAPI().downloadMissingTournamentGames()
+  function logger(logLine) {
+    document.getElementById("gamesJson").innerHTML = logLine
+  }
+  let downloadedTournamentsGames = gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
   let xhttp = new XMLHttpRequest()
@@ -297,7 +378,7 @@ function gameListData(games) {
     else result = "1/2-1/2"
     let opening = ""
     if (g.opening !== undefined) opening = g.opening.name
-    let ply = g.moves.split(" ").length
+    let ply = g.ply
     let time = Math.floor((g.lastMoveAt - g.createdAt) / 1000)
 
     Number.prototype.padLeft = function(base,chr){
@@ -524,20 +605,62 @@ function textFile2String(path) {
 
 let urlRequestsList = []
 
-function init() {
+function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
+  let tag = document.getElementById("finalJson")
+  tag.innerHTML = JSON.stringify(downloadedTournaments, null, 0);
+
+  // recalculate data and tables
+  if (downloadedTournaments.length > 0) {
+    let table10 = allMyTables.get("#last10")
+    if (table10 !== undefined) {
+      let theFights = last10(data.mondayFights())
+      table10.setColumns(generatePlayersTableColumns(theFights))
+      table10.setData(getDataOfPlayers(theFights))
+    }
+
+    let tableAll = allMyTables.get("#mondayFightsLeaderboard")
+    if (tableAll !== undefined) {
+      let theFights = filterYear(data.mondayFights(), 2022)
+      tableAll.setColumns(generatePlayersTableColumns(theFights))
+      tableAll.setData(getDataOfPlayers(theFights))
+    }
+  }
+}
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+function toNDJson(arr) {
+  return arr.reduce(function(ndjson, obj) {
+    return ndjson + JSON.stringify(obj) + "\n"
+  }, "")
+}
+
+function processAdmin(data) {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
-
-  let allFights = jouzoleanAndBebulsTournaments
 
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
 
   const admin = urlParams.get('bebul')!=null
   if (admin) {
-    document.getElementById("adminStuff").style.display = "block"
+    let allFights = data.jouzoleanAndBebulsTournaments()
 
+    document.getElementById("adminStuff").style.display = "block"
+    let text = ""
+/*
     let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>"
     allFights.forEach( function myFunction(value) {
       let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>'
@@ -561,20 +684,40 @@ function init() {
       text += "<tr>" + info + "</tr>"
     })
     text += "</table>"
-
+*/
     text += "      <div style=\"margin: 10px 0\">\n" +
       "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
       "                <input type=\"text\" id=\"tournamentDwnlID\" style=\"width:100%\">\n" +
+      "                <input type='checkbox' id='rename' checked='true'>Rename</input>" +
       "                <br>\n" +
-      "                <button id=\"dwnl\" onclick=\"onDwnlTournamentClicked()\">Download</button>\n" +
+      "                <button id=\"dwnl\">Download</button>\n" +
       "            </div>\n" +
       "        </div>\n" +
       "  <hr><pre id='tournamentDwnlResult'>Tady se objeví výsledek downloadu</pre>" +
       "  <hr><pre id='tournamentGamesResult'>Tady se objeví výsledek downloadu her</pre>"
 
     document.getElementById("demo").innerHTML = text
+    document.getElementById("dwnl").onclick = function() {
+      let rename = document.getElementById("rename").checked
+      onDwnlTournamentClicked(data, rename)
+    }
 
-    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing()
+    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(updateHTMLurlRequestsList)
+      .then(function(downloadedTournaments) {
+          if (downloadedTournaments.length) {
+            data.addTournaments(downloadedTournaments) // updates mondayFights and everything
+            updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
+            gamesDownloaderAPI().downloadMissingTournamentGames(data, updateHTMLurlRequestsList)
+              .then(function(games) {
+                  data.addGames(games)
+                  data.addExtras()
+                  download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
+                  download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+                }
+              )
+          }
+        }
+      )
   }
 }
 
@@ -598,6 +741,10 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'totalPts') value = cellValue.points
   else if (mfMode === 'games') value = cellValue.games
   else if (mfMode === 'avgPerformance') value = cellValue.performance
+  else if (mfMode === 'ratingDiff') value = cellValue.diff
+  else if (mfMode === 'fastestMates') value = cellValue.mate
+  else if (mfMode === 'fastestGames') value = cellValue.fast
+  else if (mfMode === 'sensations') value = cellValue.sensation
 
   if (cellValue.present) return value
   else return ""
@@ -606,7 +753,16 @@ function jouzoCoinsFormatter(cell, formatterParams) {
 function dataSortedFunc(sorters) {
   let newMode = undefined
   sorters.forEach( function(srt) {
-      if (srt.field === 'jouzoCoins' || srt.field === 'totalScore' || srt.field === 'totalPts' || srt.field === 'games' || srt.field === 'avgPerformance') newMode = srt.field
+      if (srt.field === 'jouzoCoins' ||
+        srt.field === 'totalScore' ||
+        srt.field === 'totalPts' ||
+        srt.field === 'games' ||
+        srt.field === 'avgPerformance' ||
+        srt.field === 'ratingDiff' ||
+        srt.field === 'fastestMates' ||
+        srt.field === 'fastestGames' ||
+        srt.field === 'sensations'
+      ) newMode = srt.field
     }
   )
   if (newMode !== undefined && this.mfMode != newMode) {

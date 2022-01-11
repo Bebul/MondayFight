@@ -43,8 +43,8 @@ function getPodiumHTML(tournament) {
   return html
 }
 
-function createPodium(tournamentID, id="podium") {
-  let tournament = findTournament(tournamentID)
+function createPodium(data, tournamentID, id="podium") {
+  let tournament = data.findTournament(tournamentID)
   if (tournament!=undefined) {
     let el = document.getElementById(id)
     let html = getPodiumHTML(tournament)
@@ -55,8 +55,8 @@ function createPodium(tournamentID, id="podium") {
 var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 var months = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
 
-function createTournamentInfo(tournamentID, id="info") {
-  let tournament = findTournament(tournamentID)
+function createTournamentInfo(data, tournamentID, id="info") {
+  let tournament = data.findTournament(tournamentID)
   if (tournament!=undefined) {
     let el = document.getElementById(id)
 
@@ -70,11 +70,11 @@ function createTournamentInfo(tournamentID, id="info") {
     let date = [d.getDate(), d.getMonth()+1].join('.')+' '+d.getFullYear()+' '+[d.getHours(), d.getMinutes().padLeft()].join(':')+' '+day;
 
     let ratedStr = ""
-    if (tournamentIsRated(tournamentID)) { ratedStr = "RATED" } else { ratedStr = "<b>UNRATED</b>" }
+    if (data.tournamentIsRated(tournamentID)) { ratedStr = "RATED" } else { ratedStr = "<b>UNRATED</b>" }
     let html = `
 <div style="width:600px; text-align: center; display: table">
         <div style="float:left;vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" onclick="nextTournament(-1)"><img src="img/bishopPrev.png"></a>
+            <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png"></a>
         </div>
 <div style="display: table-cell; vertical-align: middle">
    <div style="font-size:1.5em">${date} - ${ratedStr}</div>
@@ -87,15 +87,22 @@ function createTournamentInfo(tournamentID, id="info") {
    Link: <a href="https://lichess.org/tournament/${tournamentID}" target="_blank">https://lichess.org/tournament/${tournamentID}</a>
 </div>
         <div style="float:right; vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" onclick="nextTournament()"><img src="img/bishopNext.png"></a>
+            <a href="javascript:void(0);" id="nextTournament"><img src="img/bishopNext.png"></a>
         </div>
 </div>
 `
     el.innerHTML = html
   }
+
+  document.getElementById("prevTournament").onclick = function() {
+    nextTournament(data, -1)
+  }
+  document.getElementById("nextTournament").onclick = function() {
+    nextTournament(data)
+  }
 }
 
-function ratingDiffTag(player, games) {
+function ratingDiff(player, games) {
   let initialRating = player.rating
   for (i=games.games.length-1; i>=0; i--) {
     let players = games.games[i].players
@@ -107,13 +114,16 @@ function ratingDiffTag(player, games) {
       break
     }
   }
-  let diff = player.rating - initialRating
-  if (diff < 0) return `<loss>${diff}</loss>`
-  else return `<win>+${diff}</win>`
+  return player.rating - initialRating
 }
 
-function createResults(tournamentID, gamesData, id = "results") {
-  let tournament = findTournament(tournamentID)
+function ratingDiffTag(player) {
+  if (player.diff < 0) return `<loss>${(player.diff)}</loss>`
+  else return `<win>+${(player.diff)}</win>`
+}
+
+function createResults(data, tournamentID, gamesData, id = "results") {
+  let tournament = data.findTournament(tournamentID)
   if (tournament!=undefined) {
     let el = document.getElementById(id)
 
@@ -140,7 +150,7 @@ function createResults(tournamentID, gamesData, id = "results") {
       )
         html = html + `</td>
 <td class="total"><strong>${player.score}</strong></td>
-<td class="rating-diff">${ratingDiffTag(player, gamesData)}</td>
+<td class="rating-diff">${ratingDiffTag(player)}</td>
 `
 
       html = html + "</tr>"
@@ -154,9 +164,7 @@ function createResults(tournamentID, gamesData, id = "results") {
 function fastestMateSelector(minGame, game) {
   if (game.status !== "mate") return minGame
   if (minGame) {
-    let minMoves = minGame.moves.split(" ").length
-    let moves = game.moves.split(" ").length
-    if (moves < minMoves) return game
+    if (game.ply < minGame.ply) return game
     else return minGame
   } else return game
 }
@@ -178,9 +186,7 @@ function biggestDifferenceWinSelector(minGame, game) {
 function fastestGameSelector(minGame, game) {
   if (game.status === "noStart") return minGame
   if (minGame) {
-    let minMoves = minGame.moves.split(" ").length
-    let moves = game.moves.split(" ").length
-    if (moves < minMoves) return game
+    if (game.ply < minGame.ply) return game
     else return minGame
   } else return game
 }
@@ -232,8 +238,10 @@ function loser(game) {
   else return game.players.black
 }
 function winner(game) {
-  if (game.winner === 'black') return game.players.black
-  else return game.players.white
+  if (game) {
+    if (game.winner === 'black') return game.players.black
+    else return game.players.white
+  }
 }
 
 function updateSpecialBoards(games) {
@@ -245,20 +253,20 @@ function updateSpecialBoards(games) {
   }
 }
 
-function nextTournament(diff=1) {
-  currentGameListTableIx += diff
-  currentGameListTableIx = Math.max(Math.min(currentGameListTableIx, tournamentGames.length - 1),0)
+function nextTournament(data, diff=1) {
+  data.currentGameListTableIx += diff
+  data.currentGameListTableIx = Math.max(Math.min(data.currentGameListTableIx, data.tournamentGames().length - 1),0)
 
-  let games = tournamentGames[currentGameListTableIx]
+  let games = data.tournamentGames()[data.currentGameListTableIx]
   let gameData = gameListData(games)
 
-  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(tournamentGames[currentGameListTableIx].id)
+  let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames()[data.currentGameListTableIx].id)
   History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
 
-  createPodium(games.id)
-  createResults(games.id, games)
+  createPodium(data, games.id)
+  createResults(data, games.id, games)
   updateSpecialBoards(games)
-  createTournamentInfo(games.id)
+  createTournamentInfo(data, games.id)
 
   updateMostActivePlayer("gameListTable", gameData)
   updateGoogleBar("gameListTableBar", gameData)
