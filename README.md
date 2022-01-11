@@ -7,4 +7,5 @@ and then converted to from Module Node.js style to Browser using http://browseri
 
 For tables the http://tabulator.info/ library was downloaded...
 
-![image](https://user-images.githubusercontent.com/9265147/98485563-9e475800-2217-11eb-9c66-a7128d6e757d.png)
+![example](https://user-images.githubusercontent.com/9265147/148989805-9aa6a084-de85-47cc-a5a4-f5179a41623e.png)
+
