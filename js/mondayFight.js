@@ -627,30 +627,29 @@ function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   }
 }
 
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
+function toNDJson(arr) {
+  return arr.reduce(function(ndjson, obj) {
+    return ndjson + JSON.stringify(obj) + "\n"
+  }, "")
+}
+
 function processAdmin(data) {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
-
-
-  function download(filename, text) {
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    element.setAttribute('download', filename);
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-  }
-
-  function toNDJson(arr) {
-    return arr.reduce(function(ndjson, obj) {
-      return ndjson + JSON.stringify(obj) + "\n"
-    }, "")
-  }
 
   const queryString = window.location.search
   const urlParams = new URLSearchParams(queryString)
@@ -660,7 +659,8 @@ function processAdmin(data) {
     let allFights = data.jouzoleanAndBebulsTournaments()
 
     document.getElementById("adminStuff").style.display = "block"
-
+    let text = ""
+/*
     let text = "<table><th>Url</th><th>Players</th><th>Games</th><th>Date</th><th>Gold</th><th>Score</th><th>ELO</th><th>Silver</th><th>Score</th><th>ELO</th><th>Bronze</th><th>Score</th><th>ELO</th>"
     allFights.forEach( function myFunction(value) {
       let info = '<td><a href="https://lichess.org/tournament/' + value.id + '">' + value.id + '<\a></td>'
@@ -684,10 +684,11 @@ function processAdmin(data) {
       text += "<tr>" + info + "</tr>"
     })
     text += "</table>"
-
+*/
     text += "      <div style=\"margin: 10px 0\">\n" +
       "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
       "                <input type=\"text\" id=\"tournamentDwnlID\" style=\"width:100%\">\n" +
+      "                <input type='checkbox' id='rename' checked='true'>Rename</input>" +
       "                <br>\n" +
       "                <button id=\"dwnl\">Download</button>\n" +
       "            </div>\n" +
@@ -697,7 +698,8 @@ function processAdmin(data) {
 
     document.getElementById("demo").innerHTML = text
     document.getElementById("dwnl").onclick = function() {
-      onDwnlTournamentClicked(data)
+      let rename = document.getElementById("rename").checked
+      onDwnlTournamentClicked(data, rename)
     }
 
     lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(updateHTMLurlRequestsList)
