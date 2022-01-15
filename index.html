@@ -51,12 +51,12 @@
 <div class="body">
 
     <div class="mondayFightCaption">
-        <img src="img/pohar.png" style="height:80px; float:left; margin:-2px -20px 0 0px"/>
-        <span><a href="javascript:void(0);" class="icon" onclick="showMondayFightMenu()" style="color:#00b5ad">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon"><a href="javascript:void(0);" onclick="showMondayFightMenu()" style="color:#00b5ad">
             <i class="fa fa-bars hamburger"></i>
               </a>
         </span>
-        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights Arena</span>
+        <span class="captionText">Monday Fights Arena</span>
         <div class="topnav">
             <div id="myLinks">
                 <a href="index.html">Main page</a>
@@ -73,42 +73,46 @@
 
     <br><br>
 
-    <div style="position: absolute; margin-top: -35px">
+    <div style="margin-top: -35px; float: left">
         <div id="podium" class="podium">
         </div>
         <div id="results" class="results">
         </div>
         <div id="info">
         </div>
-        <div class="results" id="fastMateId">
-            <div style="display: table; margin: 0 auto">
-                <h2 style="margin-bottom: 0px">Nejrychlejší Mat</h2>
-                <div id="fastMateBoard"></div>
-            </div>
-        </div>
-        <div class="results" id="surpriseGameId">
-            <div style="display: table; margin: 0 auto">
-                <h2 style="margin-bottom: 0px">Senzace turnaje</h2>
-                <div style="margin:0 auto; width:320px">
-                    Gratulujeme <b id="senzacionist"></b> k vítězství nad soupeřem o <b id="senzaceDiff"></b> bodů silnějším.
-                    <span id="senzaBerserk"></span>
-                </div>
-                <div id="surpriseGameBoard"></div>
-            </div>
-        </div>
-        <div class="results" id="fastestId">
-            <div style="display: table; margin: 0 auto">
-                <h2 style="margin-bottom: 0px">Nejrychlejší hra</h2>
-                <div id="fastestBoard"></div>
-            </div>
-        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
         <div id="gameListTableplall"></div>
         <div id="gameListTableBar"></div>
-        <div id="gameListTable"></div>
     </div>
+
+    <div class="boards">
+        <div class="board" id="fastMateId">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Nejrychlejší Mat</h2>
+                <div id="fastMateBoard"></div>
+            </div>
+        </div>
+
+        <div class="board" id="surpriseGameId">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Senzace turnaje</h2>
+                Gratulujeme <b id="senzacionist"></b> k vítězství nad soupeřem o <b id="senzaceDiff"></b> bodů silnějším.
+                <span id="senzaBerserk"></span>
+                <div id="surpriseGameBoard"></div>
+            </div>
+        </div>
+
+        <div class="board" id="fastestId">
+            <div style="display: table; margin: 0 auto">
+                <h2 style="margin-bottom: 0px">Nejrychlejší hra</h2>
+                <div id="fastestBoard"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gameListTable"></div>
 
 </div>
 

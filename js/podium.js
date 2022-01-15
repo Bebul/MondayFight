@@ -200,6 +200,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
     let moves = selectedGame.moves.split(" ")
     moves.forEach((move) => mfChess.move(move))
 
+    let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
     let config = {
       pgn: `[White \"${selectedGame.players.white.user.name} ${selectedGame.players.white.rating}\"]
 [Black \"${selectedGame.players.black.user.name} ${selectedGame.players.black.rating}\"]
@@ -207,6 +208,8 @@ ${selectedGame.moves}
 `,
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
+      boardSize: mateBoardWidth,
+      movesHeight: 50,
       startPlay: `${moves.length}`
     }
     if (fen) config.position = fen

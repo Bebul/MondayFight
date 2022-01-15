@@ -13,6 +13,17 @@ body {
     height:auto
 }
 
+.boards {
+    margin: 5px;
+    max-width: 400px;
+    width: 100%;
+}
+
+.board {
+    max-width: 400px;
+    width: 100%;
+}
+
 @media only screen and (max-width: 500px) {
     body {
         padding: 0px;
@@ -79,6 +90,16 @@ body {
         display: inline-block; /*or table */
         min-width: 240px;
     }
+
+    .boards {
+        margin: -40px 0 0 10px;
+        width: 100px;
+        float: left;
+    }
+
+    .board {
+        width: 320px;
+    }
 }
 
 @media only screen and (min-width: 940px) {
@@ -98,6 +119,10 @@ body {
         display: inline-block; /*or table */
         min-width: 300px;
     }
+    .boards {
+        width: 320px;
+        float: left;
+    }
 }
 
 .mondayFightCaption {
@@ -109,6 +134,17 @@ body {
     z-index: 5;
     background-color: #00b5ad;
     color: #ffeeba;
+}
+
+.icon {
+    margin-left: 80px;
+}
+
+.mondayFightCaption .captionText {
+    font-size: min(35px, calc(100vw/15));
+    position:relative;
+    top:0px;
+    margin-left: 10px;
 }
 
 .first {
