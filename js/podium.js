@@ -72,9 +72,9 @@ function createTournamentInfo(data, tournamentID, id="info") {
     let ratedStr = ""
     if (data.tournamentIsRated(tournamentID)) { ratedStr = "RATED" } else { ratedStr = "<b>UNRATED</b>" }
     let html = `
-<div style="width:600px; text-align: center; display: table">
+<div class="info">
         <div style="float:left;vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png"></a>
+            <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png" class="bishop"></a>
         </div>
 <div style="display: table-cell; vertical-align: middle">
    <div style="font-size:1.5em">${date} - ${ratedStr}</div>
@@ -87,7 +87,7 @@ function createTournamentInfo(data, tournamentID, id="info") {
    Link: <a href="https://lichess.org/tournament/${tournamentID}" target="_blank">https://lichess.org/tournament/${tournamentID}</a>
 </div>
         <div style="float:right; vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" id="nextTournament"><img src="img/bishopNext.png"></a>
+            <a href="javascript:void(0);" id="nextTournament"><img src="img/bishopNext.png" class="bishop"></a>
         </div>
 </div>
 `
@@ -200,6 +200,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
     let moves = selectedGame.moves.split(" ")
     moves.forEach((move) => mfChess.move(move))
 
+    let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
     let config = {
       pgn: `[White \"${selectedGame.players.white.user.name} ${selectedGame.players.white.rating}\"]
 [Black \"${selectedGame.players.black.user.name} ${selectedGame.players.black.rating}\"]
@@ -207,6 +208,8 @@ ${selectedGame.moves}
 `,
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
+      boardSize: mateBoardWidth,
+      movesHeight: 50,
       startPlay: `${moves.length}`
     }
     if (fen) config.position = fen
