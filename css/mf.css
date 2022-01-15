@@ -35,9 +35,13 @@ body {
         margin: 0px;
         display: inline-block; /*or table */
     }
+
+    .body {
+        font-size: calc(9px + 6 * ((100vw - 320px) / 180));
+    }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 500px) {
     .body {
         width: 100%;
     }
@@ -155,22 +159,23 @@ body {
 }
 
 .podium {
-    width: 600px;
+    max-width: 600px;
+    width: 97vw;
 }
 
 .podium .first {
-    width: 40%;
+    width: 41%;
     font-size: 1.9em;
 }
 
 .podium .second {
     font-size: 1.6em;
-    width: 29%;
+    width: 30%;
 }
 
 .podium .third {
     font-size: 1.6em;
-    width: 27%;
+    width: 28%;
 }
 
 .podium>div {
@@ -182,18 +187,21 @@ body {
 
 .podium .first .trophy {
     height: 9em;
+    max-width: 100%;
     width: 7.7em;
     background-image: url(../img/lichess-massive.svg);
 }
 
 .podium .second .trophy {
     height: 9em;
+    max-width: 100%;
     width: 6.6em;
     background-image: url(../img/lichess-silver-1.svg);
 }
 
 .podium .third .trophy {
     height: 7em;
+    max-width: 100%;
     width: 6.6em;
     background-image: url(../img/lichess-bronze-2.svg);
 }
@@ -244,7 +252,8 @@ td, th {
 }
 
 .results {
-    width: 600px;
+    max-width: 600px;
+    width: 97vw;
     vertical-align: middle;
     display: table-cell;
 }
@@ -268,7 +277,8 @@ td, th {
 }
 
 .slist {
-    width: 500px;
+    max-width: 500px;
+    width: min(95%, max(85%, calc(95% - 2.5 * (100vw - 400px))));
     vertical-align: middle;
     margin: 0 auto;
 }
@@ -331,4 +341,15 @@ td, th {
 
 .tour__standing .rating-diff win {
     color: green;
+}
+
+.info {
+    max-width:600px;
+    width: 97vw;
+    text-align: center;
+    display: table;
+}
+
+.bishop {
+    max-width: 16vw;
 }

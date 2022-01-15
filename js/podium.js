@@ -72,9 +72,9 @@ function createTournamentInfo(data, tournamentID, id="info") {
     let ratedStr = ""
     if (data.tournamentIsRated(tournamentID)) { ratedStr = "RATED" } else { ratedStr = "<b>UNRATED</b>" }
     let html = `
-<div style="width:600px; text-align: center; display: table">
+<div class="info">
         <div style="float:left;vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png"></a>
+            <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png" class="bishop"></a>
         </div>
 <div style="display: table-cell; vertical-align: middle">
    <div style="font-size:1.5em">${date} - ${ratedStr}</div>
@@ -87,7 +87,7 @@ function createTournamentInfo(data, tournamentID, id="info") {
    Link: <a href="https://lichess.org/tournament/${tournamentID}" target="_blank">https://lichess.org/tournament/${tournamentID}</a>
 </div>
         <div style="float:right; vertical-align: middle; display: table-cell">
-            <a href="javascript:void(0);" id="nextTournament"><img src="img/bishopNext.png"></a>
+            <a href="javascript:void(0);" id="nextTournament"><img src="img/bishopNext.png" class="bishop"></a>
         </div>
 </div>
 `
