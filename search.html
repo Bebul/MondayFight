@@ -33,12 +33,12 @@
 <div class="body">
 
     <div class="mondayFightCaption">
-        <img src="img/pohar.png" style="height:80px; float:left; margin:-2px -20px 0 0px"/>
-        <span><a href="javascript:void(0);" class="icon" onclick="showMondayFightMenu()" style="color:#00b5ad">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon"><a href="javascript:void(0);" onclick="showMondayFightMenu()" style="color:#00b5ad">
             <i class="fa fa-bars hamburger"></i>
               </a>
         </span>
-        <span style="font-size:35px; position:relative; top:0px; margin-left: 10px">Monday Fights - Search Engine</span>
+        <span class="captionText">Search Engine</span>
         <div class="topnav">
             <div id="myLinks">
                 <a href="index.html">Main page</a>
@@ -53,8 +53,8 @@
         </div>
     </div>
 
-    <div class="article first">
-        <b>Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
+    <div class="article first" style="margin-top:15px">
+        <b style="margin-left:70px">Tip:</b> Různá kritéria oddělujte mezerami. Velikost písmen nehraje roli. Všechna kritéria musí být splněna současně. Pro vynucení mezer v kritériu použijte uvozovky.
         Kritérium může být i pouhá část tahu, např. <b>f7#</b> najde partie, kde nastane mat tahem na pole f7. A když ke kritériu přidáme třeba <b>jouzolean</b>, nalezneme hry,
         kde on nebo protihráč skončil takto neslavně. Ano, i on :-) Pokud chcete partie, které skončily matem, je lépe pužít <b>status:mate</b>, protože samotné <b>mate</b> vypíše i všechny Matesy.
         Kritéria, která naopak nesmí být splněna, začínají znakem mínus <b>-</b>, např.:<b>-berserk</b> nebo <b>-noStart</b>.
