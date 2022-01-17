@@ -242,15 +242,17 @@ function getDataOfPlayers(theFights) {
   let players = getPlayers(theFights)
   let tableData = []
   players.forEach( player => {
+      let averagePerformance = getAvgPerformance(player, theFights)
+      let totalPoints = getTotalPoints(player, theFights) + averagePerformance / 10000
       let thePlayer = {
         name: player,
         nameUrl: "https://lichess.org/@/" + player,
         jouzoCoins: getTotalJouzocoins(player, theFights),
         totalScore: getTotalScore(player, theFights),
-        totalPts: getTotalPoints(player, theFights),
+        totalPts: totalPoints,
         present: getTotalPresence(player, theFights),
         games: getTotalGames(player, theFights),
-        avgPerformance: getAvgPerformance(player, theFights),
+        avgPerformance: averagePerformance,
         ratingDiff: getTotalRatingDiff(player, theFights),
         fastestMates: getTotalMates(player, theFights),
         fastestGames: getTotalFastest(player, theFights),
@@ -267,7 +269,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
   let leaderboardColumns = [
     {formatter: "rownum", headerSort: false, resizable:false}, //add auto incrementing row number
     {title: "Hráč", field: "nameUrl", resizable:false, formatter:"link", formatterParams:{ labelField:"name", target:"_blank"}},
-    {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkový počet bodů"},
+    {title: "Pt", field: "totalPts", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkový počet bodů", formatter: totalPtsFormatter},
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkové skóre"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet her"},
     {title: "P", field: "avgPerformance", resizable:false, headerSortStartingDir:"desc", headerTooltip:"průměrná performance"},
@@ -750,6 +752,12 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else return ""
 }
 
+function totalPtsFormatter(cell, formatterParams) {
+  let cellValue = cell.getValue()
+  if (cellValue===undefined) return ""
+  return Math.floor(2 * cellValue) / 2
+}
+
 function dataSortedFunc(sorters) {
   let newMode = undefined
   sorters.forEach( function(srt) {
@@ -784,7 +792,7 @@ function createPlayersTable(theFights, tableId, enableJouzocoins) {
   })
   allMyTables.set(tableId, playersTable)
   if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc")
-  else playersTable.setSort("totalPts", "desc")
+  else playersTable.setSort([{column: "totalPts", dir: "desc"}])
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
