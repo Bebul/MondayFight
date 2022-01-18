@@ -199,3 +199,23 @@ function generateCrossTableColumns(data, theFights, players) {
 
   return columnsBuilder;
 }
+
+function seasonSelected(season, data, tableId) {
+  switch (season) {
+    case "all": console.log("all")
+      createCrossTable(data, data.mondayFights(), tableId)
+      break
+    case "year": console.log("year")
+      createCrossTable(data, filterYear(data.mondayFights(), -1), tableId)
+      break
+    case "2020": console.log("2020")
+      createCrossTable(data, filterYear(data.mondayFights(), 2020), tableId)
+      break
+    case "2021": console.log("2021")
+      createCrossTable(data, filterYear(data.mondayFights(), 2021), tableId)
+      break
+    case "2022": console.log("2022")
+      createCrossTable(data, filterYear(data.mondayFights(), 2022), tableId)
+      break
+  }
+}
