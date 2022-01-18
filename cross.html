@@ -55,6 +55,19 @@
     </div>
 
     <br>
+    <form name="selectSeason">
+        <b>Vyber období:</b>
+        <input type="radio" name="season"  value="2020" />
+        <label>2020</label>
+        <input type="radio" name="season"  value="2021" />
+        <label>2021</label>
+        <input type="radio" name="season"  value="2022" checked="true" />
+        <label>2022</label>
+        <input type="radio" name="season"  value="year" />
+        <label>Plovoucí rok</label>
+        <input type="radio" name="season"  value="all" />
+        <label>Za celou dobu</label>
+    </form>
     <div id="crossTable"></div>
 
     <div id="gamesList">
@@ -70,8 +83,14 @@
 
 <script>
   function mainPage(data) {
-    //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
-    createCrossTable(data, data.mondayFights(), "#crossTable")
+    let seasons = document.selectSeason.season
+    for (let i = 0; i < seasons.length; i++) {
+      seasons[i].addEventListener('click', function() {
+        seasonSelected(seasons[i].value, data, "#crossTable")
+      });
+    }
+    let theFights = filterYear(data.mondayFights(), 2022)
+    createCrossTable(data, theFights, "#crossTable")
     createGameListTable(gameListData(data.tournamentGames()[data.currentGameListTableIx]), "#gameListTable", true)
   }
 

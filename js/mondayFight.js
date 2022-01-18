@@ -813,8 +813,18 @@ function last10(theFights) {
 }
 
 function filterYear(theFights, year) {
-  return Array.from(theFights).filter(fight => {
+  if (year < 0) {
+    let today = new Date()
+    let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
+    return Array.from(theFights).filter(fight => {
+      let date = new Date(fight.startsAt)
+      console.log(date)
+      return date >= dateFrom
+    })
+  } else {
+    return Array.from(theFights).filter(fight => {
       let date = new Date(fight.startsAt)
       return date.getFullYear() == year
-  })
+    })
+  }
 }
