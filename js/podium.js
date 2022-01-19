@@ -257,7 +257,7 @@ function createTip(data, gamesData, tournament, player) {
         if (game.winner == "white") wins++
         if (game.players.white.berserk == true) berserks++
         oponents += game.players.black.rating
-        html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
+        html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
       } else if (game.players.black.user.name == player) {
         games++
         if (game.winner == "black") wins++
@@ -267,7 +267,7 @@ function createTip(data, gamesData, tournament, player) {
         if (game.players.black.berserk == true) berserkBlack = "<b>&#9736;</b>"
         let berserkWhite = ""
         if (game.players.white.berserk == true) berserkWhite = "<b>&#9736;</b>"
-        html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
+        html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
       }
     })
 
