@@ -43,6 +43,12 @@ function getPodiumHTML(tournament) {
   return html
 }
 
+function getPlayer(tournament, name) {
+  return tournament.standing.players.find(function(player) {
+    return player.name === name
+  })
+}
+
 function createPodium(data, tournamentID, id="podium") {
   let tournament = data.findTournament(tournamentID)
   if (tournament!=undefined) {
@@ -164,7 +170,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
    let tooltips = document.getElementsByClassName("tooltip")
    for (let i = 0; i < tooltips.length; i++) {
      let el = tooltips[i]
-     el.onclick = createTip(data, gamesData, tournament.standing.players[i].name)
+     el.onclick = createTip(data, gamesData, tournament, tournament.standing.players[i].name)
      //el.addEventListener('mouseout',cancelTip)
    }
   }
@@ -210,7 +216,7 @@ function getAvatar(playerH) {
   let path = "img/players/"
   let ext = ".png"
   switch (player) {
-    case "bebul": return path + player + ext
+    case "bebul": return path + player + ext // bebulAvatar2
     case "mozkomor": return path + player + ext
     case "bukowskic": return path + player + ext
     case "dj-pesec": return path + player + ext
@@ -221,24 +227,53 @@ function getAvatar(playerH) {
     case "jouzolean": return path + player + ext
     case "mrazek": return path + player + ext
     case "neznama-00": return path + player + ext
-    default: return path + "default" + ext
+
+    case "mauricedodo": return path + "default2" + ext
+    case "butaczech": return path + "default3" + ext
+    case "dzin69": return path + "default3" + ext
+    default: return path + "default2" + ext // or default
   }
 }
 
-function createTip(data, gamesData, player) {
+function createTip(data, gamesData, tournament, player) {
   return function(event) {
     event.stopPropagation()
     cancelAllTips()
-    let html = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a><table>`
+    let gambler = getPlayer(tournament, player)
+    let html = ""
+    let htmlPre = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a>`
 
+    let games = 0
+    let wins = 0
+    let berserks = 0
+    let oponents = 0
     gamesData.games.forEach(function(game) {
-      if (game.players.white.user.name == player || game.players.black.user.name == player) {
+      if (game.players.white.user.name == player) {
+        games++
+        if (game.winner == "white") wins++
+        if (game.players.white.berserk == true) berserks++
+        oponents += game.players.black.rating
+        html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
+      } else if (game.players.black.user.name == player) {
+        games++
+        if (game.winner == "black") wins++
+        if (game.players.black.berserk == true) berserks++
+        oponents += game.players.white.rating
         html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
       }
     })
+
+    htmlPre += `<br>
+<span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.floor(oponents/games)}<br>
+Win:&nbsp;${percent(wins/games)}&nbsp;&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+
     let avatar = getAvatar(player)
     if (avatar) {
-      html += `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: 80px">`
+      /*
+      if (player == "bebul") {
+        html += `<img src="${avatar}" style="position:absolute; bottom: -125px; right: -40px; width: 200px">`
+      } else */
+      html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: 80px">`
     }
     html += "</table>"
 
