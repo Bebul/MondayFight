@@ -136,7 +136,11 @@ function createResults(data, tournamentID, gamesData, id = "results") {
         html = html + `<tr><td = class="rank">${player.rank}</td>
 <td class="player">
   <a class="user-link" href="https://lichess.org/@/${player.name}" target="_blank">
-    <span class="name">${player.name}</span><span class="rating">${player.rating}</span>
+    <span class="name tooltip">
+      ${player.name}
+      <div class="tooltiptext" style="left: 100%" id="${player.name}">
+      </div>
+    </span><span class="rating">${player.rating}</span>
   </a>
 </td>
 <td class="sheet">
@@ -158,7 +162,42 @@ function createResults(data, tournamentID, gamesData, id = "results") {
     )
 
    el.innerHTML = htmlBegin + html + htmlEnd
+
+   let tooltips = document.getElementsByClassName("tooltip")
+   for (let i = 0; i < tooltips.length; i++) {
+     let el = tooltips[i]
+     el.addEventListener('mouseover',createTip(data, gamesData, tournament.standing.players[i].name));
+     el.addEventListener('mouseout',cancelTip);
+   }
   }
+}
+
+function getGameResult(g) {
+  if (g.winner === "black") return "0&#8209;1"
+  else if (g.winner === "white") return "1&#8209;0"
+  else return "½&#8209;½"
+}
+
+function createTip(data, gamesData, player) {
+  return function() {
+    let html = `<b style="font-size: 1.8em">${player}</b><table>`
+
+    gamesData.games.forEach(function(game) {
+      if (game.players.white.user.name == player) {
+        html += `<tr><td>${player}</td><td>${getGameResult(game)}</td><td>${game.players.black.user.name}</td></tr>`
+      } else if (game.players.black.user.name == player) {
+        html += `<tr><td>${game.players.white.user.name}</td><td>${getGameResult(game)}</td><td>${player}</td></tr>`
+      }
+    })
+    html += "</table>"
+
+    this.getElementsByClassName("tooltiptext")[0].innerHTML = html
+    this.getElementsByClassName("tooltiptext")[0].style.visibility = "visible"
+  }
+}
+
+function cancelTip() {
+  this.getElementsByClassName("tooltiptext")[0].style.visibility = "hidden"
 }
 
 function fastestMateSelector(minGame, game) {
