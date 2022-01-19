@@ -205,6 +205,26 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
+function getAvatar(playerH) {
+  let player = playerH.toLowerCase()
+  let path = "img/players/"
+  let ext = ".png"
+  switch (player) {
+    case "bebul": return path + player + ext
+    case "mozkomor": return path + player + ext
+    case "bukowskic": return path + player + ext
+    case "dj-pesec": return path + player + ext
+    case "rychlylenochod": return path + player + ext
+    case "tekele": return path + player + ext
+    case "travinho": return path + player + ext
+    case "hrobotron": return path + player + ext
+    case "jouzolean": return path + player + ext
+    case "mrazek": return path + player + ext
+    case "neznama-00": return path + player + ext
+    default: return path + "default" + ext
+  }
+}
+
 function createTip(data, gamesData, player) {
   return function(event) {
     event.stopPropagation()
@@ -216,6 +236,10 @@ function createTip(data, gamesData, player) {
         html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
       }
     })
+    let avatar = getAvatar(player)
+    if (avatar) {
+      html += `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: 80px">`
+    }
     html += "</table>"
 
     this.getElementsByClassName("tooltiptext")[0].innerHTML = html
