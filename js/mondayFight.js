@@ -377,7 +377,7 @@ function gameListData(games) {
     let result = ""
     if (g.winner === "black") result = "0-1"
     else if (g.winner === "white") result = "1-0"
-    else result = "1/2-1/2"
+    else result = "½-½"
     let opening = ""
     if (g.opening !== undefined) opening = g.opening.name
     let ply = g.ply
