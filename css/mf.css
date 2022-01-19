@@ -399,11 +399,12 @@ td, th {
 .tooltip .tooltiptext {
     visibility: hidden;
     font-size: 0.8em;
-    background-color: black;
-    color: #fff;
+    background-color: #e3e4ec;
+    color: black;
     text-align: center;
     border-radius: 10px;
     padding: 5px 10px;
+    border: 2px solid black;
 
     /* Position the tooltip */
     position: absolute;
