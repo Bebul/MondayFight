@@ -184,11 +184,6 @@ body {
     color: #fdfdfe;
 }
 
-
-.user-link {
-    color: #4d4d4d;
-}
-
 .second a, .first a, .third a {
     color: #1b78d0;
     text-decoration: none;
@@ -325,6 +320,8 @@ td, th {
 
 .user-link {
     color: #4d4d4d;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .tour__standing .player .user-link {
@@ -405,6 +402,7 @@ td, th {
     border-radius: 10px;
     padding: 5px 10px;
     border: 2px solid black;
+    cursor: auto;
 
     /* Position the tooltip */
     position: absolute;

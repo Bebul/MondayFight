@@ -135,13 +135,11 @@ function createResults(data, tournamentID, gamesData, id = "results") {
     tournament.standing.players.forEach( function(player) {
         html = html + `<tr><td = class="rank">${player.rank}</td>
 <td class="player">
-  <a class="user-link" href="https://lichess.org/@/${player.name}" target="_blank">
-    <span class="name tooltip">
+    <span class="user-link name tooltip">
       ${player.name}
       <div class="tooltiptext" style="left: 100%" id="${player.name}">
       </div>
     </span><span class="rating">${player.rating}</span>
-  </a>
 </td>
 <td class="sheet">
 `
@@ -166,8 +164,8 @@ function createResults(data, tournamentID, gamesData, id = "results") {
    let tooltips = document.getElementsByClassName("tooltip")
    for (let i = 0; i < tooltips.length; i++) {
      let el = tooltips[i]
-     el.addEventListener('mouseover',createTip(data, gamesData, tournament.standing.players[i].name));
-     el.addEventListener('mouseout',cancelTip);
+     el.onclick = createTip(data, gamesData, tournament.standing.players[i].name)
+     //el.addEventListener('mouseout',cancelTip)
    }
   }
 }
@@ -183,8 +181,10 @@ function fixPlayerName(name) {
 }
 
 function createTip(data, gamesData, player) {
-  return function() {
-    let html = `<b style="font-size: 1.8em">${player}</b><table>`
+  return function(event) {
+    event.stopPropagation()
+    cancelAllTips()
+    let html = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a><table>`
 
     gamesData.games.forEach(function(game) {
       if (game.players.white.user.name == player) {
@@ -200,8 +200,11 @@ function createTip(data, gamesData, player) {
   }
 }
 
-function cancelTip() {
-  this.getElementsByClassName("tooltiptext")[0].style.visibility = "hidden"
+function cancelAllTips() {
+  let tooltips = document.getElementsByClassName("tooltiptext")
+  for (let i=0; i<tooltips.length; i++) {
+    tooltips[i].style.visibility = "hidden"
+  }
 }
 
 function fastestMateSelector(minGame, game) {
