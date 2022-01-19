@@ -178,15 +178,19 @@ function getGameResult(g) {
   else return "½&#8209;½"
 }
 
+function fixPlayerName(name) {
+  return name.replace("-", "&#8209;")
+}
+
 function createTip(data, gamesData, player) {
   return function() {
     let html = `<b style="font-size: 1.8em">${player}</b><table>`
 
     gamesData.games.forEach(function(game) {
       if (game.players.white.user.name == player) {
-        html += `<tr><td>${player}</td><td>${getGameResult(game)}</td><td>${game.players.black.user.name}</td></tr>`
+        html += `<tr><td>${fixPlayerName(player)}</td><td>${getGameResult(game)}</td><td>${fixPlayerName(game.players.black.user.name)}</td></tr>`
       } else if (game.players.black.user.name == player) {
-        html += `<tr><td>${game.players.white.user.name}</td><td>${getGameResult(game)}</td><td>${player}</td></tr>`
+        html += `<tr><td>${fixPlayerName(game.players.white.user.name)}</td><td>${getGameResult(game)}</td><td>${fixPlayerName(player)}</td></tr>`
       }
     })
     html += "</table>"
