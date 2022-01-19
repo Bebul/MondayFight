@@ -368,11 +368,11 @@ td, th {
     padding-right: 2vmin;
 }
 
-.tour__standing .rating-diff loss {
+loss {
     color: red;
 }
 
-.tour__standing .rating-diff win {
+win {
     color: green;
 }
 

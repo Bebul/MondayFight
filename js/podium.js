@@ -176,6 +176,31 @@ function getGameResult(g) {
   else return "½&#8209;½"
 }
 
+function ratingDiffDeco(pl) {
+  if (pl.ratingDiff < 0) return `<loss>&nbsp;(${(pl.ratingDiff)})</loss>`
+  else return `<win>&nbsp;(+${(pl.ratingDiff)})</win>`
+}
+
+function whitePlayerDecorated(game, player) {
+  let ratingDiff = ""
+  if (game.players.white.user.name == player) ratingDiff = ratingDiffDeco(game.players.white)
+  if (game.winner == "white") {
+    return `<b>${fixPlayerName(game.players.white.user.name)}${ratingDiff}</b>`
+  } else {
+    return `${fixPlayerName(game.players.white.user.name)}${ratingDiff}`
+  }
+}
+
+function blackPlayerDecorated(game, player) {
+  let ratingDiff = ""
+  if (game.players.black.user.name == player) ratingDiff = ratingDiffDeco(game.players.black)
+  if (game.winner == "black") {
+    return `<b>${fixPlayerName(game.players.black.user.name)}${ratingDiff}</b>`
+  } else {
+    return `${fixPlayerName(game.players.black.user.name)}${ratingDiff}`
+  }
+}
+
 function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
@@ -187,10 +212,8 @@ function createTip(data, gamesData, player) {
     let html = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a><table>`
 
     gamesData.games.forEach(function(game) {
-      if (game.players.white.user.name == player) {
-        html += `<tr><td>${fixPlayerName(player)}</td><td>${getGameResult(game)}</td><td>${fixPlayerName(game.players.black.user.name)}</td></tr>`
-      } else if (game.players.black.user.name == player) {
-        html += `<tr><td>${fixPlayerName(game.players.white.user.name)}</td><td>${getGameResult(game)}</td><td>${fixPlayerName(player)}</td></tr>`
+      if (game.players.white.user.name == player || game.players.black.user.name == player) {
+        html += `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>`
       }
     })
     html += "</table>"
