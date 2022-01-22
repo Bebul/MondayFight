@@ -146,6 +146,12 @@ async function LoadMFData(callback) {
     tournamentIsRated: function (id) {
       return tournamentGames.find(g => g.id==id).games[0].rated
     },
+    findGame: function(id) {
+      for (let i=0; i<tournamentGames.length; i++) {
+        let game = tournamentGames[i].games.find(g => g.id===id)
+        if (game) return game
+      }
+    },
     currentGameListTableIx: tournamentGames.length - 1
   }
   callback(api)

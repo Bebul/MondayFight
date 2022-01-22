@@ -327,6 +327,14 @@ function fastestGameSelector(minGame, game) {
   } else return game
 }
 
+function toPGN(g) {
+  return `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]
+[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]
+
+${g.moves}
+`
+}
+
 function selectGame(gamesData, hideId, boardId, selector) {
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
   if (selectedGame) {
@@ -338,10 +346,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
 
     let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
     let config = {
-      pgn: `[White \"${selectedGame.players.white.user.name} ${selectedGame.players.white.rating}\"]
-[Black \"${selectedGame.players.black.user.name} ${selectedGame.players.black.rating}\"]
-${selectedGame.moves}
-`,
+      pgn: toPGN(selectedGame),
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
       boardSize: mateBoardWidth,
