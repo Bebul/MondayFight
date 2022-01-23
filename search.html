@@ -20,6 +20,7 @@
     <script type="text/javascript" src="js/search.js"></script>
     <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
+    <script type="text/javascript" src="js/analyze.js"></script>
 
     <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
 
@@ -59,6 +60,10 @@
         kde on nebo protihráč skončil takto neslavně. Ano, i on :-) Pokud chcete partie, které skončily matem, je lépe pužít <b>status:mate</b>, protože samotné <b>mate</b> vypíše i všechny Matesy.
         Kritéria, která naopak nesmí být splněna, začínají znakem mínus <b>-</b>, např.:<b>-berserk</b> nebo <b>-noStart</b>.
         Dvojtečkové užitečné jsou: <b>status:mate white:bebul black:bebul date:2021/06 winner:bebul loser:bebul "fen:rnbqkbnr/ppp2ppp/3p4/8/4Pp2/5N2/PPPP2PP/RNBQKB1R w KQkq - 0 4"</b>
+        <p>
+        Další důležitá slova umožní vyhledat dušené maty, mat s obětí dámy, mat proměnou pěšce, mat v centru šachovnice, ale i maty, které dosud nenastaly, braním mimochodem nebo rošádou.
+        Dále pozice se třemi dámami nebo hry, kdy se černý nejméně pět tahů opičil.
+        Klíčová slova jsou: <b><span id="analyzeKeys"></span></b>
         <br>
 
         <div style="margin: 10px 0 0 0">
@@ -89,7 +94,7 @@
             </div>
         </div>
 
-    </div>
+    </p>
 
     <div id="gameListTableplwhite"></div>
     <div id="gameListTableplblack"></div>
@@ -105,6 +110,8 @@
     document.getElementById("searchButton").onclick = function() {
       onSearchClicked(data)
     }
+
+    document.getElementById("analyzeKeys").innerHTML = AnalyzeKeyList.join(", ")
 
     let url = new URL(window.location.href)
     let searchParam = url.searchParams.get("q")
