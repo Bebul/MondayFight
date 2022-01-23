@@ -7,30 +7,47 @@ function processAnalyze(data) {
   adminStuff.innerHTML = "      <div style=\"margin: 10px 0\">\n" +
     "            <div>Zadej id konkrétní hry, kterou chceš analyzovat:\n" +
     "                <input type=\"text\" id=\"gameID\" style=\"width:100%\">\n" +
-    "                <button id=\"analyze\">Analyze</button>\n" +
+    "                <button id=\"analyze\">Analyze</button><button id=\"analyzeAll\">Analyze ALL</button>" +
     "            </div>\n" +
     "        </div>\n" +
-    "  <hr><div id='analyzeResult'></div>"
+    "        <hr>" +
+    "        <div id='analyzeStatus'></div>" +
+    "        <div id='analyzeResult'></div>"
 
   document.body.appendChild(adminStuff)
 
-  let resultEl = document.getElementById("analyzeResult")
   document.getElementById("analyze").onclick = function() {
     var gameId = document.getElementById("gameID").value
-    analyzeGame(data, gameId, report)
+    analyzeGame(data, gameId, reporter())
   }
 
+  document.getElementById("analyzeAll").onclick = function() {
+    analyzeAll(data, reporter())
+  }
 }
 
-function report(html) {
-  let resultEl = document.getElementById("analyzeResult")
-  let lineDiv = document.createElement("div")
-  lineDiv.innerHTML = html
-  resultEl.appendChild(lineDiv)
+let AnalyzeKeyList =   [
+  "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
+  "queens", "epCheck", "monkey"
+]
+
+function reporter() {
+  return {
+    line: function(html) {
+      let resultEl = document.getElementById("analyzeResult")
+      let lineDiv = document.createElement("div")
+      lineDiv.innerHTML = html
+      resultEl.appendChild(lineDiv)
+    },
+    status: function(html) {
+      let resultEl = document.getElementById("analyzeStatus")
+      resultEl.innerHTML = html
+    }
+  }
 }
 
 async function reportHeadline(g, report) {
-  await report(`
+  await report.line(`
     <h1>${g.players.white.user.name} : ${g.players.black.user.name}, ${g.winner} wins</h1>
     <h2>${g.opening.name}</h2>
     ${g.moves}`
@@ -79,6 +96,57 @@ function findKing(color, board) {
   return null
 }
 
+var CHESS_SQUARES = {
+  a8:   0, b8:   1, c8:   2, d8:   3, e8:   4, f8:   5, g8:   6, h8:   7,
+  a7:  16, b7:  17, c7:  18, d7:  19, e7:  20, f7:  21, g7:  22, h7:  23,
+  a6:  32, b6:  33, c6:  34, d6:  35, e6:  36, f6:  37, g6:  38, h6:  39,
+  a5:  48, b5:  49, c5:  50, d5:  51, e5:  52, f5:  53, g5:  54, h5:  55,
+  a4:  64, b4:  65, c4:  66, d4:  67, e4:  68, f4:  69, g4:  70, h4:  71,
+  a3:  80, b3:  81, c3:  82, d3:  83, e3:  84, f3:  85, g3:  86, h3:  87,
+  a2:  96, b2:  97, c2:  98, d2:  99, e2: 100, f2: 101, g2: 102, h2: 103,
+  a1: 112, b1: 113, c1: 114, d1: 115, e1: 116, f1: 117, g1: 118, h1: 119
+}
+
+function file88(i) {
+  return i & 15
+}
+
+function rank88(i) {
+  return i >> 4
+}
+
+function squaresAreSymmetric(a, b) {
+  let sqa = CHESS_SQUARES[a]
+  let sqb = CHESS_SQUARES[b]
+  return rank88(sqa) === 7-rank88(sqb) && file88(sqa) === file88(sqb)
+}
+
+function monkeyPlay(history) {
+  for (let i=2; i<=history.length; i+=2) {
+    let mw = history[i-2]
+    let mb = history[i-1]
+
+    if (!squaresAreSymmetric(mw.from, mb.from) || !squaresAreSymmetric(mw.to, mb.to)) return (i-2)/2
+  }
+  return Math.floor(history.length / 2)
+}
+
+function queenSacrificeMatingAttack(history) {
+  if (history.length >= 11) {
+    let captured = {w: 0, b: 0}
+    let promoted = {w: 0, b: 0}
+    for (let i=history.length-11; i<history.length; i++) {
+      m = history[i]
+      if (m.captured && m.captured==="q") captured[m.color]++
+      if (i < history.length-1 && m.flags && m.flags.includes("p")) promoted[m.color]++
+    }
+    let winner = history[history.length-1].color
+    let loser = history[history.length-2].color
+    return captured[loser]>0 && (captured[winner] + promoted[winner] - captured[loser] < 0)
+  }
+  return false
+}
+
 async function analyzeMoves(g, report) {
   let moves = g.moves.split(" ")
   let chess = new Chess()
@@ -101,6 +169,9 @@ async function analyzeMoves(g, report) {
   }
   stats.queens = queens
 
+  let monkeyMoves = monkeyPlay(history)
+  stats.monkey = {w:0, b: monkeyMoves}
+
   history.forEach(function(m) {
     for (let i = 0; i < m.flags.length; i++) {
       stats[m.flags.charAt(i)][m.color]++
@@ -114,42 +185,40 @@ async function analyzeMoves(g, report) {
     let lastMove = history[history.length-1]
 
     let mate = findKing(loseColor, board)
-    if (mate) {
-      if (lastMove) mate.piece = lastMove.piece
-      else console.log(`lastMove is ${lastMove}`)
-    }
-    else console.log(`mate is ${mate}`)
+    mate.piece = lastMove.piece
+    mate.to = lastMove.to
     if (lastMove.flags.includes("k") || lastMove.flags.includes("q")) mate.castling = true
     if (lastMove.flags.includes("p")) mate.promotion = true
     if (lastMove.flags.includes("e")) mate.enPassant = true
+    if (queenSacrificeMatingAttack(history)) mate.sacrifice = true
 
     return mate
   }() : null
 
   if (mate) stats.mate = mate
 
-  if (report) await report(`moves ply ${moves.length} stats ${JSON.stringify(stats)}`)
+  if (report) await report.line(`moves ply ${moves.length} stats ${JSON.stringify(stats)}`)
 
   return stats
 }
 
-async function analyzeGame(data, gameId, reportFunc) {
-  if (gameId == "all") {
-    await addAllStats(data, reportFunc)
-      .then(result => {
-        console.log("ALL DONE")
-        download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
-      })
-  } else {
-    let g = data.findGame(gameId)
-    if (g) {
-      await Promise.resolve()
-        .then(result => reportHeadline(g, report))
-        .then(result => addStats(g, report))
-    } else  {
-      reportFunc(`<h1>Game ${gameId} not found</h1>`)
-    }
+async function analyzeGame(data, gameId, report) {
+  let g = data.findGame(gameId)
+  if (g) {
+    await Promise.resolve()
+      .then(result => reportHeadline(g, report))
+      .then(result => addStats(g, report))
+  } else  {
+    reportFunc(`<h1>Game ${gameId} not found</h1>`)
   }
+}
+
+async function analyzeAll(data, report) {
+  await addAllStats(data, report)
+    .then(result => {
+      console.log("ALL DONE")
+      download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+    })
 }
 
 async function addStats(g, report) {
@@ -165,6 +234,7 @@ async function addStats(g, report) {
           if (result.p[color] > 0) stats.promo = result.p[color]   // number of promotions
           if (result.epCheck[color] > 0) stats.epCheck = true
           if (result.queens[color] > 2) stats.queens = result.queens[color]
+          if (result.monkey[color] >= 5) stats.monkey = result.monkey[color]
           if (g.winner==side && result.mate) stats.mate = result.mate
           if (Object.keys(stats).length > 0) {
             if (stats.queens) console.log(`${g.id} has ${stats.queens} queens`)
@@ -174,6 +244,10 @@ async function addStats(g, report) {
             if (stats.mate && stats.mate.centerMate) console.log(`${g.id} center mate`)
             if (stats.mate && stats.mate.promotion) console.log(`${g.id} promotion mate`)
             if (stats.mate && stats.mate.castling) console.log(`${g.id} castling mate`)
+            if (stats.mate && stats.mate.queenSac) console.log(`${g.id} queen sacrifice attack`)
+            if (stats.mate && stats.mate.piece == "k") console.log(`${g.id} mate by king move`)
+            if (stats.mate && (stats.mate.to == "f7" || stats.mate.to == "f7")) console.log(`${g.id} weak square f7 / f2`)
+            if (stats.monkey) console.log(`${g.id} monkey play ${stats.monkey} moves`)
 
             player.stats = stats
           } // and add it finally
@@ -182,17 +256,38 @@ async function addStats(g, report) {
     )
 }
 
-async function nextStat(data, games, report) {
-  let g = games.shift()
-  if (g) {
-    await addStats(g, report)
-      .then(result => nextStat(data, games, report))
-  }
-}
-
 async function addAllStats(data, report) {
   let games = []
   data.forEachGame(g => games.push(g))
+  let gamesCount = games.length
+
+  Number.prototype.padLeft = function(base,chr){
+    var  len = (String(base || 10).length - String(this).length)+1;
+    return len > 0? new Array(len).join(chr || '0')+this : this;
+  }
+
+  function getStatus(g) {
+    let html = `<h2>Processing: ${gamesCount - games.length}/${gamesCount}</h2>`
+
+    let d = new Date(g.createdAt);
+    var day = days[d.getDay() ];
+    let date = [d.getDate(), d.getMonth()+1].join('.')+' '+d.getFullYear()+' '+[d.getHours(), d.getMinutes().padLeft()].join(':')+' '+day;
+    html += `<h2>${date}</h2>`
+    return html
+  }
+
+  async function nextStat(data, games, report) {
+    let timeout = 0
+    const promiseTimeout = time => result => new Promise(resolve => setTimeout(resolve, time, result));
+
+    let g = games.shift()
+    if (g) {
+      report.status(getStatus(g))
+      await addStats(g)
+        .then(promiseTimeout(timeout))
+        .then(result => nextStat(data, games, report))
+    }
+  }
 
   await nextStat(data, games, report)
 }
