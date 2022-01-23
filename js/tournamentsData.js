@@ -152,6 +152,12 @@ async function LoadMFData(callback) {
         if (game) return game
       }
     },
+    forEachGame: function(f) {
+      for (let i=0; i<tournamentGames.length; i++) {
+        let games = tournamentGames[i].games
+        for (let j=0; j<games.length; j++) f(games[j])
+      }
+    },
     currentGameListTableIx: tournamentGames.length - 1
   }
   callback(api)

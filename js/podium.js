@@ -327,12 +327,16 @@ function fastestGameSelector(minGame, game) {
   } else return game
 }
 
-function toPGN(g) {
-  return `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]
-[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]
-
-${g.moves}
-`
+function toPGN(g, addFen) {
+  let pgn = `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]`
+  pgn += `\r\n[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]`
+  if (addFen && g.initialFen) {
+    pgn += `\r\n[Variant "From Position"]`
+    pgn += `\r\n[FEN "${g.initialFen}"]`
+    pgn += `\r\n[SetUp "1"]`
+  }
+  pgn += `\r\n\r\n${g.moves}\r\n`
+  return pgn
 }
 
 function selectGame(gamesData, hideId, boardId, selector) {
