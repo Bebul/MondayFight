@@ -183,31 +183,63 @@ function getGameResult(g) {
 }
 
 function ratingDiffDeco(pl) {
-  if (pl.ratingDiff < 0) return `<loss>&nbsp;(${(pl.ratingDiff)})</loss>`
-  else return `<win>&nbsp;(+${(pl.ratingDiff)})</win>`
+  if (pl.ratingDiff) {
+    if (pl.ratingDiff < 0) return `<loss>&nbsp;(${(pl.ratingDiff)})</loss>`
+    else return `<win>&nbsp;(+${(pl.ratingDiff)})</win>`
+  } else return ""
+}
+
+function getDecorationTrophies(game, player, wins) {
+  let decorations = ""
+  if (player.berserk == true) decorations += "&#9889;"
+  if (game.ply && game.ply<19 && wins && game.ply>2) decorations += "&#128640;"
+  if (game.ply && game.ply>=200) decorations += "&#9200;"
+  if (player.stats) {
+    let stats = player.stats
+    if (stats.monkey) decorations += "&#128053;"
+    if (stats.queens) decorations += "&#9813"
+    if (stats.mate && wins) {
+      if (stats.mate.smothered) decorations += "&#9816;&#129505;"
+      else if (stats.mate.piece==="n") decorations += "&#9816;"
+      if (stats.mate.sacrifice) decorations += "&#x1F478;"
+      if (stats.mate.centerMate) decorations += "&#129409;"
+      if (stats.mate.piece==="k") decorations += "&#129332;"
+      if (stats.mate.piece==="p") decorations += "&#9823;"
+      if (stats.mate.piece==="b") decorations += "&#9815;"
+      if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
+    }
+  }
+  return decorations
 }
 
 function whitePlayerDecorated(game, player) {
   let ratingDiff = ""
-  if (game.players.white.user.name == player) ratingDiff = ratingDiffDeco(game.players.white)
-  let berserk = ""
-  if (game.players.white.berserk == true) berserk = "&#9889;&nbsp;"
-  if (game.winner == "white") {
-    return `<b>${berserk}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</b>`
+  if (game.players.white.user.name === player) ratingDiff = ratingDiffDeco(game.players.white)
+  let wins = game.winner === "white"
+
+  let decorations = getDecorationTrophies(game, game.players.white, wins)
+  if (decorations) decorations += "&nbsp;"
+
+  if (wins) {
+    return `<span style="white-space:nowrap;"><b>${decorations}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</b></span>`
   } else {
-    return `${berserk}${fixPlayerName(game.players.white.user.name)}${ratingDiff}`
+    return `<span style="white-space:nowrap;">${decorations}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</span>`
   }
 }
 
 function blackPlayerDecorated(game, player) {
   let ratingDiff = ""
-  if (game.players.black.user.name == player) ratingDiff = ratingDiffDeco(game.players.black)
-  let berserk = ""
-  if (game.players.black.berserk == true) berserk = "&nbsp;&#9889;"
-  if (game.winner == "black") {
-    return `<b>${fixPlayerName(game.players.black.user.name)}${ratingDiff}${berserk}</b>`
+  if (game.players.black.user.name === player) ratingDiff = ratingDiffDeco(game.players.black)
+
+  let wins = game.winner === "black"
+
+  let decorations = getDecorationTrophies(game, game.players.black, wins)
+  if (decorations) decorations = "&nbsp;" + decorations
+
+  if (wins) {
+    return `<span style="white-space:nowrap;"><b>${fixPlayerName(game.players.black.user.name)}${ratingDiff}${decorations}</b></span>`
   } else {
-    return `${fixPlayerName(game.players.black.user.name)}${ratingDiff}${berserk}`
+    return `<span style="white-space:nowrap;">${fixPlayerName(game.players.black.user.name)}${ratingDiff}${decorations}</span>`
   }
 }
 
@@ -263,17 +295,19 @@ function createTip(data, gamesData, tournament, player) {
         if (game.winner == "black") wins++
         if (game.players.black.berserk == true) berserks++
         oponents += game.players.white.rating
-        let berserkBlack = ""
-        if (game.players.black.berserk == true) berserkBlack = "<b>&#9736;</b>"
-        let berserkWhite = ""
-        if (game.players.white.berserk == true) berserkWhite = "<b>&#9736;</b>"
         html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
       }
     })
 
-    htmlPre += `<br>
+    if (games == 0) {
+      htmlPre += `<br>
+Já byl na tomhle turnaji jenom na čumendu.
+<table>`
+    } else {
+      htmlPre += `<br>
 <span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.floor(oponents/games)}<br>
 Win:&nbsp;${percent(wins/games)}&nbsp;&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+    }
 
     let avatar = getAvatar(player)
     if (avatar) {
