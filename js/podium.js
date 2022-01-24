@@ -246,6 +246,17 @@ class AchievementEnPassantKiller {
   }
 }
 
+class AchievementSensation {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 50
+    this.frame = "zlata.png"
+    this.char = "&#10024;"
+    this.desc = "Senzace turnaje"
+    this.game = id
+  }
+}
+
 function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
@@ -272,6 +283,10 @@ function collectAchievements(data, tournamentID, games) {
       }
     }
   })
+
+  let sensation = games.games.reduce(biggestDifferenceWinSelector, null)
+  if (sensation) achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
+
   return achievements
 }
 
