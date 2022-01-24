@@ -414,3 +414,73 @@ win {
     visibility: visible;
 }
 */
+
+#achievements {
+    max-width: 600px;
+    width: 97vw;
+    text-align: center;
+    display: block;
+}
+
+#achievements .user-link {
+    color: #1b78d0;
+}
+
+
+#achievements:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.achievementPlayer {
+    margin: 5px 0px;
+    padding: 10px 0px;
+    background-color: rgba(180,180,180,0.4);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
+
+.achievementDesc {
+    padding: 5px 15px;
+    color: #1b78d0;
+    font-size: 1.5em;
+    height: 50px;
+}
+
+.achievement {
+    font-size: 0.8em;
+    background-image: url("../img/achievements/achievementBack.png");
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px 0px;
+    border: 2px solid black;
+    cursor: auto;
+
+    width: 120px;
+    text-overflow: ellipsis;
+
+    display: inline-block;
+
+    z-index: 1;
+    margin: 5px;
+}
+
+.achievement.left {
+    margin-right: 0px;
+}
+
+.achievement.right {
+    margin-left: -2px;
+    height: 175px;
+}
+
+.achievementDesc:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
