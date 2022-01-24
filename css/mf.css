@@ -420,6 +420,7 @@ win {
     width: 97vw;
     text-align: center;
     display: block;
+    font-size: 17px;
 }
 
 #achievements .user-link {
@@ -448,6 +449,7 @@ win {
     padding: 5px 15px;
     color: #1b78d0;
     font-size: 1.5em;
+    margin-top:2px;
     height: 50px;
 }
 
@@ -466,17 +468,19 @@ win {
 
     display: inline-block;
 
-    z-index: 1;
     margin: 5px;
 }
 
 .achievement.left {
-    margin-right: 0px;
+    margin-right: 132px;
 }
 
 .achievement.right {
     margin-left: -2px;
     height: 175px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .achievementDesc:after {

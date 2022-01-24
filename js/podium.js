@@ -115,6 +115,7 @@ class AchievementFastGame {
     this.sortVal = 80 - ply
     this.frame = "zelena.png"
     this.char = "&#128640;"
+    this.desc = "Raketově rychle"
   }
 }
 
@@ -125,6 +126,7 @@ class AchievementMonkey {
     this.sortVal = 100 + monkey
     this.frame = "zelena.png"
     this.char = "&#128053;"
+    this.desc = "Opičí se po bílém"
   }
 }
 class AchievementQueens {
@@ -135,6 +137,7 @@ class AchievementQueens {
     this.frame = "zlata.png"
     this.pic = "kralovna.png"
     this.left = 21
+    this.desc = "Postavil tři dámy"
   }
 }
 
@@ -143,6 +146,7 @@ class AchievementSmothered {
     this.player = player
     this.sortVal = 120
     this.img = "smothered.png"
+    this.desc = "Dušený mat"
   }
 }
 
@@ -153,6 +157,7 @@ class AchievementPawnKiller {
     this.frame = "fialova.png"
     this.pic = "pesec.png"
     this.left = 38
+    this.desc = "Vražedný pěšec"
   }
 }
 
@@ -162,6 +167,7 @@ class AchievementCenterMate {
     this.sortVal = 90
     this.frame = "zlata.png"
     this.char = "&#129409;"
+    this.desc = "Mat v centru"
   }
 }
 
@@ -172,6 +178,7 @@ class AchievementKnightKiller {
     this.frame = "fialova.png"
     this.pic = "kun.png"
     this.left = 38
+    this.desc = "Vražedný jezdec"
   }
 }
 
@@ -182,6 +189,7 @@ class AchievementBishopKiller {
     this.frame = "fialova.png"
     this.pic = "strelec.png"
     this.left = 24
+    this.desc = "Vražedný střelec"
   }
 }
 
@@ -192,6 +200,7 @@ class AchievementKingKiller {
     this.frame = "fialova.png"
     this.pic = "kral.png"
     this.left = 23
+    this.desc = "Odtažný mat králem"
   }
 }
 
@@ -201,6 +210,7 @@ class AchievementQueenSacrifice {
     this.sortVal = 150
     this.frame = "zlata.png"
     this.char = "&#x1F478;"
+    this.desc = "Útok s obětí dámy"
   }
 }
 
@@ -210,6 +220,7 @@ class AchievementCastlingKiller {
     this.sortVal = 200
     this.frame = "modra.png"
     this.char = "&#x1F48E;"
+    this.desc = "Mat rošádou"
   }
 }
 
@@ -219,6 +230,7 @@ class AchievementEnPassantKiller {
     this.sortVal = 190
     this.frame = "tyrkysova.png"
     this.char = "&#x1F48E;"
+    this.desc = "En-passant mat"
   }
 }
 
@@ -265,7 +277,7 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
     for (let i=0; i < Math.min(achievements.length, 4); i++) {
       let achievement = achievements[i]
       let player = achievement.player.user.name
-      let html = `<div class="achievement left">`
+      let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
       let avatar = getAvatar(player, "img/achievements/strelec.png")
       html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
       html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
@@ -284,8 +296,8 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
       } else {
         html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
       }
-      html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
-      html += "</div>"
+      html += `<div class="achievementDesc">${achievement.desc}</div>`
+      html += "</div></div>"
       divs.push(html)
     }
 
