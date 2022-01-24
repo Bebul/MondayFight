@@ -264,6 +264,18 @@ class AchievementSensation {
   }
 }
 
+class Achievement100PercentWinner {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 1000
+    this.frame = "stribrna.png"
+    this.pic = "tlama-animate2.gif"
+    this.left = 31
+    this.desc = "100% vítězství"  // tournament LgtuuhiJ for instance
+    this.game = "P1WydaUq"  // Kasparov - Karpov
+  }
+}
+
 class AchievementNothing {
   constructor() {
     this.player = {user: {name: "kasparov"}}
@@ -314,6 +326,10 @@ function collectAchievements(data, tournamentID, games) {
       }
     }
   })
+
+  let winner = tournament.podium[0]
+  let winRate = winner.nb.win / winner.nb.game
+  if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
 
   let sensation = games.games.reduce(biggestDifferenceWinSelector, null)
   if (sensation) {
@@ -383,6 +399,7 @@ function testAchievementsInfo(id="achievements") {
   }
 
   let achievements = [
+    new Achievement100PercentWinner(next()),
     new AchievementFastGame(next(), 8), // undefined game id, never mind
     new AchievementMonkey(next(), 7),
     new AchievementQueens(next(), 3),
