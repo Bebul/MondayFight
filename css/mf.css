@@ -473,11 +473,13 @@ win {
 
 .achievement.left {
     margin-right: 132px;
+    border-right: 1px dotted black;
 }
 
 .achievement.right {
-    margin-left: -2px;
     height: 175px;
+    margin-left: -2px;
+    border-left: 0px;
     position: absolute;
     top: 0px;
     right: 0px;
