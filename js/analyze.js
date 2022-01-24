@@ -246,7 +246,7 @@ async function addStats(g, report) {
             if (stats.mate && stats.mate.castling) console.log(`${g.id} castling mate`)
             if (stats.mate && stats.mate.queenSac) console.log(`${g.id} queen sacrifice attack`)
             if (stats.mate && stats.mate.piece == "k") console.log(`${g.id} mate by king move`)
-            if (stats.mate && (stats.mate.to == "f7" || stats.mate.to == "f7")) console.log(`${g.id} weak square f7 / f2`)
+            if (stats.mate && (stats.mate.to == "f2" || stats.mate.to == "f7")) console.log(`${g.id} weak square f7 / f2`)
             if (stats.monkey) console.log(`${g.id} monkey play ${stats.monkey} moves`)
 
             player.stats = stats
@@ -256,9 +256,7 @@ async function addStats(g, report) {
     )
 }
 
-async function addAllStats(data, report) {
-  let games = []
-  data.forEachGame(g => games.push(g))
+async function addGamesStats(data, games, report) {
   let gamesCount = games.length
 
   Number.prototype.padLeft = function(base,chr){
@@ -282,7 +280,7 @@ async function addAllStats(data, report) {
 
     let g = games.shift()
     if (g) {
-      report.status(getStatus(g))
+      if (report) report.status(getStatus(g))
       await addStats(g)
         .then(promiseTimeout(timeout))
         .then(result => nextStat(data, games, report))
@@ -290,4 +288,19 @@ async function addAllStats(data, report) {
   }
 
   await nextStat(data, games, report)
+}
+
+async function addAllStats(data, report) {
+  let games = []
+  data.forEachGame(g => games.push(g))
+  await addGamesStats(data, games, report)
+}
+
+async function addNewGamesStats(data, newGames, report) {
+  let games = []
+  newGames.forEach(function(g) {
+    games = games.concat(g.games)
+  })
+  await addGamesStats(data, games, report)
+    .then(result => console.log("addNewGamesStats is DONE"))
 }
