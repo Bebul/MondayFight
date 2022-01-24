@@ -483,19 +483,19 @@ function getAvatar(playerH, dafaultAvatar) {
   let ext = ".png"
   switch (player) {
     case "bebul": return path + player + ext // bebulAvatar2
-    case "mozkomor": return path + player + ext
     case "bukowskic": return path + player + ext
+    case "butaczech": return path + player + ext
     case "dj-pesec": return path + player + ext
+    case "hrobotron": return path + player + ext
+    case "jouzolean": return path + player + ext
+    case "mauricedodo": return path + player + ext
+    case "mozkomor": return path + player + ext
+    case "mrazek": return path + player + ext
+    case "neznama-00": return path + player + ext
     case "rychlylenochod": return path + player + ext
     case "tekele": return path + player + ext
     case "travinho": return path + player + ext
-    case "hrobotron": return path + player + ext
-    case "jouzolean": return path + player + ext
-    case "mrazek": return path + player + ext
-    case "neznama-00": return path + player + ext
 
-    case "mauricedodo": return dafaultAvatar ? dafaultAvatar : path + "default2" + ext
-    case "butaczech": return dafaultAvatar ? dafaultAvatar :  path + "default3" + ext
     case "dzin69": return dafaultAvatar ? dafaultAvatar :  path + "default3" + ext
     default: return dafaultAvatar ? dafaultAvatar :  path + "default2" + ext // or default
   }
