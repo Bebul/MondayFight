@@ -285,7 +285,10 @@ function collectAchievements(data, tournamentID, games) {
   })
 
   let sensation = games.games.reduce(biggestDifferenceWinSelector, null)
-  if (sensation) achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
+  if (sensation) {
+    sensation.sensation = true // in order to show decoration on player tooltip
+    achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
+  }
 
   return achievements
 }
@@ -420,6 +423,7 @@ function getDecorationTrophies(game, player, wins) {
   if (player.berserk == true) decorations += "&#9889;"
   if (game.ply && game.ply<19 && wins && game.ply>2) decorations += "&#128640;"
   if (game.ply && game.ply>=200) decorations += "&#9200;"
+  if (wins && game.sensation) decorations += "&#10024;"
   if (player.stats) {
     let stats = player.stats
     if (stats.monkey) decorations += "&#128053;"
