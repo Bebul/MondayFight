@@ -442,9 +442,9 @@ function getDecorationTrophies(game, player, wins) {
   return decorations
 }
 
-function whitePlayerDecorated(game, player) {
+function whitePlayerDecorated(game) {
   let ratingDiff = ""
-  if (game.players.white.user.name === player) ratingDiff = ratingDiffDeco(game.players.white)
+  ratingDiff = ratingDiffDeco(game.players.white)
   let wins = game.winner === "white"
 
   let decorations = getDecorationTrophies(game, game.players.white, wins)
@@ -457,9 +457,9 @@ function whitePlayerDecorated(game, player) {
   }
 }
 
-function blackPlayerDecorated(game, player) {
+function blackPlayerDecorated(game) {
   let ratingDiff = ""
-  if (game.players.black.user.name === player) ratingDiff = ratingDiffDeco(game.players.black)
+  ratingDiff = ratingDiffDeco(game.players.black)
 
   let wins = game.winner === "black"
 
@@ -519,13 +519,13 @@ function createTip(data, gamesData, tournament, player) {
         if (game.winner == "white") wins++
         if (game.players.white.berserk == true) berserks++
         oponents += game.players.black.rating
-        html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
+        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
       } else if (game.players.black.user.name == player) {
         games++
         if (game.winner == "black") wins++
         if (game.players.black.berserk == true) berserks++
         oponents += game.players.white.rating
-        html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
+        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
       }
     })
 
