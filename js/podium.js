@@ -108,6 +108,205 @@ function createTournamentInfo(data, tournamentID, id="info") {
   }
 }
 
+class AchievementFastGame {
+  constructor(player, ply) {
+    this.player = player
+    this.ply = ply
+    this.sortVal = 80 - ply
+    this.frame = "zelena.png"
+    this.char = "&#128640;"
+    this.desc = "Raketově rychle"
+  }
+}
+
+class AchievementMonkey {
+  constructor(player, monkey) {
+    this.player = player
+    this.monkey = monkey
+    this.sortVal = 100 + monkey
+    this.frame = "zelena.png"
+    this.char = "&#128053;"
+    this.desc = "Opičí se po bílém"
+  }
+}
+class AchievementQueens {
+  constructor(player, queens) {
+    this.player = player
+    this.queens = queens
+    this.sortVal = 100 + queens
+    this.frame = "zlata.png"
+    this.pic = "kralovna.png"
+    this.left = 21
+    this.desc = "Postavil tři dámy"
+  }
+}
+
+class AchievementSmothered {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 120
+    this.img = "smothered.png"
+    this.desc = "Dušený mat"
+  }
+}
+
+class AchievementPawnKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 89
+    this.frame = "fialova.png"
+    this.pic = "pesec.png"
+    this.left = 38
+    this.desc = "Vražedný pěšec"
+  }
+}
+
+class AchievementCenterMate {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 90
+    this.frame = "zlata.png"
+    this.char = "&#129409;"
+    this.desc = "Mat v centru"
+  }
+}
+
+class AchievementKnightKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 91
+    this.frame = "fialova.png"
+    this.pic = "kun.png"
+    this.left = 38
+    this.desc = "Vražedný jezdec"
+  }
+}
+
+class AchievementBishopKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 92
+    this.frame = "fialova.png"
+    this.pic = "strelec.png"
+    this.left = 24
+    this.desc = "Vražedný střelec"
+  }
+}
+
+class AchievementKingKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 130
+    this.frame = "fialova.png"
+    this.pic = "kral.png"
+    this.left = 23
+    this.desc = "Odtažný mat králem"
+  }
+}
+
+class AchievementQueenSacrifice {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 150
+    this.frame = "zlata.png"
+    this.char = "&#x1F478;"
+    this.desc = "Útok s obětí dámy"
+  }
+}
+
+class AchievementCastlingKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 200
+    this.frame = "modra.png"
+    this.char = "&#x1F48E;"
+    this.desc = "Mat rošádou"
+  }
+}
+
+class AchievementEnPassantKiller {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 190
+    this.frame = "tyrkysova.png"
+    this.char = "&#x1F48E;"
+    this.desc = "En-passant mat"
+  }
+}
+
+function collectAchievements(data, tournamentID, games) {
+  let tournament = data.findTournament(tournamentID)
+  let achievements = []
+  games.games.forEach(function(g) {
+    for (color in g.players) {
+      let wins = g.winner === color
+      let player = g.players[color]
+      if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply))
+      if (player.stats) {
+        let stats = player.stats
+        if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey))
+        if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens))
+        if (stats.mate && wins) {
+          if (stats.mate.smothered) achievements.push(new AchievementSmothered(player))
+          else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player))
+          if (stats.mate.sacrifice) achievements.push(new AchievementQueenSacrifice(player))
+          if (stats.mate.centerMate) achievements.push(new AchievementCenterMate(player))
+          if (stats.mate.piece==="k") achievements.push(new AchievementKingKiller(player))
+          if (stats.mate.piece==="p") achievements.push(new AchievementPawnKiller(player))
+          if (stats.mate.piece==="b") achievements.push(new AchievementBishopKiller(player))
+          if (stats.mate.castling) achievements.push(new AchievementCastlingKiller(player))
+          if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player))
+        }
+      }
+    }
+  })
+  return achievements
+}
+
+function createAchievementsInfo(data, tournamentID, games, id="achievements") {
+  let tournament = data.findTournament(tournamentID)
+
+  let el = document.getElementById(id)
+  if (tournament && el) {
+
+
+    let achievements = collectAchievements(data, tournamentID, games)
+    achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
+
+    let divs = []
+    for (let i=0; i < Math.min(achievements.length, 4); i++) {
+      let achievement = achievements[i]
+      let player = achievement.player.user.name
+      let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
+      let avatar = getAvatar(player, "img/achievements/strelec.png")
+      html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
+      html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
+      html += "</div>"
+      divs.push(html)
+
+      html = `<div class="achievement right">`
+      if (achievement.img) html += `<img src="img/achievements/${achievement.img}" style="max-height: 110px; height: 110px">`
+      else if (achievement.frame) {
+        html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" style="max-height: 110px; height: 110px">`
+        if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" style="max-height: 75px; height: 75px; position:absolute; top:19px; left:${achievement.left}px">`
+        else {
+          html += `<div style="font-size:65px; position:absolute; top:10px; left:15px">${achievement.char}</div>`
+        }
+        html += `</div>`
+      } else {
+        html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
+      }
+      html += `<div class="achievementDesc">${achievement.desc}</div>`
+      html += "</div></div>"
+      divs.push(html)
+    }
+
+    let html = `${divs.join("")}`
+
+    el.innerHTML = html
+  }
+}
+
 function ratingDiff(player, games) {
   let initialRating = player.rating
   for (i=games.games.length-1; i>=0; i--) {
@@ -183,31 +382,63 @@ function getGameResult(g) {
 }
 
 function ratingDiffDeco(pl) {
-  if (pl.ratingDiff < 0) return `<loss>&nbsp;(${(pl.ratingDiff)})</loss>`
-  else return `<win>&nbsp;(+${(pl.ratingDiff)})</win>`
+  if (pl.ratingDiff) {
+    if (pl.ratingDiff < 0) return `<loss>&nbsp;(${(pl.ratingDiff)})</loss>`
+    else return `<win>&nbsp;(+${(pl.ratingDiff)})</win>`
+  } else return ""
+}
+
+function getDecorationTrophies(game, player, wins) {
+  let decorations = ""
+  if (player.berserk == true) decorations += "&#9889;"
+  if (game.ply && game.ply<19 && wins && game.ply>2) decorations += "&#128640;"
+  if (game.ply && game.ply>=200) decorations += "&#9200;"
+  if (player.stats) {
+    let stats = player.stats
+    if (stats.monkey) decorations += "&#128053;"
+    if (stats.queens) decorations += "&#9813"
+    if (stats.mate && wins) {
+      if (stats.mate.smothered) decorations += "&#9816;&#129505;"
+      else if (stats.mate.piece==="n") decorations += "&#9816;"
+      if (stats.mate.sacrifice) decorations += "&#x1F478;"
+      if (stats.mate.centerMate) decorations += "&#129409;"
+      if (stats.mate.piece==="k") decorations += "&#129332;"
+      if (stats.mate.piece==="p") decorations += "&#9823;"
+      if (stats.mate.piece==="b") decorations += "&#9815;"
+      if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
+    }
+  }
+  return decorations
 }
 
 function whitePlayerDecorated(game, player) {
   let ratingDiff = ""
-  if (game.players.white.user.name == player) ratingDiff = ratingDiffDeco(game.players.white)
-  let berserk = ""
-  if (game.players.white.berserk == true) berserk = "&#9889;&nbsp;"
-  if (game.winner == "white") {
-    return `<b>${berserk}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</b>`
+  if (game.players.white.user.name === player) ratingDiff = ratingDiffDeco(game.players.white)
+  let wins = game.winner === "white"
+
+  let decorations = getDecorationTrophies(game, game.players.white, wins)
+  if (decorations) decorations += "&nbsp;"
+
+  if (wins) {
+    return `<span style="white-space:nowrap;"><b>${decorations}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</b></span>`
   } else {
-    return `${berserk}${fixPlayerName(game.players.white.user.name)}${ratingDiff}`
+    return `<span style="white-space:nowrap;">${decorations}${fixPlayerName(game.players.white.user.name)}${ratingDiff}</span>`
   }
 }
 
 function blackPlayerDecorated(game, player) {
   let ratingDiff = ""
-  if (game.players.black.user.name == player) ratingDiff = ratingDiffDeco(game.players.black)
-  let berserk = ""
-  if (game.players.black.berserk == true) berserk = "&nbsp;&#9889;"
-  if (game.winner == "black") {
-    return `<b>${fixPlayerName(game.players.black.user.name)}${ratingDiff}${berserk}</b>`
+  if (game.players.black.user.name === player) ratingDiff = ratingDiffDeco(game.players.black)
+
+  let wins = game.winner === "black"
+
+  let decorations = getDecorationTrophies(game, game.players.black, wins)
+  if (decorations) decorations = "&nbsp;" + decorations
+
+  if (wins) {
+    return `<span style="white-space:nowrap;"><b>${fixPlayerName(game.players.black.user.name)}${ratingDiff}${decorations}</b></span>`
   } else {
-    return `${fixPlayerName(game.players.black.user.name)}${ratingDiff}${berserk}`
+    return `<span style="white-space:nowrap;">${fixPlayerName(game.players.black.user.name)}${ratingDiff}${decorations}</span>`
   }
 }
 
@@ -215,7 +446,7 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
-function getAvatar(playerH) {
+function getAvatar(playerH, dafaultAvatar) {
   let player = playerH.toLowerCase()
   let path = "img/players/"
   let ext = ".png"
@@ -232,10 +463,10 @@ function getAvatar(playerH) {
     case "mrazek": return path + player + ext
     case "neznama-00": return path + player + ext
 
-    case "mauricedodo": return path + "default2" + ext
-    case "butaczech": return path + "default3" + ext
-    case "dzin69": return path + "default3" + ext
-    default: return path + "default2" + ext // or default
+    case "mauricedodo": return dafaultAvatar ? dafaultAvatar : path + "default2" + ext
+    case "butaczech": return dafaultAvatar ? dafaultAvatar :  path + "default3" + ext
+    case "dzin69": return dafaultAvatar ? dafaultAvatar :  path + "default3" + ext
+    default: return dafaultAvatar ? dafaultAvatar :  path + "default2" + ext // or default
   }
 }
 
@@ -263,17 +494,19 @@ function createTip(data, gamesData, tournament, player) {
         if (game.winner == "black") wins++
         if (game.players.black.berserk == true) berserks++
         oponents += game.players.white.rating
-        let berserkBlack = ""
-        if (game.players.black.berserk == true) berserkBlack = "<b>&#9736;</b>"
-        let berserkWhite = ""
-        if (game.players.white.berserk == true) berserkWhite = "<b>&#9736;</b>"
         html = `<tr><td>${whitePlayerDecorated(game, player)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game, player)}</td></tr>` + html
       }
     })
 
-    htmlPre += `<br>
+    if (games == 0) {
+      htmlPre += `<br>
+Já byl na tomhle turnaji jenom na čumendu.
+<table>`
+    } else {
+      htmlPre += `<br>
 <span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.floor(oponents/games)}<br>
 Win:&nbsp;${percent(wins/games)}&nbsp;&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+    }
 
     let avatar = getAvatar(player)
     if (avatar) {
@@ -327,6 +560,18 @@ function fastestGameSelector(minGame, game) {
   } else return game
 }
 
+function toPGN(g, addFen) {
+  let pgn = `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]`
+  pgn += `\r\n[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]`
+  if (addFen && g.initialFen) {
+    pgn += `\r\n[Variant "From Position"]`
+    pgn += `\r\n[FEN "${g.initialFen}"]`
+    pgn += `\r\n[SetUp "1"]`
+  }
+  pgn += `\r\n\r\n${g.moves}\r\n`
+  return pgn
+}
+
 function selectGame(gamesData, hideId, boardId, selector) {
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
   if (selectedGame) {
@@ -338,10 +583,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
 
     let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
     let config = {
-      pgn: `[White \"${selectedGame.players.white.user.name} ${selectedGame.players.white.rating}\"]
-[Black \"${selectedGame.players.black.user.name} ${selectedGame.players.black.rating}\"]
-${selectedGame.moves}
-`,
+      pgn: toPGN(selectedGame),
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
       boardSize: mateBoardWidth,
@@ -406,6 +648,7 @@ function nextTournament(data, diff=1) {
   createResults(data, games.id, games)
   updateSpecialBoards(games)
   createTournamentInfo(data, games.id)
+  createAchievementsInfo(data, games.id, games)
 
   updateMostActivePlayer("gameListTable", gameData)
   updateGoogleBar("gameListTableBar", gameData)

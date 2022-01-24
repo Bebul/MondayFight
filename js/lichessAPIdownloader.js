@@ -134,8 +134,11 @@ function onDwnlTournamentClicked(data, rename) {
       preGames.innerHTML = JSON.stringify(games, null, 0)
       data.addGames([games])
       data.addExtras()
-      download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
-      download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+      addNewGamesStats(data, games)
+        .then(function(result) {
+          download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
+          download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+        })
     })
 }
 
