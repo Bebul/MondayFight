@@ -109,28 +109,30 @@ function createTournamentInfo(data, tournamentID, id="info") {
 }
 
 class AchievementFastGame {
-  constructor(player, ply) {
+  constructor(player, ply, id) {
     this.player = player
     this.ply = ply
     this.sortVal = 80 - ply
     this.frame = "zelena.png"
     this.char = "&#128640;"
     this.desc = "Raketově rychle"
+    this.game = id
   }
 }
 
 class AchievementMonkey {
-  constructor(player, monkey) {
+  constructor(player, monkey, id) {
     this.player = player
     this.monkey = monkey
     this.sortVal = 100 + monkey
     this.frame = "zelena.png"
     this.char = "&#128053;"
     this.desc = "Opičí se po bílém"
+    this.game = id
   }
 }
 class AchievementQueens {
-  constructor(player, queens) {
+  constructor(player, queens, id) {
     this.player = player
     this.queens = queens
     this.sortVal = 100 + queens
@@ -138,99 +140,109 @@ class AchievementQueens {
     this.pic = "kralovna.png"
     this.left = 21
     this.desc = "Postavil tři dámy"
+    this.game = id
   }
 }
 
 class AchievementSmothered {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 120
     this.img = "smothered.png"
     this.desc = "Dušený mat"
+    this.game = id
   }
 }
 
 class AchievementPawnKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 89
     this.frame = "fialova.png"
     this.pic = "pesec.png"
     this.left = 38
     this.desc = "Vražedný pěšec"
+    this.game = id
   }
 }
 
 class AchievementCenterMate {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 90
     this.frame = "zlata.png"
     this.char = "&#129409;"
     this.desc = "Mat v centru"
+    this.game = id
   }
 }
 
 class AchievementKnightKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 91
     this.frame = "fialova.png"
     this.pic = "kun.png"
     this.left = 38
     this.desc = "Vražedný jezdec"
+    this.game = id
   }
 }
 
 class AchievementBishopKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 92
     this.frame = "fialova.png"
     this.pic = "strelec.png"
     this.left = 24
     this.desc = "Vražedný střelec"
+    this.game = id
   }
 }
 
 class AchievementKingKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 130
     this.frame = "fialova.png"
     this.pic = "kral.png"
     this.left = 23
     this.desc = "Odtažný mat králem"
+    this.game = id
   }
 }
 
 class AchievementQueenSacrifice {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 150
     this.frame = "zlata.png"
     this.char = "&#x1F478;"
     this.desc = "Útok s obětí dámy"
+    this.game = id
   }
 }
 
 class AchievementCastlingKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 200
     this.frame = "modra.png"
     this.char = "&#x1F48E;"
     this.desc = "Mat rošádou"
+    this.game = id
   }
 }
 
 class AchievementEnPassantKiller {
-  constructor(player) {
+  constructor(player, id) {
     this.player = player
     this.sortVal = 190
     this.frame = "tyrkysova.png"
     this.char = "&#x1F48E;"
     this.desc = "En-passant mat"
+    this.game = id
   }
 }
 
@@ -241,21 +253,21 @@ function collectAchievements(data, tournamentID, games) {
     for (color in g.players) {
       let wins = g.winner === color
       let player = g.players[color]
-      if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply))
+      if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply, g.id))
       if (player.stats) {
         let stats = player.stats
-        if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey))
-        if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens))
+        if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey, g.id))
+        if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens, g.id))
         if (stats.mate && wins) {
-          if (stats.mate.smothered) achievements.push(new AchievementSmothered(player))
-          else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player))
-          if (stats.mate.sacrifice) achievements.push(new AchievementQueenSacrifice(player))
-          if (stats.mate.centerMate) achievements.push(new AchievementCenterMate(player))
-          if (stats.mate.piece==="k") achievements.push(new AchievementKingKiller(player))
-          if (stats.mate.piece==="p") achievements.push(new AchievementPawnKiller(player))
-          if (stats.mate.piece==="b") achievements.push(new AchievementBishopKiller(player))
-          if (stats.mate.castling) achievements.push(new AchievementCastlingKiller(player))
-          if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player))
+          if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
+          else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player, g.id))
+          if (stats.mate.sacrifice) achievements.push(new AchievementQueenSacrifice(player, g.id))
+          if (stats.mate.centerMate) achievements.push(new AchievementCenterMate(player, g.id))
+          if (stats.mate.piece==="k") achievements.push(new AchievementKingKiller(player, g.id))
+          if (stats.mate.piece==="p") achievements.push(new AchievementPawnKiller(player, g.id))
+          if (stats.mate.piece==="b") achievements.push(new AchievementBishopKiller(player, g.id))
+          if (stats.mate.castling) achievements.push(new AchievementCastlingKiller(player, g.id))
+          if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player, g.id))
         }
       }
     }
@@ -296,7 +308,7 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
       } else {
         html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
       }
-      html += `<div class="achievementDesc">${achievement.desc}</div>`
+      html += `<div class="achievementDesc"><a class="user-link" href="https://lichess.org/${achievement.game}" target="_blank">${achievement.desc}</a></div>`
       html += "</div></div>"
       divs.push(html)
     }
