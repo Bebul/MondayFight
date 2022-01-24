@@ -308,7 +308,7 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
       let achievement = achievements[i]
       let player = achievement.player.user.name
       let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
-      let avatar = getAvatar(player, "img/achievements/strelec.png")
+      let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
       html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
       html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
       html += "</div>"
@@ -477,29 +477,27 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
-function getAvatar(playerH, dafaultAvatar) {
-  let player = playerH.toLowerCase()
-  let path = "img/players/"
-  let ext = ".png"
-  switch (player) {
-    case "bebul": return path + player + ext // bebulAvatar2
-    case "bukowskic": return path + player + ext
-    case "butaczech": return path + player + ext
-    case "dj-pesec": return path + player + ext
-    case "hrobotron": return path + player + ext
-    case "jouzolean": return path + player + ext
-    case "mauricedodo": return path + player + ext
-    case "mozkomor": return path + player + ext
-    case "mrazek": return path + player + ext
-    case "neznama-00": return path + player + ext
-    case "rychlylenochod": return path + player + ext
-    case "tekele": return path + player + ext
-    case "travinho": return path + player + ext
+var Avatars = function() {
+  let players = ["bebul", "bukowskic", "butaczech", "dj-pesec", "hrobotron", "jouzolean",
+    "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele", "travinho", "kasparov"]
+  let defaults = ["default2", "default3"]
 
-    case "dzin69": return dafaultAvatar ? dafaultAvatar :  path + "default3" + ext
-    default: return dafaultAvatar ? dafaultAvatar :  path + "default2" + ext // or default
+  function getAvatar(playerName, defaultAvatar) {
+    let playerLow = playerName.toLowerCase()
+    let fileName = ""
+    if (players.includes(playerLow)) fileName = playerLow
+    else if (defaultAvatar) return defaultAvatar
+    else fileName = defaults[playerName.length % defaults.length]
+
+    return `img/players/${fileName}.png`
   }
-}
+
+  return {
+    players: players,
+    getAvatar: getAvatar
+  }
+}()
+
 
 function createTip(data, gamesData, tournament, player) {
   return function(event) {
@@ -539,7 +537,7 @@ Já byl na tomhle turnaji jenom na čumendu.
 Win:&nbsp;${percent(wins/games)}&nbsp;&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
     }
 
-    let avatar = getAvatar(player)
+    let avatar = Avatars.getAvatar(player)
     if (avatar) {
       /*
       if (player == "bebul") {
