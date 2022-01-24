@@ -80,6 +80,8 @@
         </div>
         <div id="info">
         </div>
+        <div id="achievements">
+        </div>
 
         <div style="margin-top: 10px" id="gameListTableplwhite"></div>
         <div id="gameListTableplblack"></div>
@@ -134,6 +136,8 @@
     createPodium(data, games.id)
     createResults(data, games.id, games)
     createTournamentInfo(data, games.id)
+    //createAchievementsInfo(data, gamesData, games.id)
+    testAchievementsInfo() // creates all possible achievements to see how they look like
     updateSpecialBoards(games)
     createGameListTable(gamesData, "#gameListTable", false)
   }

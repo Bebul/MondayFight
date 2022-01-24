@@ -257,6 +257,18 @@ class AchievementSensation {
   }
 }
 
+// use it to render something and use it by screenshot at last
+class AchievementFontPrototype {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 1
+    this.frame = "zlata.png"
+    this.char = "&#129409;"
+    this.desc = "Prototyp trofeje"
+    this.game = id
+  }
+}
+
 function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
@@ -293,46 +305,86 @@ function collectAchievements(data, tournamentID, games) {
   return achievements
 }
 
+function renderAchievements(achievements, maxCount = 4) {
+  let divs = []
+  for (let i=0; i < Math.min(achievements.length, maxCount); i++) {
+    let achievement = achievements[i]
+    let player = achievement.player.user.name
+    let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
+    let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
+    html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
+    html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
+    html += "</div>"
+    divs.push(html)
+
+    html = `<div class="achievement right">`
+    if (achievement.img) html += `<img src="img/achievements/${achievement.img}" style="max-height: 110px; height: 110px">`
+    else if (achievement.frame) {
+      html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" style="max-height: 110px; height: 110px">`
+      if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" style="max-height: 75px; height: 75px; position:absolute; top:19px; left:${achievement.left}px">`
+      else {
+        html += `<div style="font-size:65px; position:absolute; top:10px; left:15px">${achievement.char}</div>`
+      }
+      html += `</div>`
+    } else {
+      html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
+    }
+    html += `<div class="achievementDesc"><a class="user-link" href="https://lichess.org/${achievement.game}" target="_blank">${achievement.desc}</a></div>`
+    html += "</div></div>"
+    divs.push(html)
+  }
+
+  return divs
+}
+
 function createAchievementsInfo(data, tournamentID, games, id="achievements") {
   let tournament = data.findTournament(tournamentID)
 
   let el = document.getElementById(id)
   if (tournament && el) {
-
-
     let achievements = collectAchievements(data, tournamentID, games)
     achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
 
-    let divs = []
-    for (let i=0; i < Math.min(achievements.length, 4); i++) {
-      let achievement = achievements[i]
-      let player = achievement.player.user.name
-      let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
-      let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
-      html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
-      html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
-      html += "</div>"
-      divs.push(html)
-
-      html = `<div class="achievement right">`
-      if (achievement.img) html += `<img src="img/achievements/${achievement.img}" style="max-height: 110px; height: 110px">`
-      else if (achievement.frame) {
-        html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" style="max-height: 110px; height: 110px">`
-        if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" style="max-height: 75px; height: 75px; position:absolute; top:19px; left:${achievement.left}px">`
-        else {
-          html += `<div style="font-size:65px; position:absolute; top:10px; left:15px">${achievement.char}</div>`
-        }
-        html += `</div>`
-      } else {
-        html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
-      }
-      html += `<div class="achievementDesc"><a class="user-link" href="https://lichess.org/${achievement.game}" target="_blank">${achievement.desc}</a></div>`
-      html += "</div></div>"
-      divs.push(html)
-    }
-
+    let divs = renderAchievements(achievements)
     let html = `${divs.join("")}`
+    el.innerHTML = html
+  }
+}
 
+function testAchievementsInfo(id="achievements") {
+  let i = 0
+  let next = () => {
+    let name = Avatars.players[i++ % Avatars.players.length]
+    return {
+      user : {
+        name : name
+      }
+    }
+  }
+
+  let achievements = [
+    new AchievementFastGame(next(), 8), // undefined game id, never mind
+    new AchievementMonkey(next(), 7),
+    new AchievementQueens(next(), 3),
+    new AchievementSmothered(next()),
+    new AchievementPawnKiller(next()),
+    new AchievementCenterMate(next()),
+    new AchievementKingKiller(next()),
+    new AchievementBishopKiller(next()),
+    new AchievementKingKiller(next()),
+    new AchievementQueenSacrifice(next()),
+    new AchievementCastlingKiller(next()),
+    new AchievementEnPassantKiller(next()),
+    new AchievementSensation(next()),
+    new AchievementFontPrototype(next()), // {user :{ name : "kasparov"}}
+  ]
+
+  let el = document.getElementById(id)
+  if (el) {
+    achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
+
+    let divs = renderAchievements(achievements, 1000)
+    let html = `${divs.join("")}`
     el.innerHTML = html
   }
 }
