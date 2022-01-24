@@ -113,8 +113,9 @@ class AchievementFastGame {
     this.player = player
     this.ply = ply
     this.sortVal = 80 - ply
-    this.frame = "zelena.png"
-    this.char = "&#128640;"
+    this.img = "fast-game.png"
+    //this.frame = "zelena.png"
+    //this.char = "&#128640;"
     this.desc = "Raketově rychle"
     this.game = id
   }
@@ -125,8 +126,9 @@ class AchievementMonkey {
     this.player = player
     this.monkey = monkey
     this.sortVal = 100 + monkey
-    this.frame = "zelena.png"
-    this.char = "&#128053;"
+    this.img = "monkey.png"
+    //this.frame = "zelena.png"
+    //this.char = "&#128053;"
     this.desc = "Opičí se po bílém"
     this.game = id
   }
@@ -170,8 +172,9 @@ class AchievementCenterMate {
   constructor(player, id) {
     this.player = player
     this.sortVal = 90
-    this.frame = "zlata.png"
-    this.char = "&#129409;"
+    //this.frame = "zlata.png"
+    //this.char = "&#129409;"
+    this.img = "center-mate.png"
     this.desc = "Mat v centru"
     this.game = id
   }
@@ -217,8 +220,9 @@ class AchievementQueenSacrifice {
   constructor(player, id) {
     this.player = player
     this.sortVal = 150
-    this.frame = "zlata.png"
-    this.char = "&#x1F478;"
+    //this.frame = "zlata.png"
+    //this.char = "&#x1F478;"
+    this.img = "queen-sacrifice.png"
     this.desc = "Útok s obětí dámy"
     this.game = id
   }
@@ -228,8 +232,9 @@ class AchievementCastlingKiller {
   constructor(player, id) {
     this.player = player
     this.sortVal = 200
-    this.frame = "modra.png"
-    this.char = "&#x1F48E;"
+    //this.frame = "modra.png"
+    //this.char = "&#x1F48E;"
+    this.img = "castling-mate.png"
     this.desc = "Mat rošádou"
     this.game = id
   }
@@ -239,8 +244,9 @@ class AchievementEnPassantKiller {
   constructor(player, id) {
     this.player = player
     this.sortVal = 190
-    this.frame = "tyrkysova.png"
-    this.char = "&#x1F48E;"
+    //this.frame = "tyrkysova.png"
+    //this.char = "&#x1F48E;"
+    this.img = "en-passant-mate.png"
     this.desc = "En-passant mat"
     this.game = id
   }
@@ -250,10 +256,23 @@ class AchievementSensation {
   constructor(player, id) {
     this.player = player
     this.sortVal = 50
-    this.frame = "zlata.png"
-    this.char = "&#10024;"
+    //this.frame = "zlata.png"
+    //this.char = "&#10024;"
+    this.img = "sensation.png"
     this.desc = "Senzace turnaje"
     this.game = id
+  }
+}
+
+class AchievementNothing {
+  constructor() {
+    this.player = {user: {name: "kasparov"}}
+    this.sortVal = 0
+    this.frame = "stribrna.png"
+    this.pic = "tlama-animate2.gif"
+    this.left = 31
+    this.desc = "Nikdo ani prd!"
+    this.game = "P1WydaUq"  // Kasparov - Karpov
   }
 }
 
@@ -344,6 +363,7 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
   if (tournament && el) {
     let achievements = collectAchievements(data, tournamentID, games)
     achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
+    if (achievements.length===0) achievements.push(new AchievementNothing())
 
     let divs = renderAchievements(achievements)
     let html = `${divs.join("")}`
@@ -376,6 +396,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementCastlingKiller(next()),
     new AchievementEnPassantKiller(next()),
     new AchievementSensation(next()),
+    new AchievementNothing(),
     new AchievementFontPrototype(next()), // {user :{ name : "kasparov"}}
   ]
 
