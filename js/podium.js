@@ -672,7 +672,7 @@ function biggestDifferenceWinSelector(minGame, game) {
 }
 
 function fastestGameSelector(minGame, game) {
-  if (game.status === "noStart") return minGame
+  if (game.status === "noStart" || game.ply <= 1) return minGame
   if (minGame) {
     if (game.ply < minGame.ply) return game
     else return minGame
