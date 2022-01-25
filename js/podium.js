@@ -404,7 +404,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementSmothered(next()),
     new AchievementPawnKiller(next()),
     new AchievementCenterMate(next()),
-    new AchievementKingKiller(next()),
+    new AchievementKnightKiller(next()),
     new AchievementBishopKiller(next()),
     new AchievementKingKiller(next()),
     new AchievementQueenSacrifice(next()),
