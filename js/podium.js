@@ -278,7 +278,7 @@ class Achievement100PercentWinner {
 
 class AchievementNothing {
   constructor() {
-    this.player = {user: {name: "kasparov"}}
+    this.player = {user: {name: "Kasparov"}}
     this.sortVal = 0
     this.frame = "stribrna.png"
     this.pic = "tlama-animate2.gif"
