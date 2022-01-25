@@ -280,9 +280,7 @@ class AchievementNothing {
   constructor() {
     this.player = {user: {name: "Kasparov"}}
     this.sortVal = 0
-    this.frame = "stribrna.png"
-    this.pic = "tlama-animate2.gif"
-    this.left = 31
+    this.img = "stribrna.png"
     this.desc = "Nikdo ani prd!"
     this.game = "P1WydaUq"  // Kasparov - Karpov
   }
