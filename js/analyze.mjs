@@ -1,7 +1,7 @@
 import {MFPodium} from "./podium.mjs"
 import {toNDJson} from "./mondayFight.mjs"
 
-function processAnalyze(data) {
+export function processAnalyze(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
 
   const adminStuff = document.createElement("div");
