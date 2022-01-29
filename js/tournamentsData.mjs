@@ -56,6 +56,38 @@ export let MF = function() {
     } else return game
   }
 
+  function filterYear(theFights, year) {
+    if (year < 0) {
+      let today = new Date()
+      let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
+      return Array.from(theFights).filter(fight => {
+        let date = new Date(fight.startsAt)
+        console.log(date)
+        return date >= dateFrom
+      })
+    } else {
+      return Array.from(theFights).filter(fight => {
+        let date = new Date(fight.startsAt)
+        return date.getFullYear() == year
+      })
+    }
+  }
+
+  function last10(theFights) {
+    let filtered = Array.from(theFights)
+    while(filtered.length > 10) {
+      filtered.shift()
+    }
+    // and only last year
+    let lastTournamentYear = (new Date(filtered.at(-1).startsAt)).getFullYear()
+    do {
+      let firstTournamentYear = (new Date(filtered.at(0).startsAt)).getFullYear()
+      if (firstTournamentYear < lastTournamentYear) filtered.shift()
+      else break
+    } while (true)
+    return filtered
+  }
+
   return {
     playedAGame: playedAGame,
     playersCountWhoPlayed: playersCountWhoPlayed,
@@ -63,6 +95,8 @@ export let MF = function() {
     fastestMateSelector: fastestMateSelector,
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
+    filterYear: filterYear,
+    last10: last10
   }
 }()
 

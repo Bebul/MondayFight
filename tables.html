@@ -24,15 +24,9 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
-    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
-
-    <script type="text/javascript" src="js/podium.mjs"></script>
-    <script type="text/javascript" src="js/mondayFight.mjs"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
-    <script type="text/javascript" src="js/minimal.js"></script>
-    <script type="text/javascript" src="js/analyze.js"></script>
     <script src="chess.js/chess.js"></script>
+
+    <script src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
@@ -104,13 +98,15 @@
 
 </div>
 
-<script>
+<script type="module">
+  import {MF, LoadMFData} from "./js/tournamentsData.mjs"
+  import {processAdmin, createPlayersTable} from "./js/mondayFight.mjs"
   function mainPage(data) {
     processAdmin(data)
     let year = (new Date()).getFullYear()
-    let thisYear = filterYear(data.mondayFights(), year)
+    let thisYear = MF.filterYear(data.mondayFights(), year)
     createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
-    createPlayersTable(last10(data.mondayFights()), "#last10", false)
+    createPlayersTable(MF.last10(data.mondayFights()), "#last10", false)
   }
 
   LoadMFData(mainPage)

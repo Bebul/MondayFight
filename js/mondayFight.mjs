@@ -185,7 +185,7 @@ function getTotalJouzocoins(playerName, theFights) {
   return total
 }
 
-function getPlayers(theFights) {
+export function getPlayers(theFights) {
   let playersAr = []
   theFights.forEach(fight => {
     fight.standing.players.forEach((player) => {
@@ -607,14 +607,14 @@ function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   if (downloadedTournaments.length > 0) {
     let table10 = allMyTables.get("#last10")
     if (table10 !== undefined) {
-      let theFights = last10(data.mondayFights())
+      let theFights = MF.last10(data.mondayFights())
       table10.setColumns(generatePlayersTableColumns(theFights))
       table10.setData(getDataOfPlayers(theFights))
     }
 
     let tableAll = allMyTables.get("#mondayFightsLeaderboard")
     if (tableAll !== undefined) {
-      let theFights = filterYear(data.mondayFights(), 2022)
+      let theFights = MF.filterYear(data.mondayFights(), 2022)
       tableAll.setColumns(generatePlayersTableColumns(theFights))
       tableAll.setData(getDataOfPlayers(theFights))
     }
@@ -640,7 +640,7 @@ function toNDJson(arr) {
   }, "")
 }
 
-function processAdmin(data) {
+export function processAdmin(data) {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
@@ -774,8 +774,8 @@ function dataSortedFunc(sorters) {
   }
 }
 
-var allMyTables = new Map()
-function createPlayersTable(theFights, tableId, enableJouzocoins) {
+export var allMyTables = new Map()
+export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -787,38 +787,4 @@ function createPlayersTable(theFights, tableId, enableJouzocoins) {
   allMyTables.set(tableId, playersTable)
   if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc")
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// mondayFight filters
-function last10(theFights) {
-  let filtered = Array.from(theFights)
-  while(filtered.length > 10) {
-    filtered.shift()
-  }
-  // and only last year
-  let lastTournamentYear = (new Date(filtered.at(-1).startsAt)).getFullYear()
-  do {
-    let firstTournamentYear = (new Date(filtered.at(0).startsAt)).getFullYear()
-    if (firstTournamentYear < lastTournamentYear) filtered.shift()
-    else break
-  } while (true)
-  return filtered
-}
-
-function filterYear(theFights, year) {
-  if (year < 0) {
-    let today = new Date()
-    let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
-    return Array.from(theFights).filter(fight => {
-      let date = new Date(fight.startsAt)
-      console.log(date)
-      return date >= dateFrom
-    })
-  } else {
-    return Array.from(theFights).filter(fight => {
-      let date = new Date(fight.startsAt)
-      return date.getFullYear() == year
-    })
-  }
 }
