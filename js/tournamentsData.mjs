@@ -1,4 +1,73 @@
-async function LoadMFData(callback) {
+export let MF = function() {
+  function playedAGame(player) {
+    return player.performance !== undefined
+  }
+
+  function playersCountWhoPlayed(fight) {
+    let total = 0
+    fight.standing.players.forEach(pl => {
+      if (playedAGame(pl)) total += 1
+    })
+    return total
+  }
+
+  function ratingDiff(player, games) {
+    let initialRating = player.rating
+    for (i=games.games.length-1; i>=0; i--) {
+      let players = games.games[i].players
+      if (players.white.user.name === player.name) {
+        initialRating = players.white.rating
+        break
+      } else if (players.black.user.name === player.name) {
+        initialRating = players.black.rating
+        break
+      }
+    }
+    return player.rating - initialRating
+  }
+
+  function fastestMateSelector(minGame, game) {
+    if (game.status !== "mate") return minGame
+    if (minGame) {
+      if (game.ply < minGame.ply) return game
+      else return minGame
+    } else return game
+  }
+
+  function biggestDifferenceWinSelector(minGame, game) {
+    function getRatingDiff(game) {
+      let ratingDiff = game.players.white.rating - game.players.black.rating
+      if (game.winner === "black") ratingDiff = -ratingDiff
+      return ratingDiff
+    }
+    let ratingDiff = getRatingDiff(game)
+    if (!game.winner || game.status === "noStart" || ratingDiff > -100) return minGame
+    let minGameDiff = -100 // more than 100 diff is necessary for display
+    if (minGame) minGameDiff = getRatingDiff(minGame)
+    if (ratingDiff < minGameDiff) return game
+    else return minGame
+  }
+
+  function fastestGameSelector(minGame, game) {
+    if (game.status === "noStart" || game.ply <= 1) return minGame
+    if (minGame) {
+      if (game.ply < minGame.ply) return game
+      else return minGame
+    } else return game
+  }
+
+  return {
+    playedAGame: playedAGame,
+    playersCountWhoPlayed: playersCountWhoPlayed,
+    ratingDiff: ratingDiff,
+    fastestMateSelector: fastestMateSelector,
+    biggestDifferenceWinSelector: biggestDifferenceWinSelector,
+    fastestGameSelector: fastestGameSelector,
+  }
+}()
+
+// when used from node.js the ndjson data are loaded using fs and provided as parameters
+export async function LoadMFData(callback, loadedTournaments, loadedGames) {
   function ndjson2array(text) {
     let json = "[" + text.replace(/\n{/g, ",{") + "]"
     return json
@@ -12,18 +81,10 @@ async function LoadMFData(callback) {
       .then(response => response.text())
       .then(ndjson2array)
       .then(parse)
-/*
-      .then(
-        function(response) {
-          jouzoleanAndBebulsTournaments = response
-          console.log(response.length)
-          return response
-        })
-*/
   }
 
-  let jouzoleanAndBebulsTournaments = await downloadNDJson("data/tournaments.ndjson")
-  let tournamentGames = await downloadNDJson("data/tournamentGames.ndjson")
+  let jouzoleanAndBebulsTournaments = loadedTournaments ? loadedTournaments : await downloadNDJson("data/tournaments.ndjson")
+  let tournamentGames = loadedGames ? loadedGames :  await downloadNDJson("data/tournamentGames.ndjson")
 
   let mondayFights = filterFights()
 
@@ -38,7 +99,7 @@ async function LoadMFData(callback) {
   function filterFights() {
     let filtered = []
     jouzoleanAndBebulsTournaments.forEach(fight => {
-      if (playersCountWhoPlayed(fight)>2 &&
+      if (MF.playersCountWhoPlayed(fight)>2 &&
         (fight.fullName.toLowerCase().includes("fight") || fight.fullName.toLowerCase().includes("monday arena")) &&
         fight.perf.name.toLowerCase()==="blitz") filtered.push(fight)
     })
@@ -71,13 +132,13 @@ async function LoadMFData(callback) {
       game.ply = game.moves.split(" ").length
     })
     // sensation
-    let sensationPlayer = winner(games.games.reduce(biggestDifferenceWinSelector, null))
+    let sensationPlayer = winner(games.games.reduce(MF.biggestDifferenceWinSelector, null))
     if (sensationPlayer) {
       let player = getPlayer(tournament, sensationPlayer.user.name)
       player.sensation = 1
     }
     // fastestMate
-    let mateGame = games.games.reduce(fastestMateSelector, null)
+    let mateGame = games.games.reduce(MF.fastestMateSelector, null)
     if (mateGame) {
       let fastestMates = filterGames(g => g.status === 'mate' && g.ply === mateGame.ply, games.games)
       fastestMates.forEach( game => {
@@ -87,7 +148,7 @@ async function LoadMFData(callback) {
       )
     }
     // fastestFinisher
-    let fastestGame = games.games.reduce(fastestGameSelector, null)
+    let fastestGame = games.games.reduce(MF.fastestGameSelector, null)
     if (fastestGame) {
       let fastestGames = filterGames(g => g.status !== 'noStart' && g.ply === fastestGame.ply, games.games)
       fastestGames.forEach( game => {
@@ -98,7 +159,7 @@ async function LoadMFData(callback) {
     }
     // ratingDiff
     tournament.standing.players.forEach( function(player) {
-      let diff = ratingDiff(player, games)
+      let diff = MF.ratingDiff(player, games)
       if (diff!==undefined) player.diff = diff
     })
   }
@@ -163,5 +224,3 @@ async function LoadMFData(callback) {
   callback(api)
   return api
 }
-
-

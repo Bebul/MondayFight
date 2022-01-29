@@ -34,10 +34,10 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/mondayFight.js"></script>
-    <script type="text/javascript" src="js/podium.js"></script>
+    <script type="text/javascript" src="js/mondayFight.mjs"></script>
+    <script type="text/javascript" src="js/podium.mjs"></script>
     <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
@@ -123,6 +123,7 @@
   function mainPage(data) {
     let url = new URL(window.location.href)
     mfId = url.searchParams.get("mf")
+    data.mfId = mfId
     if (mfId !== null) {
       let ix = data.findTournamentIx(mfId)
       if (ix >= 0) data.currentGameListTableIx = ix
@@ -132,14 +133,13 @@
     History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
 
     let games = data.tournamentGames()[data.currentGameListTableIx]
-    let gamesData = gameListData(games)
     createPodium(data, games.id)
     createResults(data, games.id, games)
     createTournamentInfo(data, games.id)
     //createAchievementsInfo(data, gamesData, games.id)
     testAchievementsInfo() // creates all possible achievements to see how they look like
     updateSpecialBoards(games)
-    createGameListTable(gamesData, "#gameListTable", false)
+    createGameListTable(games, "#gameListTable", false)
   }
 
   LoadMFData(mainPage)

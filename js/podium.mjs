@@ -1,3 +1,6 @@
+import {MF} from "./tournamentsData.mjs"
+import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+
 let placeTxt = ['','first','second','third']
 
 function percent(num) {
@@ -302,7 +305,7 @@ function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
   games.games.forEach(function(g) {
-    for (color in g.players) {
+    for (let color in g.players) {
       let wins = g.winner === color
       let player = g.players[color]
       if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply, g.id))
@@ -329,7 +332,7 @@ function collectAchievements(data, tournamentID, games) {
   let winRate = winner.nb.win / winner.nb.game
   if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
 
-  let sensation = games.games.reduce(biggestDifferenceWinSelector, null)
+  let sensation = games.games.reduce(MF.biggestDifferenceWinSelector, null)
   if (sensation) {
     sensation.sensation = true // in order to show decoration on player tooltip
     achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
@@ -423,21 +426,6 @@ function testAchievementsInfo(id="achievements") {
     let html = `${divs.join("")}`
     el.innerHTML = html
   }
-}
-
-function ratingDiff(player, games) {
-  let initialRating = player.rating
-  for (i=games.games.length-1; i>=0; i--) {
-    let players = games.games[i].players
-    if (players.white.user.name === player.name) {
-      initialRating = players.white.rating
-      break
-    } else if (players.black.user.name === player.name) {
-      initialRating = players.black.rating
-      break
-    }
-  }
-  return player.rating - initialRating
 }
 
 function ratingDiffTag(player) {
@@ -647,36 +635,6 @@ function cancelAllTips() {
   }
 }
 
-function fastestMateSelector(minGame, game) {
-  if (game.status !== "mate") return minGame
-  if (minGame) {
-    if (game.ply < minGame.ply) return game
-    else return minGame
-  } else return game
-}
-
-function biggestDifferenceWinSelector(minGame, game) {
-  function getRatingDiff(game) {
-    let ratingDiff = game.players.white.rating - game.players.black.rating
-    if (game.winner === "black") ratingDiff = -ratingDiff
-    return ratingDiff
-  }
-  let ratingDiff = getRatingDiff(game)
-  if (!game.winner || game.status === "noStart" || ratingDiff > -100) return minGame
-  let minGameDiff = -100 // more than 100 diff is necessary for display
-  if (minGame) minGameDiff = getRatingDiff(minGame)
-  if (ratingDiff < minGameDiff) return game
-  else return minGame
-}
-
-function fastestGameSelector(minGame, game) {
-  if (game.status === "noStart" || game.ply <= 1) return minGame
-  if (minGame) {
-    if (game.ply < minGame.ply) return game
-    else return minGame
-  } else return game
-}
-
 function toPGN(g, addFen) {
   let pgn = `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]`
   pgn += `\r\n[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]`
@@ -720,7 +678,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
 }
 
 function sensationGame(games, hideid, boardId) {
-  let game = selectGame(games, hideid, boardId, biggestDifferenceWinSelector)
+  let game = selectGame(games, hideid, boardId, MF.biggestDifferenceWinSelector)
   if (game) {
     if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
     else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
@@ -743,9 +701,9 @@ function winner(game) {
 }
 
 function updateSpecialBoards(games) {
-  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
+  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", MF.fastestMateSelector)
   let sensaGame = sensationGame(games, "surpriseGameId", "surpriseGameBoard")
-  let fastestGame = selectGame(games, "fastestId", "fastestBoard", fastestGameSelector)
+  let fastestGame = selectGame(games, "fastestId", "fastestBoard", MF.fastestGameSelector)
   if (fastestGame && (fastestGame === mateGame || fastestGame === sensaGame)) {
     document.getElementById("fastestId").style.display = "none" // hide it, because it is already shown
   }
@@ -759,7 +717,7 @@ function nextTournament(data, diff=1) {
   let gameData = gameListData(games)
 
   let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames()[data.currentGameListTableIx].id)
-  History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
+  History.replaceState({'mf': data.mfId}, 'Monday Fights', newUrl)
 
   createPodium(data, games.id)
   createResults(data, games.id, games)
@@ -772,4 +730,13 @@ function nextTournament(data, diff=1) {
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
   })
+}
+
+export let MFPodium = {
+  createPodium: createPodium,
+  createResults: createResults,
+  createTournamentInfo: createTournamentInfo,
+  createAchievementsInfo: createAchievementsInfo,
+  updateSpecialBoards: updateSpecialBoards,
+  cancelAllTips: cancelAllTips
 }

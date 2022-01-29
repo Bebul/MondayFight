@@ -15,10 +15,10 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/podium.js"></script>
-    <script type="text/javascript" src="js/mondayFight.js"></script>
+    <script type="text/javascript" src="js/podium.mjs"></script>
+    <script type="text/javascript" src="js/mondayFight.mjs"></script>
     <script type="text/javascript" src="js/search.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
     <script type="text/javascript" src="js/analyze.js"></script>
 
@@ -122,7 +122,7 @@
     History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
 
     let tokens = searchStrintToTokens(searchParam)
-    createGameListTable(gameListData(searchGames(data, data.jouzoleanAndBebulsTournaments(), tokens)), "#gameListTable", true)
+    createGameListTable(searchGames(data, data.jouzoleanAndBebulsTournaments(), tokens), "#gameListTable", true)
 
     var input = document.getElementById("searchInput");
     input.addEventListener("keyup", function(event) {

@@ -13,11 +13,11 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/podium.js"></script>
-    <script type="text/javascript" src="js/mondayFight.js"></script>
+    <script type="text/javascript" src="js/podium.mjs"></script>
+    <script type="text/javascript" src="js/mondayFight.mjs"></script>
     <script type="text/javascript" src="js/cross.js"></script>
     <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
+    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -91,7 +91,7 @@
     }
     let theFights = filterYear(data.mondayFights(), 2022)
     createCrossTable(data, theFights, "#crossTable")
-    createGameListTable(gameListData(data.tournamentGames()[data.currentGameListTableIx]), "#gameListTable", true)
+    createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)
   }
 
   LoadMFData(mainPage)

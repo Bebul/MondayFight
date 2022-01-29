@@ -1,14 +1,4 @@
-function playersCountWhoPlayed(fight) {
-  let total = 0
-  fight.standing.players.forEach(pl => {
-    if (playedAGame(pl)) total += 1
-  })
-  return total
-}
-
-function playedAGame(player) {
-  return player.performance !== undefined
-}
+import {MF} from "./tournamentsData.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -18,50 +8,50 @@ function playerRank(fight, playerName) {
 
 function playerScore(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.score
 }
 
 function playerPresence(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return 1
 }
 
 function playerRatingDiff(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.diff
 }
 
 function playerFastestMate(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.mate
 }
 
 function playerFastestGame(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.fast
 }
 
 function playerSensation(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.sensation
 }
 
 
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.performance
 }
 
 function playerPoints(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return [0, 0]
+  if (player === undefined || !MF.playedAGame(player)) return [0, 0]
   let myPts = 0
   let opPts = 0
   player.sheet.scores.forEach( score => {
@@ -81,8 +71,8 @@ function playerPoints(fight, playerName) {
 
 function jouzocoins(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
-  let plCount = playersCountWhoPlayed(fight)
+  if (player === undefined || !MF.playedAGame(player)) return 0
+  let plCount = MF.playersCountWhoPlayed(fight)
   let rank = player.rank
   if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1]
   else if (rank <= 4) return [10, 7, 5, 3][rank-1]
@@ -103,7 +93,7 @@ function getTotalPresence(player, theFights) {
   let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player && playedAGame(pl)) total += 1
+      if (pl.name==player && MF.playedAGame(pl)) total += 1
     })
   })
   return total
@@ -222,7 +212,7 @@ function addFightsPoints(playerOut, playerName, theFights) {
     let rank = playerRank(fight, playerName)
     if (rank === undefined) playerOut['t' + ix++] = undefined
     else playerOut['t' + ix++] = {
-      players: playersCountWhoPlayed(fight),
+      players: MF.playersCountWhoPlayed(fight),
       rank: playerRank(fight, playerName),
       jouzoCoins: jouzocoins(fight, playerName),
       score: playerScore(fight, playerName),
@@ -371,7 +361,7 @@ function formatTime(time) {
   return minutes + ":" + zeroPad(seconds, 2)
 }
 
-function gameListData(games) {
+export function gameListData(games) {
   let tableData = []
   games.games.forEach( g => {
     let result = ""
@@ -409,8 +399,10 @@ function gameListData(games) {
   return tableData
 }
 
-var gameListTable
-function createGameListTable(gamesData, tableId, addDate, noStats) {
+export var gameListTable
+export function createGameListTable(games, tableId, addDate, noStats) {
+  let gamesData = gameListData(games)
+
   function detectWhiteWinner(cell, pars) {
     if (cell._cell.row.data.result=="1-0") return "<b>"+cell.getValue()+"</b>"
     else return cell.getValue()
@@ -489,7 +481,7 @@ function getGameListMostActivePlayerStats(gamesData) {
 
 var myGoogleCharts = new Map()
 
-function updateMostActivePlayer(id, gamesData) {
+export function updateMostActivePlayer(id, gamesData) {
   let plStats = getGameListMostActivePlayerStats(gamesData)
 
   let barData = myGoogleCharts.get(id+'plwhite')
@@ -518,7 +510,7 @@ function updateMostActivePlayer(id, gamesData) {
   }
 }
 
-function updateGoogleBar(barid, gamesData) {
+export function updateGoogleBar(barid, gamesData) {
   let barData = myGoogleCharts.get(barid)
   if (barData !== undefined) {
     let statsData = getGameListResultStats(gamesData)
