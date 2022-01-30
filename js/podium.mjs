@@ -454,13 +454,36 @@ function createResults(data, tournamentID, gamesData, id = "results") {
 </td>
 <td class="sheet">
 `
-      player.sheet.scores.forEach(function(score) {
+      if (Array.isArray(player.sheet.scores)) {
+        player.sheet.scores.forEach(function (score) {
           if (Array.isArray(score)) {
             if (score[1] > 2) html = html + `<double>${score[0]}</double>`
             else html = html + `<streak>${score[0]}</streak>`
           } else html = html + `<score>${score}</score>`
-        }
-      )
+        })
+      } else if (typeof player.sheet.scores == "string" || player.sheet.scores instanceof String) {
+        let streak = 0
+        player.sheet.scores.split("").reverse().forEach(function(score) {
+          // 0 1 always grey <score>
+          // 2 <streak> or <double>
+          // 3 always green <streak>
+          // 4 5 always orange <double>
+
+          // first determine wheter we won this game to update streak
+          let pts = 1 // assume we won
+          if (streak < 2) pts = Math.min(score,2) / 2
+          else if (score <=2) pts = score / 4
+
+          // update html now
+          if (score < 2) html = html + `<score>${score}</score>`
+          else if (streak>1 && pts>=0.5) html = html + `<double>${score}</double>`
+          else html = html + `<streak>${score[0]}</streak>`
+
+         // update streak
+         if (pts === 1) streak++
+         else streak = 0
+        })
+      }
         html = html + `</td>
 <td class="total"><strong>${player.score}</strong></td>
 <td class="rating-diff">${ratingDiffTag(player)}</td>
