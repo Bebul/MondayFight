@@ -62,7 +62,6 @@ export let MF = function() {
       let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
       return Array.from(theFights).filter(fight => {
         let date = new Date(fight.startsAt)
-        console.log(date)
         return date >= dateFrom
       })
     } else {
