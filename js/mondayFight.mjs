@@ -1,4 +1,6 @@
 import {MF} from "./tournamentsData.mjs"
+import {LAPI} from "./lichessAPIdownloader.mjs"
+import {addNewGamesStats} from "./analyze.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -54,18 +56,37 @@ function playerPoints(fight, playerName) {
   if (player === undefined || !MF.playedAGame(player)) return [0, 0]
   let myPts = 0
   let opPts = 0
-  player.sheet.scores.forEach( score => {
-    let pts = 0
-    if (Array.isArray(score)) {
-      if (score[0] <= 1) pts = score[0]/2
-      else if (score[0] == 2) {
-        if (score[1] == 3) pts = 0.5
-        else pts = 1
-      } else pts = 1
-    } else pts = score / 2
-    myPts += pts
-    opPts += 1-pts
-  })
+  if (Array.isArray(player.sheet.scores)) {
+    player.sheet.scores.forEach( score => {
+      let pts = 0
+      if (Array.isArray(score)) {
+        if (score[0] <= 1) pts = score[0]/2
+        else if (score[0] == 2) {
+          if (score[1] == 3) pts = 0.5
+          else pts = 1
+        } else pts = 1
+      } else pts = score / 2
+      myPts += pts
+      opPts += 1-pts
+    })
+  } else if (typeof player.sheet.scores == "string" || player.sheet.scores instanceof String){
+    let streak = 0
+    player.sheet.scores.split("").reverse().forEach(function(score) {
+      // 0 is always loss
+      // 1 is always draw
+      // 2 is win for no fire and draw otherwise
+      // 3 is always win with berserk and no fire
+      // 4 is always win
+      // 5 is always win
+      let pts = 1 // assume we won
+      if (streak < 2) pts = Math.min(score,2) / 2
+      else if (score <=2) pts = score / 4
+      if (pts === 1) streak++
+      else streak = 0
+      myPts += pts
+      opPts += 1-pts
+    })
+  }
   return [myPts, opPts]
 }
 
@@ -195,17 +216,6 @@ export function getPlayers(theFights) {
   return playersAr
 }
 
-function containsId(fights, id) {
-  let ret = false
-  fights.forEach(fight => {
-    if (fight.id===id) {
-      ret = true
-      return
-    }
-  })
-  return ret
-}
-
 function addFightsPoints(playerOut, playerName, theFights) {
   var ix = 1
   theFights.forEach(fight => {
@@ -330,7 +340,7 @@ function loadDoc() {
   function logger(logLine) {
     document.getElementById("gamesJson").innerHTML = logLine
   }
-  let downloadedTournamentsGames = gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  let downloadedTournamentsGames = LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(logger)
   document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
@@ -597,8 +607,6 @@ function textFile2String(path) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // main initialization
 
-let urlRequestsList = []
-
 function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   let tag = document.getElementById("finalJson")
   tag.innerHTML = JSON.stringify(downloadedTournaments, null, 0);
@@ -634,7 +642,7 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function toNDJson(arr) {
+export function toNDJson(arr) {
   return arr.reduce(function(ndjson, obj) {
     return ndjson + JSON.stringify(obj) + "\n"
   }, "")
@@ -693,15 +701,15 @@ export function processAdmin(data) {
     document.getElementById("demo").innerHTML = text
     document.getElementById("dwnl").onclick = function() {
       let rename = document.getElementById("rename").checked
-      onDwnlTournamentClicked(data, rename)
+      LAPI.onDwnlTournamentClicked(data, rename)
     }
 
-    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(updateHTMLurlRequestsList)
+    LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(LAPI.updateHTMLurlRequestsList)
       .then(function(downloadedTournaments) {
           if (downloadedTournaments.length) {
             data.addTournaments(downloadedTournaments) // updates mondayFights and everything
             updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
-            gamesDownloaderAPI().downloadMissingTournamentGames(data, updateHTMLurlRequestsList)
+            LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
               .then(function(games) {
                   data.addGames(games)
                   data.addExtras()

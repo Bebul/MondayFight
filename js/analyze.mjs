@@ -1,3 +1,6 @@
+import {MFPodium} from "./podium.mjs"
+import {toNDJson} from "./mondayFight.mjs"
+
 function processAnalyze(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
 
@@ -136,7 +139,7 @@ function queenSacrificeMatingAttack(history) {
     let captured = {w: 0, b: 0}
     let promoted = {w: 0, b: 0}
     for (let i=history.length-11; i<history.length; i++) {
-      m = history[i]
+      let m = history[i]
       if (m.captured && m.captured==="q") captured[m.color]++
       if (i < history.length-1 && m.flags && m.flags.includes("p")) promoted[m.color]++
     }
@@ -150,7 +153,7 @@ function queenSacrificeMatingAttack(history) {
 async function analyzeMoves(g, report) {
   let moves = g.moves.split(" ")
   let chess = new Chess()
-  let pgn = toPGN(g, true)
+  let pgn = MFPodium.toPGN(g, true)
   chess.load_pgn(pgn)
 
   let history = chess.history({verbose: true})
@@ -164,7 +167,7 @@ async function analyzeMoves(g, report) {
   let board = chess.board()
 
   let queens = {w:0, b:0}
-  for (color of ["w", "b"]) {
+  for (let color of ["w", "b"]) {
     queens[color] = countQueens(board, color)
   }
   stats.queens = queens
@@ -209,7 +212,7 @@ async function analyzeGame(data, gameId, report) {
       .then(result => reportHeadline(g, report))
       .then(result => addStats(g, report))
   } else  {
-    reportFunc(`<h1>Game ${gameId} not found</h1>`)
+    report(`<h1>Game ${gameId} not found</h1>`)
   }
 }
 
@@ -296,7 +299,7 @@ async function addAllStats(data, report) {
   await addGamesStats(data, games, report)
 }
 
-async function addNewGamesStats(data, newGames, report) {
+export async function addNewGamesStats(data, newGames, report) {
   let games = []
   newGames.forEach(function(g) {
     games = games.concat(g.games)

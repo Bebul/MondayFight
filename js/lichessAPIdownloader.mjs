@@ -1,3 +1,8 @@
+import {addNewGamesStats} from "./analyze.mjs"
+import {toNDJson} from "./mondayFight.mjs"
+
+let urlRequestsList = []
+
 function updateHTMLurlRequestsList(url) {
   urlRequestsList.push(url)
   let txt = ""
@@ -5,6 +10,17 @@ function updateHTMLurlRequestsList(url) {
     txt = txt + url + "\n"
   })
   document.getElementById("updated").innerHTML = txt;
+}
+
+function containsId(fights, id) {
+  let ret = false
+  fights.forEach(fight => {
+    if (fight.id===id) {
+      ret = true
+      return
+    }
+  })
+  return ret
 }
 
 function lichessTournamentsAPI(fights, users) {
@@ -217,4 +233,11 @@ function gamesDownloaderAPI() {
       return downloadGames(id)
     }
   }
+}
+
+export var LAPI = {
+  updateHTMLurlRequestsList: updateHTMLurlRequestsList,
+  lichessTournamentsAPI: lichessTournamentsAPI,
+  onDwnlTournamentClicked: onDwnlTournamentClicked,
+  gamesDownloaderAPI: gamesDownloaderAPI
 }

@@ -13,7 +13,7 @@ export let MF = function() {
 
   function ratingDiff(player, games) {
     let initialRating = player.rating
-    for (i=games.games.length-1; i>=0; i--) {
+    for (let i=games.games.length-1; i>=0; i--) {
       let players = games.games[i].players
       if (players.white.user.name === player.name) {
         initialRating = players.white.rating
@@ -88,6 +88,17 @@ export let MF = function() {
     return filtered
   }
 
+  function loser(game) {
+    if (game.winner === 'black') return game.players.white
+    else return game.players.black
+  }
+  function winner(game) {
+    if (game) {
+      if (game.winner === 'black') return game.players.black
+      else return game.players.white
+    }
+  }
+
   return {
     playedAGame: playedAGame,
     playersCountWhoPlayed: playersCountWhoPlayed,
@@ -96,7 +107,9 @@ export let MF = function() {
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
     filterYear: filterYear,
-    last10: last10
+    last10: last10,
+    winner: winner,
+    loser: loser
   }
 }()
 
@@ -166,7 +179,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       game.ply = game.moves.split(" ").length
     })
     // sensation
-    let sensationPlayer = winner(games.games.reduce(MF.biggestDifferenceWinSelector, null))
+    let sensationPlayer = MF.winner(games.games.reduce(MF.biggestDifferenceWinSelector, null))
     if (sensationPlayer) {
       let player = getPlayer(tournament, sensationPlayer.user.name)
       player.sensation = 1
@@ -176,7 +189,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     if (mateGame) {
       let fastestMates = filterGames(g => g.status === 'mate' && g.ply === mateGame.ply, games.games)
       fastestMates.forEach( game => {
-          let matingPlayer = getPlayer(tournament, winner(game).user.name)
+          let matingPlayer = getPlayer(tournament, MF.winner(game).user.name)
           matingPlayer.mate = 1
         }
       )
@@ -186,7 +199,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     if (fastestGame) {
       let fastestGames = filterGames(g => g.status !== 'noStart' && g.ply === fastestGame.ply, games.games)
       fastestGames.forEach( game => {
-          let thePlayer = getPlayer(tournament, winner(game).user.name)
+          let thePlayer = getPlayer(tournament, MF.winner(game).user.name)
           thePlayer.fast = 1
         }
       )
