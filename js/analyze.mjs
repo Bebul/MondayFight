@@ -29,7 +29,7 @@ function processAnalyze(data) {
   }
 }
 
-let AnalyzeKeyList =   [
+export let AnalyzeKeyList =   [
   "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
   "queens", "epCheck", "monkey"
 ]

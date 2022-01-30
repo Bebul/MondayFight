@@ -23,10 +23,6 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/podium.mjs"></script>
-    <script type="text/javascript" src="js/mondayFight.mjs"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.mjs"></script>
-    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -114,9 +110,12 @@
     </div>
 </div>
 
-<script>
+<script type="module">
+  import {LoadMFData, MF} from "./js/tournamentsData.mjs"
+  import {createPlayersTable} from "./js/mondayFight.mjs"
+
   function mainPage(data) {
-    let the2021 = filterYear(data.mondayFights(), 2021)
+    let the2021 = MF.filterYear(data.mondayFights(), 2021)
     createPlayersTable(the2021, "#mondayFightsLeaderboard", false) //no Jouzocoins
   }
 

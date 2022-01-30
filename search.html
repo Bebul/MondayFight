@@ -15,12 +15,7 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/podium.mjs"></script>
-    <script type="text/javascript" src="js/mondayFight.mjs"></script>
-    <script type="text/javascript" src="js/search.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.mjs"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
-    <script type="text/javascript" src="js/analyze.mjs"></script>
 
     <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
 
@@ -104,7 +99,12 @@
 
 </div>
 
-<script>
+<script type="module">
+  import {LoadMFData} from "./js/tournamentsData.mjs"
+  import {onSearchClicked, searchStringToTokens, searchGames} from "./js/search.mjs"
+  import {AnalyzeKeyList} from "./js/analyze.mjs"
+  import {createGameListTable} from "./js/mondayFight.mjs"
+
   function mainPage(data) {
     //createPlayersTable(mondayFights, "#crossTable", false) //no Jouzocoins for 2021
     document.getElementById("searchButton").onclick = function() {
@@ -121,19 +121,19 @@
     let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)
     History.replaceState({'q': searchParam}, 'Search Engine', newUrl)
 
-    let tokens = searchStrintToTokens(searchParam)
+    let tokens = searchStringToTokens(searchParam)
     createGameListTable(searchGames(data, data.jouzoleanAndBebulsTournaments(), tokens), "#gameListTable", true)
 
     var input = document.getElementById("searchInput");
     input.addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
-        document.getElementById("searchButton").click();
+        document.getElementById("searchButton").click()
       }
     });
 
     History.Adapter.bind(window,'statechange',function(){
-      var query = History.getState().data['q'];
+      var query = History.getState().data['q']
       console.log("state changed: " + query)
     });
   }

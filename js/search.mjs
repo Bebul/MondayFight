@@ -1,3 +1,5 @@
+import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+
 function movesToArrayOfFen(initialPosition, moves) {
   let chess = new Chess(initialPosition)
   return moves.split(" ").map(function(move) {
@@ -41,7 +43,7 @@ function movesContainFen(initialPosition, moves, fen) {
  */
 }
 
-function searchGames(data, fights, tokens) {
+export function searchGames(data, fights, tokens) {
   let selectedGames = []
 
   let tokensLow = tokens.map(token => token.toLowerCase())
@@ -105,7 +107,7 @@ function searchGames(data, fights, tokens) {
   return {"games": selectedGames}
 }
 
-function searchStrintToTokens(searchStr) {
+export function searchStringToTokens(searchStr) {
   // RegEx manual:
   //    (?<=y)x ... Lookbehind assertion: Matches "x" only if "x" is preceded by "y". But only x is part of match, the y not.
   //    x(?=y) .... Lookahead assertion: Matches "x" only if "x" is followed by "y". But y is not part of match, only x is.
@@ -127,7 +129,7 @@ function searchStrintToTokens(searchStr) {
 
 function processSearch(data, searchStr) {
   let theFights = data.jouzoleanAndBebulsTournaments()
-  let tokens = searchStrintToTokens(searchStr)
+  let tokens = searchStringToTokens(searchStr)
   let gameData = gameListData(searchGames(data, theFights, tokens))
 
   updateMostActivePlayer("gameListTable", gameData)
@@ -137,7 +139,7 @@ function processSearch(data, searchStr) {
   })
 }
 
-function onSearchClicked(data) {
+export function onSearchClicked(data) {
   var searchText = document.getElementById("searchInput").value
   let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchText)
   History.pushState({'q': searchText}, 'Search Engine', newUrl)
