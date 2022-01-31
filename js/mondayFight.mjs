@@ -1,14 +1,6 @@
-function playersCountWhoPlayed(fight) {
-  let total = 0
-  fight.standing.players.forEach(pl => {
-    if (playedAGame(pl)) total += 1
-  })
-  return total
-}
-
-function playedAGame(player) {
-  return player.performance !== undefined
-}
+import {MF} from "./tournamentsData.mjs"
+import {LAPI} from "./lichessAPIdownloader.mjs"
+import {addNewGamesStats} from "./analyze.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -18,71 +10,90 @@ function playerRank(fight, playerName) {
 
 function playerScore(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.score
 }
 
 function playerPresence(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return 1
 }
 
 function playerRatingDiff(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.diff
 }
 
 function playerFastestMate(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.mate
 }
 
 function playerFastestGame(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.fast
 }
 
 function playerSensation(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.sensation
 }
 
 
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
+  if (player === undefined || !MF.playedAGame(player)) return 0
   return player.performance
 }
 
 function playerPoints(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return [0, 0]
+  if (player === undefined || !MF.playedAGame(player)) return [0, 0]
   let myPts = 0
   let opPts = 0
-  player.sheet.scores.forEach( score => {
-    let pts = 0
-    if (Array.isArray(score)) {
-      if (score[0] <= 1) pts = score[0]/2
-      else if (score[0] == 2) {
-        if (score[1] == 3) pts = 0.5
-        else pts = 1
-      } else pts = 1
-    } else pts = score / 2
-    myPts += pts
-    opPts += 1-pts
-  })
+  if (Array.isArray(player.sheet.scores)) {
+    player.sheet.scores.forEach( score => {
+      let pts = 0
+      if (Array.isArray(score)) {
+        if (score[0] <= 1) pts = score[0]/2
+        else if (score[0] == 2) {
+          if (score[1] == 3) pts = 0.5
+          else pts = 1
+        } else pts = 1
+      } else pts = score / 2
+      myPts += pts
+      opPts += 1-pts
+    })
+  } else if (typeof player.sheet.scores == "string" || player.sheet.scores instanceof String){
+    let streak = 0
+    player.sheet.scores.split("").reverse().forEach(function(score) {
+      // 0 is always loss
+      // 1 is always draw
+      // 2 is win for no fire and draw otherwise
+      // 3 is always win with berserk and no fire
+      // 4 is always win
+      // 5 is always win
+      let pts = 1 // assume we won
+      if (streak < 2) pts = Math.min(score,2) / 2
+      else if (score <=2) pts = score / 4
+      if (pts === 1) streak++
+      else streak = 0
+      myPts += pts
+      opPts += 1-pts
+    })
+  }
   return [myPts, opPts]
 }
 
 function jouzocoins(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !playedAGame(player)) return 0
-  let plCount = playersCountWhoPlayed(fight)
+  if (player === undefined || !MF.playedAGame(player)) return 0
+  let plCount = MF.playersCountWhoPlayed(fight)
   let rank = player.rank
   if (plCount >= 10 && rank <= 6) return [11, 8, 6, 4, 2, 2][rank-1]
   else if (rank <= 4) return [10, 7, 5, 3][rank-1]
@@ -103,7 +114,7 @@ function getTotalPresence(player, theFights) {
   let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player && playedAGame(pl)) total += 1
+      if (pl.name==player && MF.playedAGame(pl)) total += 1
     })
   })
   return total
@@ -195,7 +206,7 @@ function getTotalJouzocoins(playerName, theFights) {
   return total
 }
 
-function getPlayers(theFights) {
+export function getPlayers(theFights) {
   let playersAr = []
   theFights.forEach(fight => {
     fight.standing.players.forEach((player) => {
@@ -205,24 +216,13 @@ function getPlayers(theFights) {
   return playersAr
 }
 
-function containsId(fights, id) {
-  let ret = false
-  fights.forEach(fight => {
-    if (fight.id===id) {
-      ret = true
-      return
-    }
-  })
-  return ret
-}
-
 function addFightsPoints(playerOut, playerName, theFights) {
   var ix = 1
   theFights.forEach(fight => {
     let rank = playerRank(fight, playerName)
     if (rank === undefined) playerOut['t' + ix++] = undefined
     else playerOut['t' + ix++] = {
-      players: playersCountWhoPlayed(fight),
+      players: MF.playersCountWhoPlayed(fight),
       rank: playerRank(fight, playerName),
       jouzoCoins: jouzocoins(fight, playerName),
       score: playerScore(fight, playerName),
@@ -340,7 +340,7 @@ function loadDoc() {
   function logger(logLine) {
     document.getElementById("gamesJson").innerHTML = logLine
   }
-  let downloadedTournamentsGames = gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  let downloadedTournamentsGames = LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(logger)
   document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
@@ -371,7 +371,7 @@ function formatTime(time) {
   return minutes + ":" + zeroPad(seconds, 2)
 }
 
-function gameListData(games) {
+export function gameListData(games) {
   let tableData = []
   games.games.forEach( g => {
     let result = ""
@@ -409,8 +409,10 @@ function gameListData(games) {
   return tableData
 }
 
-var gameListTable
-function createGameListTable(gamesData, tableId, addDate, noStats) {
+export var gameListTable
+export function createGameListTable(games, tableId, addDate, noStats) {
+  let gamesData = gameListData(games)
+
   function detectWhiteWinner(cell, pars) {
     if (cell._cell.row.data.result=="1-0") return "<b>"+cell.getValue()+"</b>"
     else return cell.getValue()
@@ -489,7 +491,7 @@ function getGameListMostActivePlayerStats(gamesData) {
 
 var myGoogleCharts = new Map()
 
-function updateMostActivePlayer(id, gamesData) {
+export function updateMostActivePlayer(id, gamesData) {
   let plStats = getGameListMostActivePlayerStats(gamesData)
 
   let barData = myGoogleCharts.get(id+'plwhite')
@@ -518,7 +520,7 @@ function updateMostActivePlayer(id, gamesData) {
   }
 }
 
-function updateGoogleBar(barid, gamesData) {
+export function updateGoogleBar(barid, gamesData) {
   let barData = myGoogleCharts.get(barid)
   if (barData !== undefined) {
     let statsData = getGameListResultStats(gamesData)
@@ -605,8 +607,6 @@ function textFile2String(path) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // main initialization
 
-let urlRequestsList = []
-
 function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   let tag = document.getElementById("finalJson")
   tag.innerHTML = JSON.stringify(downloadedTournaments, null, 0);
@@ -615,14 +615,14 @@ function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   if (downloadedTournaments.length > 0) {
     let table10 = allMyTables.get("#last10")
     if (table10 !== undefined) {
-      let theFights = last10(data.mondayFights())
+      let theFights = MF.last10(data.mondayFights())
       table10.setColumns(generatePlayersTableColumns(theFights))
       table10.setData(getDataOfPlayers(theFights))
     }
 
     let tableAll = allMyTables.get("#mondayFightsLeaderboard")
     if (tableAll !== undefined) {
-      let theFights = filterYear(data.mondayFights(), 2022)
+      let theFights = MF.filterYear(data.mondayFights(), 2022)
       tableAll.setColumns(generatePlayersTableColumns(theFights))
       tableAll.setData(getDataOfPlayers(theFights))
     }
@@ -642,13 +642,13 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-function toNDJson(arr) {
+export function toNDJson(arr) {
   return arr.reduce(function(ndjson, obj) {
     return ndjson + JSON.stringify(obj) + "\n"
   }, "")
 }
 
-function processAdmin(data) {
+export function processAdmin(data) {
 
   // nice is: https://developers.google.com/web/updates/2015/03/introduction-to-fetch
   //textFile2String('pgn/parsePgn.js')
@@ -701,15 +701,15 @@ function processAdmin(data) {
     document.getElementById("demo").innerHTML = text
     document.getElementById("dwnl").onclick = function() {
       let rename = document.getElementById("rename").checked
-      onDwnlTournamentClicked(data, rename)
+      LAPI.onDwnlTournamentClicked(data, rename)
     }
 
-    lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(updateHTMLurlRequestsList)
+    LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(LAPI.updateHTMLurlRequestsList)
       .then(function(downloadedTournaments) {
           if (downloadedTournaments.length) {
             data.addTournaments(downloadedTournaments) // updates mondayFights and everything
             updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
-            gamesDownloaderAPI().downloadMissingTournamentGames(data, updateHTMLurlRequestsList)
+            LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
               .then(function(games) {
                   data.addGames(games)
                   data.addExtras()
@@ -782,8 +782,8 @@ function dataSortedFunc(sorters) {
   }
 }
 
-var allMyTables = new Map()
-function createPlayersTable(theFights, tableId, enableJouzocoins) {
+export var allMyTables = new Map()
+export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let playersTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -795,38 +795,4 @@ function createPlayersTable(theFights, tableId, enableJouzocoins) {
   allMyTables.set(tableId, playersTable)
   if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc")
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// mondayFight filters
-function last10(theFights) {
-  let filtered = Array.from(theFights)
-  while(filtered.length > 10) {
-    filtered.shift()
-  }
-  // and only last year
-  let lastTournamentYear = (new Date(filtered.at(-1).startsAt)).getFullYear()
-  do {
-    let firstTournamentYear = (new Date(filtered.at(0).startsAt)).getFullYear()
-    if (firstTournamentYear < lastTournamentYear) filtered.shift()
-    else break
-  } while (true)
-  return filtered
-}
-
-function filterYear(theFights, year) {
-  if (year < 0) {
-    let today = new Date()
-    let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
-    return Array.from(theFights).filter(fight => {
-      let date = new Date(fight.startsAt)
-      console.log(date)
-      return date >= dateFrom
-    })
-  } else {
-    return Array.from(theFights).filter(fight => {
-      let date = new Date(fight.startsAt)
-      return date.getFullYear() == year
-    })
-  }
 }

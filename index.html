@@ -11,42 +11,34 @@
     <meta property="og:locale" content="cs_CZ" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Monday Fight Arena" />
-    <meta property="og:description" content="Bébulkovi to dneska nešlo, ale má nejrychlejší mat. Mrázek senzačně pokořil jinak neohroženého Bukowskice." />
+    <meta property="og:description" content="Neznámá měla Bébula na talíři. Mozkomor dal Légalův mat a VikJav bodoval, zatímco Bukowskic utrpěl dvě rány." />
     <meta property="og:site_name" content="github" />
 
     <!-- for Facebook -->
-    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/achievements.jpg" />
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/mf-og-x.jpg" />
     <meta property="og:image:type" content="image/jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="The podium" />
 
     <!-- for WhatsApp -->
-    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/achievements.jpg" />
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/mf-og-x.jpg " />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:alt" content="The podium" />
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+    <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
     <script src="chess.js/chess.js"></script>
     <script src="./lib/pgnv.js" type="text/javascript"></script>
-
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
-    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
-
-    <script type="text/javascript" src="js/mondayFight.js"></script>
-    <script type="text/javascript" src="js/podium.js"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
-    <script type="text/javascript" src="js/minimal.js"></script>
-
-    <script src="history.js/scripts/bundled/html4+html5/native.history.js"></script>
+    <script src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
-<body onclick="cancelAllTips()">
+<body>
 
 <div class="body">
 
@@ -118,11 +110,18 @@
 
 </div>
 
-<script>
+<script type="module">
+  import {LoadMFData} from "./js/tournamentsData.mjs"
+  import {MFPodium} from "./js/podium.mjs"
+  import {createGameListTable} from "./js/mondayFight.mjs"
+
   let mfId = null
   function mainPage(data) {
+    document.body.onclick = MFPodium.cancelAllTips
+
     let url = new URL(window.location.href)
     mfId = url.searchParams.get("mf")
+    data.mfId = mfId
     if (mfId !== null) {
       let ix = data.findTournamentIx(mfId)
       if (ix >= 0) data.currentGameListTableIx = ix
@@ -132,13 +131,12 @@
     History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
 
     let games = data.tournamentGames()[data.currentGameListTableIx]
-    let gamesData = gameListData(games)
-    createPodium(data, games.id)
-    createResults(data, games.id, games)
-    createTournamentInfo(data, games.id)
-    createAchievementsInfo(data, games.id, games)
-    updateSpecialBoards(games)
-    createGameListTable(gamesData, "#gameListTable", false)
+    MFPodium.createPodium(data, games.id)
+    MFPodium.createResults(data, games.id, games)
+    MFPodium.createTournamentInfo(data, games.id)
+    MFPodium.createAchievementsInfo(data, games.id, games)
+    MFPodium.updateSpecialBoards(games)
+    createGameListTable(games, "#gameListTable", false)
   }
 
   LoadMFData(mainPage)

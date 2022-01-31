@@ -13,11 +13,6 @@
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
 
-    <script type="text/javascript" src="js/podium.js"></script>
-    <script type="text/javascript" src="js/mondayFight.js"></script>
-    <script type="text/javascript" src="js/cross.js"></script>
-    <script type="text/javascript" src="js/lichessAPIdownloader.js"></script>
-    <script type="text/javascript" src="js/tournamentsData.js"></script>
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,7 +20,7 @@
 
 </head>
 
-<body onload="initCross()">
+<body>
 
 <div class="body">
 
@@ -81,7 +76,11 @@
 
 </div>
 
-<script>
+<script type="module">
+  import {MF, LoadMFData} from "./js/tournamentsData.mjs"
+  import {createGameListTable} from "./js/mondayFight.mjs"
+  import {createCrossTable, seasonSelected} from "./js/cross.mjs"
+
   function mainPage(data) {
     let seasons = document.selectSeason.season
     for (let i = 0; i < seasons.length; i++) {
@@ -89,9 +88,9 @@
         seasonSelected(seasons[i].value, data, "#crossTable")
       });
     }
-    let theFights = filterYear(data.mondayFights(), 2022)
+    let theFights = MF.filterYear(data.mondayFights(), 2022)
     createCrossTable(data, theFights, "#crossTable")
-    createGameListTable(gameListData(data.tournamentGames()[data.currentGameListTableIx]), "#gameListTable", true)
+    createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)
   }
 
   LoadMFData(mainPage)

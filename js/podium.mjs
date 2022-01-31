@@ -1,3 +1,6 @@
+import {MF} from "./tournamentsData.mjs"
+import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+
 let placeTxt = ['','first','second','third']
 
 function percent(num) {
@@ -302,7 +305,7 @@ function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
   games.games.forEach(function(g) {
-    for (color in g.players) {
+    for (let color in g.players) {
       let wins = g.winner === color
       let player = g.players[color]
       if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply, g.id))
@@ -329,7 +332,7 @@ function collectAchievements(data, tournamentID, games) {
   let winRate = winner.nb.win / winner.nb.game
   if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
 
-  let sensation = games.games.reduce(biggestDifferenceWinSelector, null)
+  let sensation = games.games.reduce(MF.biggestDifferenceWinSelector, null)
   if (sensation) {
     sensation.sensation = true // in order to show decoration on player tooltip
     achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
@@ -425,21 +428,6 @@ function testAchievementsInfo(id="achievements") {
   }
 }
 
-function ratingDiff(player, games) {
-  let initialRating = player.rating
-  for (i=games.games.length-1; i>=0; i--) {
-    let players = games.games[i].players
-    if (players.white.user.name === player.name) {
-      initialRating = players.white.rating
-      break
-    } else if (players.black.user.name === player.name) {
-      initialRating = players.black.rating
-      break
-    }
-  }
-  return player.rating - initialRating
-}
-
 function ratingDiffTag(player) {
   if (player.diff < 0) return `<loss>${(player.diff)}</loss>`
   else return `<win>+${(player.diff)}</win>`
@@ -447,7 +435,7 @@ function ratingDiffTag(player) {
 
 function createResults(data, tournamentID, gamesData, id = "results") {
   let tournament = data.findTournament(tournamentID)
-  if (tournament!=undefined) {
+  if (tournament) {
     let el = document.getElementById(id)
 
     let htmlBegin = '<table class="slist tour__standing"><tbody>'
@@ -466,13 +454,36 @@ function createResults(data, tournamentID, gamesData, id = "results") {
 </td>
 <td class="sheet">
 `
-      player.sheet.scores.forEach(function(score) {
+      if (Array.isArray(player.sheet.scores)) {
+        player.sheet.scores.forEach(function (score) {
           if (Array.isArray(score)) {
             if (score[1] > 2) html = html + `<double>${score[0]}</double>`
             else html = html + `<streak>${score[0]}</streak>`
           } else html = html + `<score>${score}</score>`
-        }
-      )
+        })
+      } else if (typeof player.sheet.scores == "string" || player.sheet.scores instanceof String) {
+        let streak = 0
+        player.sheet.scores.split("").reverse().forEach(function(score) {
+          // 0 1 always grey <score>
+          // 2 <streak> or <double>
+          // 3 always green <streak>
+          // 4 5 always orange <double>
+
+          // first determine wheter we won this game to update streak
+          let pts = 1 // assume we won
+          if (streak < 2) pts = Math.min(score,2) / 2
+          else if (score <=2) pts = score / 4
+
+          // update html now
+          if (score < 2) html = html + `<score>${score}</score>`
+          else if (streak>1 && pts>=0.5) html = html + `<double>${score}</double>`
+          else html = html + `<streak>${score[0]}</streak>`
+
+         // update streak
+         if (pts === 1) streak++
+         else streak = 0
+        })
+      }
         html = html + `</td>
 <td class="total"><strong>${player.score}</strong></td>
 <td class="rating-diff">${ratingDiffTag(player)}</td>
@@ -647,36 +658,6 @@ function cancelAllTips() {
   }
 }
 
-function fastestMateSelector(minGame, game) {
-  if (game.status !== "mate") return minGame
-  if (minGame) {
-    if (game.ply < minGame.ply) return game
-    else return minGame
-  } else return game
-}
-
-function biggestDifferenceWinSelector(minGame, game) {
-  function getRatingDiff(game) {
-    let ratingDiff = game.players.white.rating - game.players.black.rating
-    if (game.winner === "black") ratingDiff = -ratingDiff
-    return ratingDiff
-  }
-  let ratingDiff = getRatingDiff(game)
-  if (!game.winner || game.status === "noStart" || ratingDiff > -100) return minGame
-  let minGameDiff = -100 // more than 100 diff is necessary for display
-  if (minGame) minGameDiff = getRatingDiff(minGame)
-  if (ratingDiff < minGameDiff) return game
-  else return minGame
-}
-
-function fastestGameSelector(minGame, game) {
-  if (game.status === "noStart" || game.ply <= 1) return minGame
-  if (minGame) {
-    if (game.ply < minGame.ply) return game
-    else return minGame
-  } else return game
-}
-
 function toPGN(g, addFen) {
   let pgn = `[White \"${g.players.white.user.name} ${g.players.white.rating}\"]`
   pgn += `\r\n[Black \"${g.players.black.user.name} ${g.players.black.rating}\"]`
@@ -720,32 +701,21 @@ function selectGame(gamesData, hideId, boardId, selector) {
 }
 
 function sensationGame(games, hideid, boardId) {
-  let game = selectGame(games, hideid, boardId, biggestDifferenceWinSelector)
+  let game = selectGame(games, hideid, boardId, MF.biggestDifferenceWinSelector)
   if (game) {
     if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
     else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
     document.getElementById("senzaceDiff").innerHTML = Math.abs(game.players.white.rating - game.players.black.rating)
-    if (loser(game).berserk) document.getElementById("senzaBerserk").innerHTML = `${loser(game).user.name} hrál berserk.`
+    if (MF.loser(game).berserk) document.getElementById("senzaBerserk").innerHTML = `${MF.loser(game).user.name} hrál berserk.`
     else document.getElementById("senzaBerserk").innerHTML = ""
   }
   return game
 }
 
-function loser(game) {
-  if (game.winner === 'black') return game.players.white
-  else return game.players.black
-}
-function winner(game) {
-  if (game) {
-    if (game.winner === 'black') return game.players.black
-    else return game.players.white
-  }
-}
-
 function updateSpecialBoards(games) {
-  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", fastestMateSelector)
+  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", MF.fastestMateSelector)
   let sensaGame = sensationGame(games, "surpriseGameId", "surpriseGameBoard")
-  let fastestGame = selectGame(games, "fastestId", "fastestBoard", fastestGameSelector)
+  let fastestGame = selectGame(games, "fastestId", "fastestBoard", MF.fastestGameSelector)
   if (fastestGame && (fastestGame === mateGame || fastestGame === sensaGame)) {
     document.getElementById("fastestId").style.display = "none" // hide it, because it is already shown
   }
@@ -759,7 +729,7 @@ function nextTournament(data, diff=1) {
   let gameData = gameListData(games)
 
   let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames()[data.currentGameListTableIx].id)
-  History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
+  History.replaceState({'mf': data.mfId}, 'Monday Fights', newUrl)
 
   createPodium(data, games.id)
   createResults(data, games.id, games)
@@ -772,4 +742,14 @@ function nextTournament(data, diff=1) {
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
   })
+}
+
+export let MFPodium = {
+  createPodium: createPodium,
+  createResults: createResults,
+  createTournamentInfo: createTournamentInfo,
+  createAchievementsInfo: createAchievementsInfo,
+  updateSpecialBoards: updateSpecialBoards,
+  cancelAllTips: cancelAllTips,
+  toPGN: toPGN
 }
