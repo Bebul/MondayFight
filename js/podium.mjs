@@ -578,7 +578,7 @@ function fixPlayerName(name) {
 
 var Avatars = function() {
   let players = ["bebul", "bukowskic", "butaczech", "dj-pesec", "hrobotron", "jouzolean",
-    "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele", "travinho", "mates7824", "kasparov", "mates78", "vikjav"]
+    "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele", "travinho", "mates7824", "kasparov", "mates78", "vikjav", "tomasklimecky"]
   let defaults = ["default2", "default3"]
 
   function getAvatar(playerName, defaultAvatar) {
