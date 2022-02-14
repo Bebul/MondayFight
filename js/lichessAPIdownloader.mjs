@@ -1,5 +1,5 @@
 import {addNewGamesStats} from "./analyze.mjs"
-import {toNDJson} from "./mondayFight.mjs"
+import {toNDJson, download} from "./mondayFight.mjs"
 
 let urlRequestsList = []
 
@@ -150,7 +150,7 @@ function onDwnlTournamentClicked(data, rename) {
       preGames.innerHTML = JSON.stringify(games, null, 0)
       data.addGames([games])
       data.addExtras()
-      addNewGamesStats(data, games)
+      addNewGamesStats(data, [games])
         .then(function(result) {
           download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
           download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))

@@ -629,7 +629,7 @@ function updateHTMLWithDownloadedTournaments(data, downloadedTournaments) {
   }
 }
 
-function download(filename, text) {
+export function download(filename, text) {
   var element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
   element.setAttribute('download', filename);
@@ -688,6 +688,7 @@ export function processAdmin(data) {
     text += "</table>"
 */
     text += "      <div style=\"margin: 10px 0\">\n" +
+      "                <button id=\"dwnlALL\">Download ALL new Monday Fight Tournamens</button>\n" +
       "            <div>Zadej id konkrétního turnaje, který chceš downloadovat:\n" +
       "                <input type=\"text\" id=\"tournamentDwnlID\" style=\"width:100%\">\n" +
       "                <input type='checkbox' id='rename' checked='true'>Rename</input>" +
@@ -704,13 +705,14 @@ export function processAdmin(data) {
       LAPI.onDwnlTournamentClicked(data, rename)
     }
 
-    LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(LAPI.updateHTMLurlRequestsList)
-      .then(function(downloadedTournaments) {
-          if (downloadedTournaments.length) {
-            data.addTournaments(downloadedTournaments) // updates mondayFights and everything
-            updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
-            LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
-              .then(function(games) {
+    document.getElementById("dwnlALL").onclick = function() {
+      LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(LAPI.updateHTMLurlRequestsList)
+        .then(function(downloadedTournaments) {
+            if (downloadedTournaments.length) {
+              data.addTournaments(downloadedTournaments) // updates mondayFights and everything
+              updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
+              LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
+                .then(function(games) {
                   data.addGames(games)
                   data.addExtras()
                   addNewGamesStats(data, games)
@@ -718,10 +720,11 @@ export function processAdmin(data) {
                       download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
                       download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
                     })
-              })
+                })
+            }
           }
-        }
-      )
+        )
+    }
   }
 }
 
