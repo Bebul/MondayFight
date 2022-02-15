@@ -50,6 +50,13 @@
     </div>
 
     <br>
+    <form name="selectDataType">
+        <b>Vyber kritérium:</b>
+        <input type="radio" name="criterion"  value="score" checked="true" />
+        <label>Vzájemné skóre</label>
+        <input type="radio" name="criterion"  value="rating" />
+        <label>Pohyb ratingu</label>
+    </form>
     <form name="selectSeason">
         <b>Vyber období:</b>
         <input type="radio" name="season"  value="2020" />
@@ -79,15 +86,22 @@
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
   import {createGameListTable} from "./js/mondayFight.mjs"
-  import {createCrossTable, seasonSelected} from "./js/cross.mjs"
+  import {createCrossTable, criterionChanged} from "./js/cross.mjs"
 
   function mainPage(data) {
     let seasons = document.selectSeason.season
     for (let i = 0; i < seasons.length; i++) {
       seasons[i].addEventListener('click', function() {
-        seasonSelected(seasons[i].value, data, "#crossTable")
+        criterionChanged(data, "#crossTable")
       });
     }
+    let criterion = document.selectDataType.criterion
+    for (let i = 0; i < criterion.length; i++) {
+      criterion[i].addEventListener('click', function() {
+        criterionChanged(data, "#crossTable")
+      });
+    }
+
     let theFights = MF.filterYear(data.mondayFights(), 2022)
     createCrossTable(data, theFights, "#crossTable")
     createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)

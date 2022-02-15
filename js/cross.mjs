@@ -1,7 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {getPlayers, allMyTables, gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
 
-export function createCrossTable(data, theFights, tableId) {
+export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
     var x = a.toLowerCase();
     var y = b.toLowerCase();
@@ -12,37 +12,65 @@ export function createCrossTable(data, theFights, tableId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let crossTable = new Tabulator(tableId, {
     layout: "fitDataTable",
-    data: getCrossData(data, theFights, players),
+    data: getCrossData(data, theFights, players, criterion),
     columns: generateCrossTableColumns(data, theFights, players)
   });
   allMyTables.set(tableId, crossTable)
 }
 
-function getCrossData(data, theFights, players) {
-  function addPlayerCrossData(player, scores, columns) {
-    let ix = 0
-    players.forEach( pl => {
-        let score = scores.get(player).get(pl);
-        let plid = "pl"+ix++
-      if (score[0]==0 && score[1]==0) columns[plid] = ""
-      else columns[plid] = score[0]  + "-" + score[1]
+function getCrossData(data, theFights, players, criterion) {
+  if (criterion === "score") {
+    function addPlayerCrossData(player, scores, columns) {
+      let ix = 0
+      players.forEach( pl => {
+          let score = scores.get(player).get(pl);
+          let plid = "pl"+ix++
+          if (score[0]==0 && score[1]==0) columns[plid] = ""
+          else columns[plid] = score[0]  + "-" + score[1]
+        }
+      )
+    }
+    let tableData = [];
+    let scores = getScores(data, players, theFights)
+    let crossScores = getCrossScores(data, players, theFights)
+    players.forEach( player => {
+        let thePlayer = {
+          name: player,
+          nameUrl: "https://lichess.org/@/" + player,
+          score: scores.get(player)[0] + " - " + scores.get(player)[1]
+        }
+        addPlayerCrossData(player, crossScores, thePlayer)
+        tableData.push(thePlayer);
       }
     )
-  }
-  let tableData = [];
-  let scores = getScores(data, players, theFights)
-  let crossScores = getCrossScores(data, players, theFights)
-  players.forEach( player => {
-      let thePlayer = {
-        name: player,
-        nameUrl: "https://lichess.org/@/" + player,
-        score: scores.get(player)[0] + " - " + scores.get(player)[1]
-      }
-      addPlayerCrossData(player, crossScores, thePlayer)
-      tableData.push(thePlayer);
+    return tableData;
+  } else { // assume it is rating
+    function addPlayerCrossData(player, scores, columns) {
+      let ix = 0
+      players.forEach( pl => {
+          let score = scores.get(player).get(pl);
+          let plid = "pl"+ix++
+          if (score > 0) columns[plid] = `+${score}`
+          else columns[plid] = `${score}`
+        }
+      )
     }
-  )
-  return tableData;
+    let tableData = [];
+    let scores = getRatingScores(data, players, theFights)
+    let crossScores = getCrossRatingScores(data, players, theFights)
+    players.forEach( player => {
+        let thePlayer = {
+          name: player,
+          nameUrl: "https://lichess.org/@/" + player,
+          score: scores.get(player)
+        }
+        addPlayerCrossData(player, crossScores, thePlayer)
+        tableData.push(thePlayer);
+      }
+    )
+    return tableData;
+  }
+
 }
 
 function getScores(data, players, fights) {
@@ -136,6 +164,66 @@ function getCrossScores(data, players, fights) {
   return playerScore
 }
 
+function getRatingScores(data, players, fights) {
+  let playerScore = new Map();
+  players.forEach( pl => playerScore.set(pl, "") )
+
+  function updatePlayerScore(player) {
+    if (player.ratingDiff) {
+      let data = playerScore.get(player.user.name)
+      if (data==="") data=player.ratingDiff
+      else data += player.ratingDiff
+      playerScore.set(player.user.name, data)
+    }
+  }
+
+  fights.forEach( fight => {
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
+    if (games !== undefined) {
+      games.games.forEach(game => {
+        if (game.status !== "noStart") {
+          updatePlayerScore(game.players.white)
+          updatePlayerScore(game.players.black)
+        }
+      })
+    }
+  })
+  return playerScore
+}
+
+function getCrossRatingScores(data, players, fights) {
+  let playerScore = new Map();
+  function emptyMap() {
+    let theMap = new Map();
+    players.forEach( pl => theMap.set(pl, "") )
+    return theMap;
+  }
+  players.forEach( pl => playerScore.set(pl, emptyMap()) )
+
+  function updatePlayerScore(player, oponent) {
+    if (player.ratingDiff) {
+      let plData = playerScore.get(player.user.name)
+      let data = plData.get(oponent.user.name)
+      if (data==="") data=player.ratingDiff
+      else data += player.ratingDiff
+      plData.set(oponent.user.name, data)
+    }
+  }
+
+  fights.forEach( fight => {
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
+    if (games !== undefined) {
+      games.games.forEach(game => {
+        if (game.status !== "noStart") {
+          updatePlayerScore(game.players.white, game.players.black)
+          updatePlayerScore(game.players.black, game.players.white)
+        }
+      })
+    }
+  })
+  return playerScore
+}
+
 function myCellClick(data, players, fights){
   function allGames(playerA, playerB) {
     let selectedGames = []
@@ -198,22 +286,25 @@ function generateCrossTableColumns(data, theFights, players) {
   return columnsBuilder;
 }
 
-export function seasonSelected(season, data, tableId) {
+export function criterionChanged(data, tableId) {
+  let season = document.querySelector('input[name="season"]:checked').value
+  let criterion = document.querySelector('input[name="criterion"]:checked').value
+  console.log(`selected season: ${season} criterion ${criterion}`)
   switch (season) {
     case "all":
-      createCrossTable(data, data.mondayFights(), tableId)
+      createCrossTable(data, data.mondayFights(), tableId, criterion)
       break
     case "year":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), -1), tableId)
+      createCrossTable(data, MF.filterYear(data.mondayFights(), -1), tableId, criterion)
       break
     case "2020":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2020), tableId)
+      createCrossTable(data, MF.filterYear(data.mondayFights(), 2020), tableId, criterion)
       break
     case "2021":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2021), tableId)
+      createCrossTable(data, MF.filterYear(data.mondayFights(), 2021), tableId, criterion)
       break
     case "2022":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2022), tableId)
+      createCrossTable(data, MF.filterYear(data.mondayFights(), 2022), tableId, criterion)
       break
   }
 }
