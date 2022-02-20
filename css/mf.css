@@ -17,11 +17,17 @@ body {
     margin: 5px;
     max-width: 400px;
     width: 100%;
+    float: left;
 }
 
 .board {
     max-width: 400px;
     width: 100%;
+}
+
+.lastTournament {
+  float: left;
+  margin-top: -35px;
 }
 
 @media only screen and (max-width: 500px) {
@@ -90,21 +96,11 @@ body {
         display: inline-block; /*or table */
         min-width: 240px;
     }
-
-    .boards {
-        margin: -40px 0 0 10px;
-        width: 100px;
-        float: left;
-    }
-
-    .board {
-        width: 320px;
-    }
 }
 
 @media only screen and (min-width: 940px) {
     .body {
-        width: 940px;
+        width: 1200px;
     }
     .flow50 {
         width: 45%;
@@ -120,8 +116,31 @@ body {
         min-width: 300px;
     }
     .boards {
-        width: 320px;
+        width: 280px;
         float: left;
+    }
+
+    .board {
+        width: 280px;
+    }
+
+    .mfColumns {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .mfColumns div.boards {
+        order: 0;
+    }
+
+    .mfColumns div.lastTournament {
+        order: 1;
+    }
+
+    .mfColumns div.leaderboard {
+        width: 300px;
+        order: 2;
     }
 }
 
