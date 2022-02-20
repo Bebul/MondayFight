@@ -65,7 +65,9 @@
 
     <br><br>
 
-    <div style="margin-top: -35px; float: left">
+    <div class="mfColumns">
+
+    <div class="lastTournament">
         <div id="podium" class="podium">
         </div>
         <div id="results" class="results">
@@ -81,29 +83,43 @@
         <div id="gameListTableBar"></div>
     </div>
 
+    <div class="leaderboard" style="float: left">
+       <h2>Monday Fight Liga</h2>
+        <div id="leagueTable">
+           <pre>
+ 1. bebul     450
+ 2. mozkomor  400
+ 3. bukowskic 350
+ 4. hrobotron 300
+ 5. Tekele    250
+ 6. Jouzolean 200
+           </pre>
+        </div>
+    </div>
+
     <div class="boards">
         <div class="board" id="fastMateId">
-            <div style="display: table; margin: 0 auto">
+            <div style="display: block; float:left">
                 <h2 style="margin-bottom: 0px">Nejrychlejší Mat</h2>
                 <div id="fastMateBoard"></div>
             </div>
         </div>
-
-        <div class="board" id="surpriseGameId">
-            <div style="display: table; margin: 0 auto">
+       <div class="board" id="surpriseGameId">
+            <div style="display: block; float:left">
                 <h2 style="margin-bottom: 0px">Senzace turnaje</h2>
                 Gratulujeme <b id="senzacionist"></b> k vítězství nad soupeřem o <b id="senzaceDiff"></b> bodů silnějším.
                 <span id="senzaBerserk"></span>
                 <div id="surpriseGameBoard"></div>
             </div>
         </div>
-
-        <div class="board" id="fastestId">
-            <div style="display: table; margin: 0 auto">
+       <div class="board" id="fastestId">
+            <div style="display: block; float:left">
                 <h2 style="margin-bottom: 0px">Nejrychlejší hra</h2>
                 <div id="fastestBoard"></div>
             </div>
         </div>
+    </div>
+
     </div>
 
     <div id="gameListTable"></div>
@@ -113,7 +129,7 @@
 <script type="module">
   import {LoadMFData} from "./js/tournamentsData.mjs"
   import {MFPodium} from "./js/podium.mjs"
-  import {createGameListTable} from "./js/mondayFight.mjs"
+  import {createGameListTable, createLeagueTable} from "./js/mondayFight.mjs"
 
   let mfId = null
   function mainPage(data) {
@@ -136,6 +152,7 @@
     MFPodium.createTournamentInfo(data, games.id)
     MFPodium.createAchievementsInfo(data, games.id, games)
     MFPodium.updateSpecialBoards(games)
+    createLeagueTable(data, "#leagueTable")
     createGameListTable(games, "#gameListTable", false)
   }
 

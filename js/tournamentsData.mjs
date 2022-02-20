@@ -72,6 +72,15 @@ export let MF = function() {
     }
   }
 
+  function filterUpTo(theFights, lastDate) {
+    let theYear = lastDate.getFullYear()
+    return Array.from(theFights).filter(fight => {
+      let date = new Date(fight.startsAt)
+      let year = date.getFullYear()
+      return year === theYear && date <= lastDate
+    })
+  }
+
   function last10(theFights) {
     let filtered = Array.from(theFights)
     while(filtered.length > 10) {
@@ -106,6 +115,7 @@ export let MF = function() {
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
     filterYear: filterYear,
+    filterUpTo: filterUpTo,
     last10: last10,
     winner: winner,
     loser: loser

@@ -1,5 +1,12 @@
 import {MF} from "./tournamentsData.mjs"
-import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+import {
+  gameListData,
+  updateMostActivePlayer,
+  updateGoogleBar,
+  gameListTable,
+  getLeagueData,
+  leagueTable
+} from "./mondayFight.mjs"
 
 let placeTxt = ['','first','second','third']
 
@@ -576,7 +583,7 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
-var Avatars = function() {
+export var Avatars = function() {
   let players = ["bebul", "bukowskic", "butaczech", "dj-pesec", "hrobotron", "jouzolean",
     "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele", "travinho", "mates7824", "kasparov", "mates78", "vikjav", "tomasklimecky"]
   let defaults = ["default2", "default3"]
@@ -741,6 +748,10 @@ function nextTournament(data, diff=1) {
   updateGoogleBar("gameListTableBar", gameData)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
+  })
+  let leagueData = getLeagueData(data)
+  leagueTable.setData(leagueData).then(function (){
+    leagueTable.redraw(true)
   })
 }
 
