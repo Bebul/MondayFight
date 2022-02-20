@@ -446,6 +446,90 @@ export function createGameListTable(games, tableId, addDate, noStats) {
   if (noStats != true) createStatisticsBars(gamesData, tableId)
 }
 
+
+function myLinkFormatter(cell, formatterParams) {
+  let cellValue = cell.getValue()
+  let data = cell.getData()
+  let label = data["name"]
+  let rank = data["rank"]
+
+  let color = "red"
+  if (rank < 5) color = "green"
+  else if (rank < 13) color = "blue"
+
+  return `<a class="league-link" href="${cellValue}" target="_blank" style="color: ${color}">${label}</a>`
+}
+
+function rankFormatter(cell, formatterParams) {
+  let cellValue = cell.getValue()
+  let rank = cell.getData()["rank"]
+
+  let color = "red"
+  if (rank < 5) color = "green"
+  else if (rank < 13) color = "blue"
+
+  cell.getElement().style.backgroundColor = color
+  return `<span style="color:lightgray"><b>${cellValue}</b></span>`
+}
+
+function getLeagueDataOfPlayers(theFights) {
+  let players = getPlayers(theFights)
+  let tableData = []
+  players.forEach( player => {
+      let averagePerformance = getAvgPerformance(player, theFights)
+      let totalPoints = getTotalPoints(player, theFights) + averagePerformance / 10000
+      let thePlayer = {
+        name: player,
+        nameUrl: "https://lichess.org/@/" + player,
+        totalPts: totalPoints,
+        games: getTotalGames(player, theFights),
+        ratingDiff: getTotalRatingDiff(player, theFights)
+      }
+      tableData.push(thePlayer)
+    }
+  )
+  let sorted = tableData.sort( (a,b) => {
+    if (a.totalPts > b.totalPts) return -1
+    else if (a.totalPts < b.totalPts) return 1
+    else return 0
+  })
+
+  sorted.forEach(
+    (player, index) =>
+      player.rank = index + 1
+  )
+
+  return sorted
+}
+
+export function getLeagueData(data) {
+  let mfId = data.tournamentGames()[data.currentGameListTableIx].id
+  let date = new Date(data.findTournament(mfId).startsAt)
+
+  let fights = MF.filterUpTo(data.mondayFights(), date)
+  return getLeagueDataOfPlayers(fights)
+}
+
+export var leagueTable
+export function createLeagueTable(data, tableId) {
+  document.getElementById(tableId.substring(1)).innerHTML = ""
+
+  let dataOfPlayers = getLeagueData(data)
+
+  leagueTable = new Tabulator(tableId, {
+    layout: "fitDataTable",
+    reactiveData:true, // we want setData having effect
+    data: dataOfPlayers,
+    columns: [
+      {title: "", field: "rank", headerSort: false, resizable:false, align: "center", formatter:rankFormatter},
+      {title: "Hráč", field: "nameUrl", headerSort: false, resizable:false, formatter:myLinkFormatter},
+      {title: "Pt", field: "totalPts", headerSort: false, resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkový počet bodů", formatter: totalPtsFormatter},
+      {title: "G", field: "games", headerSort: false, resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet her"},
+      {title: "R", field: "ratingDiff", headerSort: false, resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
+    ]
+  })
+}
+
 function getGameListResultStats(gamesData) {
   let white = 0, draw = 0, black = 0
   gamesData.forEach(row => {

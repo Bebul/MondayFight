@@ -509,3 +509,8 @@ win {
     display: block;
     clear: both;
 }
+
+.league-link {
+    color: black;
+    text-decoration: none;
+}

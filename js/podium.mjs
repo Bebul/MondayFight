@@ -1,5 +1,12 @@
 import {MF} from "./tournamentsData.mjs"
-import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+import {
+  gameListData,
+  updateMostActivePlayer,
+  updateGoogleBar,
+  gameListTable,
+  getLeagueData,
+  leagueTable
+} from "./mondayFight.mjs"
 
 let placeTxt = ['','first','second','third']
 
@@ -741,6 +748,10 @@ function nextTournament(data, diff=1) {
   updateGoogleBar("gameListTableBar", gameData)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
+  })
+  let leagueData = getLeagueData(data)
+  leagueTable.setData(leagueData).then(function (){
+    leagueTable.redraw(true)
   })
 }
 
