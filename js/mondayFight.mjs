@@ -1,6 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
+import {Avatars} from "./podium.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -511,7 +512,7 @@ export function getLeagueData(data) {
 }
 
 export var leagueTable
-export function createLeagueTable(data, tableId) {
+export function createLeagueTable(data, tableId, spiderId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   let dataOfPlayers = getLeagueData(data)
@@ -528,6 +529,10 @@ export function createLeagueTable(data, tableId) {
       {title: "R", field: "ratingDiff", headerSort: false, resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
     ]
   })
+
+  if (spiderId) {
+    drawSpider(dataOfPlayers, spiderId)
+  }
 }
 
 function getGameListResultStats(gamesData) {
@@ -882,4 +887,137 @@ export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   allMyTables.set(tableId, playersTable)
   if (enableJouzocoins) playersTable.setSort("jouzoCoins", "desc")
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
+}
+
+async function drawSpider(dataOfPlayers, spiderId) {
+  let GLOB = {
+    width: 1190, height: 670,
+    padX: 20, padTop: 60, padBottom: 20,
+    centerWidth: 150,
+    fontSize: 45,
+    conex: 90
+  }
+  GLOB.netH = GLOB.height - GLOB.padTop - GLOB.padBottom
+  GLOB.picH = 0.9 * GLOB.netH / 6
+
+  let canvas = document.getElementById(spiderId)
+  let ctx = canvas.getContext("2d")
+
+  let img = new Image()
+  img.onload = function() {
+    ctx.drawImage(img,0,0)
+
+    let topLine = GLOB.padTop
+    ctx.font = `${GLOB.fontSize}px Arial`
+    let text = "MONDAY FIGHT ARENA"
+    let textInfo = ctx.measureText(text)
+    let textX = 0.5 * GLOB.width - textInfo.width / 2
+    ctx.fillText(text, textX, topLine)
+
+    let fs2 = GLOB.fontSize * 25 / 45
+    ctx.font = `${fs2}px Arial`
+    let text2 = "TURNAJ ŠAMPIONŮ 2022"
+    let textInfo2 = ctx.measureText(text2)
+    ctx.fillStyle = "red";
+    //ctx.fillText(text2,  textX + textInfo.width - textInfo2.width, topLine + 1.2 * fs2 )
+    ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, topLine + 1.2 * fs2 )
+
+    let fs3 = GLOB.fontSize * 13 / 45
+    let fs4 = GLOB.fontSize * 20 / 45
+    ctx.fillStyle = "#888";
+    ctx.font = `${fs3}px Arial`
+    let nums = [1,8,9,4,5,12,2,7,10,3,6,11]
+
+    function trLeft(x) {
+      return x + GLOB.padX
+    }
+    function trRight(x) {
+      return GLOB.width - x - GLOB.padX
+    }
+    function alignLeft(trans, x) {
+      return trans(x)
+    }
+    function alignRight(trans, x, text) {
+      let width = ctx.measureText(text).width
+      return trans(x) - width
+    }
+    function drawNet(trans, right) {
+      let img = new Image();
+      img.onload = function() {
+        // 60*121 i.e. 1:2
+        ctx.drawImage(img, (GLOB.width - GLOB.centerWidth) / 2, 250, GLOB.centerWidth, 2 * GLOB.centerWidth)
+      }
+      img.src = "img/players/logo-kral.png"
+
+      let x = trans(0)
+      for (let i=1; i<=6; i++) {
+        let y = GLOB.padTop + i * GLOB.netH / 6
+        ctx.moveTo(x, y);
+        let len = (GLOB.width - GLOB.centerWidth) / 2 - 2 * GLOB.conex
+        if (i % 3 !== 1) len -= GLOB.conex
+        ctx.lineTo(trans(len), y)
+
+        // texts
+        let no = nums.shift()
+        let txNo = `${no}.`
+        ctx.fillStyle = "#888";
+        ctx.font = `${fs3}px Arial`
+        let alx = right ? alignRight(trans, 0, txNo) : alignLeft(trans, 0)
+        ctx.fillText(txNo, alx, y + 1.2 * fs3)
+        ctx.fillStyle = "black";
+        ctx.font = `${fs4}px Arial`
+        let name = dataOfPlayers[no-1].name
+        if (i % 3 === 2) {
+          alx = right ? alignLeft(trans, len, name) : alignRight(trans, len, name)
+          ctx.fillText(name, alx, y - 0.3 * fs4)
+          // avatar
+          let avatar = Avatars.getAvatar(name)
+          if (avatar) {
+            let img = new Image();
+            img.onload = function() {
+              let imgX = right ? 0 : GLOB.picH
+              ctx.drawImage(img, trans(imgX) - GLOB.picH, y - GLOB.picH - 1, GLOB.picH, GLOB.picH)
+            }
+            img.src = avatar
+          }
+        } else {
+          alx = right ? alignRight(trans, 0, name) : alignLeft(trans, 0, name)
+          ctx.fillText(name, alx, y - 0.3 * fs4)
+          // avatar
+          let avatar = Avatars.getAvatar(name)
+          if (avatar) {
+            let img = new Image();
+            img.onload = function() {
+              let imgX = right ? GLOB.picH : 0
+              ctx.drawImage(img, trans(imgX + len - GLOB.picH - 1), y - GLOB.picH - 1, GLOB.picH, GLOB.picH)
+            }
+            img.src = avatar
+          }
+        }
+
+        if (i % 3 === 2) {
+          ctx.lineTo(trans(len), y + GLOB.netH / 6)
+          ctx.moveTo(trans(len), y + GLOB.netH / 12)
+          ctx.lineTo(trans(len + GLOB.conex), y + GLOB.netH / 12)
+        }
+        if (i % 3 === 1) {
+          ctx.lineTo(trans(len), y + GLOB.netH / 4)
+          ctx.moveTo(trans(len), y + GLOB.netH / 8)
+          ctx.lineTo(trans(len + GLOB.conex), y + GLOB.netH / 8)
+          if (i === 1) {
+            ctx.lineTo(trans(len + GLOB.conex), y + GLOB.netH / 8 + GLOB.netH / 2)
+            ctx.moveTo(trans(len + GLOB.conex), y + GLOB.netH / 8 + GLOB.netH / 4)
+            ctx.lineTo(trans(len + 1.75 * GLOB.conex), y + GLOB.netH / 8 + GLOB.netH / 4)
+          }
+        }
+        ctx.stroke();
+      }
+    }
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    drawNet(trLeft, false)
+    drawNet(trRight, true)
+  }
+  img.src = "img/players/background.jpg"
 }

@@ -69,7 +69,29 @@
         </ul>
     </div>
 
-<h1>Posledních 10 turnajů</h1>
+    <div class="leaderboard" style="float: left">
+        <h1>Monday Fight Liga</h1>
+        <div>
+        <div id="leagueTable" style="float: left">
+           <pre>
+ 1. bebul     450
+ 2. mozkomor  400
+ 3. bukowskic 350
+ 4. hrobotron 300
+ 5. Tekele    250
+ 6. Jouzolean 200
+           </pre>
+        </div>
+
+            <div style="clear: both; padding-bottom: 15px">
+               <canvas id="spider" width="1190px" height="670px"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+<h1 style="clear:both">Posledních 10 turnajů</h1>
 <div id="last10"></div>
 
 <h1>Aktuální sezóna</h1>
@@ -100,11 +122,12 @@
 
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
-  import {processAdmin, createPlayersTable} from "./js/mondayFight.mjs"
+  import {processAdmin, createPlayersTable, createLeagueTable} from "./js/mondayFight.mjs"
   function mainPage(data) {
     processAdmin(data)
     let year = (new Date()).getFullYear()
     let thisYear = MF.filterYear(data.mondayFights(), year)
+    createLeagueTable(data, "#leagueTable", "spider")
     createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
     createPlayersTable(MF.last10(data.mondayFights()), "#last10", false)
   }
