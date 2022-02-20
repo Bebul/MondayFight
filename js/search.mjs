@@ -24,7 +24,7 @@ function movesContainFen(initialPosition, moves, fen) {
     else mfChess.reset()
     let num = 0
     let found = false
-    for (i = 0; i < Math.min(movesAr.length, 2*mnReq-1); i++) {
+    for (let i = 0; i < Math.min(movesAr.length, 2*mnReq-1); i++) {
       mfChess.move(movesAr[i])
       if (i+sh >= 2*mnReq-3) {
         let moveFEN = mfChess.fen()
