@@ -537,13 +537,13 @@ win {
 
 @font-face {
     font-family: 'Bahnshrift Light';
-    src: url('https://bebul.github.io/MondayFight/fonts/BAHNSCHRIFT.TTF');
+    src: url('../fonts/bahnschrift2.ttf');
     font-style: normal;
     font-stretch: condensed;
 }
 
 @font-face {
-    font-family: 'Fjalla One';
-    src: url('https://bebul.github.io/MondayFight/fonts/FjallaOne-Regular.ttf');
+    font-family: 'FjallaOne';
+    src: url('../fonts/FjallaOne-Regular.otf');
     font-style: normal;
 }

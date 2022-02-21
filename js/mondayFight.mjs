@@ -905,21 +905,21 @@ async function drawSpider(dataOfPlayers, spiderId) {
 
   Promise.all([
     document.fonts.load("18px 'Bahnshrift Light'"),
-    document.fonts.load("18px 'Fjalla One'")
+    document.fonts.load("18px 'FjallaOne'")
   ]).then(function() {
     let img = new Image()
     img.onload = function () {
       ctx.drawImage(img, 0, 0)
 
       let topLine = GLOB.padTop
-      ctx.font = `${1.3 * GLOB.fontSize}px Fjalla One`
+      ctx.font = `${1.3 * GLOB.fontSize}px FjallaOne`
       let text = "MONDAY FIGHT ARENA"
       let textInfo = ctx.measureText(text)
       let textX = 0.5 * GLOB.width - textInfo.width / 2
       ctx.fillText(text, textX, topLine + 10)
 
-      let fs2 = 1.4 * GLOB.fontSize * 25 / 45
-      ctx.font = `${fs2}px Bahnshrift Light`  //TODO: use Fjalla One
+      let fs2 = 1.3 * GLOB.fontSize * 25 / 45
+      ctx.font = `${fs2}px FjallaOne`
       let text2 = "TURNAJ ŠAMPIONŮ 2022"
       let textInfo2 = ctx.measureText(text2)
       ctx.fillStyle = "red";
