@@ -534,3 +534,16 @@ win {
     color: black;
     text-decoration: none;
 }
+
+@font-face {
+    font-family: 'Bahnshrift Light';
+    src: url('../fonts/BAHNSCHRIFT.TTF');
+    font-style: normal;
+    font-stretch: condensed;
+}
+
+@font-face {
+    font-family: 'Fjalla One';
+    src: url('../fonts/FjallaOne-Regular.ttf');
+    font-style: normal;
+}
