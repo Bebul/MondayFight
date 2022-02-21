@@ -4,7 +4,7 @@ import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const fs = require('fs')
 
-let opening = "e4 e5 f4 exf4 Nf3 Nf6"
+let opening = "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5"
 
 function getPts(g) {
   if (g.winner && g.winner==="black") return -1
