@@ -53,6 +53,12 @@ body {
         display: inline-block; /*or table */
     }
 
+    .flow66 {
+        width: 100%;
+        margin: 0px;
+        display: inline-block; /*or table */
+    }
+
     .body {
         font-size: calc(9px + 6 * ((100vw - 320px) / 180));
     }
@@ -96,6 +102,12 @@ body {
         display: inline-block; /*or table */
         min-width: 240px;
     }
+
+    .flow66 {
+        width: 63%;
+        margin: 0px;
+        display: inline-block; /*or table */
+    }
 }
 
 @media only screen and (min-width: 940px) {
@@ -115,6 +127,14 @@ body {
         display: inline-block; /*or table */
         min-width: 300px;
     }
+
+    .flow66 {
+        width: 63%;
+        margin: 0px;
+        display: inline-block; /*or table */
+        min-width: 500px;
+    }
+
     .boards {
         width: 280px;
         float: left;
