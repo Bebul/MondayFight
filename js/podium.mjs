@@ -738,13 +738,15 @@ function nextTournament(data, diff=1) {
   let newUrl = window.location.pathname + "?mf=" + encodeURIComponent(data.tournamentGames()[data.currentGameListTableIx].id)
   History.replaceState({'mf': data.mfId}, 'Monday Fights', newUrl)
 
+  let lastMfWinner = data.findTournament(games.id).podium[0].name
+
   createPodium(data, games.id)
   createResults(data, games.id, games)
   updateSpecialBoards(games)
   createTournamentInfo(data, games.id)
   createAchievementsInfo(data, games.id, games)
 
-  updateMostActivePlayer("gameListTable", gameData)
+  updateMostActivePlayer("gameListTable", gameData, lastMfWinner)
   updateGoogleBar("gameListTableBar", gameData)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)

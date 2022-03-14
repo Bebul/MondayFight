@@ -147,13 +147,14 @@
     History.replaceState({'mf': mfId}, 'Monday Fights', newUrl)
 
     let games = data.tournamentGames()[data.currentGameListTableIx]
+    let lastMfWinner = data.findTournament(games.id).podium[0].name
     MFPodium.createPodium(data, games.id)
     MFPodium.createResults(data, games.id, games)
     MFPodium.createTournamentInfo(data, games.id)
     MFPodium.createAchievementsInfo(data, games.id, games)
     MFPodium.updateSpecialBoards(games)
     createLeagueTable(data, "#leagueTable")
-    createGameListTable(games, "#gameListTable", false)
+    createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
   }
 
   LoadMFData(mainPage)

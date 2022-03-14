@@ -411,7 +411,7 @@ export function gameListData(games) {
 }
 
 export var gameListTable
-export function createGameListTable(games, tableId, addDate, noStats) {
+export function createGameListTable(games, tableId, addDate, noStats, winner) {
   let gamesData = gameListData(games)
 
   function detectWhiteWinner(cell, pars) {
@@ -444,7 +444,7 @@ export function createGameListTable(games, tableId, addDate, noStats) {
   })
   gameListTable.setData(gamesData)
 
-  if (noStats != true) createStatisticsBars(gamesData, tableId)
+  if (noStats != true) createStatisticsBars(gamesData, tableId, winner)
 }
 
 
@@ -565,23 +565,28 @@ function getGameListResultStats(gamesData) {
   return ['', white, draw, black]
 }
 
-function getGameListMostActivePlayerStats(gamesData) {
-  let players = new Map()
-  function incrementPlayer(player) {
-    let data = players.get(player)
-    if (data === undefined) data = 0
-    data++
-    players.set(player, data)
+function getGameListMostActivePlayerStats(gamesData, winner) {
+  let bossPlayer = ""
+  if (winner) {
+    bossPlayer = winner
+  } else {
+    let players = new Map()
+    function incrementPlayer(player) {
+      let data = players.get(player)
+      if (data === undefined) data = 0
+      data++
+      players.set(player, data)
+    }
+    gamesData.forEach(row => {
+      incrementPlayer(row.white)
+      incrementPlayer(row.black)
+    })
+    let max = ["", -1]
+    for(let [pl, num] of players){
+      if (num > max[1]) max=[pl, num]
+    }
+    bossPlayer = max[0]
   }
-  gamesData.forEach(row => {
-    incrementPlayer(row.white)
-    incrementPlayer(row.black)
-  })
-  let max = ["", -1]
-  for(let [pl, num] of players){
-    if (num > max[1]) max=[pl, num]
-  }
-  let bossPlayer = max[0]
   let bossWhite = {win: 0, draw: 0, loss: 0}
   let bossBlack = {win: 0, draw: 0, loss: 0}
   gamesData.forEach(row => {
@@ -600,8 +605,8 @@ function getGameListMostActivePlayerStats(gamesData) {
 
 var myGoogleCharts = new Map()
 
-export function updateMostActivePlayer(id, gamesData) {
-  let plStats = getGameListMostActivePlayerStats(gamesData)
+export function updateMostActivePlayer(id, gamesData, winner) {
+  let plStats = getGameListMostActivePlayerStats(gamesData, winner)
 
   let barData = myGoogleCharts.get(id+'plwhite')
   if (barData !== undefined) {
@@ -641,7 +646,7 @@ export function updateGoogleBar(barid, gamesData) {
   }
 }
 
-function createStatisticsBars(gamesData, tableId) {
+function createStatisticsBars(gamesData, tableId, winner) {
   let wbStat = getGameListResultStats(gamesData)
   let wbArrayData = [['Genre', 'White wins', 'Draw', 'Black wins'], wbStat]
   let id = null
@@ -654,7 +659,7 @@ function createStatisticsBars(gamesData, tableId) {
 
     createStatsBar4GameList(wbArrayData, id+"Bar", vw)
 
-    let plStats = getGameListMostActivePlayerStats(gamesData)
+    let plStats = getGameListMostActivePlayerStats(gamesData, winner)
     let plwhiteData = [
       ['Genre', plStats.player + ' wins', 'Draw', 'Black wins'],
       [plStats.player + ' White', plStats.whiteStats.win, plStats.whiteStats.draw, plStats.whiteStats.loss]
