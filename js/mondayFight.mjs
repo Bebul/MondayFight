@@ -453,12 +453,18 @@ function myLinkFormatter(cell, formatterParams) {
   let data = cell.getData()
   let label = data["name"]
   let rank = data["rank"]
+  let prank = data["prank"]
+
 
   let color = "red"
   if (rank < 5) color = "green"
   else if (rank < 13) color = "blue"
 
-  return `<a class="league-link" href="${cellValue}" target="_blank" style="color: ${color}">${label}</a>`
+  let arrow = ""
+  if (rank - prank < 0) arrow = "<span style='color: green'><b>&#9650;</b></span>"
+  else if (rank - prank > 0) arrow = "<span style='color: red'><b>&#9660;</b></span>"
+
+  return `<a class="league-link" href="${cellValue}" target="_blank" style="color: ${color}">${label}${arrow}</a>`
 }
 
 function rankFormatter(cell, formatterParams) {
@@ -473,7 +479,10 @@ function rankFormatter(cell, formatterParams) {
   return `<span style="color:lightgray"><b>${cellValue}</b></span>`
 }
 
-function getLeagueDataOfPlayers(theFights) {
+function getLeagueDataOfPlayers(theFights, mfId) {
+  let lastFight = theFights.find(fight =>
+    fight.id === mfId
+  )
   let players = getPlayers(theFights)
   let tableData = []
   players.forEach( player => {
@@ -483,6 +492,7 @@ function getLeagueDataOfPlayers(theFights) {
         name: player,
         nameUrl: "https://lichess.org/@/" + player,
         totalPts: totalPoints,
+        prevPts: totalPoints - playerPoints(lastFight, player)[0],
         games: getTotalGames(player, theFights),
         ratingDiff: getTotalRatingDiff(player, theFights)
       }
@@ -490,6 +500,16 @@ function getLeagueDataOfPlayers(theFights) {
     }
   )
   let sorted = tableData.sort( (a,b) => {
+    if (a.prevPts > b.prevPts) return -1
+    else if (a.prevPts < b.prevPts) return 1
+    else return 0
+  })
+  sorted.forEach(
+    (player, index) =>
+      player.prank = index + 1
+  )
+
+  sorted = tableData.sort( (a,b) => {
     if (a.totalPts > b.totalPts) return -1
     else if (a.totalPts < b.totalPts) return 1
     else return 0
@@ -508,7 +528,7 @@ export function getLeagueData(data) {
   let date = new Date(data.findTournament(mfId).startsAt)
 
   let fights = MF.filterUpTo(data.mondayFights(), date)
-  return getLeagueDataOfPlayers(fights)
+  return getLeagueDataOfPlayers(fights, mfId)
 }
 
 export var leagueTable
