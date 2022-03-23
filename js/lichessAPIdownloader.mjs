@@ -144,8 +144,9 @@ function onDwnlTournamentClicked(data, rename) {
         tournament.fullName = "Monday Fight Fixed"
       }
       data.addTournaments([tournament])
+      return tournament
     })
-    .then(response => gamesDownloaderAPI().downloadTournamentGames(dwnlID))
+    .then(tournament => gamesDownloaderAPI().downloadTournamentGames(tournament, data))
     .then(games => {
       preGames.innerHTML = JSON.stringify(games, null, 0)
       data.addGames([games])
@@ -188,7 +189,8 @@ function gamesDownloaderAPI() {
     return missing
   }
 
-  async function downloadGames(id) {
+  async function downloadGames(tournament, data) {
+    let id = tournament.id
     let games = await fetch("https://lichess.org/api/tournament/" + id + "/games?opening=true", {
       headers: {
         'Accept': 'application/x-ndjson'
@@ -200,11 +202,7 @@ function gamesDownloaderAPI() {
       .then(ndjson2array)
       .then(parse)
       .then(games => {
-        let gamesJson = {
-          "id": id,
-          "games": games
-        }
-        return gamesJson
+        return data.filterCheaterGames(games, tournament)
      })
     return games
   }
@@ -216,7 +214,7 @@ function gamesDownloaderAPI() {
     while (ix < data.mondayFights().length) {
       let mf = data.mondayFights()[ix++]
       if (data.tournamentGames().find(tg => tg.id==mf.id) === undefined) {
-        let games = await downloadGames(mf.id)
+        let games = await downloadGames(mf, data)
         downloadedTournamentsGames.push(games)
         if(logger) logger("<b>Downloading in progress: " + ix + "</b>")
       }
@@ -229,8 +227,8 @@ function gamesDownloaderAPI() {
     downloadMissingTournamentGames: function(data, logger) {
       return downloadMissingTournamentGames(data, logger)
     },
-    downloadTournamentGames: function(id) {
-      return downloadGames(id)
+    downloadTournamentGames: function(tournament, data) {
+      return downloadGames(tournament, data)
     }
   }
 }

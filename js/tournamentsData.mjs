@@ -23,7 +23,38 @@ export let MF = function() {
         break
       }
     }
-    return player.rating - initialRating
+    let method1 =  player.rating - initialRating
+
+    let diff = 0
+    games.games.forEach( game => {
+        if (game.players.white.user.name === player.name) diff += game.players.white.ratingDiff
+        else if (game.players.black.user.name === player.name) diff += game.players.black.ratingDiff
+      }
+    )
+
+    return diff
+  }
+
+  function getPoints(player, games) {
+    let points = 0
+    let oponent = 0
+    games.games.forEach( game => {
+        let diff = function(g) {
+          if (g.winner && g.winner==="black") return 0
+          else if (g.winner && g.winner==="white") return 1
+          else return 0.5
+        }(game)
+        if (game.players.white.user.name === player.name) {
+          points += diff
+          oponent += 1-diff
+        }
+        else if (game.players.black.user.name === player.name) {
+          points += 1-diff
+          oponent += diff
+        }
+      }
+    )
+    return [points, oponent]
   }
 
   function fastestMateSelector(minGame, game) {
@@ -111,6 +142,7 @@ export let MF = function() {
     playedAGame: playedAGame,
     playersCountWhoPlayed: playersCountWhoPlayed,
     ratingDiff: ratingDiff,
+    points: getPoints,
     fastestMateSelector: fastestMateSelector,
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
@@ -182,16 +214,22 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
   //   * fastestMate
   //   * sensation
   //   * fastestFinisher
+  //   * points
   function addExtraTournamentStats(tournament, games) {
     // add each game length ... ply
     games.games.forEach(game => {
       game.ply = game.moves.split(" ").length
     })
     // sensation
-    let sensationPlayer = MF.winner(games.games.reduce(MF.biggestDifferenceWinSelector, null))
-    if (sensationPlayer) {
+    let sensationGame = games.games.reduce(MF.biggestDifferenceWinSelector, null)
+    if (sensationGame) {
+      let sensationPlayer = MF.winner(sensationGame)
       let player = getPlayer(tournament, sensationPlayer.user.name)
       player.sensation = 1
+      let winner = sensationGame.players[sensationGame.winner]
+      let stats = winner.stats || {}
+      stats.sensation = true
+      winner.stats = stats
     }
     // fastestMate
     let mateGame = games.games.reduce(MF.fastestMateSelector, null)
@@ -217,6 +255,11 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     tournament.standing.players.forEach( function(player) {
       let diff = MF.ratingDiff(player, games)
       if (diff!==undefined) player.diff = diff
+    })
+    // points
+    tournament.standing.players.forEach( function(player) {
+      let points = MF.points(player, games)
+      if (points!==undefined) player.points = points
     })
   }
 
@@ -274,6 +317,34 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
         let games = tournamentGames[i].games
         for (let j=0; j<games.length; j++) f(games[j])
       }
+    },
+    filterCheaterGames: function(games, tournament) {
+      let players = []
+      let cheaters = new Set()
+      tournament.standing.players.forEach(pl => players.push(pl.name))
+      let filtered = games.filter(game => {
+          let white = game.players.white.user.name
+          let black = game.players.black.user.name
+          let ret = true
+          if (!players.includes(white)) {
+            cheaters.add(white)
+            ret = false
+          }
+          if (!players.includes(black)) {
+            cheaters.add(black)
+            ret = false
+          }
+          return ret
+        }
+      )
+      let ret = {
+        id: tournament.id,
+        games: filtered
+      }
+      if (cheaters.size > 0) {
+        ret.cheaters = [...cheaters]
+      }
+      return ret
     },
     currentGameListTableIx: tournamentGames.length - 1
   }

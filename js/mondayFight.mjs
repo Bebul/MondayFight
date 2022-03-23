@@ -54,6 +54,12 @@ function playerPerformance(fight, playerName) {
 
 function playerPoints(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || player.points === undefined || !MF.playedAGame(player)) return [0,0]
+  return player.points
+}
+
+function playerPointsOld(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
   if (player === undefined || !MF.playedAGame(player)) return [0, 0]
   let myPts = 0
   let opPts = 0

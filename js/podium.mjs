@@ -74,6 +74,12 @@ var months = ['ledna','února','března','dubna','května','června','července'
 function createTournamentInfo(data, tournamentID, id="info") {
   let tournament = data.findTournament(tournamentID)
   if (tournament!=undefined) {
+    let games = data.tournamentGames().find(tg => tg.id==tournamentID)
+    let cheaters = ""
+    if (games.cheaters) {
+      cheaters = `Hry hráče <b>${games.cheaters.join(" a ")}</b> byly odstraněny.`
+    }
+
     let el = document.getElementById(id)
 
     Number.prototype.padLeft = function(base,chr){
@@ -93,6 +99,7 @@ function createTournamentInfo(data, tournamentID, id="info") {
             <a href="javascript:void(0);" id="prevTournament"><img src="img/bishopPrev.png" class="bishop"></a>
         </div>
 <div style="display: table-cell; vertical-align: middle">
+   ${cheaters}
    <div style="font-size:1.5em">${date} - ${ratedStr}</div>
    Players: ${tournament.nbPlayers} - 
    Average ELO: ${tournament.stats.averageRating} -
