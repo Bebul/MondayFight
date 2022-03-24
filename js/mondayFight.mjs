@@ -920,6 +920,15 @@ export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
 }
 
+export function updateSpecificTournamentHtml(divId, tournamentId) {
+  let spec = [
+    {id: "x6hNptkr", html: "<div style='margin-top:10px'><b>Následující hry byly z turnaje odstraněny.</b><br><img src='img/buta.png'></div>"}
+  ]
+  let s = spec.find(s => s.id === tournamentId)
+  if (s) document.getElementById(divId).innerHTML = s.html
+  else document.getElementById(divId).innerHTML = ""
+}
+
 async function drawSpider(dataOfPlayers, spiderId) {
   let GLOB = {
     width: 1190, height: 670,

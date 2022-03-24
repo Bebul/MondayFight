@@ -95,6 +95,7 @@
  6. Jouzolean 200
            </pre>
         </div>
+        <div id="tournament-spec"></div>
     </div>
 
     <div class="boards">
@@ -129,7 +130,7 @@
 <script type="module">
   import {LoadMFData} from "./js/tournamentsData.mjs"
   import {MFPodium} from "./js/podium.mjs"
-  import {createGameListTable, createLeagueTable} from "./js/mondayFight.mjs"
+  import {createGameListTable, createLeagueTable, updateSpecificTournamentHtml} from "./js/mondayFight.mjs"
 
   let mfId = null
   function mainPage(data) {
@@ -155,6 +156,7 @@
     MFPodium.updateSpecialBoards(games)
     createLeagueTable(data, "#leagueTable")
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
+    updateSpecificTournamentHtml("tournament-spec", games.id)
   }
 
   LoadMFData(mainPage)
