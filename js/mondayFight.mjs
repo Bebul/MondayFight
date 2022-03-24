@@ -922,7 +922,11 @@ export function createPlayersTable(theFights, tableId, enableJouzocoins) {
 
 export function updateSpecificTournamentHtml(divId, tournamentId) {
   let spec = [
-    {id: "x6hNptkr", html: "<div style='margin-top:10px'><b>Následující hry byly z turnaje odstraněny.</b><br><img src='img/buta.png'></div>"}
+    {id: "x6hNptkr", html: "<b>Následující hry byly z turnaje odstraněny.</b><br><img src='img/buta.png'>"},
+    {id: "20AI0ybI", html: "<img src='img/vikJavMeme.jpg' style='width:290px'>"},
+    {id: "UZ9MlL1y", html: "<img src='img/mf-og-x.jpg' style='width:290px'>"},
+    {id: "7d6oiMze", html: "<img src='img/mf-og-hot.jpg' style='width:290px'>"},
+    {id: "R77TPv23", html: "<img src='img/mf-og-hot2.jpg' style='width:290px'>"},
   ]
   let s = spec.find(s => s.id === tournamentId)
   if (s) document.getElementById(divId).innerHTML = s.html
