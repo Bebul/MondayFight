@@ -231,7 +231,7 @@ async function addStats(g, report) {
         for(let side in g.players) {
           let player = g.players[side]
           let color = (side == "white") ? "w" : "b"
-          let stats = {}
+          let stats = player.stats || {} // because sensation is already calculated in addExtras
 
           if (result.e[color] > 0) stats.ep = result.e[color]      // number of en passant moves
           if (result.p[color] > 0) stats.promo = result.p[color]   // number of promotions
