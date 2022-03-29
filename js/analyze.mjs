@@ -31,7 +31,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey"
+  "queens", "epCheck", "monkey", "fastest"
 ]
 
 function reporter() {
