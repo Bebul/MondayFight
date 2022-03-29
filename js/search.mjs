@@ -48,6 +48,11 @@ export function searchGames(data, fights, tokens) {
 
   let tokensLow = tokens.map(token => token.toLowerCase())
   let fen = tokens.find(token => token.toLowerCase().startsWith("fen:"))
+  let maxMoves = tokensLow.find(token => token.startsWith("max-moves:"))
+  if (maxMoves) maxMoves = parseInt(maxMoves.match(/max-moves:(\d+)/)[1])
+  let minMoves = tokensLow.find(token => token.startsWith("min-moves:"))
+  if (minMoves) minMoves = parseInt(minMoves.match(/min-moves:(\d+)/)[1])
+  tokensLow = tokensLow.filter(token => !token.startsWith("max-moves:")).filter(token => !token.startsWith("min-moves:"))
   let tokensYes = tokensLow.filter(token => token[0]!='-').filter(token => !token.startsWith("fen:"))
   let tokensNo = tokensLow.filter(token => token[0]==='-').map(token => token.substring(1))
 
@@ -59,47 +64,49 @@ export function searchGames(data, fights, tokens) {
     let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
-        let date = new Date(0); // The 0 there is the key, which sets the date to the epoch
-        date.setUTCSeconds(game.createdAt/1000);
-        let stringBuilder = []
-        stringBuilder.push(JSON.stringify(game, null, 0))
+        if ((!minMoves || 1 + game.ply >= 2 * minMoves) && (!maxMoves || 1 + game.ply <= 2 * maxMoves)) {
+          let date = new Date(0); // The 0 there is the key, which sets the date to the epoch
+          date.setUTCSeconds(game.createdAt/1000);
+          let stringBuilder = []
+          stringBuilder.push(JSON.stringify(game, null, 0))
 
-        let winnerName = ""
-        let loserName = ""
-        if (game.winner==="white") {
-          winnerName = game.players.white.user.name
-          loserName =game.players.black.user.name
-        } else if (game.winner==="black") {
-          winnerName = game.players.black.user.name
-          loserName = game.players.white.user.name
-        }
-        let appended = {
-          date: [date.getFullYear().padLeft(), (date.getMonth()+1).padLeft(), date.getDate().padLeft()].join('/'),
-          winner: winnerName,
-          loser: loserName,
-          white: game.players.white.user.name,
-          black: game.players.black.user.name
-        }
-        stringBuilder.push(
-          ` `,
-          JSON.stringify(appended, null, 0)
-        )
-        let jsonGame = stringBuilder.join("")
-          .toLowerCase()
-          .replace(/"/g, '')
+          let winnerName = ""
+          let loserName = ""
+          if (game.winner==="white") {
+            winnerName = game.players.white.user.name
+            loserName =game.players.black.user.name
+          } else if (game.winner==="black") {
+            winnerName = game.players.black.user.name
+            loserName = game.players.white.user.name
+          }
+          let appended = {
+            date: [date.getFullYear().padLeft(), (date.getMonth()+1).padLeft(), date.getDate().padLeft()].join('/'),
+            winner: winnerName,
+            loser: loserName,
+            white: game.players.white.user.name,
+            black: game.players.black.user.name
+          }
+          stringBuilder.push(
+            ` `,
+            JSON.stringify(appended, null, 0)
+          )
+          let jsonGame = stringBuilder.join("")
+            .toLowerCase()
+            .replace(/"/g, '')
 
-        let foundUnsatisfiedTokenYes = tokensYes.find(token => {
-          return (jsonGame.indexOf(token) < 0)
-        })
-        let existsTokenNo = tokensNo.find(token => {
-          return (jsonGame.indexOf(token) >= 0)
-        })
+          let foundUnsatisfiedTokenYes = tokensYes.find(token => {
+            return (jsonGame.indexOf(token) < 0)
+          })
+          let existsTokenNo = tokensNo.find(token => {
+            return (jsonGame.indexOf(token) >= 0)
+          })
 
-        if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
-          if (fen) {
-            let theFen = fen.substring(4)
-            if(movesContainFen(game.initialFen, game.moves, theFen)) selectedGames.push(game)
-          } else selectedGames.push(game)
+          if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
+            if (fen) {
+              let theFen = fen.substring(4)
+              if(movesContainFen(game.initialFen, game.moves, theFen)) selectedGames.push(game)
+            } else selectedGames.push(game)
+          }
         }
       })
     }
