@@ -322,7 +322,7 @@ function collectAchievements(data, tournamentID, games) {
     for (let color in g.players) {
       let wins = g.winner === color
       let player = g.players[color]
-      if (g.ply && g.ply<19 && wins && g.ply>2) achievements.push(new AchievementFastGame(player, g.ply, g.id))
+      if (g.ply && g.ply<19 && wins && g.ply>2 && g.status !== "timeout") achievements.push(new AchievementFastGame(player, g.ply, g.id))
       if (player.stats) {
         let stats = player.stats
         if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey, g.id))
@@ -534,7 +534,7 @@ function ratingDiffDeco(pl) {
 function getDecorationTrophies(game, player, wins) {
   let decorations = ""
   if (player.berserk == true) decorations += "&#9889;"
-  if (game.ply && game.ply<19 && wins && game.ply>2) decorations += "&#128640;"
+  if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations += "&#128640;"
   if (game.ply && game.ply>=200) decorations += "&#9200;"
   if (wins && game.sensation) decorations += "&#10024;"
   if (player.stats) {
