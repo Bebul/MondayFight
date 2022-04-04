@@ -258,12 +258,13 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     // ratingDiff
     tournament.standing.players.forEach( function(player) {
       let diff = MF.ratingDiff(player, games)
-      if (diff!==undefined) player.diff = diff
+      if (diff!==undefined && !isNaN(diff)) player.diff = diff
+      else player.diff = 0
     })
     // points
     tournament.standing.players.forEach( function(player) {
       let points = MF.points(player, games)
-      if (points!==undefined) player.points = points
+      if (points!==undefined && !isNaN(points)) player.points = points
     })
   }
 
