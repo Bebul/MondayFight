@@ -264,7 +264,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     // points
     tournament.standing.players.forEach( function(player) {
       let points = MF.points(player, games)
-      if (points!==undefined && !isNaN(points)) player.points = points
+      if (points!==undefined) player.points = points
     })
   }
 
