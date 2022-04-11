@@ -64,7 +64,7 @@ export function searchGames(data, fights, tokens) {
     let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
       games.games.forEach(game => {
-        if ((!minMoves || 1 + game.ply >= 2 * minMoves) && (!maxMoves || 1 + game.ply <= 2 * maxMoves)) {
+        if ((!minMoves || 1 + game.ply >= 2 * minMoves) && (!maxMoves || game.ply <= 2 * maxMoves)) {
           let date = new Date(0); // The 0 there is the key, which sets the date to the epoch
           date.setUTCSeconds(game.createdAt/1000);
           let stringBuilder = []
