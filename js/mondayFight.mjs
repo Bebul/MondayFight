@@ -218,7 +218,7 @@ export function getPlayers(theFights) {
   let playersAr = []
   theFights.forEach(fight => {
     fight.standing.players.forEach((player) => {
-      if (!playersAr.includes(player.name)) playersAr.push(player.name)
+      if (MF.playedAGame(player) && !playersAr.includes(player.name)) playersAr.push(player.name)
     })
   })
   return playersAr
