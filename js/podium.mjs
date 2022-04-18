@@ -518,10 +518,12 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
-function getGameResult(g) {
-  if (g.winner === "black") return "0&#8209;1"
-  else if (g.winner === "white") return "1&#8209;0"
-  else return "½&#8209;½"
+function decorateGameResult(g) {
+  let result = "½&#8209;½"
+  if (g.winner === "black") result = "0&#8209;1"
+  else if (g.winner === "white") result = "1&#8209;0"
+
+  return `<a class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
 }
 
 function ratingDiffDeco(pl) {
@@ -632,13 +634,13 @@ function createTip(data, gamesData, tournament, player) {
         if (game.winner == "white") wins++
         if (game.players.white.berserk == true) berserks++
         oponents += game.players.black.rating
-        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
       } else if (game.players.black.user.name == player) {
         games++
         if (game.winner == "black") wins++
         if (game.players.black.berserk == true) berserks++
         oponents += game.players.white.rating
-        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${getGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
       }
     })
 
