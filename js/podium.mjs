@@ -294,6 +294,19 @@ class AchievementLastTimeMate {
   }
 }
 
+class AchievementMarathonWinner {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 45 //less than sensation
+    //this.frame = "bramborova.png"
+    //this.char = "&#9200;"
+    //this.left = 18
+    this.img = "maraton.png"
+    this.desc = "Vítězný maraton"
+    this.game = id
+  }
+}
+
 class Achievement100PercentWinner {
   constructor(player) {
     this.player = player
@@ -352,6 +365,7 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player, g.id))
           if (stats.lucky) achievements.push(new AchievementLastTimeMate(player, g.id))
         }
+        if (wins && g.ply && g.ply>=200) achievements.push(new AchievementMarathonWinner(player, g.id))
       }
     }
   })
