@@ -456,7 +456,7 @@ win {
 
 #achievements {
     max-width: 600px;
-    width: 97vw;
+    width: 100vw;
     text-align: center;
     display: block;
     font-size: 16px;
@@ -474,7 +474,7 @@ win {
 
 .achievementTab {
     max-width: 256px;
-    width: 48vw;
+    width: 50vw;
     display: inline-block;
     position: relative;
 }
@@ -491,7 +491,7 @@ win {
 
 .achievementW110 {
     max-width: 110px;
-    width: 22vw;
+    width: 24vw;
 }
 
 .achievementImg {
@@ -514,11 +514,11 @@ win {
     border: 2px solid black;
     cursor: auto;
 
-    max-width: 120px;
-    width: 22vw;
+    max-width: 123px;
+    width: 23.5vw;
     text-overflow: ellipsis;
 
-    margin: 5px;
+    margin: 2.5px;
 }
 
 .achievementPlayer {
