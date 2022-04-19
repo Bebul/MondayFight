@@ -68,8 +68,8 @@ function createPodium(data, tournamentID, id="podium") {
   }
 }
 
-var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-var months = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
+let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+let months = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
 
 function createTournamentInfo(data, tournamentID, id="info") {
   let tournament = data.findTournament(tournamentID)
@@ -281,6 +281,19 @@ class AchievementSensation {
   }
 }
 
+class AchievementLastTimeMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 40 //less than sensation
+    //this.frame = "bramborova.png"
+    //this.char = "&#8987;"
+    //this.left = 29
+    this.img = "lucky.png"
+    this.desc = "Na poslední chvíli"
+    this.game = id
+  }
+}
+
 class Achievement100PercentWinner {
   constructor(player) {
     this.player = player
@@ -337,6 +350,7 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.piece==="b") achievements.push(new AchievementBishopKiller(player, g.id))
           if (stats.mate.castling) achievements.push(new AchievementCastlingKiller(player, g.id))
           if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player, g.id))
+          if (stats.lucky) achievements.push(new AchievementLastTimeMate(player, g.id))
         }
       }
     }
@@ -374,7 +388,8 @@ function renderAchievements(achievements, maxCount = 20) {
       if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" class="achievementH75 achievementImg">`
       else {
         // used only to render new achievements
-        html += `<div style="font-size:65px; position:absolute; top:10px; left:15px">${achievement.char}</div>`
+        let leftPx = achievement.left || 15
+        html += `<div style="font-size:65px; position:absolute; top:10px; left:${leftPx}px">${achievement.char}</div>`
       }
       html += `</div>`
     } else {
@@ -543,7 +558,8 @@ function getDecorationTrophies(game, player, wins) {
   if (player.stats) {
     let stats = player.stats
     if (stats.monkey) decorations += "&#128053;"
-    if (stats.queens) decorations += "&#9813"
+    if (stats.queens) decorations += "&#9813;"
+    if (stats.lucky) decorations += "&#8987;"
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations += "&#9816;&#129505;"
       else if (stats.mate.piece==="n") decorations += "&#9816;"

@@ -1,5 +1,5 @@
 import {MFPodium} from "./podium.mjs"
-import {toNDJson} from "./mondayFight.mjs"
+import {toNDJson, download} from "./mondayFight.mjs"
 
 export function processAnalyze(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
@@ -150,7 +150,11 @@ function queenSacrificeMatingAttack(history) {
   return false
 }
 
-async function analyzeMoves(g, report) {
+async function analyzeMoves(g, t, report) {
+  let stats = {}
+
+  let tEndTime = (new Date(t.startsAt)).getTime() + t.minutes * 60000
+  if (tEndTime - g.lastMoveAt < 11000 && g.status=="mate") stats.lucky = true;
   let moves = g.moves.split(" ")
   let chess = new Chess()
   let pgn = MFPodium.toPGN(g, true)
@@ -158,7 +162,6 @@ async function analyzeMoves(g, report) {
 
   let history = chess.history({verbose: true})
 
-  let stats = {}
   for(let prop in chess.FLAGS) {
     stats[chess.FLAGS[prop]] = {w:0, b:0}
   }
@@ -208,9 +211,10 @@ async function analyzeMoves(g, report) {
 async function analyzeGame(data, gameId, report) {
   let g = data.findGame(gameId)
   if (g) {
+    let t = data.findTournament(g.tournament)
     await Promise.resolve()
       .then(result => reportHeadline(g, report))
-      .then(result => addStats(g, report))
+      .then(result => addStats(g, t, report))
   } else  {
     report(`<h1>Game ${gameId} not found</h1>`)
   }
@@ -224,9 +228,9 @@ async function analyzeAll(data, report) {
     })
 }
 
-async function addStats(g, report) {
+async function addStats(g, t, report) {
   //console.log(`called ${g.id}`)
-  await analyzeMoves(g, report)
+  await analyzeMoves(g, t, report)
     .then(function(result) {
         for(let side in g.players) {
           let player = g.players[side]
@@ -251,6 +255,10 @@ async function addStats(g, report) {
             if (stats.mate && stats.mate.piece == "k") console.log(`${g.id} mate by king move`)
             if (stats.mate && (stats.mate.to == "f2" || stats.mate.to == "f7")) console.log(`${g.id} weak square f7 / f2`)
             if (stats.monkey) console.log(`${g.id} monkey play ${stats.monkey} moves`)
+            if (g.winner==side && result.lucky) {
+              stats.lucky = true
+              console.log(`${g.id} delivered mate in last 10 secpmds`)
+            }
 
             player.stats = stats
           } // and add it finally
@@ -266,6 +274,9 @@ async function addGamesStats(data, games, report) {
     var  len = (String(base || 10).length - String(this).length)+1;
     return len > 0? new Array(len).join(chr || '0')+this : this;
   }
+
+  let days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  let months = ['ledna','února','března','dubna','května','června','července','srpna','září','října','listopadu','prosince'];
 
   function getStatus(g) {
     let html = `<h2>Processing: ${gamesCount - games.length}/${gamesCount}</h2>`
@@ -284,7 +295,8 @@ async function addGamesStats(data, games, report) {
     let g = games.shift()
     if (g) {
       if (report) report.status(getStatus(g))
-      await addStats(g)
+      let t = data.findTournament(g.tournament)
+      await addStats(g, t)
         .then(promiseTimeout(timeout))
         .then(result => nextStat(data, games, report))
     }
