@@ -355,29 +355,30 @@ function collectAchievements(data, tournamentID, games) {
   return achievements
 }
 
-function renderAchievements(achievements, maxCount = 4) {
+function renderAchievements(achievements, maxCount = 20) {
   let divs = []
   for (let i=0; i < Math.min(achievements.length, maxCount); i++) {
     let achievement = achievements[i]
     let player = achievement.player.user.name
-    let html = `<div style="display: inline-block; position: relative; width:256px"><div class="achievement left">`
+    let html = `<div class="achievementTab"><div class="achievement left">`
     let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
-    html += `<img src="${avatar}" style="max-height: 110px; height: 110px">`
-    html += `<div class="achievementPlayer"><a class="user-link" style="width:110px" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a></div>`
+    html += `<img src="${avatar}" class="achievementH110">`
+    html += `<div class="achievementPlayer"><a class="user-link" class="achievementW110" href="https://lichess.org/@/${player}" target="_blank"><b class="achievementPlayerFont">${player}</b></a></div>`
     html += "</div>"
     divs.push(html)
 
     html = `<div class="achievement right">`
-    if (achievement.img) html += `<img src="img/achievements/${achievement.img}" style="max-height: 110px; height: 110px">`
+    if (achievement.img) html += `<img src="img/achievements/${achievement.img}" class="achievementH110">`
     else if (achievement.frame) {
-      html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" style="max-height: 110px; height: 110px">`
-      if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" style="max-height: 75px; height: 75px; position:absolute; top:19px; left:${achievement.left}px">`
+      html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" class="achievementH110">`
+      if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" class="achievementH75 achievementImg">`
       else {
+        // used only to render new achievements
         html += `<div style="font-size:65px; position:absolute; top:10px; left:15px">${achievement.char}</div>`
       }
       html += `</div>`
     } else {
-      html += `<img src="img/achievements/zlata.png" style="max-height: 110px; height: 110px">`
+      html += `<img src="img/achievements/zlata.png" class="achievementH110">`
     }
     html += `<div class="achievementDesc"><a class="user-link" href="https://lichess.org/${achievement.game}" target="_blank">${achievement.desc}</a></div>`
     html += "</div></div>"
