@@ -681,8 +681,8 @@ Já byl na tomhle turnaji jenom na čumendu.
 <table>`
     } else {
       htmlPre += `<br>
-<span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.floor(oponents/games)}<br>
-Win:&nbsp;${percent(wins/games)}&nbsp;&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+<span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.round(oponents/games)}<br>
+Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
     }
 
     let avatar = Avatars.getAvatar(player)
