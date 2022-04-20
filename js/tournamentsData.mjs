@@ -57,6 +57,23 @@ export let MF = function() {
     return [points, oponent]
   }
 
+  function getAvgOponent(player, games) {
+    let oponent = 0
+    let count = 0
+    games.games.forEach( game => {
+        if (game.players.white.user.name === player.name) {
+          count++
+          oponent += game.players.black.rating
+        }
+        else if (game.players.black.user.name === player.name) {
+          count++
+          oponent += game.players.white.rating
+        }
+      }
+    )
+    return count > 0 ? Math.round(oponent / count) : 0
+  }
+
   function fastestMateSelector(minGame, game) {
     if (game.status !== "mate") return minGame
     if (minGame) {
@@ -143,6 +160,7 @@ export let MF = function() {
     playersCountWhoPlayed: playersCountWhoPlayed,
     ratingDiff: ratingDiff,
     points: getPoints,
+    avgOponent: getAvgOponent,
     fastestMateSelector: fastestMateSelector,
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
@@ -265,6 +283,11 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     tournament.standing.players.forEach( function(player) {
       let points = MF.points(player, games)
       if (points!==undefined) player.points = points
+    })
+    // avgOponent
+    tournament.standing.players.forEach( function(player) {
+      let avgOponent = MF.avgOponent(player, games)
+      if (avgOponent!==undefined) player.avgOponent = avgOponent
     })
   }
 

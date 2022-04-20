@@ -52,6 +52,12 @@ function playerPerformance(fight, playerName) {
   return player.performance
 }
 
+function playerAvgOponent(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || player.avgOponent === undefined) return 0
+  return player.avgOponent
+}
+
 function playerPoints(fight, playerName) {
   if (!fight) return [0,0]
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -198,6 +204,20 @@ function getAvgPerformance(playerName, theFights) {
   } else return 0
 }
 
+function getAvgOponent(playerName, theFights) {
+  let games = getTotalGames(playerName, theFights)
+  if (games > 0) {
+    let total = 0
+    theFights.forEach(
+      fight => {
+        let fgames = playerPoints(fight, playerName)[0] + playerPoints(fight, playerName)[1]
+        total += playerAvgOponent(fight, playerName) * fgames
+      }
+    )
+    return Math.round(total / games)
+  } else return 0
+}
+
 function getTotalJouzocoinsList(playerName, theFights) {
   let total = []
   theFights.forEach(fight => {
@@ -238,6 +258,7 @@ function addFightsPoints(playerOut, playerName, theFights) {
       present: playerPresence(fight, playerName),
       games: playerPoints(fight, playerName)[0]+playerPoints(fight, playerName)[1],
       performance: playerPerformance(fight, playerName),
+      oponent: playerAvgOponent(fight, playerName),
       diff: playerRatingDiff(fight, playerName),
       mate: playerFastestMate(fight, playerName),
       fast: playerFastestGame(fight, playerName),
@@ -251,6 +272,7 @@ function getDataOfPlayers(theFights) {
   let tableData = []
   players.forEach( player => {
       let averagePerformance = getAvgPerformance(player, theFights)
+      let averageOponent = getAvgOponent(player, theFights)
       let totalPoints = getTotalPoints(player, theFights) + averagePerformance / 10000
       let thePlayer = {
         name: player,
@@ -261,6 +283,7 @@ function getDataOfPlayers(theFights) {
         present: getTotalPresence(player, theFights),
         games: getTotalGames(player, theFights),
         avgPerformance: averagePerformance,
+        avgOponent: averageOponent,
         ratingDiff: getTotalRatingDiff(player, theFights),
         fastestMates: getTotalMates(player, theFights),
         fastestGames: getTotalFastest(player, theFights),
@@ -281,6 +304,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
     {title: "Sc", field: "totalScore", resizable:false, headerSortStartingDir:"desc", headerTooltip:"celkové skóre"},
     {title: "G", field: "games", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet her"},
     {title: "P", field: "avgPerformance", resizable:false, headerSortStartingDir:"desc", headerTooltip:"průměrná performance"},
+    {title: "O", field: "avgOponent", resizable:false, headerSortStartingDir:"desc", headerTooltip:"průměrný oponent"},
     {title: "R", field: "ratingDiff", resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
     {title: "M", field: "fastestMates", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší mat"},
     {title: "S", field: "sensations", resizable:false, headerSortStartingDir:"desc", headerTooltip:"senzace turnaje"},
@@ -869,6 +893,7 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'totalPts') value = cellValue.points
   else if (mfMode === 'games') value = cellValue.games
   else if (mfMode === 'avgPerformance') value = cellValue.performance
+  else if (mfMode === 'avgOponent') value = cellValue.oponent
   else if (mfMode === 'ratingDiff') value = cellValue.diff
   else if (mfMode === 'fastestMates') value = cellValue.mate
   else if (mfMode === 'fastestGames') value = cellValue.fast
@@ -892,6 +917,7 @@ function dataSortedFunc(sorters) {
         srt.field === 'totalPts' ||
         srt.field === 'games' ||
         srt.field === 'avgPerformance' ||
+        srt.field === 'avgOponent' ||
         srt.field === 'ratingDiff' ||
         srt.field === 'fastestMates' ||
         srt.field === 'fastestGames' ||

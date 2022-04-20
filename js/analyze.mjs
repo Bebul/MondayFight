@@ -15,7 +15,8 @@ export function processAnalyze(data) {
     "        </div>\n" +
     "        <hr>" +
     "        <div id='analyzeStatus'></div>" +
-    "        <div id='analyzeResult'></div>"
+    "        <div id='analyzeResult'></div>" +
+    "        <button id=\"extras\">Add Tournament Extras</button>"
 
   document.body.appendChild(adminStuff)
 
@@ -26,6 +27,11 @@ export function processAnalyze(data) {
 
   document.getElementById("analyzeAll").onclick = function() {
     analyzeAll(data, reporter())
+  }
+
+  document.getElementById("extras").onclick = function() {
+    data.addExtras()
+    download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
   }
 }
 
