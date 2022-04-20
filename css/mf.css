@@ -577,6 +577,23 @@ win {
     text-decoration: none;
 }
 
+.img100 {
+    max-width: 100px;
+    width: 20vw;
+    float: right;
+    margin: 3px 3px 0 0;
+}
+
+.img100.left {
+    float: left;
+    margin: 0 3px 3px 0;
+}
+
+.img100.right {
+    float: right;
+    margin: 3px 3px 0 0;
+}
+
 @font-face {
     font-family: 'Bahnshrift Light';
     src: url('../fonts/bahnschrift2.ttf');
