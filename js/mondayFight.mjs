@@ -993,6 +993,29 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
   else document.getElementById(divId).innerHTML = ""
 }
 
+export function updateTournamentHtmlAuto(divId, tournamentId, data) {
+  let fight = data.findTournament(tournamentId)
+  let borec = fight.standing.players.reduce(function(current, player) {
+    if (current) {
+      if (player.performance - player.rating > current.performance - current.rating &&
+        player.points && player.points[0] >= 2 && player.points[0]+player.points[1] >= 4) return player
+      else return current
+    } else if (player.points && player.points[0] >= 2 && player.points[0]+player.points[1] >= 4) return player
+    else return null
+  }, null)
+  let borecAvg = fight.standing.players.reduce(function(current, player) {
+    if (current) {
+      if (player.avgOponent > current.avgOponent &&
+        player.points[0]+player.points[1] >= 4) return player
+      else return current
+    } else if (player.points[0]+player.points[1] >= 4) return player
+    else return null
+  }, null)
+  document.getElementById(divId).innerHTML = `<span class="player-blue"><b>${borec.name}</b></span> zahrál o ${borec.performance - borec.rating} lépe, než odpovídá jeho ratingu. Gratulujeme!
+     <span class="player-blue"><b>${borecAvg.name}</b></span> čelil nejtěžším soupeřům s ratingem ${borecAvg.avgOponent} v průměru.
+     `
+}
+
 async function drawSpider(dataOfPlayers, spiderId) {
   let GLOB = {
     width: 1190, height: 670,

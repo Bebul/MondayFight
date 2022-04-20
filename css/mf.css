@@ -368,6 +368,10 @@ td, th {
     color: #1b78d0;
 }
 
+.player-blue {
+    color: #1b78d0;
+}
+
 .tour__standing .player .name {
     display: inline-block;
     padding-right: 5px;

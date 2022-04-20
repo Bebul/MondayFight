@@ -5,7 +5,7 @@ import {
   updateGoogleBar,
   gameListTable,
   getLeagueData,
-  leagueTable, updateSpecificTournamentHtml
+  leagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto
 } from "./mondayFight.mjs"
 
 let placeTxt = ['','first','second','third']
@@ -791,6 +791,7 @@ function nextTournament(data, diff=1) {
   updateMostActivePlayer("gameListTable", gameData, lastMfWinner)
   updateGoogleBar("gameListTableBar", gameData)
   updateSpecificTournamentHtml("tournament-spec", games.id)
+  updateTournamentHtmlAuto("tournament-auto", games.id, data)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
   })

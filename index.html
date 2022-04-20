@@ -95,6 +95,7 @@
  6. Jouzolean 200
            </pre>
         </div>
+        <div id="tournament-auto" style="margin-top: 10px"></div>
         <div id="tournament-spec" style="margin-top: 10px"></div>
     </div>
 
@@ -130,7 +131,7 @@
 <script type="module">
   import {LoadMFData} from "./js/tournamentsData.mjs"
   import {MFPodium} from "./js/podium.mjs"
-  import {createGameListTable, createLeagueTable, updateSpecificTournamentHtml} from "./js/mondayFight.mjs"
+  import {createGameListTable, createLeagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto} from "./js/mondayFight.mjs"
 
   let mfId = null
   function mainPage(data) {
@@ -157,6 +158,7 @@
     createLeagueTable(data, "#leagueTable")
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
     updateSpecificTournamentHtml("tournament-spec", games.id)
+    updateTournamentHtmlAuto("tournament-auto", games.id, data)
   }
 
   LoadMFData(mainPage)
