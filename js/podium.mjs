@@ -201,10 +201,18 @@ class AchievementScholar {
   constructor(player, id) {
     this.player = player
     this.sortVal = 60
-    //this.frame = "zlata.png"
-    //this.char = "&#129409;"
     this.img = "scholar-mate.png"
     this.desc = "Ševcovský mat"
+    this.game = id
+  }
+}
+
+class AchievementLegal {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 180
+    this.img = "legal.png"
+    this.desc = "Námořní kadet"
     this.game = id
   }
 }
@@ -377,6 +385,7 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.enPassant) achievements.push(new AchievementEnPassantKiller(player, g.id))
           if (stats.lucky) achievements.push(new AchievementLastTimeMate(player, g.id))
           if (stats.mate.scholar) achievements.push(new AchievementScholar(player, g.id))
+          if (stats.mate.legal) achievements.push(new AchievementLegal(player, g.id))
         }
         if (wins && g.ply && g.ply>=200) achievements.push(new AchievementMarathonWinner(player, g.id))
       }
@@ -472,6 +481,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementEnPassantKiller(next()),
     new AchievementSensation(next()),
     new AchievementScholar(next()),
+    new AchievementLegal(next()),
     new AchievementMarathonWinner(next()),
     new AchievementLastTimeMate(next()),
     new AchievementNothing(),
@@ -599,6 +609,7 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.piece==="p") decorations += "&#9823;"
       if (stats.mate.piece==="b") decorations += "&#9815;"
       if (stats.mate.scholar) decorations += "&#128098;"
+      if (stats.mate.legal) decorations += "&#9875;"
       if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
     }
   }

@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal"
 ]
 
 function reporter() {
@@ -204,7 +204,7 @@ async function analyzeMoves(g, t, report) {
     if (lastMove.flags.includes("e")) mate.enPassant = true
     if (queenSacrificeMatingAttack(history)) mate.sacrifice = true
     if ((mate.piece === "q" || mate.piece === "b") && (mate.to === "f7" || mate.to === "f2") && history.length <= 18) mate.scholar = true
-
+    if (g.moves.match(/Ne5 [^\s]+ Bxf7\+ Ke7 Nd5#|Ne4  [^\s]+ Bxf2\+ Ke2 Nd4#/)) mate.legal = true
     return mate
   }() : null
 
@@ -267,6 +267,7 @@ async function addStats(g, t, report) {
               console.log(`${g.id} delivered mate in last 10 secpmds`)
             }
             if (stats.mate && stats.mate.scholar) console.log(`${g.id} scholar mate`)
+            if (stats.mate && stats.mate.legal) console.log(`${g.id} legal mate`)
 
             player.stats = stats
           } // and add it finally
