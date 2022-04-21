@@ -577,7 +577,7 @@ win {
     text-decoration: none;
 }
 
-.img100 {
+img.img100 {
     max-width: 100px;
     width: 20vw;
     float: right;
