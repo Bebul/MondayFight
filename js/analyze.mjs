@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest"
+  "queens", "epCheck", "monkey", "fastest", "scholar"
 ]
 
 function reporter() {
@@ -192,8 +192,8 @@ async function analyzeMoves(g, t, report) {
   })
 
   // now mate
-  let mate = (g.status=="mate") ? function(){
-    let loseColor = (g.winner == "white") ? "b" : "w"
+  let mate = (g.status==="mate") ? function(){
+    let loseColor = (g.winner === "white") ? "b" : "w"
     let lastMove = history[history.length-1]
 
     let mate = findKing(loseColor, board)
@@ -203,6 +203,7 @@ async function analyzeMoves(g, t, report) {
     if (lastMove.flags.includes("p")) mate.promotion = true
     if (lastMove.flags.includes("e")) mate.enPassant = true
     if (queenSacrificeMatingAttack(history)) mate.sacrifice = true
+    if ((mate.piece === "q" || mate.piece === "b") && (mate.to === "f7" || mate.to === "f2") && history.length <= 18) mate.scholar = true
 
     return mate
   }() : null
@@ -265,6 +266,7 @@ async function addStats(g, t, report) {
               stats.lucky = true
               console.log(`${g.id} delivered mate in last 10 secpmds`)
             }
+            if (stats.mate && stats.mate.scholar) console.log(`${g.id} scholar mate`)
 
             player.stats = stats
           } // and add it finally

@@ -587,12 +587,11 @@ img.img100 {
 
 .img100.left {
     float: left;
-    margin: 0 3px 3px 0;
 }
 
 .img100.right {
     float: right;
-    margin: 3px 3px 0 0;
+    margin: 3px 0 0 3px;
 }
 
 @font-face {
