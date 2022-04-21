@@ -6,6 +6,7 @@ body {
 
 .article {
     padding: 5px;
+    max-width: 1000px;
 }
 
 .article img {
