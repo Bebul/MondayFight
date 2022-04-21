@@ -373,6 +373,7 @@ function collectAchievements(data, tournamentID, games) {
         let stats = player.stats
         if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey, g.id))
         if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens, g.id))
+        if (stats.sensation) achievements.push(new AchievementSensation(player, g.id))
         if (stats.mate && wins) {
           if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
           else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player, g.id))
@@ -395,12 +396,6 @@ function collectAchievements(data, tournamentID, games) {
   let winner = tournament.podium[0]
   let winRate = winner.nb.win / winner.nb.game
   if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
-
-  let sensation = games.games.reduce(MF.biggestDifferenceWinSelector, null)
-  if (sensation) {
-    sensation.sensation = true // in order to show decoration on player tooltip
-    achievements.push(new AchievementSensation(sensation.players[sensation.winner], sensation.id))
-  }
 
   return achievements
 }
@@ -594,12 +589,12 @@ function getDecorationTrophies(game, player, wins) {
   if (player.berserk == true) decorations += "&#9889;"
   if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations += "&#128640;"
   if (game.ply && game.ply>=200) decorations += "&#9200;"
-  if (wins && game.sensation) decorations += "&#10024;"
   if (player.stats) {
     let stats = player.stats
     if (stats.monkey) decorations += "&#128053;"
     if (stats.queens) decorations += "&#9813;"
     if (stats.lucky) decorations += "&#8987;"
+    if (stats.sensation) decorations += "&#10024;"
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations += "&#9816;&#129505;"
       else if (stats.mate.piece==="n") decorations += "&#9816;"
@@ -614,6 +609,12 @@ function getDecorationTrophies(game, player, wins) {
     }
   }
   return decorations
+}
+
+export function getTrophies(game) {
+  if (game.winner === "white") return getDecorationTrophies(game, game.players.white, true) + "&#9643;" + getDecorationTrophies(game, game.players.black, false)
+  else if (game.winner === "black") return getDecorationTrophies(game, game.players.white, false) + "&#9643;" + getDecorationTrophies(game, game.players.black, true)
+  else return getDecorationTrophies(game, game.players.white, false) + "&#9643;" + getDecorationTrophies(game, game.players.black, false)
 }
 
 function whitePlayerDecorated(game) {

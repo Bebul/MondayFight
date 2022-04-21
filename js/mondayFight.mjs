@@ -1,7 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
-import {Avatars} from "./podium.mjs"
+import {Avatars, getTrophies} from "./podium.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -423,18 +423,22 @@ export function gameListData(games) {
     d.setUTCSeconds(g.createdAt/1000)
     let date = [d.getFullYear().padLeft(), (d.getMonth()+1).padLeft(), d.getDate().padLeft()].join('/')+' '+ [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':')
 
+    let url = "https://lichess.org/" + g.id
+
+    let mainMFURL = window.location.origin + "/MondayFight"
+
     let row = {
       "id": g.id,
-      "date": date,
+      "date": {date: date, html: `<a href="${mainMFURL}/?mf=${g.tournament}" class="result-url">${date}</a>`},
       "speed": g.speed,
-      "url": "https://lichess.org/" + g.id,
       "white": g.players.white.user.name,
       "black": g.players.black.user.name,
-      "result": result,
+      "result": {result: result, html: `<a href="${url}" class="result-url">${result}</a>`},
       "moves": ply,
       "time": time,
       "opening": opening,
-      "status": g.status
+      "status": g.status,
+      "trophy": getTrophies(g)
     }
     tableData.push(row)
   })
@@ -446,27 +450,27 @@ export function createGameListTable(games, tableId, addDate, noStats, winner) {
   let gamesData = gameListData(games)
 
   function detectWhiteWinner(cell, pars) {
-    if (cell._cell.row.data.result=="1-0") return "<b>"+cell.getValue()+"</b>"
+    if (cell._cell.row.data.result.result=="1-0") return "<b>"+cell.getValue()+"</b>"
     else return cell.getValue()
   }
   function detectBlackWinner(cell, pars) {
-    if (cell._cell.row.data.result=="0-1") return "<b>"+cell.getValue()+"</b>"
+    if (cell._cell.row.data.result.result=="0-1") return "<b>"+cell.getValue()+"</b>"
     else return cell.getValue()
   }
   let columnsAr = [{formatter: "rownum", headerSort: false, resizable:false}] //add auto incrementing row number
   if (addDate) {
-    columnsAr.push({title: "date", field: "date", resizable:false})
+    columnsAr.push({title: "date", field: "date", resizable:false, formatter: (cell, pars) => cell.getValue().html, sorter: (a, b) => a.date.localeCompare(b.date)})
   }
   columnsAr = columnsAr.concat([
-    {title: "url", field: "url", resizable:false, formatter:"link", formatterParams:{ labelField:"id", target:"_blank"}},
     {title: "speed", field: "speed", resizable:false, align: "center"},
     {title: "white", field: "white", resizable:false, formatter: detectWhiteWinner},
     {title: "black", field: "black", resizable:false, formatter: detectBlackWinner},
-    {title: "result", field: "result", resizable:false, align: "center"},
+    {title: "result", field: "result", resizable:false, align: "center", formatter: (cell, pars) => cell.getValue().html, sorter: (a, b) => a.result.localeCompare(b.result)},
     {title: "moves", field: "moves", align: "center", resizable:false, formatter: (cell, pars) => Math.floor((cell.getValue()+1)/2) },
     {title: "time", field: "time", align: "center", resizable:false, formatter: (cell, pars) => formatTime(cell.getValue()) },
     {title: "opening", field: "opening", resizable:false},
     {title: "status", field: "status", align: "center", resizable:false},
+    {title: "trophy", field: "trophy", align: "center", resizable:false, formatter: (cell, pars) => cell.getValue()}
   ])
   gameListTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -589,8 +593,8 @@ export function createLeagueTable(data, tableId, spiderId) {
 function getGameListResultStats(gamesData) {
   let white = 0, draw = 0, black = 0
   gamesData.forEach(row => {
-    if (row.result == '1-0') white++
-    else if (row.result == '0-1') black++
+    if (row.result.result == '1-0') white++
+    else if (row.result.result == '0-1') black++
     else draw++
   })
   return ['', white, draw, black]
@@ -622,12 +626,12 @@ function getGameListMostActivePlayerStats(gamesData, winner) {
   let bossBlack = {win: 0, draw: 0, loss: 0}
   gamesData.forEach(row => {
     if (row.white==bossPlayer) {
-      if (row.result == "1-0") bossWhite.win++
-      else if (row.result == "0-1") bossWhite.loss++
+      if (row.result.result == "1-0") bossWhite.win++
+      else if (row.result.result == "0-1") bossWhite.loss++
       else bossWhite.draw++
     } else if (row.black==bossPlayer) {
-      if (row.result == "0-1") bossBlack.win++
-      else if (row.result == "1-0") bossBlack.loss++
+      if (row.result.result == "0-1") bossBlack.win++
+      else if (row.result.result == "1-0") bossBlack.loss++
       else bossBlack.draw++
     }
   })
