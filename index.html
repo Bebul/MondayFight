@@ -84,7 +84,7 @@
     </div>
 
     <div class="leaderboard" style="float: left">
-       <h2>Monday Fight Liga</h2>
+        <h2>Monday Fight Liga <span id="leagueNo"></span></h2>
         <div id="leagueTable">
            <pre>
  1. bebul     450
@@ -155,7 +155,7 @@
     MFPodium.createTournamentInfo(data, games.id)
     MFPodium.createAchievementsInfo(data, games.id, games)
     MFPodium.updateSpecialBoards(games)
-    createLeagueTable(data, "#leagueTable")
+    createLeagueTable(data, "#leagueTable", "leagueNo")
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
     updateSpecificTournamentHtml("tournament-spec", games.id)
     updateTournamentHtmlAuto("tournament-auto", games.id, data)

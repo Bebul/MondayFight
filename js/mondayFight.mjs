@@ -563,14 +563,17 @@ export function getLeagueData(data) {
   let date = new Date(data.findTournament(mfId).startsAt)
 
   let fights = MF.filterUpTo(data.mondayFights(), date)
-  return getLeagueDataOfPlayers(fights, mfId)
+  return {
+    league: getLeagueDataOfPlayers(fights, mfId),
+    count: fights.length
+  }
 }
 
 export var leagueTable
-export function createLeagueTable(data, tableId, spiderId) {
+export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
-  let dataOfPlayers = getLeagueData(data)
+  const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
 
   leagueTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -587,6 +590,10 @@ export function createLeagueTable(data, tableId, spiderId) {
 
   if (spiderId) {
     drawSpider(dataOfPlayers, spiderId)
+  }
+
+  if (leagueNoId) {
+    document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
   }
 }
 
