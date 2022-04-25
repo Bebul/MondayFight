@@ -586,6 +586,7 @@ function ratingDiffDeco(pl) {
 
 function getDecorationTrophies(game, player, wins) {
   let decorations = ""
+  if (game.status === 'noStart' && !wins) decorations += "&#9940;"
   if (player.berserk == true) decorations += "&#9889;"
   if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations += "&#128640;"
   if (game.ply && game.ply>=200) decorations += "&#9200;"
