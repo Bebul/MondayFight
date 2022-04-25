@@ -1,61 +1,38 @@
 import {LoadMFData} from "../js/tournamentsData.mjs"
+import {exploreLine} from "../js/explorer.mjs"
 
 import { createRequire } from 'module'
 const require = createRequire(import.meta.url)
 const fs = require('fs')
 
-let opening = "e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 Bc5"
+let openingLine = "e4 e5 f4 d5 exd5 exf4 Nf3 Nf6 Bc4 Nxd5"
 
-function getPts(g) {
-  if (g.winner && g.winner==="black") return -1
-  else if (g.winner && g.winner==="white") return 1
-  else return 0
-}
-
-function process(data) {
-  let games = []
-  data.forEachGame(g => games.push(g))
-
-  let nextMoveIx = opening.split(" ").length
-  let cont = new Map()
-  games = games.sort()
-  games.forEach(function(g) {
-      if (g.moves.startsWith(opening)) {
-        let moves = g.moves.split(" ")
-        let nextMove = moves[nextMoveIx]
-        if (nextMove) {
-          let games = cont.get(nextMove) || []
-          games.push(g)
-          cont.set(nextMove, games)
-        }
+function logOpening(exp) {
+  console.log(exp.opening)
+  let color = "white"
+  if (exp.opening.split(" ").length % 2 === 1) color = "black"
+  exp.lines.forEach(line => {
+      let players = new Map()
+      line.games.forEach(g => {
+        let name = g.players[color].user.name
+        if (players.has(name)) players.set(name, players.get(name)+1)
+        else players.set(name, 1)
+      })
+      let maxPl = ["", 0]
+      for(let pl of players.entries()) {
+        if (pl[1] > maxPl[1]) maxPl = pl
       }
-    })
-
-  console.log(opening)
-  for (let entry of cont.entries()) {
-    let white = 0
-    let black = 0
-    let draws = 0
-    let openSub = new Set()
-    let openPart = new Set()
-    let openAll = new Set()
-    entry[1].forEach(function(g) {
-      if (g.opening && g.opening.name) {
-        openSub.add(g.opening.name.split(":")[0])
-        openPart.add(g.opening.name.split(",")[0])
-        openAll.add(g.opening.name)
+      console.log(` -> ${line.move} ${line.w} (${line.d}) ${line.b} [${maxPl[0]} ${maxPl[1]}x] ${line.name || ""}`)
+      if (line.games.length <=10) {
+        line.games.forEach(g => {
+            let result = ""
+            if (g.winner === "black") result = "0-1"
+            else if (g.winner === "white") result = "1-0"
+            else result = "½-½"
+            console.log(`      ${g.players.white.user.name} : ${g.players.black.user.name} ${result}`)
+        })
       }
-      let pts = getPts(g)
-      if (pts < 0) black++
-      else if (pts > 0) white++
-      else draws++
-    })
-    let opening = ""
-    if (openAll.size==1) opening = openAll.values().next().value
-    else if (openPart.size==1) opening = openPart.values().next().value
-    else if (openSub.size==1) opening = openSub.values().next().value
-    console.log(` -> ${entry[0]} ${white} (${draws}) ${black} ${opening}`)
-  }
+  })
 }
 
 function ndjson2array(text) {
@@ -79,4 +56,4 @@ const loadData = (path) => {
 let loadedTounaments = parse(ndjson2array(loadData("../data/tournaments.ndjson")))
 let loadedGames = parse(ndjson2array(loadData("../data/tournamentGames.ndjson")))
 
-LoadMFData(process, loadedTounaments, loadedGames)
+LoadMFData(d => logOpening(exploreLine(d, openingLine)), loadedTounaments, loadedGames)

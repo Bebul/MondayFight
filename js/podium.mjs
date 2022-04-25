@@ -618,7 +618,7 @@ export function getTrophies(game) {
   else return getDecorationTrophies(game, game.players.white, false) + "&#9643;" + getDecorationTrophies(game, game.players.black, false)
 }
 
-function whitePlayerDecorated(game) {
+export function whitePlayerDecorated(game) {
   let ratingDiff = ""
   ratingDiff = ratingDiffDeco(game.players.white)
   let wins = game.winner === "white"
@@ -633,7 +633,7 @@ function whitePlayerDecorated(game) {
   }
 }
 
-function blackPlayerDecorated(game) {
+export function blackPlayerDecorated(game) {
   let ratingDiff = ""
   ratingDiff = ratingDiffDeco(game.players.black)
 
