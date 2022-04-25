@@ -70,7 +70,7 @@
     </div>
 
     <div class="leaderboard" style="float: left">
-        <h1>Monday Fight Liga</h1>
+        <h2>Monday Fight Liga <span id="leagueNo"></span></h2>
         <div>
         <div id="leagueTable" style="float: left">
            <pre>
@@ -127,7 +127,7 @@
     processAdmin(data)
     let year = (new Date()).getFullYear()
     let thisYear = MF.filterYear(data.mondayFights(), year)
-    createLeagueTable(data, "#leagueTable", "spider")
+    createLeagueTable(data, "#leagueTable", "leagueNo", "spider")
     createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
     createPlayersTable(MF.last10(data.mondayFights()), "#last10", false)
   }
