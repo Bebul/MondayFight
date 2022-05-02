@@ -825,8 +825,11 @@ function nextTournament(data, diff=1) {
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
   })
+
   let leagueData = getLeagueData(data)
-  leagueTable.setData(leagueData).then(function (){
+  let leagueNoEl = document.getElementById("leagueNo")
+  if (leagueNoEl) leagueNoEl.innerHTML = `${leagueData.count}.týden`
+  leagueTable.setData(leagueData.league).then(function (){
     leagueTable.redraw(true)
   })
 }
