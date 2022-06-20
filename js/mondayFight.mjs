@@ -1024,7 +1024,9 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
     {id: "kbGavs7v", html: "<img src='img/riegerovy-sady-jouzolean.jpg' style='width:290px'>" +
           "<br><br><b>Jouzolean:</b>Hlásím, že dnešní turnaj v Riegerových sadech jsme s Tekelem ovládli. 😎👌😁 Zde <a href='http://chess-results.com/tnr646946.aspx?lan=5&art=1&flag=30'>výsledky.</a><br><br>" +
           "<a href='https://lichess.org/@/DJ-Pesec'><img src='img/buki-pesec-dobris.jpg' style='width:290px'></a><br><br><b>Bukowskic:</b> Neuvěřitelný, koho potkáte na nedělní mši na prvním svatém přijímání dětí! Kdo myslíte, že to je? <i>(5.6.2022, Dobříš)</i><br><br>"},
-
+    {id: "QyFvQ3NF", html: "<b>Jouzolean:</b> Hlásíme, že Jouzolean i Tekele dnešní turnaj strategicky vynechají<br>" +
+        "<b>Bukowskic:</b> 🤩<br><br>" +
+        "<img src='img/iron-maden.jpg' style='width:290px'><br><b>Jouzolean:</b> Iron maiden"},
 
   ]
   let s = spec.find(s => s.id === tournamentId)
