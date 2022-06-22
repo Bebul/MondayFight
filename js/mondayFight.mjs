@@ -1027,6 +1027,7 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
     {id: "QyFvQ3NF", html: "<b>Jouzolean:</b> Hlásíme, že Jouzolean i Tekele dnešní turnaj strategicky vynechají<br>" +
         "<b>Bukowskic:</b> 🤩<br><br>" +
         "<img src='img/iron-maden.jpg' style='width:290px'><br><b>Jouzolean:</b> Iron maiden<br><br>" +
+        "<b>Bébul:</b> Jouzoleanovou absencí se stalo, že <b>bukowskic</b> znovu opanoval čelo tabulky a nedosti na tom, <b>RychlyLenochod</b> se vyhoupl v počtu 270 odehraných partií na čelo nejaktivnějšího hráče turnaje! Gratulujeme!<br><br>" +
         "<b>Bébul:</b> přečtěte si nové články v aktualitách. Například kliknutím na následující obrázek..." +
         "<a href='actualities.html#fairplay'><img src='img/havel-evangelista.jpg' style='margin-top:5px;width:290px'></a>" +
         "<div align='center'><i>Bacha Vašku, máš napadenou dámu!</i></div>"},
