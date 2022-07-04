@@ -1031,6 +1031,8 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<b>Bébul:</b> přečtěte si nové články v aktualitách. Například kliknutím na následující obrázek..." +
         "<a href='actualities.html#fairplay'><img src='img/havel-evangelista.jpg' style='margin-top:5px;width:290px'></a>" +
         "<div align='center'><i>Bacha Vašku, máš napadenou dámu!</i></div>"},
+    {id: "UdiV7hEG", html: "Gratulujeme <a href='https://lichess.org/@/Margarita_Vlasenko'>Margaritě</a> ke krásnému vítězství v Monday Fights turnaji!" +
+        "<img src='img/bukowskic-nacelnik.jpg' style='width:290px'><br>Propagace šachu na indiánském táboře. Náčelníkem sám veliký Bukowskic, šamanem Bébul, z dalších hráčů Snílek a Mráček."},
 
   ]
   let s = spec.find(s => s.id === tournamentId)
