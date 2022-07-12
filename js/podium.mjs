@@ -229,6 +229,18 @@ class AchievementArabian {
   }
 }
 
+class AchievementFullMaterial {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 100
+    this.img = "fullmaterial.png"
+    //this.frame = "bramborova.png"
+    //this.char = "&#129421;"
+    this.desc = "Plnej<br>materiál"
+    this.game = id
+  }
+}
+
 class AchievementAnastasia {
   constructor(player, id) {
     this.player = player
@@ -437,6 +449,7 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
           if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
           if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
+          if (stats.mate.fullmaterial && !stats.mate.scholar) achievements.push(new AchievementFullMaterial(player, g.id))
         }
         if (wins && g.ply && g.ply>=200) achievements.push(new AchievementMarathonWinner(player, g.id))
       }
@@ -527,6 +540,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementSensation(next()),
     new AchievementScholar(next()),
     new AchievementAnastasia(next()),
+    new AchievementFullMaterial(next()),
     new AchievementArabian(next()),
     new AchievementBlackburne(next()),
     new AchievementHalfburne(next()),
@@ -661,9 +675,10 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.scholar) decorations += "&#128098;"
       if (stats.mate.legal) decorations += "&#9875;"
       if (stats.mate.arabian) decorations += "&#128115;"
-      if (stats.mate.anastasia) decorations += "&#128014;"
+      if (stats.mate.anastasia) decorations += "&#128096;"
       if (stats.mate.halfburne) decorations += "&#129492;"
       if (stats.mate.blackburneMate) decorations += "&#129492;"
+      if (stats.mate.fullmaterial && !stats.mate.scholar) decorations += "&#129421;"
       if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
     }
   }

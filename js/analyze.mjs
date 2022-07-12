@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial"
 ]
 
 function reporter() {
@@ -176,6 +176,16 @@ function anastasiaMate(chess, loseColor, mate) {
   return false
 }
 
+function countPieces(board, color) {
+  let count = 0
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j] && board[i][j].color === color) count++
+    }
+  }
+  return count
+}
+
 function findKing(color, board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -294,6 +304,7 @@ async function analyzeMoves(g, t, report) {
   // now mate
   let mate = (g.status==="mate") ? function(){
     let loseColor = (g.winner === "white") ? "b" : "w"
+    let winColor = (g.winner === "white") ? "w" : "b"
     let lastMove = history[history.length-1]
 
     let mate = findKing(loseColor, board)
@@ -311,6 +322,7 @@ async function analyzeMoves(g, t, report) {
       if (!isLastRankOrFile(mate.square)) mate.halfburne = true
       else mate.blackburneMate = true // mated king must not be in the center
     }
+    if (countPieces(board, winColor)===16) mate.fullmaterial = true
     return mate
   }() : null
 
@@ -378,6 +390,7 @@ async function addStats(g, t, report) {
             if (stats.mate && stats.mate.anastasia) console.log(`${g.id} anastasia's mate`)
             if (stats.mate && stats.mate.blackburne) console.log(`${g.id} Blackburne's mate`)
             if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
+            if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate ***********`)
 
             player.stats = stats
           } // and add it finally
