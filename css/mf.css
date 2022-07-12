@@ -63,6 +63,10 @@ body {
     .body {
         font-size: calc(9px + 6 * ((100vw - 320px) / 180));
     }
+
+    #tournament-spec, #tournament-auto, #surpriseGameId {
+        font-size: 1.4em;
+    }
 }
 
 @media only screen and (min-width: 500px) {
@@ -611,4 +615,12 @@ img.img100 {
     font-family: 'FjallaOne';
     src: url('../fonts/FjallaOne-Regular.otf');
     font-style: normal;
+}
+
+#tournament-spec img {
+    width:100%;
+}
+
+#tournament-spec {
+    margin: 10px 5px 0 5px;
 }
