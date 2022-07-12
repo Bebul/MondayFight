@@ -217,6 +217,52 @@ class AchievementLegal {
   }
 }
 
+class AchievementArabian {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 100
+    this.img = "arabian.png"
+    //this.frame = "zlata.png"
+    //this.char = "&#128115;"
+    this.desc = "Arabský<br>mat"
+    this.game = id
+  }
+}
+
+class AchievementAnastasia {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 100
+    this.img = "anastasia.png"
+    //this.frame = "tyrkysova.png"
+    //this.char = "&#128014;"
+    this.desc = "Anastasia<br>mat"
+    this.game = id
+  }
+}
+
+class AchievementBlackburne {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 120
+    this.img = "blackburne.png"
+    //this.frame = "stribrna.png"
+    this.desc = "Blackburne<br>mat"
+    this.game = id
+  }
+}
+
+class AchievementHalfburne {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 110
+    this.img = "blackburne.png"
+    //this.frame = "stribrna.png"
+    this.desc = "Blackburne<br>v centru"
+    this.game = id
+  }
+}
+
 class AchievementKnightKiller {
   constructor(player, id) {
     this.player = player
@@ -387,6 +433,10 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.lucky) achievements.push(new AchievementLastTimeMate(player, g.id))
           if (stats.mate.scholar) achievements.push(new AchievementScholar(player, g.id))
           if (stats.mate.legal) achievements.push(new AchievementLegal(player, g.id))
+          if (stats.mate.arabian) achievements.push(new AchievementArabian(player, g.id))
+          if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
+          if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
+          if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
         }
         if (wins && g.ply && g.ply>=200) achievements.push(new AchievementMarathonWinner(player, g.id))
       }
@@ -606,6 +656,10 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.piece==="b") decorations += "&#9815;"
       if (stats.mate.scholar) decorations += "&#128098;"
       if (stats.mate.legal) decorations += "&#9875;"
+      if (stats.mate.arabian) decorations += "&#128115;"
+      if (stats.mate.anastasia) decorations += "&#128014;"
+      if (stats.mate.halfburne) decorations += "&#129492;"
+      if (stats.mate.blackburneMate) decorations += "&#129492;"
       if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
     }
   }

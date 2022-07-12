@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne"
 ]
 
 function reporter() {
@@ -89,6 +89,93 @@ function countQueens(board, color) {
   return queens
 }
 
+function isMateAfterRemove(chess, r, f) {
+  let squares = chess.SQUARES
+  let square = squares[8*r+f]
+  let sq = chess.remove(square)
+  let isMate = chess.in_checkmate()
+  chess.put(sq, square)
+  return isMate
+}
+
+function isLastRankOrFile(square) {
+  let file = square.charAt(0)
+  let rank = square.charAt(1)
+  return (file==='a' || file==='h' || rank==='1' || rank==='8')
+}
+
+function blackburneMate(chess, loseColor, mate) {
+  if (mate.piece !== 'b') return false // must be bishop mate
+
+  let color = loseColor==='w' ? 'b' : 'w'
+  let board = chess.board()
+  let knights = findPieces('n', color, board)
+  let knightIsImportant = knights.find(square => {
+    let sq = chess.SquaresMap[square]
+    return !isMateAfterRemove(chess, sq >> 4, sq & 15)
+  })
+  if (!knightIsImportant) return false
+
+  let bishops = findPieces('b', color, board)
+  let uselessBishop = bishops.length < 2 || bishops.find(square => {
+    let sq = chess.SquaresMap[square]
+    return isMateAfterRemove(chess, sq >> 4, sq & 15)
+  })
+
+  return !uselessBishop
+}
+
+function arabianMate(chess, loseColor, mate) {
+  let board = chess.board()
+  if (mate.square == 'a8' && board[2][2] && board[2][2].type=="n" && board[2][2].color!=loseColor) {
+    return ((board[0][1] && board[0][1].type=="r" && board[0][1].color!=loseColor) || (board[1][0] && board[1][0].type=="r" && board[1][0].color!=loseColor))
+      && !isMateAfterRemove(chess,2,2)
+  }
+  if (mate.square == 'h8' && board[2][5] && board[2][5].type=="n" && board[2][5].color!=loseColor) {
+    return ((board[0][6] && board[0][6].type=="r" && board[0][6].color!=loseColor) || (board[1][7] && board[1][7].type=="r" && board[1][7].color!=loseColor))
+      && !isMateAfterRemove(chess,2,5)
+  }
+  if (mate.square == 'a1' && board[5][2] && board[5][2].type=="n" && board[5][2].color!=loseColor) {
+    return ((board[7][1] && board[7][1].type=="r" && board[7][1].color!=loseColor) || (board[6][0] && board[6][0].type=="r" && board[6][0].color!=loseColor))
+      && !isMateAfterRemove(chess,5,2)
+  }
+  if (mate.square == 'h1' && board[5][5] && board[5][5].type=="n" && board[5][5].color!=loseColor) {
+    return ((board[7][6] && board[7][6].type=="r" && board[7][6].color!=loseColor) || (board[6][7] && board[6][7].type=="r" && board[6][7].color!=loseColor))
+      && !isMateAfterRemove(chess,5,5)
+  }
+  return false
+}
+
+function anastasiaMate(chess, loseColor, mate) {
+  let board = chess.board()
+  if (mate.piece!='r') return false
+  let file = mate.square.charCodeAt(0)-96
+  let rank = mate.square.charAt(1)
+  let rookFile = mate.to.charCodeAt(0)-96
+  let rookRank = mate.to.charAt(1)
+  if (file == '1' && rookFile == file &&
+    board[8-rank][1] && board[8-rank][1].type=='p' && board[8-rank][1].color==loseColor &&
+    board[8-rank][3] && board[8-rank][3].type=='n' && board[8-rank][3].color!=loseColor) {
+    return !isMateAfterRemove(chess,8-rank,3)
+  }
+  if (file == '8' && rookFile == file &&
+    board[8-rank][6] && board[8-rank][6].type=='p' && board[8-rank][6].color==loseColor &&
+    board[8-rank][4] && board[8-rank][4].type=='n' && board[8-rank][4].color!=loseColor) {
+    return !isMateAfterRemove(chess,8-rank,4)
+  }
+  if (rank == '1' && rookRank == rank &&
+    board[6][file-1] && board[6][file-1].type=='p' && board[6][file-1].color==loseColor &&
+    board[4][file-1] && board[4][file-1].type=='n' && board[4][file-1].color!=loseColor) {
+    return !isMateAfterRemove(chess, 4,file-1)
+  }
+  if (rank == '8' && rookRank == rank &&
+    board[1][file-1] && board[1][file-1].type=='p' && board[1][file-1].color==loseColor &&
+    board[3][file-1] && board[3][file-1].type=='n' && board[3][file-1].color!=loseColor) {
+    return !isMateAfterRemove(chess,3,file-1)
+  }
+  return false
+}
+
 function findKing(color, board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
@@ -103,6 +190,19 @@ function findKing(color, board) {
     }
   }
   return null
+}
+
+function findPieces(type, color, board) {
+  let ret = []
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      let sq = board[i][j]
+      if (sq && sq.type===type && sq.color===color) {
+        ret.push(algebraic(i,j))
+      }
+    }
+  }
+  return ret
 }
 
 var CHESS_SQUARES = {
@@ -205,6 +305,12 @@ async function analyzeMoves(g, t, report) {
     if (queenSacrificeMatingAttack(history)) mate.sacrifice = true
     if ((mate.piece === "q" || mate.piece === "b") && (mate.to === "f7" || mate.to === "f2") && history.length <= 18) mate.scholar = true
     if (g.moves.match(/Ne5 [^\s]+ Bxf7\+ Ke7 Nd5#|Ne4  [^\s]+ Bxf2\+ Ke2 Nd4#/)) mate.legal = true
+    if (arabianMate(chess, loseColor, mate)) mate.arabian = true
+    if (anastasiaMate(chess, loseColor, mate)) mate.anastasia = true
+    if (blackburneMate(chess, loseColor, mate)) {
+      if (!isLastRankOrFile(mate.square)) mate.halfburne = true
+      else mate.blackburneMate = true // mated king must not be in the center
+    }
     return mate
   }() : null
 
@@ -264,10 +370,14 @@ async function addStats(g, t, report) {
             if (stats.monkey) console.log(`${g.id} monkey play ${stats.monkey} moves`)
             if (g.winner==side && result.lucky) {
               stats.lucky = true
-              console.log(`${g.id} delivered mate in last 10 secpmds`)
+              console.log(`${g.id} delivered mate in last 10 seconds`)
             }
             if (stats.mate && stats.mate.scholar) console.log(`${g.id} scholar mate`)
             if (stats.mate && stats.mate.legal) console.log(`${g.id} legal mate`)
+            if (stats.mate && stats.mate.arabian) console.log(`${g.id} arabian mate`)
+            if (stats.mate && stats.mate.anastasia) console.log(`${g.id} anastasia's mate`)
+            if (stats.mate && stats.mate.blackburne) console.log(`${g.id} Blackburne's mate`)
+            if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
 
             player.stats = stats
           } // and add it finally
