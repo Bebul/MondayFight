@@ -526,6 +526,10 @@ function testAchievementsInfo(id="achievements") {
     new AchievementEnPassantKiller(next()),
     new AchievementSensation(next()),
     new AchievementScholar(next()),
+    new AchievementAnastasia(next()),
+    new AchievementArabian(next()),
+    new AchievementBlackburne(next()),
+    new AchievementHalfburne(next()),
     new AchievementLegal(next()),
     new AchievementMarathonWinner(next()),
     new AchievementLastTimeMate(next()),
@@ -893,6 +897,7 @@ export let MFPodium = {
   createResults: createResults,
   createTournamentInfo: createTournamentInfo,
   createAchievementsInfo: createAchievementsInfo,
+  testAchievementsInfo: testAchievementsInfo,
   updateSpecialBoards: updateSpecialBoards,
   cancelAllTips: cancelAllTips,
   toPGN: toPGN
