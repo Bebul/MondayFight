@@ -237,6 +237,8 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     // add each game length ... ply
     games.games.forEach(game => {
       game.ply = game.moves.split(" ").length
+      if (game.players.white.stats) delete game.players.white['stats']
+      if (game.players.black.stats) delete game.players.black['stats']
     })
     // sensation
     let sensationGame = games.games.reduce(MF.biggestDifferenceWinSelector, null)

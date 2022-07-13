@@ -83,7 +83,7 @@
 
         <div style="margin: 10px 0">
             <div>Zadejte, prosím, svá ctěnná kritéria:
-                <input type="text" id="searchInput" value="jouzolean winner:bebul black:bebul" style="width:100%">
+                <input type="text" id="searchInput" value="bishopSac loser:bukowskic" style="width:100%">
                 <br>
                 <button id="searchButton">Hledej šmudlo, hledej</button>
             </div>
@@ -115,7 +115,7 @@
 
     let url = new URL(window.location.href)
     let searchParam = url.searchParams.get("q")
-    if (searchParam === null) searchParam = "jouzolean winner:bebul black:bebul"
+    if (searchParam === null) searchParam = "bishopSac loser:bukowskic"
     document.getElementById("searchInput").value = searchParam
 
     let newUrl = window.location.pathname + "?q=" + encodeURIComponent(searchParam)

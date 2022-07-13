@@ -314,11 +314,11 @@ class AchievementKingKiller {
 class AchievementQueenSacrifice {
   constructor(player, id) {
     this.player = player
-    this.sortVal = 150
-    //this.frame = "zlata.png"
-    //this.char = "&#x1F478;"
-    this.img = "queen-sacrifice.png"
-    this.desc = "Útok s obětí dámy"
+    this.sortVal = 100
+    this.frame = "krvava.png"
+    this.pic = "kralovna.png"
+    this.left = 21
+    this.desc = "Dáma<br>za mat"
     this.game = id
   }
 }
@@ -357,6 +357,17 @@ class AchievementSensation {
     this.desc = "Senzace turnaje"
     this.game = id
   }
+}
+
+class AchievementBishopSac {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 100
+    this.frame = "krvava.png"
+    this.pic = "strelec.png"
+    this.left = 24
+    this.desc = "Oběť<br>střelce"
+    this.game = id  }
 }
 
 class AchievementLastTimeMate {
@@ -432,6 +443,7 @@ function collectAchievements(data, tournamentID, games) {
         if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey, g.id))
         if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens, g.id))
         if (stats.sensation) achievements.push(new AchievementSensation(player, g.id))
+        if (stats.bishopSac && wins) achievements.push(new AchievementBishopSac(player, g.id))
         if (stats.mate && wins) {
           if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
           else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player, g.id))
@@ -535,9 +547,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBishopKiller(next()),
     new AchievementKingKiller(next()),
     new AchievementQueenSacrifice(next()),
-    new AchievementCastlingKiller(next()),
-    new AchievementEnPassantKiller(next()),
-    new AchievementSensation(next()),
+    new AchievementBishopSac(next()),
     new AchievementScholar(next()),
     new AchievementAnastasia(next()),
     new AchievementFullMaterial(next()),
@@ -545,6 +555,9 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBlackburne(next()),
     new AchievementHalfburne(next()),
     new AchievementLegal(next()),
+    new AchievementCastlingKiller(next()),
+    new AchievementEnPassantKiller(next()),
+    new AchievementSensation(next()),
     new AchievementMarathonWinner(next()),
     new AchievementLastTimeMate(next()),
     new AchievementNothing(),
@@ -553,7 +566,7 @@ function testAchievementsInfo(id="achievements") {
 
   let el = document.getElementById(id)
   if (el) {
-    achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
+    //achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
 
     let divs = renderAchievements(achievements, 1000)
     let html = `${divs.join("")}`
@@ -664,10 +677,11 @@ function getDecorationTrophies(game, player, wins) {
     if (stats.queens) decorations += "&#9813;"
     if (stats.lucky) decorations += "&#8987;"
     if (stats.sensation) decorations += "&#10024;"
+    if (stats.bishopSac && wins) decorations += "<span style='color:red'>&#9815;</span>"
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations += "&#9816;&#129505;"
       else if (stats.mate.piece==="n") decorations += "&#9816;"
-      if (stats.mate.sacrifice) decorations += "&#x1F478;"
+      if (stats.mate.sacrifice) decorations += "<span style='color:red'>&#9813;</span>"
       if (stats.mate.centerMate) decorations += "&#129409;"
       if (stats.mate.piece==="k") decorations += "&#129332;"
       if (stats.mate.piece==="p") decorations += "&#9823;"

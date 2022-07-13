@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac"
 ]
 
 function reporter() {
@@ -266,6 +266,55 @@ function queenSacrificeMatingAttack(history) {
   return false
 }
 
+let bishopsa = 0
+let bishopsh = 0
+function analyzeBishopSac(g, history, stats) {
+  if (g.winner) {
+    if (g.winner === "white" && g.moves.match(/Bxh6 gxh6/) && !g.moves.match(/Bxh6 gxh6 .xf6/)) {
+      let move = history.find(m => m.san === 'Bxh6' && m.color === 'w')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na sloupci h ${++bishopsh}x`)
+        stats.bishopSac = true
+      }
+    }
+    if (g.winner === "black" && g.moves.match(/Bxh3 gxh3/) && !g.moves.match(/Bxh3 gxh3 .xf3/)) {
+      let move = history.find(m => m.san === 'Bxh3' && m.color === 'b')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na sloupci h ${++bishopsh}x`)
+        stats.bishopSac = true
+      }
+    }
+    if (g.winner === "white" && g.moves.match(/Bxa6 bxa6/) && !g.moves.match(/Bxa6 bxa6 .xc6/)) {
+      let move = history.find(m => m.san === 'Bxa6' && m.color === 'w')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na sloupci a ${++bishopsa}x`)
+        stats.bishopSac = true
+      }
+    }
+    if (g.winner === "black" && g.moves.match(/Bxa3 bxa3/) && !g.moves.match(/Bxa3 bxa3 .xc3/)) {
+      let move = history.find(m => m.san === 'Bxa3' && m.color === 'b')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na sloupci a ${++bishopsa}x`)
+        stats.bishopSac = true
+      }
+    }
+    if (g.winner === "white" && g.moves.match(/Bxh7 Kxh7/)) {
+      let move = history.find(m => m.san === 'Bxh7' && m.color === 'w')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na h7 ${++bishopsh}x`)
+        stats.bishopSac = true
+      }
+    }
+    if (g.winner === "black" && g.moves.match(/Bxh2 Kxh2/)) {
+      let move = history.find(m => m.san === 'Bxh2' && m.color === 'b')
+      if (move && move.captured === 'p') {
+        console.log(`${g.id} oběť střelce na h2 ${++bishopsh}x`)
+        stats.bishopSac = true
+      }
+    }
+  }
+}
+
 async function analyzeMoves(g, t, report) {
   let stats = {}
 
@@ -300,6 +349,7 @@ async function analyzeMoves(g, t, report) {
       if (m.flags.includes("e") && m.san.includes("+")) stats.epCheck[m.color]++
     }
   })
+  analyzeBishopSac(g, history, stats);
 
   // now mate
   let mate = (g.status==="mate") ? function(){
@@ -367,6 +417,7 @@ async function addStats(g, t, report) {
           if (result.epCheck[color] > 0) stats.epCheck = true
           if (result.queens[color] > 2) stats.queens = result.queens[color]
           if (result.monkey[color] >= 5) stats.monkey = result.monkey[color]
+          if (result.bishopSac) stats.bishopSac = true
           if (g.winner==side && result.mate) stats.mate = result.mate
           if (Object.keys(stats).length > 0) {
             if (stats.queens) console.log(`${g.id} has ${stats.queens} queens`)
@@ -376,7 +427,7 @@ async function addStats(g, t, report) {
             if (stats.mate && stats.mate.centerMate) console.log(`${g.id} center mate`)
             if (stats.mate && stats.mate.promotion) console.log(`${g.id} promotion mate`)
             if (stats.mate && stats.mate.castling) console.log(`${g.id} castling mate`)
-            if (stats.mate && stats.mate.queenSac) console.log(`${g.id} queen sacrifice attack`)
+            if (stats.mate && stats.mate.sacrifice) console.log(`${g.id} queen sacrifice attack`)
             if (stats.mate && stats.mate.piece == "k") console.log(`${g.id} mate by king move`)
             if (stats.mate && (stats.mate.to == "f2" || stats.mate.to == "f7")) console.log(`${g.id} weak square f7 / f2`)
             if (stats.monkey) console.log(`${g.id} monkey play ${stats.monkey} moves`)
@@ -388,9 +439,9 @@ async function addStats(g, t, report) {
             if (stats.mate && stats.mate.legal) console.log(`${g.id} legal mate`)
             if (stats.mate && stats.mate.arabian) console.log(`${g.id} arabian mate`)
             if (stats.mate && stats.mate.anastasia) console.log(`${g.id} anastasia's mate`)
-            if (stats.mate && stats.mate.blackburne) console.log(`${g.id} Blackburne's mate`)
+            if (stats.mate && stats.mate.blackburneMate) console.log(`${g.id} Blackburne's mate`)
             if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
-            if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate ***********`)
+            if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate`)
 
             player.stats = stats
           } // and add it finally
