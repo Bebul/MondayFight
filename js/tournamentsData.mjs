@@ -104,6 +104,14 @@ export let MF = function() {
     } else return game
   }
 
+  function fastestDecisiveGameSelector(minGame, game) {
+    if (game.winner === undefined || game.status === "noStart" || game.ply <= 1) return minGame
+    if (minGame) {
+      if (game.ply < minGame.ply) return game
+      else return minGame
+    } else return game
+  }
+
   function filterYear(theFights, year) {
     if (year < 0) {
       let today = new Date()
@@ -151,7 +159,8 @@ export let MF = function() {
   function winner(game) {
     if (game) {
       if (game.winner === 'black') return game.players.black
-      else return game.players.white
+      else if (game.winner === 'white') return game.players.white
+      else return undefined
     }
   }
 
@@ -164,6 +173,7 @@ export let MF = function() {
     fastestMateSelector: fastestMateSelector,
     biggestDifferenceWinSelector: biggestDifferenceWinSelector,
     fastestGameSelector: fastestGameSelector,
+    fastestDecisiveGameSelector: fastestDecisiveGameSelector,
     filterYear: filterYear,
     filterUpTo: filterUpTo,
     last10: last10,
@@ -240,6 +250,14 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       if (game.players.white.stats) delete game.players.white['stats']
       if (game.players.black.stats) delete game.players.black['stats']
     })
+    tournament.standing.players.forEach(player => {
+      delete player.sensation
+      delete player.fast
+      delete player.mate
+      delete player.diff
+      delete player.points
+      delete player.avgOponent
+    })
     // sensation
     let sensationGame = games.games.reduce(MF.biggestDifferenceWinSelector, null)
     if (sensationGame) {
@@ -262,7 +280,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       )
     }
     // fastestFinisher
-    let fastestGame = games.games.reduce(MF.fastestGameSelector, null)
+    let fastestGame = games.games.reduce(MF.fastestDecisiveGameSelector, null)
     if (fastestGame) {
       let fastestGames = filterGames(g => g.status !== 'noStart' && g.ply === fastestGame.ply, games.games)
       fastestGames.forEach( game => {
