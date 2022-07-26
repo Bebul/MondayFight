@@ -446,11 +446,13 @@ function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
   games.games.forEach(function(g) {
+/*
     if (g.ply && g.ply<19 && g.status==='draw') {
       for (let color in g.players) {
         achievements.push(new AchievementQuestion(g.players[color], g.id))
       }
     }
+*/
     for (let color in g.players) {
       let wins = g.winner === color
       let player = g.players[color]
