@@ -30,7 +30,7 @@ export function processAnalyze(data) {
   }
 
   document.getElementById("extras").onclick = function() {
-    data.addExtras()
+    data.addExtras() //all
     download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
   }
 }

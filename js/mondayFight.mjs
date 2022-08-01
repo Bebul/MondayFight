@@ -870,7 +870,7 @@ export function processAdmin(data) {
               LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
                 .then(function(games) {
                   data.addGames(games)
-                  data.addExtras()
+                  downloadedTournaments.forEach(t => data.addExtras(t))
                   addNewGamesStats(data, games)
                     .then(function(result) {
                       download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))

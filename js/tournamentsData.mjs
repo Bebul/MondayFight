@@ -311,15 +311,20 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     })
   }
 
+  function addTournamentExtras(fight) {
+    let games = tournamentGames.find(tg => tg.id===fight.id);
+    if (games !== undefined) {
+      addExtraTournamentStats(fight, games)
+    }
+  }
+
   // add extra statistics into jouzoleanAndBebulsTournaments
-  function addExtras() {
-    jouzoleanAndBebulsTournaments.forEach(fight => {
-        let games = tournamentGames.find(tg => tg.id==fight.id);
-        if (games !== undefined) {
-          addExtraTournamentStats(fight, games)
-        }
-      }
-    )
+  function addExtras(fight) {
+    if (fight) {
+      addTournamentExtras(fight)
+    } else {
+      jouzoleanAndBebulsTournaments.forEach(fight => addTournamentExtras(fight))
+    }
   }
 
   // addExtras() // no need to add, as all these stats should be already downloaded and saved in data folder
@@ -342,8 +347,8 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     addGames: function (downloadedGames) {
       tournamentGames = tournamentGames.concat(downloadedGames)
     },
-    addExtras: function () {
-      addExtras()
+    addExtras: function (fight) {
+      addExtras(fight)
     },
     findTournament: function (id) {
       return jouzoleanAndBebulsTournaments.find(tr => tr.id==id)
