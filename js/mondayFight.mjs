@@ -1056,7 +1056,7 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bukowskic:</b> Tak já se včera tak připravoval, ale to je jasný, lepší bude, když přijde Robert v plné formě!" +
         "<br><br><b>Jouzolean:</b> co sis připravoval? 😎🙂" +
         "<br><br><b>Bukowskic:</b> Nešel jsem na kolo a místo toho jsem se celý odpoledne rozehrával!" +
-        "<br><br>... a jak vidno, příprava se namísto velmistrovské hlavy pokosila nás ostatní. Gratulujeme!" +
+        "<br><br>... a jak vidno, příprava namísto velmistrovské hlavy pokosila nás ostatní. Gratulujeme!" +
         "<br><br><b>Bébul:</b> Už jste se podívali na nejrychlejší dnešní mat? To zas jednou Bébulkovi vyšla příprava! Nechť řady Královských Gambiterů houstnou!"},
 
   ]
