@@ -1058,6 +1058,10 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bukowskic:</b> Nešel jsem na kolo a místo toho jsem se celý odpoledne rozehrával!" +
         "<br><br>... a jak vidno, příprava namísto velmistrovské hlavy pokosila nás ostatní. Gratulujeme!" +
         "<br><br><b>Bébul:</b> Už jste se podívali na nejrychlejší dnešní mat? To zas jednou Bébulkovi vyšla příprava! Nechť řady Královských Gambiterů houstnou!"},
+    {id: "fXU6tfJM", html: "<b>Bébul:</b> Dnešní vyjímečný turnaj mě potkal na dovolené, takže mám jen omezené možnosti aktualizace webových stránek. Proto je, zatím, noticka o setkání s Grandmasterem jen taková stručná." +
+          "<div align='center'><h3>Monday Fight</h3><h2>S Robertem Cvekem</h2></div>" +
+          "Dnešek je pro Monday Fights svátek, neb nás poctil svou návštěvou Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Byl to fofr. Nikdo z nás ho nenachytal na švestkách. Za návštěvu moc děkujeme a k vítězství gratulujeme."},
+
 
   ]
   let s = spec.find(s => s.id === tournamentId)
