@@ -37,7 +37,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac", "kingkong"
 ]
 
 function reporter() {
@@ -190,7 +190,7 @@ function findKing(color, board) {
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
       let sq = board[i][j]
-      if (sq && sq.type=="k" && sq.color==color) {
+      if (sq && sq.type==="k" && sq.color===color) {
         // detect smothered position
         let ret = {square: algebraic(i,j)}
         if (squareIsSmothered(board, i, j)) ret.smothered = true
@@ -372,7 +372,10 @@ async function analyzeMoves(g, t, report) {
       if (!isLastRankOrFile(mate.square)) mate.halfburne = true
       else mate.blackburneMate = true // mated king must not be in the center
     }
-    if (countPieces(board, winColor)===16) mate.fullmaterial = true
+    if (countPieces(board, winColor)===16) {
+      mate.fullmaterial = true
+      if (countQueens(board, winColor) > 1) mate.kingkong = true
+    }
     return mate
   }() : null
 
@@ -442,6 +445,7 @@ async function addStats(g, t, report) {
             if (stats.mate && stats.mate.blackburneMate) console.log(`${g.id} Blackburne's mate`)
             if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
             if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate`)
+            if (stats.mate && stats.mate.kingkong) console.log(`${g.id} King kong mate`)
 
             player.stats = stats
           } // and add it finally

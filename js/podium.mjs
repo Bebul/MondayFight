@@ -229,6 +229,18 @@ class AchievementArabian {
   }
 }
 
+class AchievementKingKong {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 120
+    this.img = "kingkong.png"
+    //this.frame = "bramborova.png"
+    //this.char = "&#129421;"
+    this.desc = "King<br>Kong"
+    this.game = id
+  }
+}
+
 class AchievementFullMaterial {
   constructor(player, id) {
     this.player = player
@@ -480,7 +492,8 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
           if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
           if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
-          if (stats.mate.fullmaterial && !stats.mate.scholar) achievements.push(new AchievementFullMaterial(player, g.id))
+          if (stats.mate.fullmaterial && !stats.mate.scholar && !stats.mate.kingkong) achievements.push(new AchievementFullMaterial(player, g.id))
+          if (stats.mate.kingkong) achievements.push(new AchievementKingKong(player, g.id))
         }
         if (wins && g.ply && g.ply>=200) achievements.push(new AchievementMarathonWinner(player, g.id))
       }
@@ -570,6 +583,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementScholar(next()),
     new AchievementAnastasia(next()),
     new AchievementFullMaterial(next()),
+    new AchievementKingKong(next()),
     new AchievementArabian(next()),
     new AchievementBlackburne(next()),
     new AchievementHalfburne(next()),
