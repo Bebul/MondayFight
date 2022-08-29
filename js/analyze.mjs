@@ -298,15 +298,15 @@ function analyzeBishopSac(g, history, stats) {
         stats.bishopSac = true
       }
     }
-    if (g.winner === "white" && g.moves.match(/Bxh7 Kxh7/)) {
-      let move = history.find(m => m.san === 'Bxh7' && m.color === 'w')
+    if (g.winner === "white" && g.moves.match(/Bxh7\+? Kxh7/)) {
+      let move = history.find(m => m.san.match(/Bxh7\+?/) && m.color === 'w')
       if (move && move.captured === 'p') {
         console.log(`${g.id} oběť střelce na h7 ${++bishopsh}x`)
         stats.bishopSac = true
       }
     }
-    if (g.winner === "black" && g.moves.match(/Bxh2 Kxh2/)) {
-      let move = history.find(m => m.san === 'Bxh2' && m.color === 'b')
+    if (g.winner === "black" && g.moves.match(/Bxh2\+? Kxh2/)) {
+      let move = history.find(m => m.san.match(/Bxh2\+?/) && m.color === 'b')
       if (move && move.captured === 'p') {
         console.log(`${g.id} oběť střelce na h2 ${++bishopsh}x`)
         stats.bishopSac = true
