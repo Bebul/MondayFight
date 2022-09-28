@@ -315,6 +315,24 @@ function analyzeBishopSac(g, history, stats) {
   }
 }
 
+function stripToPly(g, ply) {
+  let moves = g.moves.split(' ')
+  let stripped = []
+  for (let i = 0; i < ply; i++) stripped.push(moves[i])
+  let ret = { ...g }
+  ret.moves = stripped.join(" ")
+  return ret
+}
+
+export function positionAfter(g, ply) {
+  let chess = new Chess()
+  if (g.initialFen || g.ply < ply) return null
+  let gStripped = stripToPly(g, ply)
+  let pgn = MFPodium.toPGN(gStripped, true)
+  chess.load_pgn(pgn)
+  return chess.fen()
+}
+
 async function analyzeMoves(g, t, report) {
   let stats = {}
 

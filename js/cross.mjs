@@ -1,5 +1,6 @@
 import {MF} from "./tournamentsData.mjs"
 import {getPlayers, allMyTables, gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+import {positionAfter} from "./analyze.mjs"
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -224,6 +225,63 @@ function getCrossRatingScores(data, players, fights) {
   return playerScore
 }
 
+function updateScore(g, scr) {
+  // suppose score = {w:8, b:3, draw: 4}
+  let score = scr || {w:0, b:0, draw:0}
+  if (g.winner === "white") score.w++
+  else if (g.winner === "black") score.b++
+  else score.draw++
+  return score
+}
+
+function scoreStr(score) {
+  return `${score.w}-${score.draw}-${score.b}`
+}
+
+/**
+ * @returns {Map<fen, position> where position is {count, id, createdAt, score, opening}}
+ * with id, createdAt matching last game reaching the fen after ply for player playing as color
+ * and score is {w, draw, b}
+ */
+function positionsAfter(games, player, color, ply) {
+  let positions = new Map();
+  games.forEach(
+    function (g) {
+      if (g.players[color].user.name === player) {
+        let fen = positionAfter(g, ply)
+        if (fen) {
+          if (positions.has(fen)) {
+            let pos = positions.get(fen)
+            pos.score = updateScore(g, pos.score)
+            if (pos.createdAt < g.createdAt) {
+              positions.set(fen, {
+                count: pos.count + 1,
+                id: g.id,
+                createdAt: g.createdAt,
+                score: pos.score,
+                opening: g.opening
+                }
+              )
+            } else {
+              pos.count++
+              positions.set(fen, pos)
+            }
+          } else {
+            positions.set(fen, {
+              count: 1,
+              id: g.id,
+              createdAt: g.createdAt,
+              score: updateScore(g),
+              opening: g.opening
+            })
+          }
+        }
+      }
+    }
+  )
+  return positions
+}
+
 function myCellClick(data, players, fights){
   function allGames(playerA, playerB) {
     let selectedGames = []
@@ -245,8 +303,10 @@ function myCellClick(data, players, fights){
     let playerB = players[cell._cell.column.field.substring(2)]
     console.log("cell click: " + playerA + " vs " + playerB)
     document.getElementById("gamesList").style.display = "block";
-    document.getElementById("gamesListTitle").innerText = playerA + " vs " + playerB;
-    let gameData = gameListData(allGames(playerA, playerB))
+    let games = allGames(playerA, playerB)
+    let gameData = gameListData(games)
+    document.getElementById("gamesListTitle").innerHTML = `<h1>${playerA} vs ${playerB}</h1>`
+    updateMostOftenPositions(games.games, playerA, playerB)
     updateMostActivePlayer("gameListTable", gameData)
     updateGoogleBar("gameListTableBar", gameData)
     gameListTable.setData(gameData).then(function(){
@@ -256,6 +316,34 @@ function myCellClick(data, players, fights){
     //cell - cell component
   }
   return mcl
+}
+
+
+function updateMostOftenPositions(games, playerA, playerB) {
+  function updateBoards(positions, id, caption, ply) {
+    let max = 0
+    positions.forEach(
+      function(p, fen) {
+        if (p.count > max) max = p.count
+      }
+    )
+
+    let el = document.getElementById(id)
+    let html = ""
+    if (max > 1) {
+      positions.forEach( function(value, key) {
+          if (value.count == max) {
+            html += `<h2>${value.count}x: ${caption} ${scoreStr(value.score)}</h2><h3>${value.opening.name}</h3>`
+            html += `<iframe src="https://lichess.org/embed/game/${value.id}?theme=auto&bg=light#${ply}" width=600 height=397 frameborder=0></iframe><br>`
+          }
+        }
+      )
+    }
+    el.innerHTML = html
+  }
+
+  updateBoards(positionsAfter(games, playerA, "white", 9), "mostlyAsWhite", `${playerA}-${playerB}`, 9)
+  updateBoards(positionsAfter(games, playerA, "black", 10), "mostlyAsBlack", `${playerB}-${playerA}`, 10)
 }
 
 function generateCrossTableColumns(data, theFights, players) {
