@@ -238,6 +238,11 @@ function scoreStr(score) {
   return `${score.w}-${score.draw}-${score.b}`
 }
 
+function scorePercents(score) {
+  let sum = score.w + score.draw + score.b
+  return {w: 100 * score.w / sum, draw: 100 * score.draw / sum, b: 100 * score.b / sum}
+}
+
 /**
  * @returns {Map<fen, position> where position is {count, id, createdAt, score, opening}}
  * with id, createdAt matching last game reaching the fen after ply for player playing as color
@@ -318,8 +323,30 @@ function myCellClick(data, players, fights){
   return mcl
 }
 
+function nonZero(value) {
+  if (value > 0) return `${value}`
+  else return ""
+}
 
 function updateMostOftenPositions(games, playerA, playerB) {
+  function positionCaption(value, caption) {
+    let percents = scorePercents(value.score)
+    return `<h3 style="margin-bottom:0">${value.opening.name}</h3><div class="explorer-box" style="width: 100%">
+<table class="moves">
+<tbody>
+        <tr>
+            <td>${caption}</td>
+            <td>${value.count}</td>
+            <td style="width:150px">
+                <div class="bar"><span class="white" style="width: ${percents.w}%">${nonZero(value.score.w)}</span><span class="draws" style="width: ${percents.draw}%">${nonZero(value.score.draw)}</span><span class="black" style="width: ${percents.b}%">${nonZero(value.score.b)}</span></div>
+            </td>
+        </tr>
+</tbody>
+</table> 
+</div>
+`
+  }
+
   function updateBoards(positions, id, caption, ply) {
     let max = 0
     positions.forEach(
@@ -333,7 +360,7 @@ function updateMostOftenPositions(games, playerA, playerB) {
     if (max > 1) {
       positions.forEach( function(value, key) {
           if (value.count == max) {
-            html += `<h2>${value.count}x: ${caption} ${scoreStr(value.score)}</h2><h3>${value.opening.name}</h3>`
+            html += positionCaption(value, caption)
             html += `<iframe src="https://lichess.org/embed/game/${value.id}?theme=auto&bg=light#${ply}" width=600 height=397 frameborder=0></iframe><br>`
           }
         }
