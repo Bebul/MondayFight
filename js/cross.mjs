@@ -19,6 +19,56 @@ export function createCrossTable(data, theFights, tableId, criterion = "score") 
   allMyTables.set(tableId, crossTable)
 }
 
+export function createOpeningsTable(data, theFights, tableId, criterion, season) {
+  document.getElementById(tableId.substring(1)).innerHTML = ""
+
+  let dateFilter = ""
+  switch (season) {
+    case undefined:
+    case "all":
+    case "year":
+      dateFilter = ""
+      break
+    default:
+      dateFilter = ` date:${season}`
+      break
+  }
+
+  let columnsAr = [
+    {title: "Opening", field: "name", resizable:false, align: "left", width:500, formatter: function(cell, params) {
+        let name = cell.getValue()
+        let search = `"opening:${name}"`
+        let ret = `<a class='league-link' href='search.html?q=${escape(search)}${dateFilter}' target='_blank'>${name}</a>`
+        return ret
+      }
+    },
+    {title: "Count", field: "count", resizable:false, align: "center"},
+    {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false}
+  ]
+
+  let table = new Tabulator(tableId, {
+    layout: "fitDataTable",
+    data: getOpeningsData(data, theFights),
+    initialSort: [{column:"count", dir:"desc"}],
+    groupStartOpen: true,
+    groupBy: data => data.name.split(":")[0],
+    groupHeader: function(value, count, data, group){
+      let score = {w: 0, draw:0, b:0}
+      data.forEach(s => {
+          score.w += s.score.w;
+          score.draw += s.score.draw;
+          score.b += s.score.b;
+        }
+      )
+      let sumCount = score.w + score.draw + score.b
+      let ret = `<b>${value} ${sumCount}x</b> ${scoreHtml(score)}`
+      return ret
+    },
+    columns: columnsAr
+  });
+  allMyTables.set(tableId, table)
+}
+
 function getCrossData(data, theFights, players, criterion) {
   if (criterion === "score") {
     function addPlayerCrossData(player, scores, columns) {
@@ -72,6 +122,45 @@ function getCrossData(data, theFights, players, criterion) {
     return tableData;
   }
 
+}
+
+function getOpeningsData(data, theFights) {
+  let op = new Map()
+  function updateOpenings(g) {
+    if (g.opening) {
+      if (op.has(g.opening.name)) {
+        let o = op.get(g.opening.name)
+        o.count++
+        o.score = updateScore(g, o.score)
+        op.set(g.opening.name, o)
+      } else {
+        op.set(g.opening.name, {
+          count: 1,
+          score: updateScore(g)
+        })
+      }
+    }
+  }
+
+  theFights.forEach(f => {
+      let games = data.tournamentGames().find(tg => tg.id==f.id);
+      if (games !== undefined) games.games.forEach(g => updateOpenings(g))
+    }
+  )
+
+  let openings = []
+  op.forEach((value, key) => openings.push({name: key, stats: value}))
+
+  openings.sort((a,b) => a.name.localeCompare(b.name))
+
+  return openings.flatMap(function(o) {
+      return {
+        name: o.name,
+        count: o.stats.count,
+        score: o.stats.score
+      }
+    }
+  )
 }
 
 function getScores(data, players, fights) {
@@ -243,6 +332,17 @@ function scorePercents(score) {
   return {w: 100 * score.w / sum, draw: 100 * score.draw / sum, b: 100 * score.b / sum}
 }
 
+function scoreHtml(value, text = "") {
+  let percents = scorePercents(value)
+  return `<span class="explorer-box"><span class="bar" style="display: inline-block;width:150px">${text}<span class="white" style="width: ${percents.w}%">${nonZero(value.w)}</span><span class="draws" style="width: ${percents.draw}%">${nonZero(value.draw)}</span><span class="black" style="width: ${percents.b}%">${nonZero(value.b)}</span></span></span>`
+}
+
+function scoreFormatter(cell, formatterParams) {
+  let value = cell.getValue()
+  if (value===undefined) return ""
+  return scoreHtml(value)
+}
+
 /**
  * @returns {Map<fen, position> where position is {count, id, createdAt, score, opening}}
  * with id, createdAt matching last game reaching the fen after ply for player playing as color
@@ -401,25 +501,25 @@ function generateCrossTableColumns(data, theFights, players) {
   return columnsBuilder;
 }
 
-export function criterionChanged(data, tableId) {
+export function criterionChanged(data, tableId, createTableF) {
   let season = document.querySelector('input[name="season"]:checked').value
   let criterion = document.querySelector('input[name="criterion"]:checked').value
   console.log(`selected season: ${season} criterion ${criterion}`)
   switch (season) {
     case "all":
-      createCrossTable(data, data.mondayFights(), tableId, criterion)
+      createTableF(data, data.mondayFights(), tableId, criterion)
       break
     case "year":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), -1), tableId, criterion)
+      createTableF(data, MF.filterYear(data.mondayFights(), -1), tableId, criterion, season)
       break
     case "2020":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2020), tableId, criterion)
+      createTableF(data, MF.filterYear(data.mondayFights(), 2020), tableId, criterion, season)
       break
     case "2021":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2021), tableId, criterion)
+      createTableF(data, MF.filterYear(data.mondayFights(), 2021), tableId, criterion, season)
       break
     case "2022":
-      createCrossTable(data, MF.filterYear(data.mondayFights(), 2022), tableId, criterion)
+      createTableF(data, MF.filterYear(data.mondayFights(), 2022), tableId, criterion, season)
       break
   }
 }

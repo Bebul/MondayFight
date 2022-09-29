@@ -624,3 +624,8 @@ img.img100 {
 #tournament-spec {
     margin: 10px 5px 0 5px;
 }
+
+.tabulator-row.tabulator-group span {
+    margin-left: 0px;
+    color: black;
+}

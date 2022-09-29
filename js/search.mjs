@@ -48,12 +48,14 @@ export function searchGames(data, fights, tokens) {
 
   let tokensLow = tokens.map(token => token.toLowerCase())
   let fen = tokens.find(token => token.toLowerCase().startsWith("fen:"))
+  let opening = tokens.find(token => token.toLowerCase().startsWith("opening:"))
+  if (opening) opening = opening.substring(8).toLowerCase()
   let maxMoves = tokensLow.find(token => token.startsWith("max-moves:"))
   if (maxMoves) maxMoves = parseInt(maxMoves.match(/max-moves:(\d+)/)[1])
   let minMoves = tokensLow.find(token => token.startsWith("min-moves:"))
   if (minMoves) minMoves = parseInt(minMoves.match(/min-moves:(\d+)/)[1])
   tokensLow = tokensLow.filter(token => !token.startsWith("max-moves:")).filter(token => !token.startsWith("min-moves:"))
-  let tokensYes = tokensLow.filter(token => token[0]!='-').filter(token => !token.startsWith("fen:"))
+  let tokensYes = tokensLow.filter(token => token[0]!='-').filter(token => !token.startsWith("fen:") && !token.startsWith("opening:"))
   let tokensNo = tokensLow.filter(token => token[0]==='-').map(token => token.substring(1))
 
   Number.prototype.padLeft = function(base,chr){
@@ -102,10 +104,10 @@ export function searchGames(data, fights, tokens) {
           })
 
           if (foundUnsatisfiedTokenYes === undefined && existsTokenNo === undefined){
-            if (fen) {
-              let theFen = fen.substring(4)
-              if(movesContainFen(game.initialFen, game.moves, theFen)) selectedGames.push(game)
-            } else selectedGames.push(game)
+            let ok = true
+            if (opening) ok = game.opening && game.opening.name.toLowerCase() === opening
+            if (ok && fen) ok = movesContainFen(game.initialFen, game.moves, fen.substring(4))
+            if (ok) selectedGames.push(game)
           }
         }
       })

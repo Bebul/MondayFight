@@ -18,8 +18,8 @@
     <script type="text/javascript" src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/mf.css">
     <link rel="stylesheet" href="css/lichess-analyze-lite.css">
+    <link rel="stylesheet" href="css/mf.css">
 </head>
 
 <body>
@@ -32,14 +32,13 @@
             <i class="fa fa-bars hamburger"></i>
               </a>
         </span>
-        <span class="captionText">Cross table</span>
+        <span class="captionText">Zahájení na Monday Fights</span>
         <div class="topnav">
             <div id="myLinks">
                 <a href="index.html">Main page</a>
                 <a href="actualities.html">Hot News</a>
                 <a href="tables.html">Leaderboards</a>
                 <a href="cross.html">Cross table</a>
-                <a href="openings.html">Openings table</a>
                 <a href="search.html">Search Engine</a>
                 <a href="archiv2020.html">Archiv 2020</a>
                 <a href="archiv2021.html">Archiv 2021</a>
@@ -48,12 +47,9 @@
         </div>
     </div>
 
-    <div class="article first" style="margin-top:15px">
-        <b style="margin-left:70px">Tip:</b> klik do tabulky na políčko odpovídající dvěma hráčům vygeneruje tabulku obsahující všechny vzájemné Monday Fight partie. Bohužel chybí ty partie, které se dohrály až po vypršení turnajového limitu. Všichni zde jistě postrádáme cenné skalpy.
-    </div>
-
     <br>
-    <form name="selectDataType">
+    <br>
+    <form name="selectDataType" style="display: none">
         <b>Vyber kritérium:</b>
         <input type="radio" name="criterion"  value="score" checked="true" />
         <label>Vzájemné skóre</label>
@@ -73,44 +69,32 @@
         <input type="radio" name="season"  value="all" />
         <label>Za celou dobu</label>
     </form>
-    <div id="crossTable"></div>
+    <br>
 
-    <h2 id="gamesListTitle">Games list</h2>
-    <div id="mostlyAsWhite"></div>
-    <div id="mostlyAsBlack"></div>
-
-    <div id="gamesList" style="margin-top: 10px">
-        <div id="gameListTableplwhite"></div>
-        <div id="gameListTableplblack"></div>
-        <div id="gameListTableplall"></div>
-        <div id="gameListTableBar"></div>
-        <div id="gameListTable"></div>
-    </div>
+    <div id="openingsTable"></div>
 
 </div>
 
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
-  import {createGameListTable} from "./js/mondayFight.mjs"
-  import {createCrossTable, criterionChanged} from "./js/cross.mjs"
+  import {createOpeningsTable, criterionChanged} from "./js/cross.mjs"
 
   function mainPage(data) {
     let seasons = document.selectSeason.season
     for (let i = 0; i < seasons.length; i++) {
       seasons[i].addEventListener('click', function() {
-        criterionChanged(data, "#crossTable", createCrossTable)
+        criterionChanged(data, "#openingsTable", createOpeningsTable)
       });
     }
     let criterion = document.selectDataType.criterion
     for (let i = 0; i < criterion.length; i++) {
       criterion[i].addEventListener('click', function() {
-        criterionChanged(data, "#crossTable", createCrossTable)
+        criterionChanged(data, "#openingsTable", createOpeningsTable)
       });
     }
 
     let theFights = MF.filterYear(data.mondayFights(), 2022)
-    createCrossTable(data, theFights, "#crossTable")
-    createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)
+    createOpeningsTable(data, theFights, "#openingsTable", null, 2022)
   }
 
   LoadMFData(mainPage)
