@@ -700,44 +700,69 @@ function ratingDiffDeco(pl) {
 }
 
 function getDecorationTrophies(game, player, wins) {
-  let decorations = ""
-  if (game.ply && game.ply<19 && game.status==='draw') decorations += "&#128064;" //👀
-  if (game.status === 'noStart' && !wins) decorations += "&#9940;"
-  if (player.berserk == true) decorations += "&#9889;"
-  if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations += "&#128640;"
-  if (game.ply && game.ply>=200) decorations += "&#9200;"
+  let decorations = []
+  if (game.ply && game.ply<19 && game.status==='draw') decorations.push("&#128064;") //👀
+  if (game.status === 'noStart' && !wins) decorations.push("&#9940;")
+  if (player.berserk == true) decorations.push("&#9889;")
+  if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations.push("&#128640;")
+  if (game.ply && game.ply>=200) decorations.push("&#9200;")
   if (player.stats) {
     let stats = player.stats
-    if (stats.monkey) decorations += "&#128053;"
-    if (stats.queens) decorations += "&#9813;"
-    if (stats.lucky) decorations += "&#8987;"
-    if (stats.sensation) decorations += "&#10024;"
-    if (stats.bishopSac && wins) decorations += "<span style='color:red'>&#9815;</span>"
+    if (stats.monkey) decorations.push("&#128053;")
+    if (stats.queens) decorations.push("&#9813;")
+    if (stats.lucky) decorations.push("&#8987;")
+    if (stats.sensation) decorations.push("&#10024;")
+    if (stats.bishopSac && wins) decorations.push("<span style='color:red'>&#9815;</span>")
     if (stats.mate && wins) {
-      if (stats.mate.smothered) decorations += "&#9816;&#129505;"
-      else if (stats.mate.piece==="n") decorations += "&#9816;"
-      if (stats.mate.sacrifice) decorations += "<span style='color:red'>&#9813;</span>"
-      if (stats.mate.centerMate) decorations += "&#129409;"
-      if (stats.mate.piece==="k") decorations += "&#129332;"
-      if (stats.mate.piece==="p") decorations += "&#9823;"
-      if (stats.mate.piece==="b") decorations += "&#9815;"
-      if (stats.mate.scholar) decorations += "&#128098;"
-      if (stats.mate.legal) decorations += "&#9875;"
-      if (stats.mate.arabian) decorations += "&#128115;"
-      if (stats.mate.anastasia) decorations += "&#128096;"
-      if (stats.mate.halfburne) decorations += "&#129492;"
-      if (stats.mate.blackburneMate) decorations += "&#129492;"
-      if (stats.mate.fullmaterial && !stats.mate.scholar) decorations += "&#129421;"
-      if (stats.mate.castling || stats.mate.enPassant) decorations += "&#x1F48E;"
+      if (stats.mate.smothered) decorations.push("&#9816;&#129505;")
+      else if (stats.mate.piece==="n") decorations.push("&#9816;")
+      if (stats.mate.sacrifice) decorations.push("<span style='color:red'>&#9813;</span>")
+      if (stats.mate.centerMate) decorations.push("&#129409;")
+      if (stats.mate.piece==="k") decorations.push("&#129332;")
+      if (stats.mate.piece==="p") decorations.push("&#9823;")
+      if (stats.mate.piece==="b") decorations.push("&#9815;")
+      if (stats.mate.scholar) decorations.push("&#128098;")
+      if (stats.mate.legal) decorations.push("&#9875;")
+      if (stats.mate.arabian) decorations.push("&#128115;")
+      if (stats.mate.anastasia) decorations.push("&#128096;")
+      if (stats.mate.halfburne) decorations.push("&#129492;")
+      if (stats.mate.blackburneMate) decorations.push("&#129492;")
+      if (stats.mate.fullmaterial && !stats.mate.scholar) decorations.push("&#129421;")
+      if (stats.mate.castling || stats.mate.enPassant) decorations.push("&#x1F48E;")
     }
   }
   return decorations
 }
 
 export function getTrophies(game) {
-  if (game.winner === "white") return getDecorationTrophies(game, game.players.white, true) + "&#9643;" + getDecorationTrophies(game, game.players.black, false)
-  else if (game.winner === "black") return getDecorationTrophies(game, game.players.white, false) + "&#9643;" + getDecorationTrophies(game, game.players.black, true)
-  else return getDecorationTrophies(game, game.players.white, false) + "&#9643;" + getDecorationTrophies(game, game.players.black, false)
+  return getDecorationTrophies(game, game.players.white, game.winner === "white").join("") + "&#9643;" + getDecorationTrophies(game, game.players.black, game.winner === "black").join("")
+}
+
+export function collectTrophies(game, tr1) {
+  // remove stupid non-real-achievements like berserk, noStart and 👀 from the list
+  let removeList = ["&#9940;", "&#9889;", "&#128064;"]
+
+  let tr = tr1 || {tr: new Set(), count: 0}
+  getDecorationTrophies(game, game.players.white, game.winner === "white").forEach(t => {
+    if (!removeList.includes(t)) {
+      tr.tr.add(t)
+      tr.count++
+    }
+  })
+  getDecorationTrophies(game, game.players.black, game.winner === "black").forEach(t => {
+    if (!removeList.includes(t)) {
+      tr.tr.add(t)
+      tr.count++
+    }
+  })
+  return tr
+}
+
+export function joinTrophies(trophies, tr) {
+  return {
+    tr: new Set([...trophies.tr, ...tr.tr]),
+    count: trophies.count + tr.count
+  }
 }
 
 function whitePlayerDecorated(game) {
@@ -745,7 +770,7 @@ function whitePlayerDecorated(game) {
   ratingDiff = ratingDiffDeco(game.players.white)
   let wins = game.winner === "white"
 
-  let decorations = getDecorationTrophies(game, game.players.white, wins)
+  let decorations = getDecorationTrophies(game, game.players.white, wins).join("")
   if (decorations) decorations += "&nbsp;"
 
   if (wins) {
@@ -761,7 +786,7 @@ function blackPlayerDecorated(game) {
 
   let wins = game.winner === "black"
 
-  let decorations = getDecorationTrophies(game, game.players.black, wins)
+  let decorations = getDecorationTrophies(game, game.players.black, wins).join("")
   if (decorations) decorations = "&nbsp;" + decorations
 
   if (wins) {

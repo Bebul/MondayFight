@@ -1,6 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {getPlayers, allMyTables, gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
+import {collectTrophies, joinTrophies} from "./podium.mjs";
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -17,6 +18,13 @@ export function createCrossTable(data, theFights, tableId, criterion = "score") 
     columns: generateCrossTableColumns(data, theFights, players)
   });
   allMyTables.set(tableId, crossTable)
+}
+
+function trophiesSet(cell, pars) {
+  let trophies = cell.getValue()
+  let ar = []
+  trophies.tr.forEach(v => ar.push(v))
+  return ar.join("")
 }
 
 export function createOpeningsTable(data, theFights, tableId, criterion, season) {
@@ -43,7 +51,8 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season)
       }
     },
     {title: "Count", field: "count", resizable:false, align: "center"},
-    {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false}
+    {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false},
+    {title: "Trophies", field: "tr", resizable:false, align: "center", headerSort: false, width: "180", formatter: trophiesSet}
   ]
 
   let table = new Tabulator(tableId, {
@@ -54,15 +63,25 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season)
     groupBy: data => data.name.split(":")[0],
     groupHeader: function(value, count, data, group){
       let score = {w: 0, draw:0, b:0}
+      let trophies = {tr: new Set(), count: 0}
       data.forEach(s => {
           score.w += s.score.w;
           score.draw += s.score.draw;
           score.b += s.score.b;
+          trophies = joinTrophies(trophies, s.tr)
         }
       )
       let sumCount = score.w + score.draw + score.b
-      let ret = `<b>${value} ${sumCount}x</b> ${scoreHtml(score)}`
-      return ret
+
+      let achievements = ""
+      if (trophies.count > 0) {
+        let ar = [""]
+        trophies.tr.forEach(v => ar.push(v))
+        let tr = ar.join("")
+        achievements = `${tr} <b>achievements: ${Math.round(100*trophies.count/sumCount)}% ${trophies.count}x</b>`
+      }
+
+      return `<b>${value} ${sumCount}x</b> ${scoreHtml(score)} ${achievements}`
     },
     columns: columnsAr
   });
@@ -132,11 +151,13 @@ function getOpeningsData(data, theFights) {
         let o = op.get(g.opening.name)
         o.count++
         o.score = updateScore(g, o.score)
+        collectTrophies(g, o.tr)
         op.set(g.opening.name, o)
       } else {
         op.set(g.opening.name, {
           count: 1,
-          score: updateScore(g)
+          score: updateScore(g),
+          tr: collectTrophies(g)
         })
       }
     }
@@ -157,7 +178,8 @@ function getOpeningsData(data, theFights) {
       return {
         name: o.name,
         count: o.stats.count,
-        score: o.stats.score
+        score: o.stats.score,
+        tr: o.stats.tr
       }
     }
   )
