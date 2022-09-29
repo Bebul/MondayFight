@@ -35,6 +35,7 @@
     <script src="js/minimal.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/lichess-analyze-lite.css">
     <link rel="stylesheet" href="css/mf.css">
 </head>
 
@@ -125,6 +126,8 @@
 
     </div>
 
+    <div id="openingsTable"></div>
+
     <div id="gameListTable"></div>
 
 </div>
@@ -133,6 +136,7 @@
   import {LoadMFData} from "./js/tournamentsData.mjs"
   import {MFPodium} from "./js/podium.mjs"
   import {createGameListTable, createLeagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto} from "./js/mondayFight.mjs"
+  import {createOpeningsTable} from "./js/cross.mjs"
 
   let mfId = null
   function mainPage(data) {
@@ -157,6 +161,7 @@
     MFPodium.createAchievementsInfo(data, games.id, games)
     MFPodium.updateSpecialBoards(games)
     createLeagueTable(data, "#leagueTable", "leagueNo")
+    createOpeningsTable(data, [games], "#openingsTable", null, "all", false)
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
     updateSpecificTournamentHtml("tournament-spec", games.id)
     updateTournamentHtmlAuto("tournament-auto", games.id, data)

@@ -7,6 +7,7 @@ import {
   getLeagueData,
   leagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto
 } from "./mondayFight.mjs"
+import {getOpeningsData} from "./cross.mjs"
 
 let placeTxt = ['','first','second','third']
 
@@ -727,7 +728,8 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.anastasia) decorations.push("&#128096;")
       if (stats.mate.halfburne) decorations.push("&#129492;")
       if (stats.mate.blackburneMate) decorations.push("&#129492;")
-      if (stats.mate.fullmaterial && !stats.mate.scholar) decorations.push("&#129421;")
+      if (stats.mate.kingkong && !stats.mate.scholar) decorations.push("<b>&#129421;</b>") //different achievement == different symbol
+      else if (stats.mate.fullmaterial && !stats.mate.scholar) decorations.push("&#129421;")
       if (stats.mate.castling || stats.mate.enPassant) decorations.push("&#x1F48E;")
     }
   }
@@ -948,6 +950,11 @@ function updateSpecialBoards(games) {
   }
 }
 
+var openingsTable = null
+export function setOpeningTable(table) {
+  openingsTable = table
+}
+
 function nextTournament(data, diff=1) {
   data.currentGameListTableIx += diff
   data.currentGameListTableIx = Math.max(Math.min(data.currentGameListTableIx, data.tournamentGames().length - 1),0)
@@ -972,6 +979,11 @@ function nextTournament(data, diff=1) {
   updateTournamentHtmlAuto("tournament-auto", games.id, data)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)
+  })
+
+  let openingData = getOpeningsData(data, [games])
+  openingsTable.setData(openingData).then(function(){
+    openingsTable.redraw(true)
   })
 
   let leagueData = getLeagueData(data)

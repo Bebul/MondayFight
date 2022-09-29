@@ -1,7 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {getPlayers, allMyTables, gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
-import {collectTrophies, joinTrophies} from "./podium.mjs";
+import {collectTrophies, joinTrophies, setOpeningTable} from "./podium.mjs";
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -27,7 +27,7 @@ function trophiesSet(cell, pars) {
   return ar.join("")
 }
 
-export function createOpeningsTable(data, theFights, tableId, criterion, season) {
+export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   let dateFilter = ""
@@ -42,6 +42,9 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season)
       break
   }
 
+  let trophiesCol = {title: "Trophies", field: "tr", resizable:false, align: "center", headerSort: false, formatter: trophiesSet}
+  if (verbose) trophiesCol.width = "180"
+
   let columnsAr = [
     {title: "Opening", field: "name", resizable:false, align: "left", width:500, formatter: function(cell, params) {
         let name = cell.getValue()
@@ -52,7 +55,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season)
     },
     {title: "Count", field: "count", resizable:false, align: "center"},
     {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false},
-    {title: "Trophies", field: "tr", resizable:false, align: "center", headerSort: false, width: "180", formatter: trophiesSet}
+    trophiesCol
   ]
 
   let table = new Tabulator(tableId, {
@@ -78,13 +81,18 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season)
         let ar = [""]
         trophies.tr.forEach(v => ar.push(v))
         let tr = ar.join("")
-        achievements = `${tr} <b>achievements: ${Math.round(100*trophies.count/sumCount)}% ${trophies.count}x</b>`
+        let stats=""
+        if (verbose) {
+          stats = `<b>achievements: ${Math.round(100*trophies.count/sumCount)}% ${trophies.count}x</b>`
+        }
+        achievements = `${tr} ${stats}`
       }
 
       return `<b>${value} ${sumCount}x</b> ${scoreHtml(score)} ${achievements}`
     },
     columns: columnsAr
   });
+  setOpeningTable(table)
   allMyTables.set(tableId, table)
 }
 
@@ -143,7 +151,7 @@ function getCrossData(data, theFights, players, criterion) {
 
 }
 
-function getOpeningsData(data, theFights) {
+export function getOpeningsData(data, theFights) {
   let op = new Map()
   function updateOpenings(g) {
     if (g.opening) {
