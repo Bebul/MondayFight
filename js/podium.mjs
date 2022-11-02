@@ -808,6 +808,8 @@ export var Avatars = function() {
     "travinho", "mates7824", "kasparov", "mates78", "vikjav", "tomasklimecky",
     "dzin69", "janshorny", "arytmik", "tykev123", "pirat77", "puklejchleba", "margarita_vlasenko", "felcar", "droider66",
     "sachycvek", "lastscout"]
+  let useGif = ["bebul", "mrazek", "mozkomor", "jouzolean", "bukowskic", "margarita_vlasenko", "dj-pesec", "neznama-00", "janshorny", "dzin69",
+    "pirat77", "lastscout", "tekele", "vikjav", "mauricedodo", "rychlylenochod", "hrobotron", "felcar", "tomasklimecky"]
   let defaults = ["default2", "default3"]
 
   function getAvatar(playerName, defaultAvatar) {
@@ -817,7 +819,8 @@ export var Avatars = function() {
     else if (defaultAvatar) return defaultAvatar
     else fileName = defaults[playerName.length % defaults.length]
 
-    return `img/players/${fileName}.png`
+    if (useGif.includes(playerLow)) return `img/players/${fileName}.gif`
+    else return `img/players/${fileName}.png`
   }
 
   return {
