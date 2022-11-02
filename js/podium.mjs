@@ -807,7 +807,7 @@ export var Avatars = function() {
     "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele",
     "travinho", "mates7824", "kasparov", "mates78", "vikjav", "tomasklimecky",
     "dzin69", "janshorny", "arytmik", "tykev123", "pirat77", "puklejchleba", "margarita_vlasenko", "felcar", "droider66",
-    "sachycvek"]
+    "sachycvek", "lastscout"]
   let defaults = ["default2", "default3"]
 
   function getAvatar(playerName, defaultAvatar) {
