@@ -1148,6 +1148,7 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bébul:</b> A Jouzolean sehrál s Rychlým Lenochodem 130 tahovou vítěznou bitvu, což <img src='img/players/rychlylenochod.gif' class='img100 right'> je druhá nejdelší hra historie Monday Fight, pričemž nejdelší vítězná." +
         "<br><br><b>Bébul:</b> A že náš Bébulek dal Blackburnovskej mat, kterej už úplně zapomněl, že existuje, toho jste si určitě všichni všimli. Zatím jen Mozkomorovi a nyní Bébulkovi se to v historii Monday Fights podařilo. No, tak si třeba záviďte, nooóóóó <img src='img/players/bebul.gif' class='img100'> <img src='img/players/mozkomor.gif' class='img100'> "+
         "<br><br><b>Bébul:</b> A už jste se podívali, jaké halloweenské avatary má Arytmik, Travinho, Mrázek a Robert Cvek?"},
+    {id: "T5fN7RNz", html: "<img src='img/mf-og-grats.jpg'>"},
 
   ]
   let s = spec.find(s => s.id === tournamentId)
