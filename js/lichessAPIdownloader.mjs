@@ -146,15 +146,20 @@ function onDwnlTournamentClicked(data, rename) {
       data.addTournaments([tournament])
       return tournament
     })
-    .then(tournament => gamesDownloaderAPI().downloadTournamentGames(tournament, data))
-    .then(games => {
-      preGames.innerHTML = JSON.stringify(games, null, 0)
-      data.addGames([games])
-      data.addExtras(tournament)
-      addNewGamesStats(data, [games])
-        .then(function(result) {
-          download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
-          download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+    .then(tournament => {
+      gamesDownloaderAPI().downloadTournamentGames(tournament, data)
+        .then( games => {
+          return {games: games, tournament: tournament}
+        })
+        .then(({games, tournament}) => {
+          preGames.innerHTML = JSON.stringify(games, null, 0)
+          data.addGames([games])
+          data.addExtras(tournament)
+          addNewGamesStats(data, [games])
+            .then(function(result) {
+              download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
+              download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+            })
         })
     })
 }

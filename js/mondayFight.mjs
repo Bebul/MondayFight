@@ -1149,7 +1149,19 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bébul:</b> A že náš Bébulek dal Blackburnovskej mat, kterej už úplně zapomněl, že existuje, toho jste si určitě všichni všimli. Zatím jen Mozkomorovi a nyní Bébulkovi se to v historii Monday Fights podařilo. No, tak si třeba záviďte, nooóóóó <img src='img/players/bebul.gif' class='img100'> <img src='img/players/mozkomor.gif' class='img100'> "+
         "<br><br><b>Bébul:</b> A už jste se podívali, jaké halloweenské avatary má Arytmik, Travinho, Mrázek a Robert Cvek?"},
     {id: "T5fN7RNz", html: "<img src='img/mf-og-grats.jpg'>"},
-
+    {id: "euUYBnmh", html: '<b>Bébul:</b>"Napsat báseň o Monday Fight, třebas by si všímala jen jediného hráče, ' +
+        "třeba by si všímala jen nejnepatrnějšího člověka, " +
+        "by znamenalo sloučit všechny hrdinské zpěvy v jedinou epopej, " +
+        "svrchovanou a konečnou. Monday Fight je chaos přeludů, choutek " +
+        "a pokušení, je to tavící pec snů, brloh myšlenek, za něž se stydíme; " +
+        "je to zmatená směsice klamných závěrů, je to bitevní pole vášní. " +
+        "Pronikněte v pondělních hodinách zsinalou tváří člověka, který přemítá, " +
+        "podívejte se za ni, pohleďte do té duše, podívejte se do té " +
+        "temnoty. Pod zevním klidem jsou bitvy obrů jako u DJ-Pěšce, jsou " +
+        "tam shluky draků a hyder a mračna přeludů jako u Bukowskice, jsou " +
+        "tam vizionářské přízraky jako u Jouzoleána. Jak strašlivé je nekonečno, " +
+        "které člověk nosí v sobě a podle něhož zoufale měří vůli svého " +
+        'mozku a skutky svého života!" <i><b>Viktor Hugo: Bídníci</b>, kapitola Svědomí</i>'}
   ]
   let s = spec.find(s => s.id === tournamentId)
   if (s) {
