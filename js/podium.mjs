@@ -813,9 +813,9 @@ export var Avatars = function() {
     "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele",
     "travinho", "mates7824", "kasparov", "mates78", "vikjav", "tomasklimecky",
     "dzin69", "janshorny", "arytmik", "tykev123", "pirat77", "puklejchleba", "margarita_vlasenko", "felcar", "droider66",
-    "sachycvek", "lastscout", "sumaspandy"]
-  let useGif = ["bebul", "mrazek", "mozkomor", "jouzolean", "bukowskic", "margarita_vlasenko", "dj-pesec", "neznama-00", "janshorny", "dzin69",
-    "pirat77", "lastscout", "tekele", "vikjav", "mauricedodo", "rychlylenochod", "hrobotron", "felcar", "tomasklimecky", "arytmik", "sachycvek", "travinho", "mates78", "mates7824"]
+    "sachycvek", "lastscout", "sumaspandy", "honzahonzahonza"]
+  let useGif = []
+  //let useGif = ["bebul", "mrazek", "mozkomor", "jouzolean", "bukowskic", "margarita_vlasenko", "dj-pesec", "neznama-00", "janshorny", "dzin69", "pirat77", "lastscout", "tekele", "vikjav", "mauricedodo", "rychlylenochod", "hrobotron", "felcar", "tomasklimecky", "arytmik", "sachycvek", "travinho", "mates78", "mates7824"]
   let defaults = ["default2", "default3"]
 
   function getAvatar(playerName, defaultAvatar) {
