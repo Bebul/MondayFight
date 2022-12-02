@@ -1353,6 +1353,40 @@ export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+/**
+ ![https://en.wikipedia.org/wiki/Elo_rating_system#Mathematical_details](https://bebul.github.io/MondayFight/img/elo.png)
+*/
+function playerOddsByELO(players) {
+  let [rA, rB] = players.map(pl => pl.data.perfs.blitz.rating)
+  let qA = Math.pow(10, rA / 400)
+  let qB = Math.pow(10, rB / 400)
+  let eA = qA / (qA + qB)
+  let eB = qB / (qA + qB)
+  return [eA, eB]
+}
+function playerOddsByHistory(players) {
+  let cross = players[0].crossData.pl0 + players[0].crossData.pl1
+  let nums = cross.split('-').map(n => Number.parseInt(n))
+  if (nums.length < 2) nums = [0,0]
+  let denom = nums[0] + nums[1] || 1
+  return {
+    count: nums[0] + nums[1],
+    odds: [nums[0] / denom , nums[1] / denom]
+  }
+}
+function playerOdds(players, f) {
+  let factor = f || 0.5
+  let byELO = playerOddsByELO(players)
+  let {count: count, odds: byHistory} = playerOddsByHistory(players)
+  if (count < 10) factor += (1 - factor) * (9 - count) / 9
+  let odds = []
+  console.log(`factor:${factor}`)
+  for (let i=0; i<2; i++) {
+    odds[i] = factor * byELO[i] + (1-factor) * byHistory[i]
+  }
+  return odds
+}
+
 export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
   if (!Array.isArray(crossData) || crossData.length != 2) return;
 
@@ -1421,37 +1455,6 @@ export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
         let textInfo = ctx.measureText(prettyName)
         let textX = 0.5 * GLOB.width - textInfo.width / 2
         ctx.fillText(prettyName, textX, topLine + 10)
-      }
-
-      function playerOddsByELO(players) {
-        let [rA, rB] = players.map(pl => pl.data.perfs.blitz.rating)
-        let qA = Math.pow(10, rA / 400)
-        let qB = Math.pow(10, rB / 400)
-        let eA = qA / (qA + qB)
-        let eB = qB / (qA + qB)
-        return [eA, eB]
-      }
-      function playerOddsByHistory(players) {
-        let cross = players[0].crossData.pl0 + players[0].crossData.pl1
-        let nums = cross.split('-').map(n => Number.parseInt(n))
-        if (nums.length < 2) nums = [0,0]
-        let denom = nums[0] + nums[1] || 1
-        return {
-          count: nums[0] + nums[1],
-          odds: [nums[0] / denom , nums[1] / denom]
-        }
-      }
-      function playerOdds(players, f) {
-        let factor = f || 0.5
-        let byELO = playerOddsByELO(players)
-        let {count: count, odds: byHistory} = playerOddsByHistory(players)
-        if (count < 10) factor += (1 - factor) * (9 - count) / 9
-        let odds = []
-        console.log(`factor:${factor}`)
-        for (let i=0; i<2; i++) {
-          odds[i] = factor * byELO[i] + (1-factor) * byHistory[i]
-        }
-        return odds
       }
 
       function percents(x) {
