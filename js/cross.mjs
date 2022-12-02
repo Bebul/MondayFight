@@ -27,6 +27,18 @@ function trophiesSet(cell, pars) {
   return ar.join("")
 }
 
+export function getShortOpeningName(opening) {
+  let words = ['attack', 'defense', 'game', 'system', 'accepted', 'declined', 'opening']
+  let split = opening.split(':')[0].split(' ').reverse()
+  while(words.find(w => w === split[0].toLowerCase())) {
+    split.shift()
+  }
+  let midi = split.reverse()
+  let unique = ['Latvian', 'Englund']
+  if (unique.find(w => w === midi[0])) return midi[0]
+  return midi.join(' ')
+}
+
 export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
@@ -63,7 +75,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
     data: getOpeningsData(data, theFights),
     initialSort: [{column:"count", dir:"desc"}],
     groupStartOpen: true,
-    groupBy: data => data.name.split(":")[0],
+    groupBy: data => getShortOpeningName(data.name),
     groupHeader: function(value, count, data, group){
       let score = {w: 0, draw:0, b:0}
       let trophies = {tr: new Set(), count: 0}
