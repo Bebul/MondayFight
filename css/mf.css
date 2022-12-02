@@ -33,30 +33,30 @@ body {
 
 @media only screen and (max-width: 500px) {
     body {
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
     }
     .body {
         width: 100%;
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
     }
 
     .flow50 {
         width: 100%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
     }
 
     .flow33 {
         width: 100%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
     }
 
     .flow66 {
         width: 100%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
     }
 
@@ -76,14 +76,14 @@ body {
 
     .flow50 {
         width: 45%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 290px;
     }
 
     .flow33 {
         width: 45%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 290px;
     }
@@ -96,21 +96,21 @@ body {
 
     .flow50 {
         width: 45%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 320px;
     }
 
     .flow33 {
         width: 31%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 240px;
     }
 
     .flow66 {
         width: 63%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
     }
 }
@@ -121,21 +121,21 @@ body {
     }
     .flow50 {
         width: 45%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 300px;
     }
 
     .flow33 {
         width: 31%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 300px;
     }
 
     .flow66 {
         width: 63%;
-        margin: 0px;
+        margin: 0;
         display: inline-block; /*or table */
         min-width: 500px;
     }
@@ -187,7 +187,7 @@ body {
 .mondayFightCaption .captionText {
     font-size: min(35px, calc(100vw/15));
     position:relative;
-    top:0px;
+    top:0;
     margin-left: 10px;
 }
 
@@ -289,7 +289,6 @@ body {
 
 table, tbody, tfoot, thead, tr, th, td {
     border: 0;
-    font-size: 100%;
     font: inherit;
     vertical-align: middle;
     text-align: inherit;
@@ -318,12 +317,12 @@ td, th {
 
 .lImg {
     float: left;
-    margin: 5px 5px 5px 0px;
+    margin: 5px 5px 5px 0;
 }
 
 .rImg {
    float: right;
-   margin: 5px 0px 5px 5px;
+   margin: 5px 0 5px 5px;
 }
 
 .results {
@@ -525,7 +524,7 @@ win {
     background-image: url("../img/achievements/achievementBack.png");
     color: black;
     border-radius: 10px;
-    padding: 5px 0px;
+    padding: 5px 0;
     border: 2px solid black;
     cursor: auto;
 
@@ -537,8 +536,8 @@ win {
 }
 
 .achievementPlayer {
-    margin: 5px 0px;
-    padding: 10px 0px;
+    margin: 5px 0;
+    padding: 10px 0;
     background-color: rgba(180,180,180,0.4);
     border-top: 2px solid black;
     border-bottom: 2px solid black;
@@ -571,10 +570,10 @@ win {
     max-height: 175px;
     height: 37vw;
     margin-left: -2px;
-    border-left: 0px;
+    border-left: 0;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 .achievementDesc:after {
@@ -617,6 +616,19 @@ img.img100 {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'BankGothic';
+    src: url('../fonts/BankGothic Md BT Medium.ttf');
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BankGothicCondensed';
+    src: url('../fonts/BankGothic Md BT Medium.ttf');
+    font-style: normal;
+    font-stretch: condensed;
+}
+
 #tournament-spec img {
     width:100%;
 }
@@ -626,6 +638,6 @@ img.img100 {
 }
 
 .tabulator-row.tabulator-group span {
-    margin-left: 0px;
+    margin-left: 0;
     color: black;
 }

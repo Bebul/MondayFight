@@ -1,5 +1,14 @@
 import {MF} from "./tournamentsData.mjs"
-import {getPlayers, allMyTables, gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+import {
+  getPlayers,
+  allMyTables,
+  gameListData,
+  updateMostActivePlayer,
+  updateGoogleBar,
+  gameListTable,
+  drawEpicCard,
+  getLeagueDataOfPlayers
+} from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
 import {collectTrophies, joinTrophies, setOpeningTable} from "./podium.mjs";
 
@@ -25,6 +34,18 @@ function trophiesSet(cell, pars) {
   let ar = []
   trophies.tr.forEach(v => ar.push(v))
   return ar.join("")
+}
+
+export function getShortOpeningName(opening) {
+  let words = ['attack', 'defense', 'game', 'system', 'accepted', 'declined', 'opening']
+  let split = opening.split(':')[0].split(' ').reverse()
+  while(words.find(w => w === split[0].toLowerCase())) {
+    split.shift()
+  }
+  let midi = split.reverse()
+  let unique = ['Latvian', 'Englund']
+  if (unique.find(w => w === midi[0])) return midi[0]
+  return midi.join(' ')
 }
 
 export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true) {
@@ -63,7 +84,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
     data: getOpeningsData(data, theFights),
     initialSort: [{column:"count", dir:"desc"}],
     groupStartOpen: true,
-    groupBy: data => data.name.split(":")[0],
+    groupBy: data => getShortOpeningName(data.name),
     groupHeader: function(value, count, data, group){
       let score = {w: 0, draw:0, b:0}
       let trophies = {tr: new Set(), count: 0}
@@ -151,18 +172,20 @@ function getCrossData(data, theFights, players, criterion) {
 
 }
 
-export function getOpeningsData(data, theFights) {
+export function getOpeningsData(data, theFights, filter, useShort) {
   let op = new Map()
   function updateOpenings(g) {
-    if (g.opening) {
-      if (op.has(g.opening.name)) {
-        let o = op.get(g.opening.name)
+    if (g.opening && (!filter || filter(g))) {
+      let useName = g.opening.name
+      if (useShort) useName = getShortOpeningName(useName)
+      if (op.has(useName)) {
+        let o = op.get(useName)
         o.count++
         o.score = updateScore(g, o.score)
         collectTrophies(g, o.tr)
-        op.set(g.opening.name, o)
+        op.set(useName, o)
       } else {
-        op.set(g.opening.name, {
+        op.set(useName, {
           count: 1,
           score: updateScore(g),
           tr: collectTrophies(g)
@@ -199,20 +222,22 @@ function getScores(data, players, fights) {
 
   function updateNoStart(name) {
     let data = playerScore.get(name)
-    data[2]++
+    if (data) data[2]++
   }
   function updateDraw(name) {
     let data = playerScore.get(name)
-    data[0]+=0.5
-    data[1]+=0.5
+    if (data) {
+      data[0]+=0.5
+      data[1]+=0.5
+    }
   }
   function updateWin(name) {
     let data = playerScore.get(name)
-    data[0]++
+    if (data) data[0]++
   }
   function updateLoss(name) {
     let data = playerScore.get(name)
-    data[1]++
+    if (data) data[1]++
   }
 
   fights.forEach( fight => {
@@ -248,17 +273,22 @@ function getCrossScores(data, players, fights) {
   players.forEach( pl => playerScore.set(pl, emptyMap()) )
 
   function updateDraw(a,b) {
-    let data = playerScore.get(a).get(b)
-    data[0]+=0.5
-    data[1]+=0.5
+    let data = playerScore.get(a)
+    data = data && data.get(b)
+    if (data) {
+      data[0]+=0.5
+      data[1]+=0.5
+    }
   }
   function updateWin(a,b) {
-    let data = playerScore.get(a).get(b)
-    data[0]++
+    let data = playerScore.get(a)
+    data = data && data.get(b)
+    if (data) data[0]++
   }
   function updateLoss(a,b) {
-    let data = playerScore.get(a).get(b)
-    data[1]++
+    let data = playerScore.get(a)
+    data = data && data.get(b)
+    if (data) data[1]++
   }
 
   fights.forEach( fight => {
@@ -553,3 +583,62 @@ export function criterionChanged(data, tableId, createTableF) {
       break
   }
 }
+
+
+function createEpicCard(data, theFights, selectId, criterion, season, verbose = true) {
+  function getValue(selectId) {
+    let e = document.getElementById(selectId);
+    let value = e.value;
+    return e.options[e.selectedIndex].text;
+  }
+  // theFights contain only relevant games selected by season
+  let league = getLeagueDataOfPlayers(theFights)
+  let player1 = getValue("players1")
+  let player2 = getValue("players2")
+  let title = getValue("title")
+  let crossData = getCrossData(data, theFights, [player1, player2], "score")
+  crossData.forEach( pl => {
+    let openings = getOpeningsData(data, theFights, g => g.players.white.user.name === pl.name, true)
+    pl.opening = openings.reduce((p,c) => {
+      if (p.count < c.count) return c
+      else return p
+    })
+  })
+
+  drawEpicCard(league, crossData, title, selectId)
+}
+
+export function initCardsUI(data) {
+  document.getElementById("createCard").onclick = function() {
+    criterionChanged(data, "epicCard", createEpicCard)
+  }
+}
+
+export function updatePlayerList(data, theFights, selectId, criterion, season, verbose = true) {
+  function populateSelect(itemsValues, id) {
+    document.getElementById(id).innerHTML = ""
+    let items = document.createDocumentFragment();
+
+    itemsValues.forEach(function(el) {
+      var option = document.createElement("option");
+      option.value = el;
+      option.innerHTML = el;
+
+      items.appendChild(option);
+    });
+
+    document.getElementById(id).appendChild(items);
+  }
+
+  let players = getPlayers(theFights).sort(function(a, b){
+    let x = a.toLowerCase();
+    let y = b.toLowerCase();
+    if (x < y) {return -1;}
+    if (x > y) {return 1;}
+    return 0;
+  });
+
+  populateSelect(players, selectId + '1')
+  populateSelect(players, selectId + '2')
+}
+

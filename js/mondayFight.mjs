@@ -372,7 +372,7 @@ function loadDoc() {
   function logger(logLine) {
     document.getElementById("gamesJson").innerHTML = logLine
   }
-  let downloadedTournamentsGames = LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  let downloadedTournamentsGames = LAPI.lichessAPI().downloadMissingTournamentGames(logger)
   document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
@@ -514,7 +514,7 @@ function rankFormatter(cell, formatterParams) {
   return `<span style="color:lightgray"><b>${cellValue}</b></span>`
 }
 
-function getLeagueDataOfPlayers(theFights, mfId) {
+export function getLeagueDataOfPlayers(theFights, mfId) {
   let lastFight = theFights.find(fight =>
     fight.id === mfId
   )
@@ -567,6 +567,17 @@ export function getLeagueData(data) {
     league: getLeagueDataOfPlayers(fights, mfId),
     count: fights.length
   }
+}
+
+export async function downloadUserDataIntoLeague(league) {
+  let ids = league.map(p => p.name).join(',')
+  return await LAPI.lichessAPI().users(ids).then( users => {
+    for (let i=0; i<league.length; i++) {
+      let data = users.find(u => u.username === league[i].name)
+      league[i].data = data
+    }
+    return league
+  })
 }
 
 export var leagueTable
@@ -867,7 +878,7 @@ export function processAdmin(data) {
             if (downloadedTournaments.length) {
               data.addTournaments(downloadedTournaments) // updates mondayFights and everything
               updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
-              LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
+              LAPI.lichessAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
                 .then(function(games) {
                   data.addGames(games)
                   downloadedTournaments.forEach(t => data.addExtras(t))
@@ -1335,5 +1346,156 @@ async function drawSpider(dataOfPlayers, spiderId) {
       drawNet(trRight, true)
     }
     img.src = "img/players/background.jpg"
+  })
+}
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
+  if (!Array.isArray(crossData) || crossData.length != 2) return;
+
+  let GLOB = {
+    width: 400, height: 600,
+    padTop: 180, fontSize: 45, picH: 65
+  }
+
+  let canvas = document.getElementById(cardId)
+  let ctx = canvas.getContext("2d")
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  // find players in the dataOfPlayers to know their order
+  let pl = crossData.map(p => {
+      let ret = dataOfPlayers.find(pl => pl.name.toLowerCase() === p.name.toLowerCase())
+      ret['crossData'] = p
+      return ret
+  })
+  if (pl.length !== 2) return;
+  let titans = pl.sort((a,b) => a.rank - b.rank)
+  titans.forEach(p => p.avatar = Avatars.getAvatar(p.name))
+
+  Promise.all([
+    downloadUserDataIntoLeague(dataOfPlayers),
+    document.fonts.load("18px 'BankGothicCondensed'"),
+    document.fonts.load("18px 'BankGothic'"),
+  ])
+    .then(function() {
+    let img = new Image()
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0)
+
+      ctx.fillStyle = "orange";
+      let topLine = GLOB.padTop
+      ctx.font = `${0.3 * GLOB.fontSize}px BankGothicCondensed`
+      let text = title
+      let textInfo = ctx.measureText(text)
+      let textX = 0.5 * GLOB.width - textInfo.width / 2
+      ctx.fillText(text, textX, topLine + 10)
+
+      ctx.font = `22px BankGothicCondensed`
+      let vsText = "Vs."
+      let vsInfo = ctx.measureText(vsText)
+      let vsX = 0.5 * GLOB.width - vsInfo.width / 2
+      ctx.fillText(vsText, vsX, 212 + 30)
+
+      for (let ix=0; ix<2; ix++) {
+        // avatar
+        let avatar = Avatars.getAvatar(titans[ix].name, "img/players/jouzolean.gif")
+        if (avatar) {
+          let img = new Image();
+          img.onload = function () {
+            let aspect = img.width / img.height
+            let picW = aspect * GLOB.picH
+            let imgX = (ix > 0) ? GLOB.width - 180 + (180 - picW)/2 : (180 - picW)/2
+            ctx.drawImage(img, imgX, 174 - GLOB.picH, picW, GLOB.picH)
+          }
+          img.src = avatar
+        }
+
+        ctx.fillStyle = "#eee";
+        let topLine = 212 + 40 * ix
+        ctx.font = `22px BankGothic`
+        let prettyName = capitalizeFirstLetter(titans[ix].name)
+        let textInfo = ctx.measureText(prettyName)
+        let textX = 0.5 * GLOB.width - textInfo.width / 2
+        ctx.fillText(prettyName, textX, topLine + 10)
+      }
+
+      function playerOddsByELO(players) {
+        let [rA, rB] = players.map(pl => pl.data.perfs.blitz.rating)
+        let qA = Math.pow(10, rA / 400)
+        let qB = Math.pow(10, rB / 400)
+        let eA = qA / (qA + qB)
+        let eB = qB / (qA + qB)
+        return [eA, eB]
+      }
+      function playerOddsByHistory(players) {
+        let cross = players[0].crossData.pl0 + players[0].crossData.pl1
+        let nums = cross.split('-').map(n => Number.parseInt(n))
+        if (nums.length < 2) nums = [0,0]
+        let denom = nums[0] + nums[1] || 1
+        return {
+          count: nums[0] + nums[1],
+          odds: [nums[0] / denom , nums[1] / denom]
+        }
+      }
+      function playerOdds(players, f) {
+        let factor = f || 0.5
+        let byELO = playerOddsByELO(players)
+        let {count: count, odds: byHistory} = playerOddsByHistory(players)
+        if (count < 10) factor += (1 - factor) * (9 - count) / 9
+        let odds = []
+        console.log(`factor:${factor}`)
+        for (let i=0; i<2; i++) {
+          odds[i] = factor * byELO[i] + (1-factor) * byHistory[i]
+        }
+        return odds
+      }
+
+      function percents(x) {
+        return `${Math.round(x * 1000) / 10} %`
+      }
+
+      let lines = [
+        {c:'Nasazení', f: ix => titans[ix].rank, font: '15px BankGothic'},
+        {c:'Lichess elo', f: ix => titans[ix].data.perfs.blitz.rating, font: '15px BankGothic'},
+        {c:'Vzájemná bilance', f: ix => titans[ix].crossData.pl0 + titans[ix].crossData.pl1, font: '15px BankGothic'},
+        {c:'Celková bilance', f: ix =>  titans[ix].crossData.score, font: '14px BankGothic'},
+        {c:'Typické zahájení', f: ix => titans[ix].crossData.opening.name, font: '13px BankGothicCondensed'},
+        {c:'Šance na výhru', f: ix => percents(playerOdds(titans)[ix]), font: '15px BankGothic'}
+      ];
+
+      function drawLine(n, lines, top, sz) {
+        let line = lines[n]
+        let h = (GLOB.height - top) / lines.length
+        let hoff = h/2 - sz/2
+        ctx.fillStyle = "#fff";
+        let topLine = top + n * h + hoff
+        ctx.font = `${sz}px BankGothic`
+        let textInfo = ctx.measureText(line.c)
+        let textX = 0.5 * GLOB.width - textInfo.width / 2
+        ctx.fillText(line.c, textX, topLine + 10)
+
+        ctx.fillStyle = "#EFB400";
+        ctx.font = line.font || `${0.65 * sz}px BankGothicCondensed`
+
+        let leftText = line.f(0)
+        let leftX = 10
+        ctx.fillText(leftText, leftX, topLine + 10)
+
+        let rightText = line.f(1)
+        let rightInfo = ctx.measureText(rightText)
+        ctx.fillText(rightText, GLOB.width - leftX - rightInfo.width, topLine + 10)
+      }
+
+      for (let i=0; i<lines.length; i++) {
+        drawLine(i, lines, 284, 17)
+      }
+
+      ctx.strokeStyle = "black";
+    }
+    img.src = "img/epicBackground.png"
   })
 }
