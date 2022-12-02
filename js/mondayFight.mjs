@@ -592,6 +592,8 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
     drawSpider(dataOfPlayers, spiderId)
   }
 
+  drawEpicCard(dataOfPlayers, ["DJ-Pesec", "Margarita_Vlasenko"],"epic")
+
   if (leagueNoId) {
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
   }
@@ -1335,5 +1337,114 @@ async function drawSpider(dataOfPlayers, spiderId) {
       drawNet(trRight, true)
     }
     img.src = "img/players/background.jpg"
+  })
+}
+
+async function drawEpicCard(dataOfPlayers, players, cardId) {
+  if (!Array.isArray(players) || players.length != 2) return;
+
+  let GLOB = {
+    width: 400, height: 600,
+    padX: 20, padTop: 180, padBottom: 20,
+    centerWidth: 150,
+    fontSize: 45,
+    conex: 90,
+    picH: 65
+  }
+
+
+  let canvas = document.getElementById(cardId)
+  let ctx = canvas.getContext("2d")
+
+  // find players in the dataOfPlayers to know their order
+  let pl = players.map(p =>
+    dataOfPlayers.find(pl => pl.name.toLowerCase() === p.toLowerCase())
+  )
+  if (pl.length !== 2) return;
+  let titans = pl.sort((a,b) => a.rank - b.rank)
+  titans.forEach(p => p.avatar = Avatars.getAvatar(p.name))
+
+  Promise.all([
+    document.fonts.load("18px 'BankGothic'")
+  ]).then(function() {
+    let img = new Image()
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0)
+
+      ctx.fillStyle = "orange";
+      let topLine = GLOB.padTop
+      ctx.font = `${0.3 * GLOB.fontSize}px BankGothic`
+      let text = "Semifinále"
+      let textInfo = ctx.measureText(text)
+      let textX = 0.5 * GLOB.width - textInfo.width / 2
+      ctx.fillText(text, textX, topLine + 10)
+
+      ctx.font = `22px BankGothic`
+      let vsText = "Vs."
+      let vsInfo = ctx.measureText(vsText)
+      let vsX = 0.5 * GLOB.width - vsInfo.width / 2
+      ctx.fillText(vsText, vsX, 212 + 30)
+
+      for (let ix=0; ix<2; ix++) {
+        // avatar
+        let avatar = Avatars.getAvatar(titans[ix].name, "img/achievements/jouzolean.gif")
+        if (avatar) {
+          let img = new Image();
+          img.onload = function () {
+            let aspect = img.width / img.height
+            let picW = aspect * GLOB.picH
+            let imgX = (ix > 0) ? GLOB.width - 180 + (180 - picW)/2 : (180 - picW)/2
+            ctx.drawImage(img, imgX, 174 - GLOB.picH, picW, GLOB.picH)
+          }
+          img.src = avatar
+        }
+
+        ctx.fillStyle = "#eee";
+        let topLine = 212 + 40 * ix
+        ctx.font = `22px BankGothic`
+        let textInfo = ctx.measureText(titans[ix].name)
+        let textX = 0.5 * GLOB.width - textInfo.width / 2
+        ctx.fillText(titans[ix].name, textX, topLine + 10)
+      }
+
+      let lines = [
+        {c:'Nasazení', f: ix => ix === 1 ? 'strašlivé' : 'buldočí'},
+        {c:'Lichess elo', f: ix => ix === 1 ? 'wtf?' : 'nadhodnocené'},
+        {c:'Vzájemná bilance', f: ix => ix === 1 ? 'cha cha' : 'bééééé'},
+        {c:'Celková bilance', f: ix => ix === 1 ? 'v plusu' : 'v mínusu'},
+        {c:'Typické zahájení', f: ix => ix === 1 ? 'královský gambit' : 'italská nuda'},
+        {c:'Šance na výhru', f: ix => ix === 1 ? 'značné' : 'značnější'}
+      ];
+
+      function drawLine(n, lines, top, sz) {
+        let line = lines[n]
+        let h = (GLOB.height - top) / lines.length
+        let hoff = h/2 - sz/2
+        ctx.fillStyle = "#fff";
+        let topLine = top + n * h + hoff
+        ctx.font = `${sz}px BankGothic`
+        let textInfo = ctx.measureText(line.c)
+        let textX = 0.5 * GLOB.width - textInfo.width / 2
+        ctx.fillText(line.c, textX, topLine + 10)
+
+        ctx.fillStyle = "#EFB400";
+        ctx.font = `${0.65 * sz}px BankGothic`
+
+        let leftText = line.f(0)
+        let leftX = 10
+        ctx.fillText(leftText, leftX, topLine + 10)
+
+        let rightText = line.f(1)
+        let rightInfo = ctx.measureText(rightText)
+        ctx.fillText(rightText, GLOB.width - leftX - rightInfo.width, topLine + 10)
+      }
+
+      for (let i=0; i<lines.length; i++) {
+        drawLine(i, lines, 284, 17)
+      }
+
+      ctx.strokeStyle = "black";
+    }
+    img.src = "img/epicBackground.png"
   })
 }
