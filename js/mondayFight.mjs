@@ -1461,10 +1461,16 @@ export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
         return `${Math.round(x * 1000) / 10} %`
       }
 
+      function fastMate(ply) {
+        if (!ply) return ""
+        return `${Math.floor((ply + 1) / 2)}. tahem`
+      }
+
       let lines = [
         {c:'Nasazení', f: ix => titans[ix].rank, font: '15px BankGothic'},
         {c:'Lichess elo', f: ix => titans[ix].data.perfs.blitz.rating, font: '15px BankGothic'},
         {c:'Vzájemná bilance', f: ix => titans[ix].crossData.pl0 + titans[ix].crossData.pl1, font: '15px BankGothic'},
+        {c:'Dal mat druhému', f: ix => fastMate(titans[ix].crossData.fastMate), font: '15px BankGothic'},
         {c:'Celková bilance', f: ix =>  titans[ix].crossData.score, font: '14px BankGothic'},
         {c:'Typické zahájení', f: ix => titans[ix].crossData.opening.name, font: '13px BankGothicCondensed'},
         {c:'Šance na výhru', f: ix => percents(playerOdds(titans)[ix]), font: '15px BankGothic'}

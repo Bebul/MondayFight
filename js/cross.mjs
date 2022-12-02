@@ -172,6 +172,33 @@ function getCrossData(data, theFights, players, criterion) {
 
 }
 
+export function fastestMutualMate(data, theFights, players) {
+  let ourPlayer = name => players.find(p => p.name === name)
+  let duels = {}
+  duels[players[0].name] = Number.MAX_VALUE
+  duels[players[1].name] = Number.MAX_VALUE
+
+  function updateMates(game) {
+    if (game.status == "mate") {
+      if (ourPlayer(game.players.white.user.name) && ourPlayer(game.players.black.user.name)) {
+        if (game.winner == "white") duels[game.players.white.user.name] = Math.min(duels[game.players.white.user.name], game.ply)
+        else duels[game.players.black.user.name] = Math.min(duels[game.players.black.user.name], game.ply)
+      }
+    }
+  }
+
+  theFights.forEach(f => {
+      let games = data.tournamentGames().find(tg => tg.id==f.id);
+      if (games !== undefined) games.games.forEach(g => updateMates(g))
+    }
+  )
+  players.forEach(pl => {
+    if (duels[pl.name] < Number.MAX_VALUE) {
+      pl.fastMate = duels[pl.name]
+    }
+  })
+}
+
 export function getOpeningsData(data, theFights, filter, useShort) {
   let op = new Map()
   function updateOpenings(g) {
@@ -603,6 +630,7 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
       if (p.count < c.count) return c
       else return p
     })
+    fastestMutualMate(data, theFights, crossData)
   })
 
   drawEpicCard(league, crossData, title, selectId)
