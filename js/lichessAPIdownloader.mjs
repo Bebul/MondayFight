@@ -147,7 +147,7 @@ function onDwnlTournamentClicked(data, rename) {
       return tournament
     })
     .then(tournament => {
-      gamesDownloaderAPI().downloadTournamentGames(tournament, data)
+      lichessAPI().downloadTournamentGames(tournament, data)
         .then( games => {
           return {games: games, tournament: tournament}
         })
@@ -164,7 +164,7 @@ function onDwnlTournamentClicked(data, rename) {
     })
 }
 
-function gamesDownloaderAPI() {
+function lichessAPI() {
   let timeout = 500
   const promiseTimeout = time => result => new Promise(resolve => setTimeout(resolve, time, result));
 
@@ -228,13 +228,28 @@ function gamesDownloaderAPI() {
     return downloadedTournamentsGames
   }
 
+  async function users(ids) {
+    let userList = await fetch("https://lichess.org/api/users", {
+      method: 'POST',
+      body: ids  // text/plain User IDs separated by commas
+    })
+      .then(promiseTimeout(0))
+      .then(status)
+      .then(text)
+      .then(parse)
+    return userList
+  }
+
   return {
     downloadMissingTournamentGames: function(data, logger) {
       return downloadMissingTournamentGames(data, logger)
     },
     downloadTournamentGames: function(tournament, data) {
       return downloadGames(tournament, data)
-    }
+    },
+    users: function(ids) {
+      return users(ids)
+    },
   }
 }
 
@@ -242,5 +257,5 @@ export var LAPI = {
   updateHTMLurlRequestsList: updateHTMLurlRequestsList,
   lichessTournamentsAPI: lichessTournamentsAPI,
   onDwnlTournamentClicked: onDwnlTournamentClicked,
-  gamesDownloaderAPI: gamesDownloaderAPI
+  lichessAPI: lichessAPI
 }

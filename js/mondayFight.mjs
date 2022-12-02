@@ -372,7 +372,7 @@ function loadDoc() {
   function logger(logLine) {
     document.getElementById("gamesJson").innerHTML = logLine
   }
-  let downloadedTournamentsGames = LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(logger)
+  let downloadedTournamentsGames = LAPI.lichessAPI().downloadMissingTournamentGames(logger)
   document.getElementById("gamesJson").innerHTML = JSON.stringify(downloadedTournamentsGames, null, 0)
 
   /*
@@ -567,6 +567,17 @@ export function getLeagueData(data) {
     league: getLeagueDataOfPlayers(fights, mfId),
     count: fights.length
   }
+}
+
+export async function downloadUserDataIntoLeague(league) {
+  let ids = league.map(p => p.name).join(',')
+  return await LAPI.lichessAPI().users(ids).then( users => {
+    for (let i=0; i<league.length; i++) {
+      let data = users.find(u => u.username === league[i].name)
+      league[i].data = data
+    }
+    return league
+  })
 }
 
 export var leagueTable
@@ -869,7 +880,7 @@ export function processAdmin(data) {
             if (downloadedTournaments.length) {
               data.addTournaments(downloadedTournaments) // updates mondayFights and everything
               updateHTMLWithDownloadedTournaments(data, downloadedTournaments)
-              LAPI.gamesDownloaderAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
+              LAPI.lichessAPI().downloadMissingTournamentGames(data, LAPI.updateHTMLurlRequestsList)
                 .then(function(games) {
                   data.addGames(games)
                   downloadedTournaments.forEach(t => data.addExtras(t))
@@ -1365,21 +1376,24 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
   titans.forEach(p => p.avatar = Avatars.getAvatar(p.name))
 
   Promise.all([
-    document.fonts.load("18px 'BankGothic'")
-  ]).then(function() {
+    downloadUserDataIntoLeague(dataOfPlayers),
+    document.fonts.load("18px 'BankGothicCondensed'"),
+    document.fonts.load("18px 'BankGothic'"),
+  ])
+    .then(function() {
     let img = new Image()
     img.onload = function () {
       ctx.drawImage(img, 0, 0)
 
       ctx.fillStyle = "orange";
       let topLine = GLOB.padTop
-      ctx.font = `${0.3 * GLOB.fontSize}px BankGothic`
+      ctx.font = `${0.3 * GLOB.fontSize}px BankGothicCondensed`
       let text = "Semifinále"
       let textInfo = ctx.measureText(text)
       let textX = 0.5 * GLOB.width - textInfo.width / 2
       ctx.fillText(text, textX, topLine + 10)
 
-      ctx.font = `22px BankGothic`
+      ctx.font = `22px BankGothicCondensed`
       let vsText = "Vs."
       let vsInfo = ctx.measureText(vsText)
       let vsX = 0.5 * GLOB.width - vsInfo.width / 2
@@ -1408,8 +1422,8 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
       }
 
       let lines = [
-        {c:'Nasazení', f: ix => ix === 1 ? 'strašlivé' : 'buldočí'},
-        {c:'Lichess elo', f: ix => ix === 1 ? 'wtf?' : 'nadhodnocené'},
+        {c:'Nasazení', f: ix => titans[ix].rank, font: '15px BankGothic'},
+        {c:'Lichess elo', f: ix => titans[ix].data.perfs.blitz.rating, font: '15px BankGothic'},
         {c:'Vzájemná bilance', f: ix => ix === 1 ? 'cha cha' : 'bééééé'},
         {c:'Celková bilance', f: ix => ix === 1 ? 'v plusu' : 'v mínusu'},
         {c:'Typické zahájení', f: ix => ix === 1 ? 'královský gambit' : 'italská nuda'},
@@ -1428,7 +1442,7 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
         ctx.fillText(line.c, textX, topLine + 10)
 
         ctx.fillStyle = "#EFB400";
-        ctx.font = `${0.65 * sz}px BankGothic`
+        ctx.font = line.font || `${0.65 * sz}px BankGothicCondensed`
 
         let leftText = line.f(0)
         let leftX = 10

@@ -620,6 +620,12 @@ img.img100 {
     font-family: 'BankGothic';
     src: url('../fonts/BankGothic Md BT Medium.ttf');
     font-style: normal;
+}
+
+@font-face {
+    font-family: 'BankGothicCondensed';
+    src: url('../fonts/BankGothic Md BT Medium.ttf');
+    font-style: normal;
     font-stretch: condensed;
 }
 
