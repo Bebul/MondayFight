@@ -514,7 +514,7 @@ function rankFormatter(cell, formatterParams) {
   return `<span style="color:lightgray"><b>${cellValue}</b></span>`
 }
 
-function getLeagueDataOfPlayers(theFights, mfId) {
+export function getLeagueDataOfPlayers(theFights, mfId) {
   let lastFight = theFights.find(fight =>
     fight.id === mfId
   )
@@ -602,8 +602,6 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
   if (spiderId) {
     drawSpider(dataOfPlayers, spiderId)
   }
-
-  drawEpicCard(dataOfPlayers, ["DJ-Pesec", "Margarita_Vlasenko"],"epic")
 
   if (leagueNoId) {
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
@@ -1351,26 +1349,29 @@ async function drawSpider(dataOfPlayers, spiderId) {
   })
 }
 
-async function drawEpicCard(dataOfPlayers, players, cardId) {
-  if (!Array.isArray(players) || players.length != 2) return;
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
+  if (!Array.isArray(crossData) || crossData.length != 2) return;
 
   let GLOB = {
     width: 400, height: 600,
-    padX: 20, padTop: 180, padBottom: 20,
-    centerWidth: 150,
-    fontSize: 45,
-    conex: 90,
-    picH: 65
+    padTop: 180, fontSize: 45, picH: 65
   }
-
 
   let canvas = document.getElementById(cardId)
   let ctx = canvas.getContext("2d")
 
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+
   // find players in the dataOfPlayers to know their order
-  let pl = players.map(p =>
-    dataOfPlayers.find(pl => pl.name.toLowerCase() === p.toLowerCase())
-  )
+  let pl = crossData.map(p => {
+      let ret = dataOfPlayers.find(pl => pl.name.toLowerCase() === p.name.toLowerCase())
+      ret['crossData'] = p
+      return ret
+  })
   if (pl.length !== 2) return;
   let titans = pl.sort((a,b) => a.rank - b.rank)
   titans.forEach(p => p.avatar = Avatars.getAvatar(p.name))
@@ -1388,7 +1389,7 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
       ctx.fillStyle = "orange";
       let topLine = GLOB.padTop
       ctx.font = `${0.3 * GLOB.fontSize}px BankGothicCondensed`
-      let text = "Semifinále"
+      let text = title
       let textInfo = ctx.measureText(text)
       let textX = 0.5 * GLOB.width - textInfo.width / 2
       ctx.fillText(text, textX, topLine + 10)
@@ -1401,7 +1402,7 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
 
       for (let ix=0; ix<2; ix++) {
         // avatar
-        let avatar = Avatars.getAvatar(titans[ix].name, "img/achievements/jouzolean.gif")
+        let avatar = Avatars.getAvatar(titans[ix].name, "img/players/jouzolean.gif")
         if (avatar) {
           let img = new Image();
           img.onload = function () {
@@ -1416,18 +1417,54 @@ async function drawEpicCard(dataOfPlayers, players, cardId) {
         ctx.fillStyle = "#eee";
         let topLine = 212 + 40 * ix
         ctx.font = `22px BankGothic`
-        let textInfo = ctx.measureText(titans[ix].name)
+        let prettyName = capitalizeFirstLetter(titans[ix].name)
+        let textInfo = ctx.measureText(prettyName)
         let textX = 0.5 * GLOB.width - textInfo.width / 2
-        ctx.fillText(titans[ix].name, textX, topLine + 10)
+        ctx.fillText(prettyName, textX, topLine + 10)
+      }
+
+      function playerOddsByELO(players) {
+        let [rA, rB] = players.map(pl => pl.data.perfs.blitz.rating)
+        let qA = Math.pow(10, rA / 400)
+        let qB = Math.pow(10, rB / 400)
+        let eA = qA / (qA + qB)
+        let eB = qB / (qA + qB)
+        return [eA, eB]
+      }
+      function playerOddsByHistory(players) {
+        let cross = players[0].crossData.pl0 + players[0].crossData.pl1
+        let nums = cross.split('-').map(n => Number.parseInt(n))
+        if (nums.length < 2) nums = [0,0]
+        let denom = nums[0] + nums[1] || 1
+        return {
+          count: nums[0] + nums[1],
+          odds: [nums[0] / denom , nums[1] / denom]
+        }
+      }
+      function playerOdds(players, f) {
+        let factor = f || 0.5
+        let byELO = playerOddsByELO(players)
+        let {count: count, odds: byHistory} = playerOddsByHistory(players)
+        if (count < 10) factor += (1 - factor) * (9 - count) / 9
+        let odds = []
+        console.log(`factor:${factor}`)
+        for (let i=0; i<2; i++) {
+          odds[i] = factor * byELO[i] + (1-factor) * byHistory[i]
+        }
+        return odds
+      }
+
+      function percents(x) {
+        return `${Math.round(x * 1000) / 10} %`
       }
 
       let lines = [
         {c:'Nasazení', f: ix => titans[ix].rank, font: '15px BankGothic'},
         {c:'Lichess elo', f: ix => titans[ix].data.perfs.blitz.rating, font: '15px BankGothic'},
-        {c:'Vzájemná bilance', f: ix => ix === 1 ? 'cha cha' : 'bééééé'},
-        {c:'Celková bilance', f: ix => ix === 1 ? 'v plusu' : 'v mínusu'},
-        {c:'Typické zahájení', f: ix => ix === 1 ? 'královský gambit' : 'italská nuda'},
-        {c:'Šance na výhru', f: ix => ix === 1 ? 'značné' : 'značnější'}
+        {c:'Vzájemná bilance', f: ix => titans[ix].crossData.pl0 + titans[ix].crossData.pl1, font: '15px BankGothic'},
+        {c:'Celková bilance', f: ix =>  titans[ix].crossData.score, font: '14px BankGothic'},
+        {c:'Typické zahájení', f: ix => titans[ix].crossData.opening.name, font: '13px BankGothicCondensed'},
+        {c:'Šance na výhru', f: ix => percents(playerOdds(titans)[ix]), font: '15px BankGothic'}
       ];
 
       function drawLine(n, lines, top, sz) {

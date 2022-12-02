@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="max-age=3600" />
+    <meta charset="UTF-8">
+    <title>"Monday Fight Tournaments on Lichess"</title>
+    <link href="dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+
+    <script src="chess.js/chess.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+    <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
+
+    <script type="text/javascript" src="js/minimal.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/lichess-analyze-lite.css">
+    <link rel="stylesheet" href="css/mf.css">
+</head>
+
+<body>
+
+<div class="body">
+
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon"><a href="javascript:void(0);" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+        <span class="captionText">Epesní kartičky</span>
+        <div class="topnav">
+            <div id="myLinks">
+                <a href="index.html">Main page</a>
+                <a href="actualities.html">Hot News</a>
+                <a href="tables.html">Leaderboards</a>
+                <a href="cross.html">Cross table</a>
+                <a href="search.html">Search Engine</a>
+                <a href="archiv2020.html">Archiv 2020</a>
+                <a href="archiv2021.html">Archiv 2021</a>
+                <a href="players.html">Players</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <form name="selectDataType" style="display: none">
+        <b>Vyber kritérium:</b>
+        <input type="radio" name="criterion"  value="score" checked="true" />
+        <label>Vzájemné skóre</label>
+        <input type="radio" name="criterion"  value="rating" />
+        <label>Pohyb ratingu</label>
+    </form>
+    <form name="selectSeason">
+        <b>Vyber období:</b>
+        <input type="radio" name="season"  value="2020" />
+        <label>2020</label>
+        <input type="radio" name="season"  value="2021" />
+        <label>2021</label>
+        <input type="radio" name="season"  value="2022" checked="true" />
+        <label>2022</label>
+        <input type="radio" name="season"  value="year" />
+        <label>Plovoucí rok</label>
+        <input type="radio" name="season"  value="all" />
+        <label>Za celou dobu</label>
+    </form>
+    <div>
+        <form id="selectPlayer1" style="float: left">
+            <label for="players1">Vyber hráče:</label>
+            <select id="players1">
+            </select>
+        </form>
+        <form id="selectPlayer2" style="float: left; margin-left: 10px">
+            <select id="players2">
+            </select>
+        </form>
+    </div>
+    <div style="clear: both; padding-bottom: 15px">
+        <form id="selectTitle">
+            <select id="title">
+                <option value="Duel">Duel</option>
+                <option value="Kvalifikace">Kvalifikace</option>
+                <option value="Osmifinále">Osmifinále</option>
+                <option value="Semifinále">Semifinále</option>
+                <option value="Finále">Finále</option>
+                <option value="Bronz">Bitva o bronz</option>
+                <option value="Empty"></option>
+            </select>
+        </form>
+        <button id="createCard">Vyrob kartičku</button>
+    </div>
+
+    <div style="clear: both; padding-bottom: 15px">
+        <canvas id="epicCard" width="400px" height="600px"></canvas>
+    </div>
+</div>
+
+<script type="module">
+  import {MF, LoadMFData} from "./js/tournamentsData.mjs"
+  import {criterionChanged, updatePlayerList, initCardsUI} from "./js/cross.mjs"
+
+  function mainPage(data) {
+    let seasons = document.selectSeason.season
+    for (let i = 0; i < seasons.length; i++) {
+      seasons[i].addEventListener('click', function() {
+        criterionChanged(data, "players", updatePlayerList)
+      });
+    }
+    let criterion = document.selectDataType.criterion
+    for (let i = 0; i < criterion.length; i++) {
+      criterion[i].addEventListener('click', function() {
+        criterionChanged(data, "players", updatePlayerList)
+      });
+    }
+
+    let theFights = MF.filterYear(data.mondayFights(), 2022)
+
+    initCardsUI(data, theFights)
+    criterionChanged(data, "players", updatePlayerList)
+  }
+
+  LoadMFData(mainPage)
+</script>
+
+</body>
+</html>
