@@ -10,7 +10,7 @@ import {
   getLeagueDataOfPlayers
 } from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
-import {collectTrophies, joinTrophies, setOpeningTable} from "./podium.mjs";
+import {collectTrophies, joinTrophies, setOpeningTable, openingsHistogram} from "./podium.mjs";
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -48,7 +48,17 @@ export function getShortOpeningName(opening) {
   return midi.join(' ')
 }
 
-export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true) {
+export function getHistogram(ar, f) {
+  let histogram = {}
+  ar.forEach(i => {
+    let [name, count] = f(i)
+    if (histogram[name]) histogram[name] += count
+    else histogram[name] = count
+  })
+  return histogram
+}
+
+export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true, showAllGroups = false) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   let dateFilter = ""
@@ -79,12 +89,22 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
     trophiesCol
   ]
 
+  let openingsData = getOpeningsData(data, theFights)
+  openingsHistogram.set(getOpeningsHistogram(openingsData))
+
   let table = new Tabulator(tableId, {
     layout: "fitDataTable",
-    data: getOpeningsData(data, theFights),
+    data: openingsData,
     initialSort: [{column:"count", dir:"desc"}],
-    groupStartOpen: true,
-    groupBy: data => getShortOpeningName(data.name),
+    groupBy: item => {
+      let short = getShortOpeningName(item.name)
+      let histogram = openingsHistogram.get()
+      if (histogram[short] > 1) return short
+      else return "Other openings"
+    },
+    groupStartOpen:function(value, count, data, group){
+      return showAllGroups || (value === `King's Gambit` && count > 1); // we love King's Gambit
+    },
     groupHeader: function(value, count, data, group){
       let score = {w: 0, draw:0, b:0}
       let trophies = {tr: new Set(), count: 0}
@@ -241,6 +261,12 @@ export function getOpeningsData(data, theFights, filter, useShort) {
       }
     }
   )
+}
+
+export function getOpeningsHistogram(openingsAr) {
+  return getHistogram(openingsAr, opening => {
+    return [getShortOpeningName(opening.name), opening.count]
+  })
 }
 
 function getScores(data, players, fights) {

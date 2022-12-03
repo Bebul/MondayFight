@@ -7,7 +7,7 @@ import {
   getLeagueData,
   leagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto
 } from "./mondayFight.mjs"
-import {getOpeningsData} from "./cross.mjs"
+import {getOpeningsData, getOpeningsHistogram} from "./cross.mjs"
 
 let placeTxt = ['','first','second','third']
 
@@ -959,6 +959,11 @@ function updateSpecialBoards(games) {
   }
 }
 
+export var openingsHistogram = {
+  histogram: null,
+  get : function() {return this.histogram},
+  set : function(h) { this.histogram = h }
+}
 var openingsTable = null
 export function setOpeningTable(table) {
   openingsTable = table
@@ -991,6 +996,8 @@ function nextTournament(data, diff=1) {
   })
 
   let openingData = getOpeningsData(data, [games])
+  openingsHistogram.set(getOpeningsHistogram(openingData))
+  setOpeningTable(openingsTable)
   openingsTable.setData(openingData).then(function(){
     openingsTable.redraw(true)
   })
