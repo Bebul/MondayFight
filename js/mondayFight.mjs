@@ -1186,9 +1186,14 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
   let s = spec.find(s => s.id === tournamentId)
   if (s) {
     document.getElementById(divId).innerHTML = s.html
+    if (s.playOFF) document.getElementById(divId + '-play-off').innerHTML = s.playOFF
+    else document.getElementById(divId + '-play-off').innerHTML = ""
     if (s.init) s.init()
   }
-  else document.getElementById(divId).innerHTML = ""
+  else {
+    document.getElementById(divId).innerHTML = ""
+    document.getElementById(divId + '-play-off').innerHTML = ""
+  }
 }
 
 export function updateTournamentHtmlAuto(divId, tournamentId, data) {
