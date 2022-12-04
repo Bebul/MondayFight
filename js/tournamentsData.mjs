@@ -399,7 +399,8 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       }
       return ret
     },
-    currentGameListTableIx: tournamentGames.length - 1
+    currentGameListTableIx: tournamentGames.length - 1,
+    addExtraTournamentStats: addExtraTournamentStats
   }
   callback(api)
   return api

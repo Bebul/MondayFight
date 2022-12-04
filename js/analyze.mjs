@@ -337,7 +337,7 @@ async function analyzeMoves(g, t, report) {
   let stats = {}
 
   let tEndTime = (new Date(t.startsAt)).getTime() + t.minutes * 60000
-  if (tEndTime - g.lastMoveAt < 11000 && g.status=="mate") stats.lucky = true;
+  if (tEndTime - g.lastMoveAt >= -1100000 && tEndTime - g.lastMoveAt < 11000 && g.status=="mate") stats.lucky = true;
   let moves = g.moves.split(" ")
   let chess = new Chess()
   let pgn = MFPodium.toPGN(g, true)
@@ -424,7 +424,7 @@ async function analyzeAll(data, report) {
     })
 }
 
-async function addStats(g, t, report) {
+export async function addStats(g, t, report) {
   //console.log(`called ${g.id}`)
   await analyzeMoves(g, t, report)
     .then(function(result) {

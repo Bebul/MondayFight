@@ -659,7 +659,7 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
     fastestMutualMate(data, theFights, crossData)
   })
 
-  drawEpicCard(league, crossData, title, selectId)
+  drawEpicCard(data, league, crossData, title, selectId)
 }
 
 export function initCardsUI(data) {
