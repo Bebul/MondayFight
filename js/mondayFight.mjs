@@ -2,7 +2,6 @@ import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
 import {Avatars, getTrophies} from "./podium.mjs"
-import {createPlayOFFTournament} from "./playOFF.mjs";
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -1397,7 +1396,7 @@ function playerOdds(players, f) {
   return odds
 }
 
-export async function drawEpicCard(data, dataOfPlayers, crossData, title, cardId) {
+export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
   if (!Array.isArray(crossData) || crossData.length != 2) return;
 
   let GLOB = {
@@ -1419,8 +1418,6 @@ export async function drawEpicCard(data, dataOfPlayers, crossData, title, cardId
   if (pl.length !== 2) return;
   let titans = pl.sort((a,b) => a.rank - b.rank)
   titans.forEach(p => p.avatar = Avatars.getAvatar(p.name))
-
-  createPlayOFFTournament(data, 2021)
 
   Promise.all([
     downloadUserDataIntoLeague(dataOfPlayers),

@@ -155,6 +155,7 @@
 
     let games = data.tournamentGames()[data.currentGameListTableIx]
     let lastMfWinner = data.findTournament(games.id).podium[0].name
+    MFPodium.updateBackground(games.id)
     MFPodium.createPodium(data, games.id)
     MFPodium.createResults(data, games.id, games)
     MFPodium.createTournamentInfo(data, games.id)
