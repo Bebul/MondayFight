@@ -969,6 +969,11 @@ export function setOpeningTable(table) {
   openingsTable = table
 }
 
+function updateBackground(id) {
+  if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
+  else document.body.style.backgroundColor = "#e9ecef";
+}
+
 function nextTournament(data, diff=1) {
   data.currentGameListTableIx += diff
   data.currentGameListTableIx = Math.max(Math.min(data.currentGameListTableIx, data.tournamentGames().length - 1),0)
@@ -981,6 +986,7 @@ function nextTournament(data, diff=1) {
 
   let lastMfWinner = data.findTournament(games.id).podium[0].name
 
+  updateBackground(games.id)
   createPodium(data, games.id)
   createResults(data, games.id, games)
   updateSpecialBoards(games)
@@ -1011,6 +1017,7 @@ function nextTournament(data, diff=1) {
 }
 
 export let MFPodium = {
+  updateBackground: updateBackground,
   createPodium: createPodium,
   createResults: createResults,
   createTournamentInfo: createTournamentInfo,

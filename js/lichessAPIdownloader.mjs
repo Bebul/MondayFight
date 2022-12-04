@@ -240,6 +240,22 @@ function lichessAPI() {
     return userList
   }
 
+  async function games(ids) {
+    let gamesList = await fetch("https://lichess.org/api/games/export/_ids?opening=true", {
+      method: 'POST',
+      body: ids,
+      headers: {
+        'Accept': 'application/x-ndjson'
+      }
+    })
+      .then(promiseTimeout(0))
+      .then(status)
+      .then(text)
+      .then(ndjson2array)
+      .then(parse)
+    return gamesList
+  }
+
   return {
     downloadMissingTournamentGames: function(data, logger) {
       return downloadMissingTournamentGames(data, logger)
@@ -250,6 +266,9 @@ function lichessAPI() {
     users: function(ids) {
       return users(ids)
     },
+    games: function(ids){
+      return games(ids)
+    }
   }
 }
 
