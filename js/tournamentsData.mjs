@@ -340,11 +340,13 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       return mondayFights
     },
     addTournaments: function (downloadedTournaments) {
-      jouzoleanAndBebulsTournaments = jouzoleanAndBebulsTournaments.concat(downloadedTournaments)
+      let filtered = jouzoleanAndBebulsTournaments.filter(t => !downloadedTournaments.find(dt => dt.id === t.id))
+      jouzoleanAndBebulsTournaments = filtered.concat(downloadedTournaments)
       jouzoleanAndBebulsTournaments.sort(dateComparator)
     },
     addGames: function (downloadedGames) {
-      tournamentGames = tournamentGames.concat(downloadedGames)
+      let filtered = tournamentGames.filter(g => downloadedGames.id !== g.id)
+      tournamentGames = filtered.concat(downloadedGames)
       tournamentGames.sort((a,b) => {
         let dateA = jouzoleanAndBebulsTournaments.find(tr => tr.id===a.id)
         let dateB = jouzoleanAndBebulsTournaments.find(tr => tr.id===b.id)
