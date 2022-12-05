@@ -1195,6 +1195,12 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<b>Jouzolean:</b> Tak a je dobojováno! <a href='archiv2021.html'>Sezóna 2021</a> je s dnešním turnajem definitivně odpískána. Tato již legendární skupina hráčů se dokázala scházet v menším či větším počtu celý rok a ani jednou se nestalo, že by se nehrálo - a to ani tehdy, když jednou selhal lichess. To máme 52 kvalitních turnájů v roce. Náš seznam hráčů již čítá 26 jmen včetně jedné holky a všichni se známe." +
         "<br><br><b>DJ-Pesec:</b> A do tohoto vyžazovacího PlayOFF turnaje Vám představujeme epesní vyzyvatelské kartičky! <img src='img/epesni-karticka4.jpg' style='margin-top:5px'>" +
         "<br><br><img src='img/players/bukowskic.png' class='img100 right'><b>Bebul:</b> Velká gratulace Bukowskicovi, že přes počáteční dvojnásobný výprask od Rychlého Lenochoda dokázal kromě celkového turnaje ovládnout i závěrečné PlayOFF!"},
+    {id: "EvpGRc5W",
+      html: "<h2>Blíží se PlayOFF 2022</h2>" +
+        "Úderem 26.prosince se završí sezóna letošního Monday Fights. Prvních dvanáct borců pak zveme na vyřazovací turnaj PlayOFF. " +
+        "Hry z loňského PlayOFF turnaje byly převedeny na tento web a lze je vidět po kliknutí na obrázek <a href='index.html?mf=playOFF2021'><img src='img/epesni-karticka.jpg' style='margin:5px 0'></a>" +
+        "Ovšem první PlayOFF se hrál v roce 2020. Po odehraných partiích je poptávka. Bylo by pěkné, kdyby tyto partie byly na tomto webu k dohledání. Posílejte."
+    }
 
   ]
   let s = spec.find(s => s.id === tournamentId)
