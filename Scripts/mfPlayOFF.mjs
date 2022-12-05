@@ -96,6 +96,10 @@ let playOFF = {
 }
 
 async function extractTournamentData(data, tournament, games, playOFFId, seed) {
+  // add tournament id into each game
+  let playOFFFullName = `playOFF${playOFFId}`
+  games.forEach(g => g.tournament = playOFFFullName)
+
   // sort games by date
   games.sort((a,b) => a.createdAt - b.createdAt)
 
@@ -106,7 +110,7 @@ async function extractTournamentData(data, tournament, games, playOFFId, seed) {
     players.add(g.players.black.user.name)
   })
   tournament.nbPlayers = players.size
-  tournament.fullName = `MF PlayOFF ${playOFFId}`
+  tournament.fullName = playOFFFullName
   tournament.id = `playOFF${playOFFId}`
   tournament.startsAt = new Date(0) // 1.1.1970
 
