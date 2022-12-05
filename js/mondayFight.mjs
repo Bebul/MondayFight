@@ -475,6 +475,13 @@ export function createGameListTable(games, tableId, addDate, noStats, winner) {
   gameListTable = new Tabulator(tableId, {
     layout: "fitDataTable",
     reactiveData: true, // we want setData having effect
+    rowFormatter: function(row){
+      if (row.getData().date && row.getData().date.html.match(/playOFF/)) {
+        let col = '#def'
+        if (row.getPosition(false) % 2 > 0) col = '#d0e0f0'
+        const children = row.getElement().childNodes[1].style.backgroundColor = col
+      }
+    },
     columns: columnsAr
   })
   gameListTable.setData(gamesData)
