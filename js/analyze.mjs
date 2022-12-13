@@ -472,7 +472,7 @@ export async function addStats(g, t, report, chess) {
     )
 }
 
-async function addGamesStats(data, games, report) {
+async function addGamesStats(data, games, report, chessP) {
   let gamesCount = games.length
 
   Number.prototype.padLeft = function(base,chr){
@@ -501,7 +501,7 @@ async function addGamesStats(data, games, report) {
     if (g) {
       if (report) report.status(getStatus(g))
       let t = data.findTournament(g.tournament)
-      await addStats(g, t)
+      await addStats(g, t, report, chessP)
         .then(promiseTimeout(timeout))
         .then(result => nextStat(data, games, report))
     }
@@ -516,11 +516,11 @@ async function addAllStats(data, report) {
   await addGamesStats(data, games, report)
 }
 
-export async function addNewGamesStats(data, newGames, report) {
+export async function addNewGamesStats(data, newGames, report, chessP) {
   let games = []
   newGames.forEach(function(g) {
     games = games.concat(g.games)
   })
-  await addGamesStats(data, games, report)
+  await addGamesStats(data, games, report, chessP)
     .then(result => console.log("addNewGamesStats is DONE"))
 }
