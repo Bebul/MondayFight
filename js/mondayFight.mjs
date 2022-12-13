@@ -1239,7 +1239,13 @@ export function updateTournamentHtmlAuto(divId, tournamentId, data) {
      `
 }
 
+let withdrawals = ['bebul']
 async function drawSpider(dataOfPlayers, spiderId) {
+  // filter withdrawals
+  let playerList = dataOfPlayers.map(p => p.name).filter(p =>
+    ! withdrawals.includes(p.toLowerCase())
+  )
+
   let GLOB = {
     width: 1190, height: 670,
     padX: 20, padTop: 60, padBottom: 20,
@@ -1324,7 +1330,7 @@ async function drawSpider(dataOfPlayers, spiderId) {
           ctx.fillText(txNo, alx, y + 1.2 * fs3)
           ctx.fillStyle = "black";
           ctx.font = `condensed ${fs4}px Bahnshrift Light`
-          let name = dataOfPlayers[no - 1].name
+          let name = playerList[no - 1]
           if (i % 3 === 2) {
             alx = right ? alignLeft(trans, len, name) : alignRight(trans, len, name)
             ctx.fillText(name, alx, y - 0.3 * fs4)
