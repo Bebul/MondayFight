@@ -1200,7 +1200,15 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "Úderem 26.prosince se završí sezóna letošního Monday Fights. Prvních dvanáct borců pak zveme na vyřazovací turnaj PlayOFF. " +
         "Hry z loňského PlayOFF turnaje byly převedeny na tento web a lze je vidět po kliknutí na obrázek <a href='index.html?mf=playOFF2021'><img src='img/epesni-karticka.jpg' style='margin:5px 0'></a>" +
         "Ovšem první PlayOFF se hrál v roce 2020. Po odehraných partiích je poptávka. Bylo by pěkné, kdyby tyto partie byly na tomto webu k dohledání. Posílejte."
-    }
+    },
+    {id: "hF7XxPIB",
+      html: "<img src='img/blitz-open-mf-4x.jpg'>" +
+        "<br><b>Jouzolean:</b> 4 členové MF se letos účastní MČR v bleskovém šachu. Zleva: Tekele, Vikjav, Jouzolean, Mrazek. Držte palce! 😎😁🙂" +
+        "<img src='img/jouzolean-laznicka.jpg'>" +
+        "<br><b>Jouzolean:</b> A zde bonus. Jouzolean s V. Lázničkou. 😎" +
+        "<img src='img/jouzolean-plat.jpg'>" +
+        "<br><b>Bébul:</b> A tady nám Jouzolean dělá ostudu s vítězem turnaje V. Plátem. <b>Kouření způsobuje rakovinu a snižuje ELO.</b>"
+    },
 
   ]
   let s = spec.find(s => s.id === tournamentId)
