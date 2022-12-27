@@ -1068,7 +1068,7 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<b>Jouzolean</b> se připravil na Felčara a pro samou radost, jak to všechno perfektně klaplo, si nechal dát v naprosto vyhrané pozici mat" +
         "<iframe src=\"https://lichess.org/embed/eqfvXnzx#38?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>"},
     {id: "ESqaQ7eH", html: "Dnešnímu turnaji předcházela značná nervozita, neb si všichni brousili zuby na setkání s Velmistrem, jak dokazuje následující konverzace: " +
-          "<br><br><b>VikJav (nedělě 19:39):</b> Kluci dnes to nestíhám, ale pokud dnes nastoupí velký Robert, tak vám přeju všem hodně stesti :)) užijte si partie a dejte mu co proto." +
+        "<br><br><b>VikJav (nedělě 19:39):</b> Kluci dnes to nestíhám, ale pokud dnes nastoupí velký Robert, tak vám přeju všem hodně stesti :)) užijte si partie a dejte mu co proto." +
         "<br><br><b>Mrázek:</b> Máš ještě 24h čas 😉" +
         "<br><br><b>VikJav:</b> Jsem blazen! Super o nic neprijdu. Tak zítra ho rozdrtime společnými silami!" +
         "<br><br>A po oznámení, že dneska se Robert bohužel nemůže turnaje zúčastnit přišlo:" +
@@ -1189,6 +1189,14 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bébul:</b> Vítáme nového hráče <a href='https://lichess.org/@/HonzaHonzaHonza'>HonzaHonzaHonza</a>. Jeho vstup do Monday Fights arény byl správně nervózní a po šňůře šesti proher to už vypadalo, že ho maminka doma nepochválí.  <img src='img/players/honzahonzahonza.png' class='img100 right'> Dokázal se však oklepat jak málokdo a přinést domů pár skalpů. Našeho Jouzoleána by taková pohroma stála minimálně display mobilu." +
         "<br><br><b>Lichess:</b> API encountered an error: <a href='https://github.com/lichess-org/lila/issues/11971#event-7931043421'>Cannot download tournaments</a>. It takes about 10 days to find a temporary workaround." +
         "<img src='img/api-error.jpg'>"},
+    {id: "playOFF2020",
+      playOFF: "<img src='img/turnajPavouk.jpg' style='width:100%;margin-top: 5px'>",
+      html: "<h1>PlayOFF 2020</h1>" +
+        "<b>Bebul:</b> Turnaj začal epickou bitvou mezi RychlyLenochod a Travinho, který skončil až bulletovým rozstřelem, když o celkovém vítězi rozhodl kavalírský PAT dvou dam ve druhém tie-breaku." +
+        "<iframe src=\"https://lichess.org/embed/sYE9rYFE#123?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>" +
+        "<br><br><b>DJ-Pesec:</b> že uhraju jen půl bodu, to jsem teda nečekal. <img src='img/players/bukowskic.png' class='img100 right'>" +
+        "<br><br><b>Bebul:</b> Velká gratulace Bukowskicovi, že se nezalekl vysokého nasazení svých soupeřů a zlehka se přes ně přenesl. V osmifinále dovolil soupeři bod, v semifinále půl bodu a ve finále už ani ň."
+    },
     {id: "playOFF2021",
       playOFF: "<img src='img/turnajPavouk2021.jpg' style='width:100%;margin-top: 5px'>",
       html: "<h1>PlayOFF 2021</h1>" +
@@ -1208,6 +1216,16 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><b>Jouzolean:</b> A zde bonus. Jouzolean s V. Lázničkou. 😎" +
         "<img src='img/jouzolean-plat.jpg'>" +
         "<br><b>Bébul:</b> A tady nám Jouzolean dělá ostudu s vítězem turnaje V. Plátem. <b>Kouření způsobuje rakovinu a snižuje ELO.</b>"
+    },
+    {id: "HoxwHJsB",
+      html: "<img src='img/mf-og-jouzolean.jpg'>" +
+        "<br><b>Bebul:</b> Veliká gratulace novému šampiónovi Jouzoleanovi ke konečnému vítězství v turnaji. Druhý Mrázek si rovněž zaslouží potřást pravicí. Zato favorit bukowskic nám přikreslil vrásku na čelo 😭!" +
+        "<br><br><a href='cards.html'><img src='img/epescard.png'></a>" +
+        "<br><b>Bebul:</b> Začíná PlayOFF 2023. Pohrajte si si s různými kombinacemi <a href='cards.html'>vyzyvatelských kartiček</a>. Kromě známých dat též vzpomínka na to, kolikátým tahem kdo koho ve zvoleném období zmatil. A ano, naše drahá Neznámá opravdu srazila Bukowskice na kolena a tam byl matem políben!" +
+        "<br><br><b>Bebul:</b> Na zobrazené kartičce má Bukowskic nasazení 1, protože je zvoleno období za celou dobu existence Monday Fights. Letos, samozřejmě, je <b>s velkou slávou jako první nasazen slovutný Jouzolean!</b> Gratulujeme!" +
+        "<br><br><b>Bebul:</b> Typické zahájení se snažím volit takové, které spolu ti dva ve zvoleném období hráli. Takže třeba Bebul vs. Tekele není Královský gambit, ale to trapné zahájení. 😀 " +
+        "<br><br><b>Bebul:</b> Přehled her minulých PlayOFF turnajů je zde: <a href='index.html?mf=playOFF2020'>2020</a> a <a href='index.html?mf=playOFF2021'>2021</a>." +
+        "<br><br><b>Bebul:</b> Turnajový web Monday Fights se již 2x aktualizoval roboticky. Snažím se, abych do něj musel zasahovat co nejméně, protože se turnaje dlouhodobě nebudu moci účastnit."
     },
 
   ]
