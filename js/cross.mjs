@@ -637,6 +637,20 @@ export function criterionChanged(data, tableId, createTableF) {
   }
 }
 
+function filterDuels(data, theFights, player1, player2) {
+  let duels = []
+  theFights.forEach(f => {
+      let games = data.tournamentGames().find(tg => tg.id==f.id);
+      if (games !== undefined) games.games.forEach(g => {
+          if (g.players.white.user.name === player1 && g.players.black.user.name === player2) {
+            duels.push(g)
+          }
+        }
+      )
+    }
+  )
+  return duels
+}
 
 function createEpicCard(data, theFights, selectId, criterion, season, verbose = true) {
   function getValue(selectId) {
@@ -651,11 +665,23 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
   let title = getValue("title")
   let crossData = getCrossData(data, theFights, [player1, player2], "score")
   crossData.forEach( pl => {
-    let openings = getOpeningsData(data, theFights, g => g.players.white.user.name === pl.name, true)
-    pl.opening = openings.reduce((p,c) => {
-      if (p.count < c.count) return c
-      else return p
-    })
+    // provide opening used between theese two if it was played at least 3 times
+    let white = pl
+    let black = (pl.name === player1) ? player2 : player1;
+    let duels = getOpeningsData(data, theFights, g => g.players.white.user.name === pl.name && g.players.black.user.name === black, true)
+    if (duels.length > 0) {
+      pl.opening = duels.reduce((p,c) => {
+        if (p.count < c.count) return c
+        else return p
+      })
+    }
+    if (! pl.opening || pl.opening.count < 3) {
+      let openings = getOpeningsData(data, theFights, g => g.players.white.user.name === pl.name, true)
+      pl.opening = openings.reduce((p,c) => {
+        if (p.count < c.count) return c
+        else return p
+      })
+    }
     fastestMutualMate(data, theFights, crossData)
   })
 
