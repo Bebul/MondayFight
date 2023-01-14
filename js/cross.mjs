@@ -57,7 +57,7 @@ export function getHistogram(ar, f) {
   })
   // set one of the openings startOpen
   if (histogram[`King's Gambit`]) histogram[`King's Gambit`].startOpen = true
-  else Object.keys(histogram)[0].startOpen = true // just random one
+  else histogram[Object.keys(histogram)[0]].startOpen = true // just random one
   return histogram
 }
 
@@ -108,7 +108,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
     groupBy: item => {
       let short = getShortOpeningName(item.name)
       let histogram = openingsHistogram.get()
-      if (short===`King's Gambit` || (histogram[short] && histogram[short].count > 1)) return short
+      if (histogram[short] && histogram[short].startOpen || histogram[short].count > 1) return short
       else return "Other openings"
     },
     groupStartOpen:function(value, count, data, group){
