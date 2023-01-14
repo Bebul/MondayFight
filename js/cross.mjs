@@ -52,9 +52,12 @@ export function getHistogram(ar, f) {
   let histogram = {}
   ar.forEach(i => {
     let [name, count] = f(i)
-    if (histogram[name]) histogram[name] += count
-    else histogram[name] = count
+    if (histogram[name]) histogram[name].count += count
+    else histogram[name] = { count: count }
   })
+  // set one of the openings startOpen
+  if (histogram[`King's Gambit`]) histogram[`King's Gambit`].startOpen = true
+  else Object.keys(histogram)[0].startOpen = true // just random one
   return histogram
 }
 
@@ -92,6 +95,12 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
   let openingsData = getOpeningsData(data, theFights)
   openingsHistogram.set(getOpeningsHistogram(openingsData))
 
+  function startOpen(name) {
+    let histogram = openingsHistogram.get()
+    if (histogram[name] && histogram[name].startOpen) return true
+    else return false
+  }
+
   let table = new Tabulator(tableId, {
     layout: "fitDataTable",
     data: openingsData,
@@ -99,11 +108,11 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
     groupBy: item => {
       let short = getShortOpeningName(item.name)
       let histogram = openingsHistogram.get()
-      if (histogram[short] > 1) return short
+      if (short===`King's Gambit` || (histogram[short] && histogram[short].count > 1)) return short
       else return "Other openings"
     },
     groupStartOpen:function(value, count, data, group){
-      return showAllGroups || (value === `King's Gambit` && count > 1); // we love King's Gambit
+      return showAllGroups || startOpen(value)
     },
     groupHeader: function(value, count, data, group){
       let score = {w: 0, draw:0, b:0}
