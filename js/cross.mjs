@@ -643,6 +643,9 @@ export function criterionChanged(data, tableId, createTableF) {
     case "2022":
       createTableF(data, MF.filterYear(data.mondayFights(), 2022), tableId, criterion, season)
       break
+    case "2023":
+      createTableF(data, MF.filterYear(data.mondayFights(), 2023), tableId, criterion, season)
+      break
   }
 }
 
