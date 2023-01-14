@@ -44,6 +44,7 @@
                 <a href="search.html">Search Engine</a>
                 <a href="archiv2020.html">Archiv 2020</a>
                 <a href="archiv2021.html">Archiv 2021</a>
+                <a href="archiv2022.html">Archiv 2022</a>
                 <a href="players.html">Players</a>
             </div>
         </div>
@@ -67,8 +68,10 @@
         <label>2020</label>
         <input type="radio" name="season"  value="2021" />
         <label>2021</label>
-        <input type="radio" name="season"  value="2022" checked="true" />
+        <input type="radio" name="season"  value="2022" />
         <label>2022</label>
+        <input type="radio" name="season"  value="2023" checked="true" />
+        <label>2023</label>
         <input type="radio" name="season"  value="year" />
         <label>Plovoucí rok</label>
         <input type="radio" name="season"  value="all" />
@@ -109,7 +112,7 @@
       });
     }
 
-    let theFights = MF.filterYear(data.mondayFights(), 2022)
+    let theFights = MF.filterYear(data.mondayFights(), 2023)
     createCrossTable(data, theFights, "#crossTable")
     createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)
   }

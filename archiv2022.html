@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta http-equiv="Cache-Control" content="max-age=3600" />
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <meta charset="UTF-8">
+  <title>"Monday Fight Tournaments on Lichess"</title>
+  <link href="dist/css/tabulator.min.css" rel="stylesheet">
+
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Archiv a Turnaj šampionů roku" />
+  <meta property="og:description" content="V roce 2022 se odehrálo všech 52 Monday Fight turnajů s PlayOFF na závěr." />
+  <meta property="og:site_name" content="github" />
+
+  <meta property="og:image" content="https://bebul.github.io/MondayFight/img/turnajPavouk2022.jpg" />
+  <meta property="og:image:type" content="image/jpg" />
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+  <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
+
+  <script type="text/javascript" src="js/minimal.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/mf.css">
+</head>
+
+<body>
+
+<div class="body">
+
+  <div class="mondayFightCaption">
+    <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+    <span class="icon"><a href="javascript:void(0);" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+    <span class="captionText">Monday Fights 2022</span>
+    <div class="topnav">
+      <div id="myLinks">
+        <a href="index.html">Main page</a>
+        <a href="cards.html">Duel Cards</a>
+        <a href="actualities.html">Hot News</a>
+        <a href="tables.html">Leaderboards</a>
+        <a href="openings.html">Openings table</a>
+        <a href="cross.html">Cross table</a>
+        <a href="search.html">Search Engine</a>
+        <a href="archiv2020.html">Archiv 2020</a>
+        <a href="archiv2021.html">Archiv 2021</a>
+        <a href="players.html">Players</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="article first">
+    <h1>LeaderBoard roku 2022</h1>
+    <ul>
+      <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
+      <li><b>Score</b> je součet uhraného skóre.
+      <li><b>Games</b> počet odehraných her.
+      <li><b>Performance</b> průměrná performance hráče (váženo počtem her) v turnaji.
+      <li><b>Presence</b> je počet turnajů, které daný hráč odehrál.
+      <li><b>R,M,S,F</b> je změna ratingu během turnaje, počet nejrychlejších matů, senzací a nejrychlejších her
+    </ul>
+  </div>
+
+  <h1>Kompletní rok 2022</h1>
+  <div id="mondayFightsLeaderboard"></div>
+
+  <div class="article">
+    <h1>Turnaj šampionů</h1>
+    <p>Do letošního <a href="index.html?mf=playOFF2022">pavouka</a> postoupilo 12 nejlepších hráčů sezóny. Hrálo se opět vyřazovacím systémem, do čtvrtého vítězného bodu.
+      Nastoupili už známí borci z let minulých, pro 5 hráčů to bylo jejich poprvé - Pirat 77, Margarita Vlasenko, Tomáš Klimecký, Dzin69 a Maurice Dodo. Všichni bojovali houževnatě a statečně, do dalších kol však postoupila pouze 12-letá Margarita, která došla až do semifinále, což je největší překvapení turnaje a Dzin69, který si až překvapivě snadno poradil s loňským "málem přemožitelem Bukowskice" - Rychlým Lenochodem 4:0. Zkušení matadoři jinak nedávali nováčkům šanci, přesně podle statistik. Opět jsme měli možnost nahlížet na duelové kartičky z grafické dílny Dj-Pěšce, které poté Bebul <a href="cards.html">umístil</a> na náš web, aby si tak každý mohl vygenerovat tu svou.
+    <p>
+      Turnaj vypukl hned druhý den po ukončení sezóny a hrálo se celý týden, finále pak proběhlo se zpožděním až další týden v sobotu večer,
+      o to více to bylo napínavé. Diváci mohli online sledovat zápasy a diskutovat v chatu.
+    <p>
+    <div>
+      <img src="img/cardMozkomorRita2022.jpg" class="flow33">
+      <img src="img/cardJouzaDJ2022.jpg" class="flow33">
+      <img src="img/cardFinale2022.jpg" class="flow33">
+    </div>
+    <div align="center" style="margin-bottom:5px"><i>Kartičky vyráběl DJ-Pesec ručně s vyjímkou té vlevo. Tu vygeneroval <a href="cards.html">skript</a>.</i></div>
+    <p>
+      Letošní čtvrtfinále probíhalo opět dle statistik - namotivovanej Jouzolean prohrál jednoznačně s Dj Pěšcem, když ve vyhrané pozici Boden-Kieseritzskiho gambitu v první hře zpanikařil a zahrál blunder z +12 na - 7, složil se a pak už se jen dohrávalo. Mrázek pak porazil Dzina69, který hrál s handikepem asi tří promilí v krvi. Chvíli se s tím srdečně pral, ale pak mu nezbylo nic jiného než vzdát a jít spát. Tekele, přemozitel Maurice Doda pak selhal v boji s Velkým Bukowskicem, ale uhrál alespoň 1 bod, když předvedl svůj klasicky nepříjemný Tekeleho útok a zvítězil. Mohl se tak s turnajem rozloučit s hrdostí. Margarita zcela překvapivě navzdory statistice porazila Mozkomora 4:3. Byla to urputná bitva, nervy mladičké dívky se však ukázaly pevnější a mohla se tak radovat z postupu do semifinále.
+    <p>
+      <img src='img/players/dj-pesec.png' class='img100 left'><img src='img/players/bukowskic.png' class='img100 right'>
+      To proběhlo také v rychlém sledu. Margarita zde už nestačila na rozjetého Dj Pěšce, ale alespoň mu vzala jednu hru. Diváci šíleli, mohla totiž
+      uhrát mnohem víc. Bukowskic si pak poradil s Mrázkem, který měl velkou smůlu a i přes důkladnou přípravu neuspěl.
+      Grandfinále bylo velkou odvetou let minulých. Dvakrát se spolu bili, pokaždé trůn uhájil Bukowskic, až letos to Dj Pěšec zlomil a stal se vítězem při výsledku 3½-2½. Bukowskic tak poprvé v kariéře nezískal ani jeden pohár vítěze a bude se tak muset soustředit na další rok, kde bude ovšem hodně hladový!
+    <p>
+    <b>Gratulace vítězům a čest poraženým.</b>
+    <p>
+    <img src='img/players/jouzolean.png' class='img100 left'><img src='img/players/bebul.png' class='img100 right'>
+      Letos se nám stala nemilá věc. Jeden z postupujících se rozhodl nehrát turnaj šampionů, s čímž jsme vůbec nepočítali. Nahradil ho tak hráč, který byl hned pod čarou. Je to nemilá věc, ale musíme počítat s tím, že se to může opakovat (málo času, nechuť hrát, atd.) Prosíme hráče, kteří nebudou chtít další rok hrát pavouka, dejte nám to vědět do konce listopadu 2023. Jejich postupující pozice tak nahradí hráči pod čarou.
+    <p>
+      A Toť vše - přeji hodně zdaru do další sezóny.
+    <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
+    <br><br><hr>
+    <b>Bebul:</b> Zareaguji na Jouzoleanem popsanou "nemilou věc". PlayOFF hned po skončení Monday Fights turnaje považuji za hloupý nápad. Místo, aby se veškerá pozornost soustředila
+    na vítězného šampiona Jouzoleana a závěrečná dechberoucí klání o cenné kovy, které letos nechalo Bukowskicovi až bronz,
+    hraje se nesmyslný turnaj, který z mého pohledu není o mnoho významnější než jeden každý z 52 Monday Fights turnajů v roce.
+    Turnaj nepřinesl žádná překvapení, favorité vyhrávali s výraznou převahou. Jen ve třech duelech uhrál poražený více než bod.<br>
+    Závěrečné finálové klání, pokud je mi známo, nemělo vůbec žádného diváka. <br>
+    <div style="display: table; width:85%; border:1px solid black; background-color:lightgrey; margin:10px auto; padding:5px">
+      <img src="img/templatePohary.png" class="img100 left" style="margin:0 20px 5px 5px">
+      <div style="display: table-cell; vertical-align: middle;">
+        <b>HonzaHonza:</b> Gratulace! 💪 bohužel jsem live prošvihnul, ale partie si určitě přehraju<br>
+        <b>Mrazek:</b> já to v diáři mám, ale úplně jsem na to zapomněl 🙁 teď jsem to dokoukal ze záznamu... alespoň na to měli velmistři klid a neznervozňovali je čumilové 😀<br>
+        <b>Jouzolean:</b> Musim se přiznat, že jsem na to zapomněl. Aby toho nebylo málo, tak jsem zapomněl i přidat sem dnes připomínku, za což se omlouvám<br>
+      </div>
+    </div>
+
+    Jsem moc rád, že jsem se turnaje neúčastnil. <b>Vítězi gratuluji!</b> <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+    <p>
+    <img src="img/turnajPavouk2022.jpg" style="max-width:1900px; width:1500px">
+  </div>
+</div>
+
+<script type="module">
+  import {LoadMFData, MF} from "./js/tournamentsData.mjs"
+  import {createPlayersTable} from "./js/mondayFight.mjs"
+
+  function mainPage(data) {
+    let the2022 = MF.filterYear(data.mondayFights(), 2022)
+    createPlayersTable(the2022, "#mondayFightsLeaderboard", false) //no Jouzocoins
+  }
+
+  LoadMFData(mainPage)
+</script>
+
+</br>
+
+</body>
+</html>
