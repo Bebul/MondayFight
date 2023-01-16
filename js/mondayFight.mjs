@@ -1236,7 +1236,11 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "<br><br><b>Bebul:</b> Přehled her minulých PlayOFF turnajů je zde: <a href='index.html?mf=playOFF2020'>2020</a> a <a href='index.html?mf=playOFF2021'>2021</a>." +
         "<br><br><b>Bebul:</b> Turnajový web Monday Fights se již 2x aktualizoval roboticky. Snažím se, abych do něj musel zasahovat co nejméně, protože se turnaje dlouhodobě nebudu moci účastnit."
     },
-
+    {id: "FEpWbsrM", html: "<img src='img/mf-og-x.jpg'><b>Mrázek:</b> Já bych spešl chtěl pogratulovat LastScoutovi, který si mě neskutečně povodil a vyškolil mě jak malýho caparta a kdyby LS nepřehlédnul věž, tak by mě buď zmatil a nebo bych spadnul na čas... dneska to byl můj nejstresovější protivník. Budu se muset přidat do klubu těch, co se na MF připravují 😀" +
+        "<br><br><b>Bébul:</b> Jouzolean chtěl Bébulka chytit do pasti končící dušeným matem. Našeho Bébulka!<img src='img/achievements/smothered.png' class='img100 right'> " +
+        "Ale to se nešmí, takhle zkoušet, když tam má Bébulek <a href='https://lichess.org/fiuvtdBX#26'>toho koně</a>, sice asi omylem, ale má, svého bílého jezdce, jezdce statečnýho. Je to kabrňák!" +
+        "<br><br><b>Jouzolean:</b> Touha po plaketce byla silnější" +
+        "<br><br><b>Bebul:</b> Klikněte si na obrázek televizní reportáže a prohlédněte si sabotážní reportážCNN Prima News o Monday Fights. 😀<a href='actualities.html'><img src='img/cnn-prima-news.jpg'></a>"},
   ]
   let s = spec.find(s => s.id === tournamentId)
   if (s) {
