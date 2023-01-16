@@ -1284,6 +1284,10 @@ async function drawSpider(dataOfPlayers, spiderId) {
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
     ! withdrawals.includes(p.toLowerCase())
   )
+  let withdrawingPlayers = withdrawals.filter(p => dataOfPlayers.reduce(function(a,c,ix) {
+      return a || (ix < 12 && c.name.toLowerCase()===p)
+    } , false)
+  )
 
   let GLOB = {
     width: 1190, height: 670,
@@ -1294,6 +1298,7 @@ async function drawSpider(dataOfPlayers, spiderId) {
   }
   GLOB.netH = GLOB.height - GLOB.padTop - GLOB.padBottom
   GLOB.picH = 0.9 * GLOB.netH / 6
+  GLOB.wPicH = GLOB.picH * 0.8
 
   let canvas = document.getElementById(spiderId)
   let ctx = canvas.getContext("2d")
@@ -1344,6 +1349,47 @@ async function drawSpider(dataOfPlayers, spiderId) {
         return trans(x) - width
       }
 
+      function drawWithdrawals() {
+        if (withdrawingPlayers.length > 0) {
+          let fs2 = 1.3 * GLOB.fontSize * 15 / 45
+          ctx.font = `${fs2}px FjallaOne`
+          let text2 = "ODSTOUPILI"
+          let textInfo2 = ctx.measureText(text2)
+          ctx.fillStyle = "red";
+          ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, GLOB.netH - 10)
+
+          let images = []
+          for (let i = 0; i < withdrawingPlayers.length; i++) {
+            let name = withdrawingPlayers[i]
+            let avatar = Avatars.getAvatar(name, "img/achievements/kun.png")
+            if (avatar) {
+              let img = new Image();
+              img.onload = function () {
+                images.push(img)
+                if (images.length === withdrawingPlayers.length) {
+                  let space = 10
+                  let totalLength = images.reduce(function f(a, img) {
+                    let aspect = img.width / img.height
+                    return a + aspect * GLOB.wPicH
+                  }, 0)
+                  totalLength += space * (withdrawingPlayers.length - 1)
+
+                  let curX = (GLOB.width - totalLength) / 2
+                  images.forEach( function(img) {
+                    let aspect = img.width / img.height
+                    ctx.drawImage(img, curX, GLOB.netH, aspect * GLOB.wPicH, GLOB.wPicH)
+                    curX += aspect * GLOB.wPicH + space
+                  })
+                }
+              }
+              img.src = avatar
+            }
+          }
+        }
+      }
+
+      drawWithdrawals()
+
       function drawNet(trans, right) {
         let img = new Image();
         img.onload = function () {
@@ -1380,6 +1426,7 @@ async function drawSpider(dataOfPlayers, spiderId) {
               img.onload = function () {
                 let aspect = img.width / img.height
                 let imgX = right ? 0 : aspect * GLOB.picH
+                console.log(`drawImage(${trans(imgX) - aspect * GLOB.picH}, ${y - GLOB.picH - 1}, ${aspect * GLOB.picH}, ${GLOB.picH})`)
                 ctx.drawImage(img, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH - 1, aspect * GLOB.picH, GLOB.picH)
               }
               img.src = avatar
