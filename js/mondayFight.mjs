@@ -1278,7 +1278,7 @@ export function updateTournamentHtmlAuto(divId, tournamentId, data) {
      `
 }
 
-let withdrawals = ['bebul']
+let withdrawals = ['bebul','mozkomor']
 async function drawSpider(dataOfPlayers, spiderId) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
