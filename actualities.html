@@ -10,16 +10,17 @@
     <meta property="og:locale" content="cs_CZ" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="The Hot News" />
-    <meta property="og:description" content="Tekeleho report z turnaje Zlatá Praha!" />
+    <meta property="og:description" content="Reportáž na CNN Prima News" />
     <meta property="og:site_name" content="github" />
 
     <!-- for WhatsApp -->
-    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/zlataPraha5a.jpg" />
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/cnn-prima-news.jpg" />
     <meta property="og:image:type" content="image/jpg" />
     <meta property="og:image:alt" content="The Hot News" />
 
     <script type="text/javascript" src="js/minimal.js"></script>
     <script src="./lib/pgnv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/rotor.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/mf.css">
@@ -34,7 +35,7 @@
 
 </head>
 
-<body>
+<body onload="rotate('rotor', 25)">
 
 <div class="body">
 
@@ -62,9 +63,135 @@
     </div>
 
     <div class="article">
+        <h2>Reportáž o Monday Fights na CNN Prima News</h2>
+        <div style="position:relative; clear:both; float:left; margin:0 0 10px 0; overflow:hidden">
+          <img src="img/televizor.png" style="position:relative;z-index: 3;padding:0;border:0px solid">
+          <img src="img/mf-reporter.gif" style="width:50%;position:absolute;bottom:14%;right:24%;z-index:2">
+          <div id="rotor" style="width: 100%;position:absolute;top:4%;left:4%;z-index:1;max-width: 71%;max-height: 95%;overflow: hidden">
+
+              <ul style="display:block; list-style:none; padding:0; margin:0; clear:both; width:5000%; height: 420px">
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/naplavka-pozvanka.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/naplavka-jouzolean.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/naplavka-baron.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:3.6%;height:inherit;background-color: lightgrey;padding:5px">
+                      <br><br><b>Bébul:</b> Z dnešního turnaje si všichni odnesli aspoň bod! Neznámé-00 se podařil dát parádní Anastazia mat Baronu Gorcovi a LastScout porazil Hrobotrona sice na čas v berserku, ale ve vyhrané pozici. Oběma gratulujeme!
+                      <br><br><b>Bébul:</b> BaronGorc se po porážce od Neznámé <img src='img/players/janshorny.gif' class='img100 right'> oklepal a odnesl si tři báječně tučné body, rovněž veliká gratulace!
+                      <br><br><b>Bébul:</b> Margarita dlouho vedla a chybělo jen málo a v turnaji <img src='img/players/jouzolean.gif' class='img100 left'> zvítězila. Nakonec se však radoval halloweenský kašpárek! Grats!
+                      Jouzolean se tak po dvou kolech, kdy se s Mrázkem mačkali <img src='img/players/mrazek.gif' class='img100 right'> na turnajové druhé příčce od halloweenské kostřičky lehce odrazil a směje se z druhého místa. Asi nechce hrát v osmifinále s Margaritou, což chápeme. To by se bál každej! Těšíme se na další boj! <img src='img/players/margarita_vlasenko.gif' class='img100 left'>
+                      <br><br><b>Bébul:</b> A Jouzolean sehrál s Rychlým Lenochodem 130 tahovou vítěznou bitvu, což <img src='img/players/rychlylenochod.gif' class='img100 right'> je druhá nejdelší hra historie Monday Fight, pričemž nejdelší vítězná.
+                      <br><br><b>Bébul:</b> A že náš Bébulek dal Blackburnovskej mat, kterej už úplně zapomněl, že existuje, toho jste si určitě všichni všimli. Zatím jen Mozkomorovi a nyní Bébulkovi se to v historii Monday Fights podařilo. No, tak si třeba záviďte, nooóóóó <img src='img/players/bebul.gif' class='img100'> <img src='img/players/mozkomor.gif' class='img100'>
+                      <br><br><b>Bébul:</b> A už jste se podívali, jaké halloweenské avatary má Arytmik, Travinho, Mrázek a Robert Cvek?
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/mf-og-margarita.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/ukraine-flag-png-large.png" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/nechalov.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1.2%;height:inherit;background-color: #82BF56;padding:5px">
+                    <div align='center'><h2>s GM Robertem Cvekem</h2></div>
+                    Dnešek je pro Monday Fights svátek, neb nás poctil svou návštěvou Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Byl to fofr. Nikdo z nás ho nenachytal na švestkách. Za návštěvu moc děkujeme a k vítězství gratulujeme.
+                    <img style='margin-top:5px' src='img/cvek-nss.jpg'><div style='text-align: center; margin-bottom:5px'><i>Robert Cvek jako vítěz turnaje ke 100 let Salo Flohra. I přes účast Davida Navary turnaj zcela ovládli velmistři Novoborského ŠK, zleva Viktor Láznička, Robert Cvek a Zbyněk Hráček<br> Zřejmě dobrý oddíl.</i></div>
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/mf-og-hot2.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1%;height:inherit">
+                      <img src="img/bukowskic-nacelnik.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.6%;height:inherit">
+                      <img src="img/vikJavMeme.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit;background-color: khaki;padding:5px">
+                      <br><br><b>Bébul:</b> Margarita dneska sice nejprve podlehla Jouzoleánovi, ale pak mu to hezky vrátila a nakonec získala kov nejcennější! Veliká gratulace!
+                      <br><br><b>Jouzolean:</b> Jenomže teď ale vede jouzolean - a je to jeho jediná šance jak poprvé a naposledy vyhrát sezónu MF. <img src='img/players/jouzolean.png' class='img100 right'> Udělá vše pro to aby vyhrál 😁
+                      <br><br><b>Jouzolean:</b> Bukowskic ještě jednou nepřijde a je ve vážných problémech! 😁 Tento rok je to hodně dramatické! Šance má i Mrazek!
+                      <br><br><b>Bébul:</b> V tabulce dochází k vachrlatým posunům. Posun Jouzoleána na první místo místo Bukowskice také znamená, <img src='img/players/bukowskic.png' class='img100 left'> že se Bukowskic ocitá ve stejné osmifinálové skupině pro PlayOFF jako DJ-Pesec. Ten však může snadno párkrát na Monday Fight přijít a podle potřeby se posunout před PIRAT77 a zajistit si tak pozici ze druhé strany vyřazovacího pavouka, takže by se s Bukowskicem mohl případně potkat až ve finále!
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/felcar-invitation.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1.2%;height:inherit">
+                      <img src="img/buki-pesec-dobris.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/mf-og-x.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.2%;height:inherit">
+                      <img src="img/lenochodTekele.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1.5%;height:inherit;background-color: pink;padding:5px">
+                      <br>
+                      <br>
+                      <b>Bébul:</b>"Napsat báseň o Monday Fight, třebas by si všímala jen jediného hráče,
+                      třeba by si všímala jen nejnepatrnějšího člověka,
+                      by znamenalo sloučit všechny hrdinské zpěvy v jedinou epopej,
+                      svrchovanou a konečnou. Monday Fight je chaos přeludů, choutek
+                      a pokušení, je to tavící pec snů, brloh myšlenek, za něž se stydíme;
+                      je to zmatená směsice klamných závěrů, je to bitevní pole vášní.
+                      Pronikněte v pondělních hodinách zsinalou tváří člověka, který přemítá,
+                      podívejte se za ni, pohleďte do té duše, podívejte se do té
+                      temnoty. Pod zevním klidem jsou bitvy obrů jako u DJ-Pěšce, jsou
+                      tam shluky draků a hyder a mračna přeludů jako u Bukowskice, jsou
+                      tam vizionářské přízraky jako u Jouzoleána. Jak strašlivé je nekonečno,
+                      které člověk nosí v sobě a podle něhož zoufale měří vůli svého
+                      mozku a skutky svého života!" <i><b>Viktor Hugo: Bídníci</b>, kapitola Svědomí
+                      <br><br>
+                  </i>
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/riegerovy-sady-jouzolean.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/blitz-open-mf-4x.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1.6%;height:inherit">
+                      <img src="img/jouzolean-laznicka.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/alster-drakula.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/achievements.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.4%;height:inherit">
+                      <img src="img/bebulBukowskic.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2.6%;height:inherit">
+                      <img src="img/turnajPavouk2022.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:1%;height:inherit">
+                      <img src="img/cardFinale2022.jpg" style="width:100%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/zlataPraha5.jpg" style="max-width:110%;width:110%">
+                  </li>
+                  <li style="float:left;width:2%;height:inherit">
+                      <img src="img/trenink-tekele.jpg" style="width:100%">
+                  </li>
+              </ul>
+          </div>
+        </div>
+        <div style="clear: both">
+          Abych si řádně zasloužil první letošní reportérskou plaketku, ukradl jsem DJ-Pescovi během partie klíč od
+          CNN Prima News a s pistolí v ruce donutil štáb natočit reportáž o Monday Fights.
+          <i> -beb- </i>
+        </div>
+    </div>
+
+    <div class="article" style="clear: both">
         <h2>Loňský Monday Fihgts PlayOFF naskladněn</h2>
         <p>
-            Web nyní umí na základě seznamu partií odehraných v playOFF vygenerovat stránku PlayOFF turnaje a ten zobrazuje
+          Web nyní umí na základě seznamu partií odehraných v playOFF vygenerovat stránku PlayOFF turnaje a ten zobrazuje
         v časové ose mezi ostatními Monday Fights turnaji. Partie odehrané v turnaji lze vyhledávat v search apod.
         <p>
             Pořadí v turnaji nutno brát s rezervou. Stran toho, jak počítat pořadí těch, co skončili ve stejné fázy playOFF,
@@ -432,7 +559,7 @@
         </p>
     </div>
 
-    <div class="article">
+    <div class="article final-report">
         <h2>Výroční zpráva páně Jouzoleána</h2>
         <p>
             Tak a je dobojováno! <a href="archiv2021.html">Sezóna 2021</a> je s dnešním turnajem definitivně odpískána. Tato již legendární skupina hráčů se dokázala scházet v menším či větším počtu
@@ -1160,7 +1287,7 @@
             <img src="img/turnajPavouk.jpg" width=100%>
     </div>
 
-    <div class="article">
+    <div class="article final-report">
         <h2>Jouzolean for president!</h2>
         <b>Zdravím šachisti..</b>
         <p>
