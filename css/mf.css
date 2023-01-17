@@ -645,3 +645,7 @@ img.img100 {
 .final-report {
     background-color: rgb(221, 238, 255);
 }
+
+.league-chart {
+  min-height: 500px;
+}

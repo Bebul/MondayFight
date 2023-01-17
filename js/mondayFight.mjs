@@ -690,6 +690,8 @@ export function createLeagueHistoryChart(data, chartId, date) {
       type: 'line',
       data: tableData,
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true,
