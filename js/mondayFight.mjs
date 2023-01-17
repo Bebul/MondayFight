@@ -667,7 +667,9 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
   })
 
   if (spiderId) {
-    drawSpider(dataOfPlayers, spiderId)
+    let mfId = data.tournamentGames()[data.currentGameListTableIx].id
+    let date = new Date(data.findTournament(mfId).startsAt)
+    drawSpider(dataOfPlayers, spiderId, date.getFullYear())
   }
 
   if (leagueNoId) {
@@ -1365,7 +1367,7 @@ export function updateTournamentHtmlAuto(divId, tournamentId, data) {
 }
 
 let withdrawals = ['bebul','mozkomor']
-async function drawSpider(dataOfPlayers, spiderId) {
+async function drawSpider(dataOfPlayers, spiderId, year) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
     ! withdrawals.includes(p.toLowerCase())
@@ -1406,7 +1408,7 @@ async function drawSpider(dataOfPlayers, spiderId) {
 
       let fs2 = 1.3 * GLOB.fontSize * 25 / 45
       ctx.font = `${fs2}px FjallaOne`
-      let text2 = "TURNAJ ŠAMPIONŮ 2022"
+      let text2 = `TURNAJ ŠAMPIONŮ ${year}`
       let textInfo2 = ctx.measureText(text2)
       ctx.fillStyle = "red";
       //ctx.fillText(text2,  textX + textInfo.width - textInfo2.width, topLine + 1.2 * fs2 )
