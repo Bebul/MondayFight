@@ -22,6 +22,7 @@
     <meta property="og:image:alt" content="The leaderboard" />
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script src="chess.js/chess.js"></script>
@@ -70,6 +71,11 @@
             <li><b>Presence</b> je počet turnajů, které daný hráč odehrál.
             <li><b>R,M,S,F</b> je změna ratingu během turnaje, počet nejrychlejších matů, senzací a nejrychlejších her
         </ul>
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
     </div>
 
     <div class="leaderboard" style="float: left">
@@ -126,12 +132,13 @@
 
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
-  import {processAdmin, createPlayersTable, createLeagueTable} from "./js/mondayFight.mjs"
+  import {processAdmin, createPlayersTable, createLeagueTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
   function mainPage(data) {
     processAdmin(data)
     let year = (new Date()).getFullYear()
     let thisYear = MF.filterYear(data.mondayFights(), year)
     createLeagueTable(data, "#leagueTable", "leagueNo", "spider")
+    createLeagueHistoryChart(data, "myChart")
     createPlayersTable(thisYear, "#mondayFightsLeaderboard", false) //no Jouzocoins :-)
     createPlayersTable(MF.last10(data.mondayFights()), "#last10", false)
   }

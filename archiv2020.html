@@ -9,6 +9,7 @@
     <link href="dist/css/tabulator.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
     <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
@@ -60,6 +61,9 @@
     </div>
 
     <h1>Kompletní rok 2020</h1>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
     <div id="mondayFightsLeaderboard"></div>
 
     <div class="article">
@@ -88,11 +92,12 @@
 
 <script type="module">
   import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-  import {createPlayersTable} from "./js/mondayFight.mjs"
+  import {createPlayersTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
 
   function mainPage(data) {
     let the2020 = MF.filterYear(data.mondayFights(), 2020)
     createPlayersTable(the2020, "#mondayFightsLeaderboard", true) //use Jouzocoins for 2020
+    createLeagueHistoryChart(data, "myChart", new Date(2020,11,31))
   }
 
   LoadMFData(mainPage)

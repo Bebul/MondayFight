@@ -18,6 +18,7 @@
   <meta property="og:image:type" content="image/jpg" />
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
   <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
@@ -68,6 +69,9 @@
   </div>
 
   <h1>Kompletní rok 2022</h1>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
   <div id="mondayFightsLeaderboard"></div>
 
   <div class="article">
@@ -122,11 +126,12 @@
 
 <script type="module">
   import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-  import {createPlayersTable} from "./js/mondayFight.mjs"
+  import {createPlayersTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
 
   function mainPage(data) {
     let the2022 = MF.filterYear(data.mondayFights(), 2022)
     createPlayersTable(the2022, "#mondayFightsLeaderboard", false) //no Jouzocoins
+    createLeagueHistoryChart(data, "myChart", new Date(2022,11,31))
   }
 
   LoadMFData(mainPage)

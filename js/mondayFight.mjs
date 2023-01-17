@@ -565,6 +565,66 @@ export function getLeagueDataOfPlayers(theFights, mfId) {
   return sorted
 }
 
+export function getLeagueHistory(data, date) {
+  let theFights = MF.filterUpTo(data.mondayFights(), date)
+
+  let players = new Map()
+  getPlayers(theFights).forEach(p => players.set(p, {pts: 0, performance: 0, games: 0, history: []}))
+
+  theFights.forEach(f => {
+     f.standing.players.forEach(p => {
+       let pl = players.get(p.name)
+       if (pl) {
+         pl.pts += p.points[0]
+         let games = p.sheet.scores.length
+         if (games > 0) {
+           pl.performance = (pl.performance * pl.games + p.performance * games) / (pl.games + games)
+           pl.games += games
+         }
+       }
+     })
+    Array.from(players.keys()).forEach(p => {
+        let pl = players.get(p)
+        pl.history.push({p: pl.pts, g: pl.games, e: pl.performance})
+      }
+    )
+  })
+
+  let showNames = function() {
+    let plAr = Array.from(players.keys())
+    let pls = plAr.map(name => {
+      return {name: name, d: players.get(name) }
+    })
+    pls.sort(function(a,b) {
+      return b.d.pts - a.d.pts
+    })
+    return pls.splice(0,8).map(p => p.name)
+  }()
+
+  let plAr = Array.from(players.keys())
+  let datasets = plAr.map(function(name) {
+    let history = players.get(name).history.map(h => h.p)
+    return {
+      label: name,
+      data: history,
+      hidden: showNames.indexOf(name) < 0
+    }
+  })
+  datasets.sort(function(a,b) {
+    return players.get(b.label).pts - players.get(a.label).pts
+  })
+  let tableData = {
+    labels: theFights.map(f => {
+        let d = new Date(f.startsAt)
+        return [d.getDate(), d.getMonth() + 1].join('.')
+      }
+    ),
+    datasets: datasets
+  }
+
+  return tableData
+}
+
 export function getLeagueData(data) {
   let mfId = data.tournamentGames()[data.currentGameListTableIx].id
   let date = new Date(data.findTournament(mfId).startsAt)
@@ -612,6 +672,32 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
 
   if (leagueNoId) {
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
+  }
+}
+
+export function createLeagueHistoryChart(data, chartId, date) {
+  if (chartId) {
+    const ctx = document.getElementById(chartId);
+    if (! date) {
+      let mfId = data.tournamentGames()[data.currentGameListTableIx].id
+      date = new Date(data.findTournament(mfId).startsAt)
+    }
+    let tableData = getLeagueHistory(data, date)
+
+    new Chart(ctx, {
+      type: 'line',
+      data: tableData,
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              boxWidth: 10
+            }
+          }
+        }
+      }
+    });
   }
 }
 
