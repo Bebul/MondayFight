@@ -565,45 +565,48 @@ export function getLeagueDataOfPlayers(theFights, mfId) {
   return sorted
 }
 
-export function getLeagueHistory(data, date) {
+
+let leagueHistory = new Map()
+function initLeagueHistory(data, date) {
+  leagueHistory = new Map()
+
   let theFights = MF.filterUpTo(data.mondayFights(), date)
 
-  let players = new Map()
-  getPlayers(theFights).forEach(p => players.set(p, {pts: 0, performance: 0, games: 0, history: []}))
+  getPlayers(theFights).forEach(p => leagueHistory.set(p, {p: 0, e: 0, g: 0, history: []}))
 
   theFights.forEach(f => {
      f.standing.players.forEach(p => {
-       let pl = players.get(p.name)
+       let pl = leagueHistory.get(p.name)
        if (pl) {
-         pl.pts += p.points[0]
+         pl.p += p.points[0]
          let games = p.sheet.scores.length
          if (games > 0) {
-           pl.performance = (pl.performance * pl.games + p.performance * games) / (pl.games + games)
-           pl.games += games
+           pl.e = (pl.e * pl.g + p.performance * games) / (pl.g + games)
+           pl.g += games
          }
        }
      })
-    Array.from(players.keys()).forEach(p => {
-        let pl = players.get(p)
-        pl.history.push({p: pl.pts, g: pl.games, e: pl.performance})
+    Array.from(leagueHistory.keys()).forEach(p => {
+        let pl = leagueHistory.get(p)
+        pl.history.push({p: pl.p, g: pl.g, e: pl.e})
       }
     )
   })
 
   let showNames = function() {
-    let plAr = Array.from(players.keys())
+    let plAr = Array.from(leagueHistory.keys())
     let pls = plAr.map(name => {
-      return {name: name, d: players.get(name) }
+      return {name: name, d: leagueHistory.get(name) }
     })
     pls.sort(function(a,b) {
-      return b.d.pts - a.d.pts
+      return b.d.p - a.d.p
     })
     return pls.splice(0,8).map(p => p.name)
   }()
 
-  let plAr = Array.from(players.keys())
+  let plAr = Array.from(leagueHistory.keys())
   let datasets = plAr.map(function(name) {
-    let history = players.get(name).history.map(h => h.p)
+    let history = leagueHistory.get(name).history.map(h => h.p || undefined)
     return {
       label: name,
       data: history,
@@ -611,7 +614,7 @@ export function getLeagueHistory(data, date) {
     }
   })
   datasets.sort(function(a,b) {
-    return players.get(b.label).pts - players.get(a.label).pts
+    return leagueHistory.get(b.label).p - leagueHistory.get(a.label).p
   })
   let tableData = {
     labels: theFights.map(f => {
@@ -623,6 +626,25 @@ export function getLeagueHistory(data, date) {
   }
 
   return tableData
+}
+
+export function changeChartDataType(type) {
+  function getData(h) {
+    switch (type) {
+      case "games": return h.g || undefined
+      case "performance": return Math.round(h.e) || undefined
+      default: return h.p || undefined
+    }
+  }
+
+  myChart.data.datasets.forEach(function(d) {
+    d.data = leagueHistory.get(d.label).history.map(h => getData(h))
+  })
+
+  myChart.data.datasets.sort(function(a,b) {
+    return getData(leagueHistory.get(b.label)) - getData(leagueHistory.get(a.label))
+  })
+  myChart.update()
 }
 
 export function getLeagueData(data) {
@@ -677,16 +699,54 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
   }
 }
 
+let myChart = undefined
 export function createLeagueHistoryChart(data, chartId, date) {
   if (chartId) {
-    const ctx = document.getElementById(chartId);
+    const chartDiv = document.getElementById(chartId);
+
+    const typeSelector = document.createElement("form")
+    let lbl = document.createElement("b")
+    lbl.appendChild(document.createTextNode("Data v grafu: "))
+    typeSelector.appendChild(lbl)
+    const selData = {
+      points: false,
+      games: false,
+      performance: false
+    }
+    let first = true
+    for (let key in selData) {
+      let input = document.createElement("input");
+      input.type = "radio";
+      input.setAttribute("name", "type")
+      input.setAttribute("value", key)
+      input.addEventListener('click', function() {
+        changeChartDataType(key)
+      })
+      if (first) {
+        input.setAttribute("checked", true)
+        first = false
+      }
+
+      let label = document.createElement("label");
+      label.innerText = key;
+      typeSelector.appendChild(input);
+      typeSelector.appendChild(label);
+    }
+    chartDiv.appendChild(typeSelector)
+
+    let ctx = document.createElement("canvas")
+    ctx.setAttribute("class", "league-chart")
+    let someDiv = document.createElement("div")
+    someDiv.appendChild(ctx)
+    chartDiv.appendChild(someDiv)
+
     if (! date) {
       let mfId = data.tournamentGames()[data.currentGameListTableIx].id
       date = new Date(data.findTournament(mfId).startsAt)
     }
-    let tableData = getLeagueHistory(data, date)
+    let tableData = initLeagueHistory(data, date)
 
-    new Chart(ctx, {
+    myChart = new Chart(ctx, {
       type: 'line',
       data: tableData,
       options: {
@@ -702,6 +762,8 @@ export function createLeagueHistoryChart(data, chartId, date) {
         }
       }
     });
+
+
   }
 }
 
@@ -1516,7 +1578,6 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
               img.onload = function () {
                 let aspect = img.width / img.height
                 let imgX = right ? 0 : aspect * GLOB.picH
-                console.log(`drawImage(${trans(imgX) - aspect * GLOB.picH}, ${y - GLOB.picH - 1}, ${aspect * GLOB.picH}, ${GLOB.picH})`)
                 ctx.drawImage(img, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH - 1, aspect * GLOB.picH, GLOB.picH)
               }
               img.src = avatar
