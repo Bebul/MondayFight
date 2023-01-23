@@ -1430,9 +1430,9 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         }
         PGNV.pgnView("board2", config2)
       },
-      html: "<br><b>Bébul:</b> Jouzolean dneska zdolal Bukowskice 2x, a to devíti a jedenácti tahy. Jedna z těch výher skončila po jedné minutě a jedné sekundě, dosud nejrychlejší výhra nad Bukowskicem v dějinách Monday Fights. Jouzolean předvedl vynikající přípravu a zaslouží veliké <b>KUDOS!</b> Následující pohroma potkala Bukowskice od Jouzoleana v posledních 14 dnech již podruhé! Asi bychom to měli příště zkusit všichni!" +
+      html: "<br><img src='img/players/jouzolean.png' class='img100 right'><b>Bébul:</b> Jouzoleanovi se dneska podařilo chytit loňského šampiona hned 2x v rychlých miniaturách a došel si nakonec k vítězství v turnaji. Gratulujeme!" +
         "<div id='board'></div>" +
-        "<br><b>Bébul:</b> V Miniaturních šachových partiích zařadil Alster Phillidorovu obranu hned na začátek knížky a píše: <i>\"... zastavuje svému střelci f8 vstup do hry, jestliže bílý hraje správně, má černý dlouho pasivní hru. Přirozené krytí pěšce vývinovým tahem 2. ... Jc6 je určitě lepší. Čtenář se možná v duchu zeptá, proč tedy nezačínáme tím lepším. Phillidorova obrana ukazuje totiž názorně různé útočné možnosti a kombinační údery proti slabému bodu f7...\"</i> Ano, Jouzolean to proti Bukowskicovi opakovaně dokazuje tak, že by se jeho partie vyjímaly mezi těmi miniaturami jako perly. 💎💎<br><br>" +
+        "<br><b>Bébul:</b> V Miniaturních šachových partiích Ladislava Alstera se v Phillidorově obraně tah 3.Sc4 vůbec nevyskytuje. Škoda, Jouzoleanovy partie by se mezi těmi miniaturami vyjímaly jako perly. 💎💎<br><br>" +
         "<div id='board2'></div>"},
   ]
   let s = spec.find(s => s.id === tournamentId)
