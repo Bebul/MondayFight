@@ -1393,6 +1393,47 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
         "Ale to se nešmí, takhle zkoušet, když tam má Bébulek <a href='https://lichess.org/fiuvtdBX#26'>toho koně</a>, sice asi omylem, ale má, svého bílého jezdce, jezdce statečnýho. Je to kabrňák!" +
         "<br><br><b>Jouzolean:</b> Touha po plaketce byla silnější" +
         "<br><br><b>Bebul:</b> Klikněte si na obrázek televizní reportáže a prohlédněte si sabotážní reportážCNN Prima News o Monday Fights. 😀<a href='actualities.html'><img src='img/cnn-prima-news.jpg'></a>"},
+    {id: "xoUVJkiS",
+      init: function() {
+        let config = {
+          pgn: "[Site \"https://lichess.org/PA6aqELD\"]\n" +
+            "[Date \"2023.01.23\"]\n" +
+            "[White \"Jouzolean\"]\n" +
+            "[Black \"bukowskic\"]\n" +
+            "[Result \"1-0\"]\n" +
+            "[Opening \"Philidor Defense\"]\n" +
+            "\n" +
+            "1. e4 e5 2. Nf3 d6 3. Bc4 { C41 Philidor Defense } h6 4. d4 exd4 5. O-O c5 6. c3 dxc3 7. Bxf7+ Kxf7 8. Ne5+ Ke6 9. Qd5+ { Black resigns. } 1-0"
+          ,
+          showCoords: false, coordsInner: false, headers: true,
+          theme: 'brown',
+          boardSize: 290,
+          movesHeight: 60,
+          startPlay: '13'
+        }
+        PGNV.pgnView("board", config)
+        let config2 = {
+          pgn: "[Site \"https://lichess.org/0vv6RtIv\"]\n" +
+            "[Date \"2023.01.23\"]\n" +
+            "[White \"Jouzolean\"]\n" +
+            "[Black \"bukowskic\"]\n" +
+            "[Result \"1-0\"]\n" +
+            "[Opening \"Philidor Defense\"]\n" +
+            "\n" +
+            "1. e4 e5 2. Nf3 d6 3. Bc4 { C41 Philidor Defense } h6 4. d4 exd4 5. O-O Nf6 6. e5 dxe5 7. Nxe5 Be6 8. Bxe6 fxe6 9. Qd3 Ke7 10. Ng6+ Ke8 11. Nxh8 Qe7 { Black resigns. } 1-0"
+          ,
+          showCoords: false, coordsInner: false, headers: true,
+          theme: 'brown',
+          boardSize: 290,
+          movesHeight: 60,
+          startPlay: '13'
+        }
+        PGNV.pgnView("board2", config2)
+      },
+      html: "<br><b>Bébul:</b> Jouzolean dneska zdolal Bukowskice 2x, a to devíti a jedenácti tahy. Jedna z těch výher skončila po jedné minutě a jedné sekundě, dosud nejrychlejší výhra nad Bukowskicem v dějinách Monday Fights. Jouzolean předvedl vynikající přípravu a zaslouží veliké <b>KUDOS!</b> Následující pohroma potkala Bukowskice od Jouzoleana v posledních 14 dnech již podruhé! Asi bychom to měli příště zkusit všichni!" +
+        "<div id='board'></div>" +
+        "<br><b>Bébul:</b> V Miniaturních šachových partiích zařadil Alster Phillidorovu obranu hned na začátek knížky a píše: <i>\"... zastavuje svému střelci f8 vstup do hry, jestliže bílý hraje správně, má černý dlouho pasivní hru. Přirozené krytí pěšce vývinovým tahem 2. ... Jc6 je určitě lepší. Čtenář se možná v duchu zeptá, proč tedy nezačínáme tím lepším. Phillidorova obrana ukazuje totiž názorně různé útočné možnosti a kombinační údery proti slabému bodu f7...\"</i> Ano, Jouzolean to proti Bukowskicovi opakovaně dokazuje tak, že by se jeho partie vyjímaly mezi těmi miniaturami jako perly. 💎💎<br><br>" +
+        "<div id='board2'></div>"},
   ]
   let s = spec.find(s => s.id === tournamentId)
   if (s) {
