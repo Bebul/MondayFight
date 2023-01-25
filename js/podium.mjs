@@ -8,6 +8,7 @@ import {
   leagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto
 } from "./mondayFight.mjs"
 import {getOpeningsData, getOpeningsHistogram} from "./cross.mjs"
+import {tournamentSpec} from "../data/tournamentSpecs.mjs";
 
 let placeTxt = ['','first','second','third']
 
@@ -360,6 +361,30 @@ class AchievementEnPassantKiller {
   }
 }
 
+class AchievementBlackDot {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 52
+    //this.frame = "zlata.png"
+    //this.char = "⚫"
+    this.img = "blackDot.png"
+    this.desc = "Černý puntík"
+    this.game = id
+  }
+}
+
+class AchievementReporter {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 51
+    //this.frame = "zlata.png"
+    //this.pic = "../mf-reporter.gif"
+    this.img = "reporter.png"
+    this.desc = "Reportér<br>MF"
+    this.game = id
+  }
+}
+
 class AchievementSensation {
   constructor(player, id) {
     this.player = player
@@ -458,6 +483,14 @@ class AchievementFontPrototype {
 function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
+  let s = tournamentSpec.find(s => s.id === tournamentID)
+  if (s && s.achievements) s.achievements.forEach(a => {
+    switch (a.achievement) {
+      case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
+      case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
+    }
+  })
+
   games.games.forEach(function(g) {
 /*
     if (g.ply && g.ply<19 && g.status==='draw') {
@@ -512,7 +545,8 @@ function renderAchievements(achievements, maxCount = 20) {
   let divs = []
   for (let i=0; i < Math.min(achievements.length, maxCount); i++) {
     let achievement = achievements[i]
-    let player = achievement.player.user.name
+    let player = achievement.player
+    if (typeof player !== 'string' && !(player instanceof String)) player = achievement.player.user.name
     let html = `<div class="achievementTab"><div class="achievement left">`
     let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
     html += `<img src="${avatar}" class="achievementH110">`
@@ -602,6 +636,9 @@ function testAchievementsInfo(id="achievements") {
     new AchievementSmothered(next()),
     new AchievementPawnKiller(next()),
     new AchievementCenterMate(next()),
+    new AchievementQuestion(next()),
+    new AchievementBlackDot(next()),
+    new AchievementReporter(next()),
   ]
 
   let el = document.getElementById(id)
