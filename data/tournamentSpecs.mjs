@@ -311,4 +311,13 @@ export var tournamentSpec = [
       "<br><b>Bébul:</b> V Miniaturních šachových partiích Ladislava Alstera se v Phillidorově obraně tah 3.Sc4 vůbec nevyskytuje. Škoda, Jouzoleanovy partie by se mezi těmi miniaturami vyjímaly jako perly. 💎💎<br><br>" +
       "<div id='board2'></div>" +
       "<br><br><b>Bébul:</b> Udělený černý puntík ⚫ je pouze legrace na které byla testována možnost přidávat achievementy ručně, což je potřeba pro plaketky reportérů MF. Bukowskic má ale plaketek málo, tak mu ji nechám. ❤️ Tak mu to, prosím Vás, nezáviďte!<br><br>"},
+  {id: "502tbfef",
+    html: "<img src='img/mf-og-margarita.jpg'><br><br><b>Bébul:</b> Margarita si po dlouhé době mohla zahrát na skutečné šachovnici, když navštívila Bukowskicův šachový kroužek tady na Dobříši. Držme jí palce, aby mohla na kroužek chodit pravidelně, zdá se, že jí to pěkně nakoplo formu. Veliká gratulace!" +
+      "<br><br><img src='img/trnka-bukowskic.jpg'>" +
+      "<br><br><b>Bukowskic:</b> Gratuluju Margaritě. A kdyby to někoho zajímalo, tak Margarita dnes vyhrála dva turnaje! Ten první byl školní, kde přehrála 14 borců!" +
+      "<br><br><img src='img/turnaj-trnka.jpg'>" +
+      "<br><br><img src='img/players/michaelchmiel.png' class='img100 right'><b>Bebul:</b> Na turnaji hrály děti ze tří dobříšských kroužků. Ten třetí, v knihovně, vede Michael Chmiel, kterého tímto vítám na našem Monday Fights! Uhrát hned napoprvé bednu je troufalost a doufáme, že se to nebude opakovat! 😀" +
+      "<br><br><img src='img/achievements/smothered.png' class='img100 right'><b>Bebul:</b> Dneska Bébul prohrál tři hry, ve kterých soupeře nejprve grandiózně přehrál, ale pak to zvrtal. S RychlymLenochodem si dokonce nechal dát dušený mat! Gratuluju, dušeňák je vždycky posvícení." +
+      "<br><br><b>Bebul:</b> Na dnešním turnaji skončily hned tři partie <b>patem</b>. Kdo má silné nervy, může se poučit z mozkomorovy <a href='https://lichess.org/HfybymQ0'>partie</a>, ve které se rčení \"naděje umírá poslední\" realizovalo mírou skutečně vrchovatou."},
+
 ]
