@@ -319,5 +319,30 @@ export var tournamentSpec = [
       "<br><br><img src='img/players/michaelchmiel.png' class='img100 right'><b>Bebul:</b> Na turnaji hrály děti ze tří dobříšských kroužků. Ten třetí, v knihovně, vede Michael Chmiel, kterého tímto vítám na našem Monday Fights! Uhrát hned napoprvé bednu je troufalost a doufáme, že se to nebude opakovat! 😀" +
       "<br><br><img src='img/achievements/smothered.png' class='img100 right'><b>Bebul:</b> Dneska Bébul prohrál tři hry, ve kterých soupeře nejprve grandiózně přehrál, ale pak to zvrtal. S RychlymLenochodem si dokonce nechal dát dušený mat! Gratuluju, dušeňák je vždycky posvícení." +
       "<br><br><b>Bebul:</b> Na dnešním turnaji skončily hned tři partie <b>patem</b>. Kdo má silné nervy, může se poučit z mozkomorovy <a href='https://lichess.org/HfybymQ0'>partie</a>, ve které se rčení \"naděje umírá poslední\" realizovalo mírou skutečně vrchovatou."},
-
+  {id: "jFVI6PBS",
+    init: function() {
+      let config = {
+        pgn: "[Site \"https://lichess.org/PA6aqELD\"]\n" +
+          "[Date \"2023.02.06\"]\n" +
+          "[White \"Jouzolean\"]\n" +
+          "[Black \"Březina\"]\n" +
+          "[Result \"1-0\"]\n" +
+          "[Opening \"Boden-Kieseritzski gambit\"]\n" +
+          "\n" +
+          "1. e4 e5 2. Nf3 Nf6 3. Bc4 Nxe4 4. Nc3 Nxc3 5. dxc3 Nc6? 6. Ng5 Qf6 7. Bxf7+ Ke7 8. Bd5 d6 9. Nf7 Rg8 10. Bg5 1-0"
+        ,
+        showCoords: false, coordsInner: false, headers: true,
+        theme: 'brown',
+        boardSize: 290,
+        movesHeight: 60,
+        startPlay: '19'
+      }
+      PGNV.pgnView("board", config)
+    },
+      html: "<br><img src='img/players/michaelchmiel.png' class='img100 right'><b>Bébul:</b> MichaelChmiel byl dneska při chuti a nebyl k poražení. Mrázkovi v první partii nestačila k výhře dáma, Bébul si nevážil darované figury, a tak to vypadalo, že si zaslouženě odnese plaketku stoprocentního vítězství. Nakonec se podařilo šňůru přetrhnout Jouzoleanovi. Oběma borcům tímto gratuluji! Dobrá práce! Ať žije Dobříš! ❤️" +
+      "<br><br><b>Jouzolean:</b> Přemluvili mně k druhému klasickému zapasu. <img src='img/players/jouzolean.png' class='img100 right'>V pondělí 18 hod. Už není C - tým. Ten se rozpustil a ja se dostal do béčka na poslední stul. " +
+      "Nechtěný posun. Béčko hraje o ligu výš. Takže zase rupnu. A ani nestihnu turnaj. Fakt nechápu jak jsem jim to mohl slíbit!" +
+      "<br><br><img src='img/jouzolean-boden-kieseritzski.jpg'>" +
+      "<br><br><b>Bébul:</b> Jouzolean je ale chlapík, soupeři dovolil ve vážné 90 minutové partii pouze 9 tahů a dnešní Monday Fight s přehledem stihl. Pomohla mu k tomu příprava na Mozkomora a Bébula a Tekeleho, neboť nás všechny tímhle Bodénem tuze trápí :-). Gratulujeme!" +
+      "<div id='board'></div>"}
 ]
