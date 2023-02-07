@@ -340,7 +340,7 @@ export var tournamentSpec = [
       PGNV.pgnView("board", config)
     },
       html: "<br><img src='img/players/michaelchmiel.png' class='img100 right'><b>Bébul:</b> MichaelChmiel byl dneska při chuti a nebyl k poražení. Mrázkovi v první partii nestačila k výhře dáma, Bébul si nevážil darované figury, a tak to vypadalo, že si zaslouženě odnese plaketku stoprocentního vítězství. Nakonec se podařilo šňůru přetrhnout Jouzoleanovi. Oběma borcům tímto gratuluji! Dobrá práce! Ať žije Dobříš! ❤️" +
-      "<br><br><b>Jouzolean:</b> Přemluvili mně k druhému klasickému zapasu. <img src='img/players/jouzolean.png' class='img100 right'>V pondělí 18 hod. Už není C - tým. Ten se rozpustil a ja se dostal do béčka na poslední stul. " +
+      "<br><br><b>Jouzolean:</b> Přemluvili mě k druhému klasickému zapasu. <img src='img/players/jouzolean.png' class='img100 right'>V pondělí 18 hod. Už není C - tým. Ten se rozpustil a ja se dostal do béčka na poslední stul. " +
       "Nechtěný posun. Béčko hraje o ligu výš. Takže zase rupnu. A ani nestihnu turnaj. Fakt nechápu jak jsem jim to mohl slíbit!" +
       "<br><br><img src='img/jouzolean-boden-kieseritzski.jpg'>" +
       "<br><br><b>Bébul:</b> Jouzolean je ale chlapík, soupeři dovolil ve vážné 90 minutové partii pouze 9 tahů a dnešní Monday Fight s přehledem stihl. Pomohla mu k tomu příprava na Mozkomora a Bébula a Tekeleho, neboť nás všechny tímhle Bodénem tuze trápí :-). Gratulujeme!" +
