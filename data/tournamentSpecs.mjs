@@ -344,5 +344,9 @@ export var tournamentSpec = [
       "Nechtěný posun. Béčko hraje o ligu výš. Takže zase rupnu. A ani nestihnu turnaj. Fakt nechápu jak jsem jim to mohl slíbit!" +
       "<br><br><img src='img/jouzolean-boden-kieseritzski.jpg'>" +
       "<br><br><b>Bébul:</b> Jouzolean je ale chlapík, soupeři dovolil ve vážné 90 minutové partii pouze 9 tahů a dnešní Monday Fight s přehledem stihl. Pomohla mu k tomu příprava na Mozkomora a Bébula a Tekeleho, neboť nás všechny tímhle Bodénem tuze trápí :-). Gratulujeme!" +
-      "<div id='board'></div>"}
+      "<div id='board'></div>"},
+  {id: "6RfjVpnn",
+    html: "<img src='img/prebor-hostomic-margarita.jpg'>" +
+          "<img src='img/players/margarita_vlasenko.png' class='img100 right'><br><b>Bebul:</b> Margarita si v sobotu vybojovala v Otevřeném přeboru města Hostomice krásné 3.místo! Hrálo se 7 kol, 2x 25 minut, švýcarským systémem, bitva mezi 29 hráči. Z naší dobříšské ZŠ Trnka jelo s Bukowskicem 6 dětí. " +
+          "Závidíme a Gratulujeme!"},
 ]
