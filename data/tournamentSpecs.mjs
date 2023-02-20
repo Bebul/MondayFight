@@ -349,4 +349,15 @@ export var tournamentSpec = [
     html: "<img src='img/prebor-hostomic-margarita.jpg'>" +
           "<img src='img/players/margarita_vlasenko.png' class='img100 right'><br><b>Bebul:</b> Margarita si v sobotu vybojovala v Otevřeném přeboru města Hostomice krásné 3.místo! Hrálo se 7 kol, 2x 25 minut, švýcarským systémem, bitva mezi 29 hráči. Z naší dobříšské ZŠ Trnka jelo s Bukowskicem 6 dětí. " +
           "Závidíme a Gratulujeme!"},
+  {id: "aGb3mR2q",
+    achievements: [{achievement: "black", player: "mrazek", id: "aTOyIX4i"}, {achievement: "black", player: "mrazek", id: "eC0pcy07"}, {achievement: "black", player: "bukowskic", id: "5A7NvcDN"}],
+    html: "<b>Paní Bukowskicová:</b> <i>kluk</i> hrál omylem několik partií na bukowskicově účtu a zruinoval mu ELO 😅😂🤣<br><br>" +
+      "<img src='img/lenochod1600.jpg'>" +
+      "<img src='img/players/rychlylenochod.png' class='img100 right'><br><b>Jouzolean:</b> gratulujeme hráči Rychlý Lenochod k dosažení 1600 blitz elo." +
+      "<br><br><b>Bebul:</b> Jednalo se o heroický výkon dva dny před dnešním turnajem. Sice to do MF nevydrželo, ale nemusí pršet, stačí, když kape..." +
+      "<br><br><b>Bebul:</b> Černé puntíky dnes jeden za přizvání hráče, který hrál první partii až na Monday Fight. Za to si ale můžeme s Jouzoleanem sami. Turnaj má mít podmínku, že každý hráč má na Lichess odehráno aspoň nějaké minimum partií, což od příště bude. Další za dvě partie které skončily vypršením času jen po prvních několika úvodních tazích.<br><br>" +
+      "<img src='img/mrazekblack.png'>" +
+      "<br><br><b>Bebul:</b> Vítáme nového hráče <i>buban303</i> a těšíme se na další bitvy."
+      },
+
 ]
