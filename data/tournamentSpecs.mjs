@@ -359,5 +359,6 @@ export var tournamentSpec = [
       "<img src='img/mrazekblack.png'>" +
       "<br><br><b>Bebul:</b> Vítáme nového hráče <i>buban303</i> a těšíme se na další bitvy."
       },
-
+  {id: "JMdetVA8",
+    html: "<img src='img/players/dj-pesec.png' class='img100 right'><b>Bebul:</b> gratulujeme DJ&#x2011;Pescovi k vítězství v turnaji, když všechny partie hrál jako berserk. V historii Monday Fights se to předtím podařilo pouze <a href='index.html?mf=kjCdiqAI'>jedenkrát</a>, a to rovněž DJ&#x2011;Pescovi, před bezmála třemi roky!"},
 ]

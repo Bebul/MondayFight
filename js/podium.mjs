@@ -397,6 +397,19 @@ class AchievementSensation {
   }
 }
 
+class AchievementBerserker {
+  constructor(player) {
+    this.player = player
+    this.sortVal = 990
+    //this.frame = "stribrna.png"
+    //this.char = "⚡"
+    //this.left = 20
+    this.img = "berserker.png"
+    this.desc = "Maestro<br>Berserker"  // tournament LgtuuhiJ for instance
+    this.game = "v3S715AO/black"  // DrNykterstein improved bong cloud
+  }
+}
+
 class AchievementQuestion {
   constructor(player, id) {
     this.player = player
@@ -537,6 +550,7 @@ function collectAchievements(data, tournamentID, games) {
   let winner = tournament.podium[0]
   let winRate = winner.nb.win / winner.nb.game
   if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
+  if (winner.nb.game===winner.nb.berserk) achievements.push(new AchievementBerserker({user: {name: winner.name}}))
 
   return achievements
 }
@@ -626,6 +640,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementCastlingKiller(next()),
     new AchievementEnPassantKiller(next()),
     new AchievementSensation(next()),
+    new AchievementBerserker(next()),
     new AchievementMarathonWinner(next()),
     new AchievementLastTimeMate(next()),
     new AchievementNothing(),

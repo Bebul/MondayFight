@@ -258,6 +258,13 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       delete player.points
       delete player.avgOponent
     })
+    // NOTE: there is no need to add it as we can detect it for each tournament easily
+    // played the winner 100% berserk?
+    let podium1 = tournament.podium.find(p => p.rank===1)
+    if (podium1 && podium1.nb.game===podium1.nb.berserk) {
+      let berserker = getPlayer(tournament, podium1.name)
+      berserker.berserker = true
+    }
     // sensation
     let sensationGame = games.games.reduce(MF.biggestDifferenceWinSelector, null)
     if (sensationGame) {
