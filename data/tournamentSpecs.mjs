@@ -365,5 +365,15 @@ export var tournamentSpec = [
     html: "<b>DJ-Pesec:</b> Gratuluju! Za mě jeden z nejkrásnějších závěrů MFA. O vítězství hrálo v posledních 10 minutách pět hráčů. Jsem rád, že jsem si to mohl bez nervů u večeře užít 😀"},
   {id: "zT04UBgm",
     html: "<img src='img/koleda.jpg'><div align='center'>Koleda koleda o svátcích,<br>Buki Ritu vyplácí!<br>Dobře Rito, dobře tak,<br>nemělas mi ten mat dát!</div>"},
+  {id: "jkqzKDk1",
+    html: "<img src='img/players/jouzolean.png' class='img75' style=\"float:left\">" +
+      "V průměru <b>6.7</span></b> bodů potřebuje Jouzoleán uhrát ve zbývajících turnajích tohoto roku, aby překonal Bukowskičův rekord 371 bodů z roku 2021." +
+      "<br><br><i>Pisateli těchto řádků je Jouzoleána líto." +
+      "Jeho sen zhatí. Bude ho teď porážet. Snadno. Neměl ho učit jak vždycky vyhrát proti Sicilské obraně." +
+      "Sám teď nebude mít jak prorazit Bébulkovu pěšcovou hradbu," +
+      "aniž by obětoval lehkou figuru. Potřebuje body? Tak obětuje! Jenže chá chá, Bébulek rychle zjednoduší hru, vymění všechny zbylé figury, dojde pěšcem do dámy a uštědří mu mat." +
+      "Takhle jednoduché to bude. A zhasne tak sen, veliký sen, až to bude pisateli těchto řádků líto. Maliličkato líto. Nechť řady královských gambiterů houstnou! -beb-</i>" +
+      "<br><br><b>Bebul:</b> dneska uhrál jen 5.5 bodu, ale měl dnešního stoprocentního <a href='https://lichess.org/@/tomzr'>tomzr</a>, kterému gratulujeme, hezky na <a href='https://lichess.org/i2pA3pVD#66'>lopatě</a>." +
+      " Každý z nás by tu partii už vyhrál, tedy kromě Mrázka, kterému prý tomzr z lopaty rovněž vyklouzl."},
 
 ]

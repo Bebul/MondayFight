@@ -671,7 +671,7 @@ export async function downloadUserDataIntoLeague(league) {
 }
 
 export var leagueTable
-export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
+export function createLeagueTable(data, tableId, leagueNoId, spiderId, jouzoId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
@@ -697,6 +697,16 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId) {
 
   if (leagueNoId) {
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
+  }
+  if (jouzoId) {
+    let weeksLeft = 52 - fightsCount
+    let text = "** mission failed **"
+    if (weeksLeft > 0) {
+      let jouzoPts = dataOfPlayers[0].totalPts
+      let avg = Math.round(10 * (372 - jouzoPts) / weeksLeft) / 10
+      text = avg.toString()
+    }
+    document.getElementById(jouzoId).innerHTML = `${text}`
   }
 }
 

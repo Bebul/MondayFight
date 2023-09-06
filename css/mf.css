@@ -603,6 +603,13 @@ img.img100 {
     margin: 3px 0 0 3px;
 }
 
+.img75 {
+    max-width: 75px;
+    width: 15vw;
+    float: right;
+    margin: 3px 3px 0 0;
+}
+
 @font-face {
     font-family: 'Bahnshrift Light';
     src: url('../fonts/bahnschrift2.ttf');
