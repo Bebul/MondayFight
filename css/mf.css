@@ -603,7 +603,7 @@ img.img100 {
     margin: 3px 0 0 3px;
 }
 
-.img75 {
+img.img75 {
     max-width: 75px;
     width: 15vw;
     float: right;
