@@ -708,7 +708,6 @@ export function initCardsUI(data) {
 
 export function updatePlayerList(data, theFights, selectId, criterion, season, verbose = true) {
   function populateSelect(itemsValues, id) {
-    document.getElementById(id).innerHTML = ""
     let items = document.createDocumentFragment();
 
     itemsValues.forEach(function(el) {
@@ -719,7 +718,14 @@ export function updatePlayerList(data, theFights, selectId, criterion, season, v
       items.appendChild(option);
     });
 
-    document.getElementById(id).appendChild(items);
+    let select = document.getElementById(id)
+    let currentPlayer = ""
+    if (select.selectedIndex >= 0) {
+      currentPlayer = select.options[select.selectedIndex].text
+    }
+    select.innerHTML = ""
+    select.appendChild(items);
+    select.value = currentPlayer
   }
 
   let players = getPlayers(theFights).sort(function(a, b){
