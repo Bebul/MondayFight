@@ -375,5 +375,38 @@ export var tournamentSpec = [
       "Takhle jednoduché to bude. A zhasne tak sen, veliký sen, až to bude pisateli těchto řádků líto. Maliličkato líto. Nechť řady královských gambiterů houstnou! -beb-</i>" +
       "<br><br><b>Bebul:</b> dneska uhrál jen 5.5 bodu, ale měl dnešního stoprocentního <a href='https://lichess.org/@/tomzr'>tomzr</a>, kterému gratulujeme, hezky na <a href='https://lichess.org/i2pA3pVD#66'>lopatě</a>." +
       " Každý z nás by tu partii už vyhrál, tedy kromě Mrázka, kterému prý tomzr z lopaty rovněž vyklouzl."},
+  {id: "HVCxCBvL",
+    html: "<b>LastScout:</b> Pozor hlášení: Následující čtvrtek se bude tradičně konat akce Beer & Chess u nás ve střešovické hospůdce (Restaurace na Dělostřílnách) v 7.hod. Budu tam já a Roman jako tvrdé jádro + pár dobrých kluků od nás ze sousedství. Kdybyste měli chuť se k nám přidat a rozvířit vody, rádi vás uvidíme. Konec 🙂. hlášení." +
+      "<br><br><img src='img/margaritaDiplom.jpg'><br><br><b>Bebul:</b> Margaryta se dnešního Monday Fight turnaje nezúčastnila, protože měla jiný šachový program. Gratulujeme! ❤️"},
+  {id: "U2MBWgWW",
+    html: "<img src='img/delostrilny2023.jpg'>" +
+      "<br><br><b>LastScout:</b> Posílám momentku ze čtvrteční akce. Přišli jste o výborný smažák….A požitku ze hry samozřejmě 😀"},
+  {id: "bWdaEhQU",
+    html: "<img src='img/honzahonzadecko.jpg'><br><br><b>HonzaHonza:</b> Dcera, dva roky, začít se musí brzo 😄 za pár let se k nám přidá" +
+      "<br><br><b>Bebul:</b> no, teď už to nebude moct být Neznama01, když je známá. Ale krásou se jí jistě vyrovná ❤️" +
+      "<br><br><img src='img/hrobotrondecko.jpg'><br><br><b>Hrobotron:</b> Neznama03 se třeba přidá"},
+  {id: "yY2z2OTE",
+    html: "<img src='img/margarita-kp.jpg'><br><img src='img/margaryta-krajsky-prebor.jpg'><br><br><b>Bebul:</b> Margaryta vybojovala v Krajském přeboru krásné druhé místo! Gratulujeme! ❤️"},
+  {id: "GH67HxSy",
+    html: "<img src='img/muj-system.jpg'><br><br><b>Bukowskic:</b> Z tohoto vydání vezmeme diagramy, kniha vyjde ve zcela novém překladu! Obálka tohoto vydání je povedená.<br><br><img src='img/muj-system-txt.jpg'>" +
+      "<br><br><b>Bebul:</b> Vypadá to, že se LEDA chystá vydat Jouzolean-Tekeleho šachovou bibli. Tak se necháme překvapit.  ❤️"},
+  {id: "RkvoWKUM",
+    html: "<img src='img/lenochod-otb.jpg'><br><br><img src='img/jouzolean-otb.jpg'><b>Bebul:</b> všichni se mě bojí, proto trénují. No hrůza! Štěstí totiž přeje připraveným. 👍"},
+  {id: "8Qrvf4nK",
+    html: "<img src='img/tekele_6_5_2023.jpg'><br><br><img src='img/jouzolean_6_5_2023.jpg'><b>Bebul:</b> A takhle se to teda stalo, že Tekele začal taky hrát Boden-Kieseritsky gambit?  😀"},
+  {id: "CHGKdO2L",
+    html: "<img src='img/polgu-9-5-2023.jpg'><br><b>Polgu:</b> Pořád se učíme nová zahájení 😀👍"},
+  {id: "b1xWJ2sM",
+    html: "<img src='img/mistrovstvi-amateru.jpg'>"},
+  {id: "YfekfStP",
+    html: "<img src='img/pesec-vs-travinho.jpg'><BR><b>DJ-Pesec: </b> kdesi nad Arizonou Travinho vs. DJ Pesec 1:4. <i>(Ve skutečnosti někdy kolem 8.února, pozn. redakce)</i>"},
+  {id: "Ar3cxBL6",
+    html: "<img src='img/cvek-otb.jpg'><BR><i>(Ilustrační foto mimo MF)</i><br><b>Jouzolean: </b> Na vědomí se se dává, že 18.12.2023 se našeho turnaje zúčastní již podruhé GM R. Cvek. 😎Jen připomínám, že minule jsme všichni dostali čočku 😁" +
+      "<br><br><b>Bebul:</b> Dnes ráno WhatsApp <b>26 zpráv</b> od Jouzoleana. Nebudu Vám prozrazovat detaily, ale <b>SachyCvek</b> se zhroutí v desátém tahu. Je to téměř jisté. Co tah, to návnada, kterou Cvek ve svých partiích hraje, včetně toho blunderu. Geniálně upravený move order, že očekávaný tah hraje vždy nejčastěji. Takže Jouzolean ho porazí. SachyCvek se otřesou v základech a jeho druhý pád by měl zařídit <b>Tekele</b>, kterého tímto pověřuji. Třetí ránu už má vyhrazen <b>Polgyho</b> šustráček. ❤️"},
+  {id: "XxhF52z5",
+    html: "<img src='img/indiani-sachy.jpg'><br><b>Bébul:</b> Letos jsme se s Bukowskicem zaklínali, že si na táboře určitě zahrajeme, ale ráno spíme, v poledne jíme, odpoledne je vedro a večer jsou komáři... Ale děti si šachy užily ❤️<BR><br><img src='img/buk-nacelnik.jpg'><br><i>Bukowskic, náčelník Aglajů</i>"},
+
+
+
 
 ]
