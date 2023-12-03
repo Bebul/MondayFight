@@ -380,7 +380,10 @@ export var tournamentSpec = [
       "<br><br><img src='img/margaritaDiplom.jpg'><br><br><b>Bebul:</b> Margaryta se dnešního Monday Fight turnaje nezúčastnila, protože měla jiný šachový program. Gratulujeme! ❤️"},
   {id: "U2MBWgWW",
     html: "<img src='img/delostrilny2023.jpg'>" +
-      "<br><br><b>LastScout:</b> Posílám momentku ze čtvrteční akce. Přišli jste o výborný smažák….A požitku ze hry samozřejmě 😀"},
+      "<br><b>LastScout:</b> Posílám momentku ze čtvrteční akce. Přišli jste o výborný smažák….A požitku ze hry samozřejmě 😀" +
+      "<br><br><img src='img/three-dames-pat.jpg'>" +
+      "<br><b>Bebul:</b> Vítáme Rychlého Lenochoda a Travinho zpět. Plaketka za postavení třech dam je pěkná, ale ten PAT je teprve kouzelnej 👍" +
+      "<br><br><b>RychlyLenochod:</b> 😀 ja doufal že to vzdá, vůbec mě nenapadlo že to bude pat 😀 ještě když jsem hrál berserk"},
   {id: "bWdaEhQU",
     html: "<img src='img/honzahonzadecko.jpg'><br><br><b>HonzaHonza:</b> Dcera, dva roky, začít se musí brzo 😄 za pár let se k nám přidá" +
       "<br><br><b>Bebul:</b> no, teď už to nebude moct být Neznama01, když je známá. Ale krásou se jí jistě vyrovná ❤️" +
