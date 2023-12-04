@@ -509,28 +509,28 @@ function positionsAfter(games, player, color, ply) {
   return positions
 }
 
-function myCellClick(data, players, fights){
-  function allGames(playerA, playerB) {
-    let selectedGames = []
-    fights.forEach( fight => {
-      let games = data.tournamentGames().find(tg => tg.id==fight.id);
-      if (games !== undefined) {
-        games.games.forEach(game => {
-          let white = game.players.white.user.name
-          let black = game.players.black.user.name
-          if ((white == playerA && black == playerB) || (white == playerB && black == playerA)) selectedGames.push(game)
-        })
-      }
-    })
-    return {"games": selectedGames}
-  }
+function mutualGames(data, fights, playerA, playerB) {
+  let selectedGames = []
+  fights.forEach( fight => {
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
+    if (games !== undefined) {
+      games.games.forEach(game => {
+        let white = game.players.white.user.name
+        let black = game.players.black.user.name
+        if ((white == playerA && black == playerB) || (white == playerB && black == playerA)) selectedGames.push(game)
+      })
+    }
+  })
+  return {"games": selectedGames}
+}
 
+function myCellClick(data, players, fights){
   function mcl(e, cell) {
     let playerA = cell._cell.row.data.name
     let playerB = players[cell._cell.column.field.substring(2)]
     console.log("cell click: " + playerA + " vs " + playerB)
     document.getElementById("gamesList").style.display = "block";
-    let games = allGames(playerA, playerB)
+    let games = mutualGames(data, fights, playerA, playerB)
     let gameData = gameListData(games)
     document.getElementById("gamesListTitle").innerHTML = `<h1>${playerA} vs ${playerB}</h1>`
     updateMostOftenPositions(games.games, playerA, playerB)
@@ -698,6 +698,9 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
   })
 
   drawEpicCard(league, crossData, title, selectId)
+
+  let games = mutualGames(data, theFights, player1, player2)
+  updateMostOftenPositions(games.games, player1, player2)
 }
 
 export function initCardsUI(data) {
@@ -722,6 +725,8 @@ export function updatePlayerList(data, theFights, selectId, criterion, season, v
     let currentPlayer = ""
     if (select.selectedIndex >= 0) {
       currentPlayer = select.options[select.selectedIndex].text
+    } else {
+      currentPlayer = "bukowskic"
     }
     select.innerHTML = ""
     select.appendChild(items);
