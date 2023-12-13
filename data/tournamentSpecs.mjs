@@ -408,6 +408,9 @@ export var tournamentSpec = [
       "<br><br><b>Bebul:</b> Dnes ráno WhatsApp <b>26 zpráv</b> od Jouzoleana. Nebudu Vám prozrazovat detaily, ale <b>SachyCvek</b> se zhroutí v desátém tahu. Je to téměř jisté. Co tah, to návnada, kterou Cvek ve svých partiích hraje, včetně toho blunderu. Geniálně upravený move order, že očekávaný tah hraje vždy nejčastěji. Takže Jouzolean ho porazí. SachyCvek se otřesou v základech a jeho druhý pád by měl zařídit <b>Tekele</b>, kterého tímto pověřuji. Třetí ránu už má vyhrazen <b>Polgyho</b> šustráček. ❤️"},
   {id: "XxhF52z5",
     html: "<img src='img/indiani-sachy.jpg'><br><b>Bébul:</b> Letos jsme se s Bukowskicem zaklínali, že si na táboře určitě zahrajeme, ale ráno spíme, v poledne jíme, odpoledne je vedro a večer jsou komáři... Ale děti si šachy užily ❤️<BR><br><img src='img/buk-nacelnik.jpg'><br><i>Bukowskic, náčelník Aglajů</i>"},
+  {id: "U8B9QThb",
+    html: "<img src='img/masUzNecoNaTohoCveka.jpg'><br><b>Jouzolean:</b> Jak již jsem avizoval, příští týden by měl dorazit na MF GM Robert Cvek - doufám, že letos bude hvězdná účast a že někdo uhraje alespoň půlbodík. 😎Nějaké jeho hry najdete na lichess pod nickem sachycvek\n" +
+      "On bude ale beztak hrát nějaké blbosti. 😎😁"},
 
 
 
