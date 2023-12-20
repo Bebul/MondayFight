@@ -513,6 +513,7 @@ function collectAchievements(data, tournamentID, games) {
     switch (a.achievement) {
       case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
       case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
+      case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
     }
   })
 
