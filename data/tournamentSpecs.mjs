@@ -414,11 +414,20 @@ export var tournamentSpec = [
   {id: "PJnn9LQi",
     achievements: [{achievement: "blackGM", player: "mrazek", id: "g4jzy7kX"}],
     html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
-      "Že budou ty Vánoce, tak nás znovu po roce navštívil Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Za návštěvu a za nadílku moc děkujeme a k vítězství gratulujeme." +
+      "Že budou ty Vánoce, tak nás znovu po roce navštívil velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Za návštěvu a za nadílku moc děkujeme a k vítězství gratulujeme!" +
       "<div align='center' style='margin-top:10px'><img src='img/sachyCvekTop50.png' style='max-width: 211px'></div>" +
-      "Stihl odehrát krásných 15 partií, což je o jeden výprask více, než při jeho <a href='http://localhost:63342/MondayFight/?mf=fXU6tfJM'>první návštěvě</a>. " +
-      "Radost s duelu mělo 8 hráčů, což je o 3 méně, než loni. Když totiž došlo na spárování, byl náš přeborník DJ-Pesec náhodou 5x k dispozici. Takže nemůžeme mít Lichessu za zlé, že zajásal, že může nabídnout to nejlepší, co je u nás k mání!" +
-      "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' style='margin:52px 0px 60px 0px;height:426px'/> " +
-      "O to více se čekalo, že uhrajeme aspoň ten půlbodík! Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo. "
-},
+      "Stihl odehrát krásných 15 partií, což je o jednu více, než při jeho <a href='http://localhost:63342/MondayFight/?mf=fXU6tfJM'>první návštěvě</a>. " +
+      "Radost s duelu mělo 8 hráčů, což je o 3 méně, než loni. " +
+      "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' style='margin:42px 0px 50px 0px;height:426px'/> " +
+      "Neuvěřitelně pětkrát došlo na duel s DJ&#x2011;Pescem. O to více se čekalo, že uhrajeme aspoň ten půlbodík! Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo. 😀" +
+      "<br><br><b>DJ-Pesec:</b> Já měl partií s ním až až... a upřímně je mi to líto vůči těm, na které se nedostalo. Navíc jsem byl ve fázi, kdy jsem si ho už znovu upřímně nepřál. Navozoval mi pocit totální bezmoci 😭" +
+      "<br><br><board json='{\"id\":\"uVV5mGe0\", \"startPlay\":22}'/> " +
+      "<br><div align='center'><i>Jak Jouzolean na tahu odmítl získat výhodu</i></div>" +
+      "<br>Jaká byla vlastně šance, že uhrajeme aspoň půlbod? Je to kosmicky nepravděpodobné, nebo jsme měli naději? Výpočet pomocí např. tohoto <a href='https://wismuth.com/elo/calculator.html#rating1=2598&rating2=2129&formula=logistic'>kalkulátoru</a> ukazuje, že šanci jsme měli. A to pade na pade!" +
+      "<br><br><img src='img/padeNaPade.png'><br><br>" +
+      "Pisatel těchto řádků, ne snad proto 😀, že si s velmistrem letos nezahrál 😭, uděluje <b>třídní důtku</b> každému, kdo nedokázal dnešnímu výprasku zabránit 😎😁. " +
+      "Mezi pokáranými je i maestro Mrázek, který partii dokončil až po skončení turnaje. I tak měl vyhrát! Partii si můžete prohlédnout <a href='https://lichess.org/g4jzy7kX'>zde.</a>" +
+      "<br><br>Na závěr nezbývá, než ještě jednou Robertu Cvekovi poděkovat, že si na náš skrovný turnaj udělal čas. Moc děkujeme! ❤️" +
+      "<br><span style='float:right'><i>-beb-</i></span>"
+  },
 ]
