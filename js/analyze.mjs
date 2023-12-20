@@ -333,8 +333,43 @@ export function positionAfter(g, ply) {
   return chess.fen()
 }
 
+let grandmasters = Array("sachycvek")
+function GMSide(g) {
+  if (grandmasters.includes(g.players.white.user.id)) return "w"
+  if (grandmasters.includes(g.players.black.user.id)) return "b"
+  return null
+}
+
+function analyzeGM(GM, history, sideGM) {
+  for (let n = 0; n < history.length; n++) {
+    let m = history[n]
+    if (m.color!==sideGM) {
+      if (m.captured) {
+        if (!GM.captured) GM.captured = {}
+        if (!GM.captured[m.captured]) GM.captured[m.captured] = 1
+        else GM.captured[m.captured]++
+      } else if (m.san.includes("O-O-O")) {
+        GM.long = true
+      }
+      if (m.san.includes("+")) {
+        if (!GM.checks) GM.checks = 1
+        else GM.checks++
+      }
+    }
+    let next = n+1 < history.length ? history[n+1] : null
+    if (next && next.captured && next.captured===m.captured && m.to===next.to) {
+      if (!GM.exch) GM.exch = {}
+      GM.exch[m.captured] = true // we cannot count as for instance Ne4 Nxe4 Nxe4 Nxe4 a4 is not double exchange
+    }
+  }
+}
+
 async function analyzeMoves(g, t, report, chessP) {
   let stats = {}
+
+  let sideGM= GMSide(g)
+  let GM = null
+  if (sideGM) GM = {}
 
   let tEndTime = (new Date(t.startsAt)).getTime() + t.minutes * 60000
   if (tEndTime - g.lastMoveAt >= -1100000 && tEndTime - g.lastMoveAt < 11000 && g.status=="mate") stats.lucky = true;
@@ -364,9 +399,12 @@ async function analyzeMoves(g, t, report, chessP) {
   history.forEach(function(m) {
     for (let i = 0; i < m.flags.length; i++) {
       stats[m.flags.charAt(i)][m.color]++
-      if (m.flags.includes("e") && m.san.includes("+")) stats.epCheck[m.color]++
+      if (m.flags.charAt(i)===("e") && m.san.includes("+")) stats.epCheck[m.color]++
     }
   })
+
+  if (GM) analyzeGM(GM, history, sideGM)
+
   analyzeBishopSac(g, history, stats);
 
   // now mate
