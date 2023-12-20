@@ -714,7 +714,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
     tournament.standing.players.forEach( function(player) {
         html = html + `<tr><td = class="rank">${player.rank}</td>
 <td class="player">
-    <span class="user-link name tooltip">
+    <span class="user-link name tooltip clickable-tooltip">
       ${player.name}
       <div class="tooltiptext" style="left: 100%" id="${player.name}">
       </div>
@@ -763,7 +763,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
 
    el.innerHTML = htmlBegin + html + htmlEnd
 
-   let tooltips = document.getElementsByClassName("tooltip")
+   let tooltips = document.getElementsByClassName("clickable-tooltip")
    for (let i = 0; i < tooltips.length; i++) {
      let el = tooltips[i]
      el.onclick = createTip(data, gamesData, tournament, tournament.standing.players[i].name)
@@ -918,56 +918,78 @@ export var Avatars = function() {
 }()
 
 
+function getTipHtml(data, gamesData, tournament, player, size) {
+  if (!size) size = 0.8
+  let gambler = getPlayer(tournament, player)
+  let html = ""
+  let htmlPre = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a>`
+
+  let games = 0
+  let wins = 0
+  let berserks = 0
+  let oponents = 0
+  gamesData.games.forEach(function(game) {
+    if (game.players.white.user.name == player) {
+      games++
+      if (game.winner == "white") wins++
+      if (game.players.white.berserk == true) berserks++
+      oponents += game.players.black.rating
+      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "white")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+    } else if (game.players.black.user.name == player) {
+      games++
+      if (game.winner == "black") wins++
+      if (game.players.black.berserk == true) berserks++
+      oponents += game.players.white.rating
+      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "black")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+    }
+  })
+
+  if (games == 0) {
+    htmlPre += `<br>
+Já byl na tomhle turnaji jenom na čumendu.
+<table>`
+  } else {
+    htmlPre += `<br>
+<span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.round(oponents/games)}<br>
+Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+  }
+
+  let avatar = Avatars.getAvatar(player)
+  if (avatar) {
+    /*
+    if (player == "bebul") {
+      html += `<img src="${avatar}" style="position:absolute; bottom: -125px; right: -40px; width: 200px">`
+    } else */
+    html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
+  }
+  html += "</table>"
+
+  return html
+}
+
 function createTip(data, gamesData, tournament, player) {
   return function(event) {
     event.stopPropagation()
     cancelAllTips()
-    let gambler = getPlayer(tournament, player)
-    let html = ""
-    let htmlPre = `<a class="user-link" href="https://lichess.org/@/${player}" target="_blank"><b style="font-size: 1.8em">${player}</b></a>`
 
-    let games = 0
-    let wins = 0
-    let berserks = 0
-    let oponents = 0
-    gamesData.games.forEach(function(game) {
-      if (game.players.white.user.name == player) {
-        games++
-        if (game.winner == "white") wins++
-        if (game.players.white.berserk == true) berserks++
-        oponents += game.players.black.rating
-        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "white")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
-      } else if (game.players.black.user.name == player) {
-        games++
-        if (game.winner == "black") wins++
-        if (game.players.black.berserk == true) berserks++
-        oponents += game.players.white.rating
-        html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "black")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
-      }
-    })
+    let html = getTipHtml(data, gamesData, tournament, player)
 
-    if (games == 0) {
-      htmlPre += `<br>
-Já byl na tomhle turnaji jenom na čumendu.
-<table>`
-    } else {
-      htmlPre += `<br>
-<span style="color: #555; font-size: 1.2em">Perf:&nbsp;${gambler.performance}&nbsp;&nbsp;AvgOpo:&nbsp;${Math.round(oponents/games)}<br>
-Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${percent(berserks/games)}</span><table>`
+    let tooltips = this.getElementsByClassName("tooltiptext")
+    let el = tooltips[0]
+    el.innerHTML = html
+    el.style.visibility = "visible"
+
+    // maybe we have some specific requirements for test
+    let spec = document.getElementById("tooltip-spec")
+    if (spec) {
+      let html = getTipHtml(data, gamesData, tournament, player, 1)
+      let tooltips = spec.getElementsByClassName("tooltiptext")
+      let el = tooltips[0]
+      let size = 1.0
+      el.style.fontSize = `${Math.round(size)}em`
+      el.innerHTML = html
+      el.style.visibility = "visible"
     }
-
-    let avatar = Avatars.getAvatar(player)
-    if (avatar) {
-      /*
-      if (player == "bebul") {
-        html += `<img src="${avatar}" style="position:absolute; bottom: -125px; right: -40px; width: 200px">`
-      } else */
-      html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: 80px">`
-    }
-    html += "</table>"
-
-    this.getElementsByClassName("tooltiptext")[0].innerHTML = html
-    this.getElementsByClassName("tooltiptext")[0].style.visibility = "visible"
   }
 }
 

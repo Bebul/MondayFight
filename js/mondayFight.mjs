@@ -1149,7 +1149,8 @@ export function updateSpecificTournamentHtml(divId, tournamentId) {
   }
   else {
     document.getElementById(divId).innerHTML = ""
-    document.getElementById(divId + '-play-off').innerHTML = ""
+    let playOff = document.getElementById(divId + '-play-off')
+    if (playOff) playOff.innerHTML = ""
   }
 }
 
