@@ -163,7 +163,7 @@
     MFPodium.updateSpecialBoards(games)
     createLeagueTable(data, "#leagueTable", "leagueNo")
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
-    updateSpecificTournamentHtml("tournament-spec", games.id)
+    updateSpecificTournamentHtml("tournament-spec", data, games)
     updateTournamentHtmlAuto("tournament-auto", games.id, data)
   }
 

@@ -919,7 +919,7 @@ export var Avatars = function() {
 }()
 
 
-function getTipHtml(data, gamesData, tournament, player, size) {
+export function getTipHtml(theGames, tournament, player, size) {
   if (!size) size = 0.8
   let gambler = getPlayer(tournament, player)
   let html = ""
@@ -929,7 +929,7 @@ function getTipHtml(data, gamesData, tournament, player, size) {
   let wins = 0
   let berserks = 0
   let oponents = 0
-  gamesData.games.forEach(function(game) {
+  theGames.forEach(function(game) {
     if (game.players.white.user.name == player) {
       games++
       if (game.winner == "white") wins++
@@ -973,7 +973,7 @@ function createTip(data, gamesData, tournament, player) {
     event.stopPropagation()
     cancelAllTips()
 
-    let html = getTipHtml(data, gamesData, tournament, player)
+    let html = getTipHtml(gamesData.games, tournament, player)
 
     let tooltips = this.getElementsByClassName("tooltiptext")
     let el = tooltips[0]
@@ -983,11 +983,11 @@ function createTip(data, gamesData, tournament, player) {
     // maybe we have some specific requirements for test
     let spec = document.getElementById("tooltip-spec")
     if (spec) {
-      let html = getTipHtml(data, gamesData, tournament, player, 1)
+      let size = 1.0
+      let html = getTipHtml(gamesData.games, tournament, player, size)
       let tooltips = spec.getElementsByClassName("tooltiptext")
       let el = tooltips[0]
-      let size = 1.0
-      el.style.fontSize = `${Math.round(size)}em`
+      el.style.fontSize = `${size}em`
       el.innerHTML = html
       el.style.visibility = "visible"
     }
@@ -995,7 +995,8 @@ function createTip(data, gamesData, tournament, player) {
 }
 
 function cancelAllTips() {
-  let tooltips = document.getElementsByClassName("tooltiptext")
+  let results = document.getElementById("results")
+  let tooltips = results.getElementsByClassName("tooltiptext")
   for (let i=0; i<tooltips.length; i++) {
     tooltips[i].style.visibility = "hidden"
   }
@@ -1100,7 +1101,7 @@ function nextTournament(data, diff=1) {
 
   updateMostActivePlayer("gameListTable", gameData, lastMfWinner)
   updateGoogleBar("gameListTableBar", gameData)
-  updateSpecificTournamentHtml("tournament-spec", games.id)
+  updateSpecificTournamentHtml("tournament-spec", data, games)
   updateTournamentHtmlAuto("tournament-auto", games.id, data)
   gameListTable.setData(gameData).then(function(){
     gameListTable.redraw(true)

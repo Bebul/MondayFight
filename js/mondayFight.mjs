@@ -1,7 +1,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
-import {Avatars, getTrophies} from "./podium.mjs"
+import {Avatars, getTrophies, getTipHtml} from "./podium.mjs"
 import {tournamentSpec} from "../data/tournamentSpecs.mjs";
 
 function playerRank(fight, playerName) {
@@ -1139,10 +1139,38 @@ export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
 }
 
-export function updateSpecificTournamentHtml(divId, tournamentId) {
-  let s = tournamentSpec.find(s => s.id === tournamentId)
+function tournamentSpecHtml(tournament, games) {
+  function specTagRegExp(tag) {
+    return new RegExp(`<${tag}[ ]+json='([^'<]*)'[ ]*([^<]*)\\/>`)
+  }
+  let s = tournamentSpec.find(s => s.id === tournament.id)
   if (s) {
-    document.getElementById(divId).innerHTML = s.html
+    let html = s.html
+    let done = false
+    do {
+      let tag = "tooltip"
+      let regex = specTagRegExp(tag)
+      let matches = html.match(regex)
+      // 0 = "<tooltip json='id:"sachycvek", size:1.0' style='margin:80px 20px 150px 20px'/>"
+      // 1 = "id:"sachycvek", size:1.0"
+      // 2 = "style='margin:80px 20px 150px 20px'"
+      if (matches) {
+        let json = matches[1]
+        let parsed = JSON.parse(matches[1]) // id, size
+        let tooltipHtml = getTipHtml(games.games, tournament, parsed.id, parsed.size)
+        let finalHtml = `<div class="userlink name tooltip" ${matches[2]}><div class="tooltiptext" style="visibility:visible; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
+        html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
+      } else done = true
+    } while (!done)
+    return html
+  } else return s
+}
+
+export function updateSpecificTournamentHtml(divId, data, games) {
+  let tournament = data.findTournament(games.id)
+  let s = tournamentSpec.find(s => s.id === tournament.id)
+  if (s) {
+    document.getElementById(divId).innerHTML = tournamentSpecHtml(tournament, games)
     if (s.playOFF) document.getElementById(divId + '-play-off').innerHTML = s.playOFF
     else document.getElementById(divId + '-play-off').innerHTML = ""
     if (s.init) s.init()

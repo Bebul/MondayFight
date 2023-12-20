@@ -162,7 +162,7 @@
     createLeagueTable(data, "#leagueTable", "leagueNo")
     createOpeningsTable(data, [games], "#openingsTable", null, "all", false)
     createGameListTable(games, "#gameListTable", false, undefined, lastMfWinner)
-    updateSpecificTournamentHtml("tournament-spec", games.id)
+    updateSpecificTournamentHtml("tournament-spec", data, games)
     updateTournamentHtmlAuto("tournament-auto", games.id, data)
   }
 
