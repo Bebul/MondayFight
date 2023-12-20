@@ -373,6 +373,18 @@ class AchievementBlackDot {
   }
 }
 
+class AchievementBlackDotGM {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 51
+    //this.frame = "zlata.png"
+    //this.char = "⚫"
+    this.img = "blackDot.png"
+    this.desc = "Třídní důtka prohrál s GM"
+    this.game = id
+  }
+}
+
 class AchievementReporter {
   constructor(player, id) {
     this.player = player
@@ -549,7 +561,24 @@ function collectAchievements(data, tournamentID, games) {
 
   let winner = tournament.podium[0]
   let winRate = winner.nb.win / winner.nb.game
-  if (winRate >= 1) achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
+  if (winRate >= 1) {
+    // if the winner is the Grand Master we should give all his Monday Fights losers Black Mark for bad representation :-D
+    let gm = "sachycvek"
+    if (winner.name === gm) {
+      let losers = new Map()
+      games.games.forEach(function(g) {
+        if (g.players.white.user.name === gm) losers.set(g.players.black.user.id, [g.id, g.players.black.rating])
+        else if (g.players.black.user.name === gm) losers.set(g.players.white.user.id, [g.id, g.players.white.rating])
+      })
+      let sorted = Array.from(losers).sort(function(a,b) {
+        return a[1][1] - b[1][1]
+      })
+      for(let [loser, [game, rating]] of sorted) {
+        achievements.push(new AchievementBlackDotGM(loser, game))
+      }
+    }
+    achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
+  }
   if (winner.nb.game===winner.nb.berserk) achievements.push(new AchievementBerserker({user: {name: winner.name}}))
 
   return achievements
@@ -654,6 +683,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementQuestion(next()),
     new AchievementBlackDot(next()),
     new AchievementReporter(next()),
+    new AchievementBlackDotGM(next()),
   ]
 
   let el = document.getElementById(id)
