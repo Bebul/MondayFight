@@ -584,7 +584,7 @@ function collectAchievements(data, tournamentID, games) {
   return achievements
 }
 
-function renderAchievements(achievements, maxCount = 20) {
+function renderAchievements(achievements, maxCount = 25) {
   let divs = []
   for (let i=0; i < Math.min(achievements.length, maxCount); i++) {
     let achievement = achievements[i]
