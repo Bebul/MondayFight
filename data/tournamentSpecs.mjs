@@ -411,8 +411,14 @@ export var tournamentSpec = [
   {id: "U8B9QThb",
     html: "<img src='img/masUzNecoNaTohoCveka.jpg'><br><b>Jouzolean:</b> Jak již jsem avizoval, příští týden by měl dorazit na MF GM Robert Cvek - doufám, že letos bude hvězdná účast a že někdo uhraje alespoň půlbodík. 😎Nějaké jeho hry najdete na lichess pod nickem sachycvek\n" +
       "On bude ale beztak hrát nějaké blbosti. 😎😁"},
-
-
-
-
+  {id: "PJnn9LQi",
+    achievements: [{achievement: "blackGM", player: "mrazek", id: "g4jzy7kX"}],
+    html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
+      "Že budou ty Vánoce, tak nás znovu po roce navštívil Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Za návštěvu a za nadílku moc děkujeme a k vítězství gratulujeme." +
+      "<div align='center' style='margin-top:10px'><img src='img/sachyCvekTop50.png' style='max-width: 211px'></div>" +
+      "Stihl odehrát krásných 15 partií, což je o jeden výprask více, než při jeho <a href='http://localhost:63342/MondayFight/?mf=fXU6tfJM'>první návštěvě</a>. " +
+      "Radost s duelu mělo 8 hráčů, což je o 3 méně, než loni. Když totiž došlo na spárování, byl náš přeborník DJ-Pesec náhodou 5x k dispozici. Takže nemůžeme mít Lichessu za zlé, že zajásal, že může nabídnout to nejlepší, co je u nás k mání!" +
+      "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' style='margin:52px 0px 60px 0px;height:426px'/> " +
+      "O to více se čekalo, že uhrajeme aspoň ten půlbodík! Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo. "
+},
 ]
