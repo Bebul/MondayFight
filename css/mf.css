@@ -466,6 +466,10 @@ win {
     color: #1b78d0;
 }
 
+.no-dots {
+    border-bottom: 0px dotted black;
+}
+
     /*
     .tooltip:hover .tooltiptext {
         visibility: visible;

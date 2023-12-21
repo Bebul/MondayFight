@@ -1164,7 +1164,7 @@ function tournamentSpecHtml(tournament, games) {
           switch (tag) {
             case "tooltip":
               let tooltipHtml = getTipHtml(games.games, tournament, parsed.id, parsed.size)
-              finalHtml = `<div class="userlink name tooltip" ${matches[2]}><div class="tooltiptext" style="visibility:visible; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
+              finalHtml = `<div class="tooltip no-dots" ${matches[2]}><div class="tooltiptext" style="visibility:visible; position:relative; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
               html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
               break
             case "board":

@@ -418,7 +418,7 @@ export var tournamentSpec = [
       "<div align='center' style='margin-top:10px'><img src='img/sachyCvekTop50.png' style='max-width: 211px'></div>" +
       "Stihl odehrát krásných 15 partií, což je o jednu více, než při jeho <a href='http://localhost:63342/MondayFight/?mf=fXU6tfJM'>první návštěvě</a>. " +
       "Radost s duelu mělo 8 hráčů, což je o 3 méně, než loni. " +
-      "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' style='margin:42px 0px 50px 0px;height:426px'/> " +
+      "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
       "Neuvěřitelně pětkrát došlo na duel s DJ&#x2011;Pescem. O to více se čekalo, že uhrajeme aspoň ten půlbodík! Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo. 😀" +
       "<br><br><b>DJ-Pesec:</b> Já měl partií s ním až až... a upřímně je mi to líto vůči těm, na které se nedostalo. Navíc jsem byl ve fázi, kdy jsem si ho už znovu upřímně nepřál. Navozoval mi pocit totální bezmoci 😭" +
       "<br><br><board json='{\"id\":\"uVV5mGe0\", \"startPlay\":22}'/> " +
