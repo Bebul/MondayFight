@@ -108,8 +108,9 @@ export var tournamentSpec = [
       "<img style='margin-top:5px' src='img/cvek-owen.png'><div style='text-align: center; margin-bottom:5px'><i>Tuto strukturu vypadající jako koruna vybudoval Robert Cvek hned v několika partiích. Jedná se o Owen defense, která se předtím hrála na <a href='https://bebul.github.io/MondayFight/search.html?q=%22owen%20defense%22'>Monday Fights 13x</a> a pokaždé zvítězili bílí. Robert Cvek tedy tomuto zahájení poněkud zvedl reputaci.</i></div>" +
       "<p>Když na sobě zapracujeme, jistě se k nám velmistři jen pohrnou a trofej z Monday Fight bude zdobit nejeden velmistrovský stůl." +
       "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
-      "<board json='{\"id\":\"oQFSXWiv\", \"startPlay\":47, \"orientation\":\"black\"}'/> " +
-      "<br><br><div align='center'><i>Podle enginu stojí prý Jouzolean na výhru</i></div>"},
+      "<board json='{\"id\":\"oQFSXWiv\", \"startPlay\":47, \"orientation\":\"black\"}'/>" +
+      "<div>&nbsp;</div>" + // need to scroll after to make the following margin-top work
+      "<div align='center' style='margin-top: -5px;'><i>Podle enginu stojí prý Jouzolean na výhru</i></div>"},
   {id: "fgEf7SDZ", html: "<img src='img/trenink-tekele.jpg'>" +
       "<br><br><b>Jouzolean:</b>Zase trénink. Po noční 😎😁. Tento týden už třetí. A to je teprve úterý.<br><br>" +
       "<b>Bébul:</b> No jó, chlapcí potrénovali a sebrali si první dvě místa v turnaji. Že jim není haňba! 😁<br><br>" +
