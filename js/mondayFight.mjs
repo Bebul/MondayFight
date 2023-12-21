@@ -1172,13 +1172,13 @@ function tournamentSpecHtml(tournament, games) {
               let defaults = {
                 pgn: MFPodium.toPGN(game, false),
                 showCoords: false, coordsInner: false, headers: true,
-                theme: 'brown', boardSize: 290, movesHeight: 60
+                theme: 'brown', movesHeight: 60
               }
               let config = {...defaults, ...parsed}  // merge with possible other values in json
               let boardId = `board-${parsed.id}`
-              finalHtml = `<div id="${boardId}"></div>`
+              finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`
               html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
-              init.push(() => PGNV.pgnView(boardId, config))
+              init.push(() => PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}})) // margin compensation
               break
           }
         } else done = true

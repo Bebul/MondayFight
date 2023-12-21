@@ -1028,7 +1028,7 @@ function selectGame(gamesData, hideId, boardId, selector) {
       pgn: toPGN(selectedGame),
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown',
-      boardSize: mateBoardWidth,
+      boardSize: mateBoardWidth - 10,
       movesHeight: 50,
       startPlay: `${moves.length}`
     }
