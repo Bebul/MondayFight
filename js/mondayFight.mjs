@@ -702,7 +702,7 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, jouzoId) 
     let weeksLeft = 52 - fightsCount
     let text = "** mission failed **"
     if (weeksLeft > 0) {
-      let jouzoPts = dataOfPlayers[0].totalPts
+      let jouzoPts = Math.round(2 * dataOfPlayers[0].totalPts) / 2
       let avg = Math.round(10 * (371.5 - jouzoPts) / weeksLeft) / 10
       text = avg.toString()
     } else if (dataOfPlayers[0].totalPts >= 371.5) text = "** mission accomplished **"
