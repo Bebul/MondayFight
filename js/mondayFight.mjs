@@ -671,7 +671,7 @@ export async function downloadUserDataIntoLeague(league) {
 }
 
 export var leagueTable
-export function createLeagueTable(data, tableId, leagueNoId, spiderId, jouzoId) {
+export function createLeagueTable(data, tableId, leagueNoId, spiderId, challengeAvgId, challengerId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
@@ -698,7 +698,7 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, jouzoId) 
   if (leagueNoId) {
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
   }
-  if (jouzoId) {
+  if (challengeAvgId) {
     let weeksLeft = 52 - fightsCount
     let text = "** mission failed **"
     if (weeksLeft > 0) {
@@ -706,7 +706,10 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, jouzoId) 
       let avg = Math.round(10 * (371.5 - jouzoPts) / weeksLeft) / 10
       text = avg.toString()
     } else if (dataOfPlayers[0].totalPts >= 371.5) text = "** mission accomplished **"
-    document.getElementById(jouzoId).innerHTML = `${text}`
+    let id1 = document.getElementById(challengeAvgId)
+    if (id1) id1.innerHTML = `${text}`
+    let id2 = document.getElementById(challengerId)
+    if (id2) id2.innerHTML = `${dataOfPlayers[0].name}`
   }
 }
 
