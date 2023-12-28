@@ -16,7 +16,16 @@ function percent(num) {
   return Math.round(100 * num) + "%"
 }
 
+let dummyKasparov = {
+  rank: 3,
+  name: "Kasparov",
+  rating: 2851,
+  performance: 3300,
+  nb: {game: 1, win:1, berserk: 0}
+}
+
 function getPlayerPodiumHTML(gambler, showBullet = false) {
+  if (!gambler) gambler = dummyKasparov
   let place = placeTxt[gambler.rank]
   let player = gambler.name
   let elo = gambler.rating

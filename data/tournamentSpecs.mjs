@@ -434,4 +434,17 @@ export var tournamentSpec = [
       "<br><br>Na závěr nezbývá, než ještě jednou Robertu Cvekovi poděkovat, že si na náš skrovný turnaj udělal čas. Moc děkujeme! ❤️" +
       "<br><span style='float:right'><i>-beb-</i></span>"
   },
+  {id: "DskSljmO",
+    playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
+    html: "<img src='img/cvekPrani.jpg'>"},
+  {id: "playOFF2023",
+    playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
+    html: "<h1>PlayOFF 2023</h1>" +
+      "<b>RychlyLenochod:</b> Vážení přátelé, <br>" +
+      "vzhledem k tomu ze poslednich nekolik tydnu lezim s Tuberkulozou v lecebne a neni mi posledni dny moc dobre, odstupuju z kvalifikacni bitvy mezi mnou a DjPesec. <br>" +
+      "Nemam totiz na sachy vubec pomysleni. A diky tomu bysme si oba nase partie tak neuzili... Bude to tak lepsi. Holt, neni kazdy rok posviceni! 😀<br>" +
+      "Dekuji za pochopeni" +
+      "<br><br><img src='img/lenochod-pesec.jpg'><br><b>Jouzolean:</b> Brzy se uzdrav🙂😎 Zde máš aspoň kartičku!" +
+      "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂."
+  },
 ]
