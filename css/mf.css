@@ -31,6 +31,11 @@ body {
   margin-top: -35px;
 }
 
+.playOFF {
+    max-width: 600px;
+    width: 97vw;
+}
+
 @media only screen and (max-width: 500px) {
     body {
         padding: 0;
@@ -64,7 +69,7 @@ body {
         font-size: calc(9px + 6 * ((100vw - 320px) / 180));
     }
 
-    #tournament-spec, #tournament-auto, #surpriseGameId {
+    #tournament-spec, #tournament-auto, #surpriseGameId, .playOFF {
         font-size: 1.4em;
     }
 }
@@ -166,6 +171,11 @@ body {
     .mfColumns div.leaderboard {
         width: 300px;
         order: 2;
+    }
+
+    .playOFF {
+        margin: 10px;
+        max-width: 580px;
     }
 }
 
@@ -470,198 +480,197 @@ win {
     border-bottom: 0px dotted black;
 }
 
-    /*
-    .tooltip:hover .tooltiptext {
-        visibility: visible;
-    }
-    */
+/*
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+*/
 
-    #achievements {
-        max-width: 600px;
-        width: 100vw;
-        text-align: center;
-        display: block;
-        font-size: 16px;
-    }
+#achievements {
+    max-width: 600px;
+    width: 100vw;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+}
 
-    #achievements .user-link {
-        color: #1b78d0;
-    }
+#achievements .user-link {
+    color: #1b78d0;
+}
 
-    #achievements:after {
-        content: " ";
-        display: block;
-        clear: both;
-    }
+#achievements:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
 
-    .achievementTab {
-        max-width: 256px;
-        width: 50vw;
-        display: inline-block;
-        position: relative;
-    }
+.achievementTab {
+    max-width: 256px;
+    width: 50vw;
+    display: inline-block;
+    position: relative;
+}
 
-    .achievementH110 {
-        max-height: 110px;
-        height: 22vw;
-    }
+.achievementH110 {
+    max-height: 110px;
+    height: 22vw;
+}
 
-    .achievementH75 {
-        max-height: 75px;
-        height: 15vw;
-    }
+.achievementH75 {
+    max-height: 75px;
+    height: 15vw;
+}
 
-    .achievementW110 {
-        max-width: 110px;
-        width: 24vw;
-    }
+.achievementW110 {
+    max-width: 110px;
+    width: 24vw;
+}
 
-    .achievementImg {
-        position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
+.achievementImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 
-        display: block;
-        margin: auto;
-    }
+    display: block;
+    margin: auto;
+}
 
-    .achievement {
-        font-size: 0.8em;
-        background-image: url("../img/achievements/achievementBack.png");
-        color: black;
-        border-radius: 10px;
-        padding: 5px 0;
-        border: 2px solid black;
-        cursor: auto;
+.achievement {
+    font-size: 0.8em;
+    background-image: url("../img/achievements/achievementBack.png");
+    color: black;
+    border-radius: 10px;
+    padding: 5px 0;
+    border: 2px solid black;
+    cursor: auto;
 
-        max-width: 123px;
-        width: 23.5vw;
-        text-overflow: ellipsis;
+    max-width: 123px;
+    width: 23.5vw;
+    text-overflow: ellipsis;
 
-        margin: 2.5px;
-    }
+    margin: 2.5px;
+}
 
-    .achievementPlayer {
-        margin: 5px 0;
-        padding: 10px 0;
-        background-color: rgba(180,180,180,0.4);
-        border-top: 2px solid black;
-        border-bottom: 2px solid black;
-        overflow:hidden;
-        white-space:nowrap;
-        text-overflow: ellipsis;
-    }
+.achievementPlayer {
+    margin: 5px 0;
+    padding: 10px 0;
+    background-color: rgba(180,180,180,0.4);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
 
 
-    .achievementPlayerFont {
-        font-size: min(1.5em, calc(7px + 4 * (100vw / 180)))
-    }
+.achievementPlayerFont {
+    font-size: min(1.5em, calc(7px + 4 * (100vw / 180)))
+}
 
-    .achievementDesc {
-        padding: 5px 5px;
-        color: #1b78d0;
-        font-size: min(1.5em, calc(9px + 3 * (100vw / 180)));
-        margin-top:2px;
-        height: 50px;
-    }
+.achievementDesc {
+    padding: 5px 5px;
+    color: #1b78d0;
+    font-size: min(1.5em, calc(9px + 3 * (100vw / 180)));
+    margin-top:2px;
+    height: 50px;
+}
 
-    .achievement.left {
-        /*margin-right: 132px;*/
-        max-height: 175px;
-        height: 37vw;
-        border-right: 1px dotted black;
-    }
+.achievement.left {
+    /*margin-right: 132px;*/
+    max-height: 175px;
+    height: 37vw;
+    border-right: 1px dotted black;
+}
 
-    .achievement.right {
-        max-height: 175px;
-        height: 37vw;
-        margin-left: -2px;
-        border-left: 0;
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
+.achievement.right {
+    max-height: 175px;
+    height: 37vw;
+    margin-left: -2px;
+    border-left: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
-    .achievementDesc:after {
-        content: " ";
-        display: block;
-        clear: both;
-    }
+.achievementDesc:after {
+    content: " ";
+    display: block;
+    clear: both;
+}
 
-    .league-link {
-        color: black;
-        text-decoration: none;
-    }
+.league-link {
+    color: black;
+    text-decoration: none;
+}
 
-    img.img100 {
-        max-width: 100px;
-        width: 20vw;
-        float: right;
-        margin: 3px 3px 0 0;
-    }
+img.img100 {
+    max-width: 100px;
+    width: 20vw;
+    float: right;
+    margin: 3px 3px 0 0;
+}
 
-    .img100.left {
-        float: left;
-    }
+.img100.left {
+    float: left;
+}
 
-    .img100.right {
-        float: right;
-        margin: 3px 0 0 3px;
-    }
+.img100.right {
+    float: right;
+    margin: 3px 0 0 3px;
+}
 
-    img.img75 {
-        max-width: 75px;
-        width: 15vw;
-        float: right;
-        margin: 3px 3px 0 0;
-    }
+img.img75 {
+    max-width: 75px;
+    width: 15vw;
+    float: right;
+    margin: 3px 3px 0 0;
+}
 
-    @font-face {
-        font-family: 'Bahnshrift Light';
-        src: url('../fonts/bahnschrift2.ttf');
-        font-style: normal;
-        font-stretch: condensed;
-    }
+@font-face {
+    font-family: 'Bahnshrift Light';
+    src: url('../fonts/bahnschrift2.ttf');
+    font-style: normal;
+    font-stretch: condensed;
+}
 
-    @font-face {
-        font-family: 'FjallaOne';
-        src: url('../fonts/FjallaOne-Regular.otf');
-        font-style: normal;
-    }
+@font-face {
+    font-family: 'FjallaOne';
+    src: url('../fonts/FjallaOne-Regular.otf');
+    font-style: normal;
+}
 
-    @font-face {
-        font-family: 'BankGothic';
-        src: url('../fonts/BankGothic Md BT Medium.ttf');
-        font-style: normal;
-    }
+@font-face {
+    font-family: 'BankGothic';
+    src: url('../fonts/BankGothic Md BT Medium.ttf');
+    font-style: normal;
+}
 
-    @font-face {
-        font-family: 'BankGothicCondensed';
-        src: url('../fonts/BankGothic Md BT Medium.ttf');
-        font-style: normal;
-        font-stretch: condensed;
-    }
+@font-face {
+    font-family: 'BankGothicCondensed';
+    src: url('../fonts/BankGothic Md BT Medium.ttf');
+    font-style: normal;
+    font-stretch: condensed;
+}
 
-    #tournament-spec img {
-        width:100%;
-    }
+#tournament-spec img {
+    width:100%;
+}
 
-    #tournament-spec {
-        margin: 10px 5px 0 5px;
-    }
+#tournament-spec {
+    margin: 10px 5px 0 5px;
+}
 
-    .tabulator-row.tabulator-group span {
-        margin-left: 0;
-        color: black;
-    }
+.tabulator-row.tabulator-group span {
+    margin-left: 0;
+    color: black;
+}
 
-    .final-report {
-        background-color: rgb(221, 238, 255);
-    }
+.final-report {
+    background-color: rgb(221, 238, 255);
+}
 
-    .league-chart {
-        min-height: 500px;
-    }
+.league-chart {
+    min-height: 500px;
 }

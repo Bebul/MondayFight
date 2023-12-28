@@ -1149,45 +1149,55 @@ function tournamentSpecHtml(tournament, games) {
   let s = tournamentSpec.find(s => s.id === tournament.id)
   if (s) {
     let html = s.html
+    let playOFF = s.playOFF
     let init = []
-    let done = false
-    let specialTagList = ["tooltip", "board"]
-    for (let tagIx in specialTagList) {
-      let tag = specialTagList[tagIx]
-      do {
-        let regex = specTagRegExp(tag)
-        let matches = html.match(regex)
-        // 0 = "<tooltip json='id:"sachycvek", size:1.0' style='margin:80px 20px 150px 20px'/>"
-        // 1 = "id:"sachycvek", size:1.0"
-        // 2 = "style='margin:80px 20px 150px 20px'"
-        if (matches) {
-          let json = matches[1]
-          let parsed = JSON.parse(matches[1]) // id, size
-          let finalHtml = ""
-          switch (tag) {
-            case "tooltip":
-              let tooltipHtml = getTipHtml(games.games, tournament, parsed.id, parsed.size)
-              finalHtml = `<div class="tooltip no-dots" ${matches[2]}><div class="tooltiptext" style="visibility:visible; position:relative; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
-              html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
-              break
-            case "board":
-              let game = games.games.find(g => g.id===parsed.id)
-              let defaults = {
-                pgn: MFPodium.toPGN(game, false),
-                showCoords: false, coordsInner: false, headers: true,
-                theme: 'brown', movesHeight: 60
-              }
-              let config = {...defaults, ...parsed}  // merge with possible other values in json
-              let boardId = `board-${parsed.id}`
-              finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`
-              html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
-              init.push(() => PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}})) // margin compensation
-              break
-          }
-        } else done = true
-      } while (!done)
+
+    function parseHtml(html) {
+      let specialTagList = ["tooltip", "board"]
+      for (let tagIx in specialTagList) {
+        let tag = specialTagList[tagIx]
+        let done = false
+        do {
+          let regex = specTagRegExp(tag)
+          let matches = html.match(regex)
+          // 0 = "<tooltip json='id:"sachycvek", size:1.0' style='margin:80px 20px 150px 20px'/>"
+          // 1 = "id:"sachycvek", size:1.0"
+          // 2 = "style='margin:80px 20px 150px 20px'"
+          if (matches) {
+            let json = matches[1]
+            let parsed = JSON.parse(matches[1]) // id, size
+            let finalHtml = ""
+            switch (tag) {
+              case "tooltip":
+                let tooltipHtml = getTipHtml(games.games, tournament, parsed.id, parsed.size)
+                finalHtml = `<div class="tooltip no-dots" ${matches[2]}><div class="tooltiptext" style="visibility:visible; position:relative; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
+                html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
+                break
+              case "board":
+                let game = games.games.find(g => g.id===parsed.id)
+                let defaults = {
+                  pgn: MFPodium.toPGN(game, false),
+                  showCoords: false, coordsInner: false, headers: true,
+                  theme: 'brown', movesHeight: 60
+                }
+                let config = {...defaults, ...parsed}  // merge with possible other values in json
+                let boardId = `board-${parsed.id}`
+                finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`
+                html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
+                init.push(() => {
+                  console.log(document.getElementById(boardId).clientWidth)
+                  PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}})
+                }) // margin compensation
+                break
+            }
+          } else done = true
+        } while (!done)
+      }
+      return html
     }
-    return {html: html, init: init}
+    if (html) html = parseHtml(html)
+    if (playOFF) playOFF = parseHtml(playOFF)
+    return {html: html, playOFF: playOFF, init: init}
   } else return s
 }
 
@@ -1195,9 +1205,9 @@ export function updateSpecificTournamentHtml(divId, data, games) {
   let tournament = data.findTournament(games.id)
   let s = tournamentSpec.find(s => s.id === tournament.id)
   if (s) {
-    let {html, init} = tournamentSpecHtml(tournament, games)
+    let {html, playOFF, init} = tournamentSpecHtml(tournament, games)
     document.getElementById(divId).innerHTML = html
-    if (s.playOFF) document.getElementById(divId + '-play-off').innerHTML = s.playOFF
+    if (playOFF) document.getElementById(divId + '-play-off').innerHTML = playOFF
     else document.getElementById(divId + '-play-off').innerHTML = ""
     if (s.init) s.init()
     init.forEach(f => f())

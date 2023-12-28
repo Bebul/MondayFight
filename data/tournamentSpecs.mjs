@@ -438,7 +438,38 @@ export var tournamentSpec = [
     playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
     html: "<img src='img/cvekPrani.jpg'>"},
   {id: "playOFF2023",
-    playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
+    playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>" +
+      "<div class='mfColumns'>" +
+      "<div class='lastTournament playOFF' style='margin-top: 0px'>" +
+      "<h1>Tekele-tomzr 0:4</h1>" +
+      "Hned první hru nastavil Tekele hru špatně a označil se jako výše nasazený hráč za černého. Svou pozici směřoval do sicilských vod. Hrála se dračí varianta, ze které tomzr velmi rychle zaběhl do neznámých vod. Stav byl vyrovnaný až do hluboké střední hry. V 19. tahu, v kritickém okamžiku, kdy měl tekele asi o minutu méně času, dovolil Tomzrovi vybojovat prvního pěšce, který byl navíc ohromně důležitý, protože držel celou Tekelovu pěšákovou kostru. Dále se mu pozice rozsypala jako balíček z karet a Tekele se ctí prohrál první hru. <br>" +
+      "Ve druhé hře zabojoval a vytáhl svou ostrou, střelcovou hru. Jakožto zkušený pastiklad přichystal léčku, do které se Tomzr  již ve 4. tahu opravdu chytil a stál na prohru. Jako když tonoucí se stébla chytá, i Tomzr zkusil své 5. ... Dh4? Tento málo častý tah však Tekeleho jako méně zkušeného hráče dokonale překvapil, opět blunderoval, poté se v nepříliš hezky vyhlížející pozici dlouze trápil, až svému sokovi zcela podlehl. Velká škoda. Bod by mu slušel, zaznělo v ochozech. <br>" +
+      "Ve třetí partii se šlo opět do sicilské, tentokrát do velmi zvláštní varianty Delayed alapin. V té se zcela uvolněný Tomzr pohyboval s ledovým klidem a velmi brzy si vypracoval rozhodující výhodu. Po 25.tazích Tekele rezignoval. <br>" +
+      "V poslední partii již zcela odevzdaný Tekele opět zkoušel střelcovu hru. Jeho výkon byl již značně pochybný. V 15 tahu přišel o první lehkou figuru a od té doby bylo rozhodnuto. Tomzr si partii pohlídal a bez ztráty bodu postupuje do dalších bojů." +
+      " <i>-jouz-</i>" +
+      "</div>" +
+      "<div class='boards'>" +
+      "<board json='{\"id\":\"J2neoXft\", \"startPlay\":10}'/>" +
+      "</div>" +
+      "<div class='leaderboard'>" +
+      "<img src='img/tekele-tomzr-2023.jpg' style='width:100%'>" +
+      "</div>" +
+/*      "</div>" +
+      "<div class='mfColumns'>" +
+      "<div class='lastTournament playOFF' style='margin-top: 0px'>" +
+      "<h1>Tekele-tomzr 0:4</h1>" +
+      "Hned první hru nastavil Tekele hru špatně a označil se jako výše nasazený hráč za černého. Svou pozici směřoval do sicilských vod. Hrála se dračí varianta, ze které tomzr velmi rychle zaběhl do neznámých vod. Stav byl vyrovnaný až do hluboké střední hry. V 19. tahu, v kritickém okamžiku, kdy měl tekele asi o minutu méně času, dovolil Tomzrovi vybojovat prvního pěšce, který byl navíc ohromně důležitý, protože držel celou Tekelovu pěšákovou kostru. Dále se mu pozice rozsypala jako balíček z karet a Tekele se ctí prohrál první hru. <br>" +
+      "Ve druhé hře zabojoval a vytáhl svou ostrou, střelcovou hru. Jakožto zkušený pastiklad přichystal léčku, do které se Tomzr  již ve 4. tahu opravdu chytil a stál na prohru. Jako když tonoucí se stébla chytá, i Tomzr zkusil své 5. ... Dh4? Tento málo častý tah však Tekeleho jako méně zkušeného hráče dokonale překvapil, opět blunderoval, poté se v nepříliš hezky vyhlížející pozici dlouze trápil, až svému sokovi zcela podlehl. Velká škoda. Bod by mu slušel, zaznělo v ochozech. <br>" +
+      "Ve třetí partii se šlo opět do sicilské, tentokrát do velmi zvláštní varianty Delayed alapin. V té se zcela uvolněný Tomzr pohyboval s ledovým klidem a velmi brzy si vypracoval rozhodující výhodu. Po 25.tazích Tekele rezignoval. <br>" +
+      "V poslední partii již zcela odevzdaný Tekele opět zkoušel střelcovu hru. Jeho výkon byl již značně pochybný. V 15 tahu přišel o první lehkou figuru a od té doby bylo rozhodnuto. Tomzr si partii pohlídal a bez ztráty bodu postupuje do dalších bojů." +
+      "</div>" +
+      "<div class='boards'>" +
+      "<img src='img/tekele-tomzr-2023.jpg' style='width:100%'>" +
+      "</div>" +
+      "<div class='leaderboard'>" +
+      "<board json='{\"id\":\"6BLBxL2s\", \"startPlay\":1}'/>" +
+      "</div>" + */
+      "</div>",
     html: "<h1>PlayOFF 2023</h1>" +
       "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>." +
       "<br><br><b>RychlyLenochod:</b> Vážení přátelé, <br>" +
