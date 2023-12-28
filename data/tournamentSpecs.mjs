@@ -449,7 +449,7 @@ export var tournamentSpec = [
       " <i>-jouz-</i>" +
       "</div>" +
       "<div class='boards'>" +
-      "<board json='{\"id\":\"J2neoXft\", \"startPlay\":10}'/>" +
+      "<board json='{\"id\":\"J2neoXft\", \"startPlay\":10, \"theme\":\"sportverlag\", \"pieceStyle\":\"alpha\"}'/>" +
       "</div>" +
       "<div class='leaderboard'>" +
       "<img src='img/tekele-tomzr-2023.jpg' style='width:100%'>" +
