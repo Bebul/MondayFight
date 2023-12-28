@@ -440,7 +440,8 @@ export var tournamentSpec = [
   {id: "playOFF2023",
     playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2023</h1>" +
-      "<b>RychlyLenochod:</b> Vážení přátelé, <br>" +
+      "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>." +
+      "<br><br><b>RychlyLenochod:</b> Vážení přátelé, <br>" +
       "vzhledem k tomu ze poslednich nekolik tydnu lezim s Tuberkulozou v lecebne a neni mi posledni dny moc dobre, odstupuju z kvalifikacni bitvy mezi mnou a DjPesec. <br>" +
       "Nemam totiz na sachy vubec pomysleni. A diky tomu bysme si oba nase partie tak neuzili... Bude to tak lepsi. Holt, neni kazdy rok posviceni! 😀<br>" +
       "Dekuji za pochopeni" +
