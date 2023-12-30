@@ -52,6 +52,7 @@ let playOFF = {
   '2023': {
     games: '6BLBxL2s,J2neoXft,0S8SwsZJ,2nq4vq5q,' + // tekele vs tomzr
       'rSY4UBRi,Yc4i1dEo,EG5xxjUY,priZ6ldz,szWfXGhl,pjwgLfBf,riXdKElG,FtInZeQh,' + // Margarita vs Tomas_1989
+      'PM0Keukr,GlRfxyny,https://lichess.org/lXG9lKro,2nfu1kpk,SqKZ5E7J,9D2behoA,' + // MichaelChmiel vs LastScout
       'J93daws6,rtihwYat,ru8onh0d,PHF1LZSq,' +  // DJ-Pesec vs Polgu
       'hVZuCsLx,ytht72Yc,UJ2D9HgF,bTpbV8RN,KQtsLWix,vfm6ayoy,' + // Mrazek vs MichaeLChmiel
       'NBmhMPTe,TeJO5wt2,Ttb1o9Aq,9GN5nTKl,NRTGI2jZ,' + // Jouzolean vs tomzr
