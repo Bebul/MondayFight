@@ -431,14 +431,6 @@ td, th {
     padding-right: 2vmin;
 }
 
-loss {
-    color: red;
-}
-
-win {
-    color: green;
-}
-
 .info {
     max-width:600px;
     width: 97vw;
@@ -474,6 +466,18 @@ win {
 
 .tooltip .tooltiptext .user-link {
     color: #1b78d0;
+}
+
+loss {
+    color: red;
+}
+
+win {
+    color: green;
+}
+
+draw {
+    color: #333333;
 }
 
 .no-dots {

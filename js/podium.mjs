@@ -782,12 +782,15 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
-function decorateGameResult(g, bold) {
+function decorateGameResult(g, winner) {
   let result = "½&#8209;½"
   if (g.winner === "black") result = "0&#8209;1"
   else if (g.winner === "white") result = "1&#8209;0"
 
-  if (bold) result = `<b>${result}</b>`
+  if (winner) result = `<b><win>${result}</win></b>`
+  else if (g.winner) result = `<b><loss>${result}</loss></b>`
+  else result = `<b><draw>${result}</draw></b>`
+
   return `<a class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
 }
 
