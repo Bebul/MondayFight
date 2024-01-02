@@ -477,6 +477,12 @@ export var tournamentSpec = [
       "Nemam totiz na sachy vubec pomysleni. A diky tomu bysme si oba nase partie tak neuzili... Bude to tak lepsi. Holt, neni kazdy rok posviceni! 😀<br>" +
       "Dekuji za pochopeni" +
       "<br><br><img src='img/lenochod-pesec.jpg'><br><b>Jouzolean:</b> Brzy se uzdrav🙂😎 Zde máš aspoň kartičku!" +
-      "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂."
-  },
+      "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂."},
+  {id: "oGOkXond",
+    html: "<tooltip json='{\"id\":\"mozkomor\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
+      "<br><b>DJ-Pesec:</b> Skvělý výkon Mozkomore 👏 Gratuluju!" +
+      "<br><br><b>Jouzolean:</b> Mozkomor to dneska zahrál jako Bůh! 😎🙂 Jeho hra byl skvělá!! Nedalo se dělat absolutně nic!" +
+      "<br><br><b>Jouzolean:</b> Máme tady ještě jednu, poměrně důležitou, nedořešenou věc!! 😎 Všichni bedlivě očekáváme termín velkého finále!" +
+      "<br><br><b>Bebul:</b> Těsně před dnešním Monday Fight se hrálo druhé semifinále <a href='index.html?mf=playOFF2023'>PlayOFF 2023</a>, které určilo druhého finalistu. O vítězství si tedy zahrají <b>bukowskic</b> s <b>tomzrem</b>, kterým gratulujeme..." +
+      "<br><br><b>Bebul:</b> Dosud jedinou plaketku v PlayOFF má <b>Margarita</b> za senzaci turnaje. Tak jestli to není nějaký BUG v softwaru (kdyžtak mi dejte vědět, kde to mělo nějakou plaketku uznat), tak držím palce oběma finalistům, aby nějakej šustráček, anastazia mate či opičení přidali :-) "},
 ]
