@@ -1242,7 +1242,7 @@ export function updateTournamentHtmlAuto(divId, tournamentId, data) {
      `
 }
 
-let withdrawals = ['bebul','mozkomor']
+let withdrawals = [] // ['bebul','mozkomor']
 async function drawSpider(dataOfPlayers, spiderId, year) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
