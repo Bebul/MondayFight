@@ -438,6 +438,14 @@ export var tournamentSpec = [
     playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
     html: "<img src='img/cvekPrani.jpg'>"},
   {id: "playOFF2023",
+    achievements: [
+      {achievement: "reporter", player: "jouzolean", id: "NBmhMPTe"},
+      {achievement: "reporter", player: "DJ-Pesec", id: "ndYaWXai"},
+      {achievement: "reporter", player: "bebul", id: "dsM0Dpqk"},
+      {achievement: "blackXX", player: "DJ-Pesec", id: "PA6aqELD", desc: "Tos posral, kámo"},
+      {achievement: "blackXX", player: "bukowskic", id: "PA6aqELD", desc: "Měls vyhrát!"},
+      {achievement: "blackXX", player: "jouzolean", id: "PA6aqELD", desc: "Vostudo jeden"},
+    ],
     playOFF: "<img src='img/pavouk2023-finale.jpg' style='width:100%;margin-top: 5px'>" +
       "<div class='mfColumns'>" +
       "<div class='lastTournament playOFF' style='margin-top: 0px'>" +

@@ -396,6 +396,18 @@ class AchievementBlackDotGM {
   }
 }
 
+class AchievementBlackDotXX {
+  constructor(player, id, desc) {
+    this.player = player
+    this.sortVal = 51
+    //this.frame = "zlata.png"
+    //this.char = "⚫"
+    this.img = "blackDot.png"
+    this.desc = desc || "Ňákej blunder"
+    this.game = id
+  }
+}
+
 class AchievementReporter {
   constructor(player, id) {
     this.player = player
@@ -525,6 +537,7 @@ function collectAchievements(data, tournamentID, games) {
       case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
       case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
+      case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
     }
   })
 
@@ -696,6 +709,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBlackDot(next()),
     new AchievementReporter(next()),
     new AchievementBlackDotGM(next()),
+    new AchievementBlackDotXX(next()),
   ]
 
   let el = document.getElementById(id)
