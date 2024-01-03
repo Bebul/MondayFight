@@ -469,7 +469,9 @@ export var tournamentSpec = [
       "<div class='leaderboard'>" +
       "<board json='{\"id\":\"6BLBxL2s\", \"startPlay\":1}'/>" +
       "</div>" + */
-      "</div>",
+      "</div>" +
+      "<div style='width:100%; margin-bottom:10px'><img src='img/wedding-crasher-hro.gif' style='width:100%;margin-top: 5px'>" +
+      "<div align='center'><i><b>Gratulujeme Tomzrovi k vítězství v PlayOFF, kde porazil bukowskice 4-2</b></i></div></div>",
     html: "<h1>PlayOFF 2023</h1>" +
       "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>." +
       "<br><br><b>RychlyLenochod:</b> Vážení přátelé, <br>" +
