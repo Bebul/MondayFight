@@ -1,11 +1,13 @@
 import {MF} from "./tournamentsData.mjs"
 import {
   gameListData,
-  updateMostActivePlayer,
-  updateGoogleBar,
   gameListTable,
   getLeagueData,
-  leagueTable, updateSpecificTournamentHtml, updateTournamentHtmlAuto
+  leagueTable,
+  updateGoogleBar,
+  updateMostActivePlayer,
+  updateSpecificTournamentHtml,
+  updateTournamentHtmlAuto
 } from "./mondayFight.mjs"
 import {getOpeningsData, getOpeningsHistogram} from "./cross.mjs"
 import {tournamentSpec} from "../data/tournamentSpecs.mjs";
@@ -782,16 +784,133 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
-function decorateGameResult(g, winner) {
+function packBoard(game, side) {
+  let lastMoveNo = 0
+  if (game.moves !== "") lastMoveNo = game.moves.split(' ').length
+  let opening = {
+    theme: "sportverlag",
+    pieceStyle: "alpha"
+  }
+  let color = "gainsboro"
+  if (game.opening && game.opening.name) {
+    let name = game.opening.name.toLowerCase()
+    let mainName = name.split(":")[0]
+    let secondary = name.split(":")[1]
+    if ((name.includes("gambit") && side==="white" && !(secondary && secondary.includes("rousseau")) && !name.includes("latvian") && !name.includes("lucchini")) ||
+      (name.includes("italian") && side==="black" && secondary && (secondary.includes("rousseau") || secondary.includes("lucchini"))) ||
+      (name.includes("latvian gambit") && side==="black")
+    ) {
+      opening.theme = 'brown'
+      opening.pieceStyle = "merida"
+      color = "seashell"
+    } else if (mainName.includes("sicilian") && side==="black") {
+      opening.theme = "green"
+      opening.pieceStyle = "maya"
+      color = "green"
+    } else if (mainName.includes("defense") && side==="black") {
+      opening.theme = "sportverlag"
+      opening.pieceStyle = "alpha"
+      color = "gainsboro"
+    } else if (name.startsWith("bishop's") && side==="white") {
+      opening.theme = "blue"
+      opening.pieceStyle = "merida"
+      color = "darkturquoise"
+    } else if (name.startsWith("scotch") && side==="white") {
+      opening.theme = "green"
+      opening.pieceStyle = "merida"
+      color = "white"
+    } else if (name.startsWith("ruy lopez") && side==="white") {
+      opening.theme = "green"
+      opening.pieceStyle = "condal"
+      color = "yellow"
+    } else if (mainName.includes("russian game") && side==="black") {
+      opening.theme = "informator"
+      opening.pieceStyle = "uscf"
+      color = "#b16e6e"
+    } else if (mainName.includes("italian game")) {
+      opening.theme = "blue"
+      opening.pieceStyle = "wikipedia"
+      color = "lightblue"
+    } else if (name.startsWith("french defense")) {
+      opening.theme = "falken"
+      opening.pieceStyle = "merida"
+      color = "lightgrey"
+    } else if (mainName.includes("english opening") && side==="white") {
+      opening.theme = "informator"
+      opening.pieceStyle = "alpha"
+      color = "white"
+    } else {
+      opening.theme = "blue"
+      opening.pieceStyle = "wikipedia"
+      color = "aliceblue"
+    }
+  }
+  return {
+    config: {...{
+      pgn: MFPodium.toPGN(game, false),
+      showCoords: false, coordsInner: false, headers: true,
+      theme: 'brown', movesHeight: 60,
+      orientation: side, startPlay: lastMoveNo
+    }, ...opening},
+    boardId: `tb-${game.id}`,
+    color: color
+  }
+}
+
+function showGameBoard(player, game, config, color, boardId, element) {
+  let status = `<div>Game ended by <b>${game.status}</b></div>`
+  let opening = ""
+  if (game.opening && game.opening.name) opening = `<div><b>${game.opening.name}</b></div>`
+  let html = `<div class="boards board">${status}${opening}<div id="${boardId}"></div></div>`
+
+  let el = document.getElementById(`board-${player}`)
+  let init = () => {
+    if (el.board) el.board.board.destroy()
+    el.board = PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth}})
+  }
+
+  el.style.position = "absolute"  // TODO: glue it to the original tooltip window (ie. somewhat relative)
+  el.style.borderCollapse = "initial"
+  el.style.border = "1px solid black"
+  el.style.backgroundColor = color
+  el.innerHTML = html
+  el.style.visibility = "visible"
+
+  init()
+}
+
+let globCounter = 0
+
+function decorateGameResult(player, g, winner, side, init) {
   let result = "½&#8209;½"
   if (g.winner === "black") result = "0&#8209;1"
   else if (g.winner === "white") result = "1&#8209;0"
 
+  globCounter += 1
+  let gid = `tb-${globCounter}-${g.id}`
   if (winner) result = `<b><win>${result}</win></b>`
   else if (g.winner) result = `<b><loss>${result}</loss></b>`
   else result = `<b><draw>${result}</draw></b>`
 
-  return `<a class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
+  init.push(() => {
+    let el = document.getElementById(gid)
+    el.addEventListener('mouseover',(event) => {
+      let {config, boardId, color} = packBoard(g, side)
+      showGameBoard(player, g, config, color, boardId, el)
+    }, false)
+/*
+    el.addEventListener('mouseout', (event) => {
+      let board = document.getElementById(`b-${gid}`)
+      board.innerHTML = ""
+      board.style.visibility = "hidden"
+    }, false)
+*/
+  })
+/*
+  let tb = `<div className="tooltiptext" style="left: 100%" id="b-${gid}"></div>`
+  return `<a id="${gid}" class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}${tb}</a>`
+*/
+  return `<a id="${gid}" class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
 }
 
 function ratingDiffDeco(pl) {
@@ -941,19 +1060,20 @@ export function getTipHtml(theGames, tournament, player, size) {
   let wins = 0
   let berserks = 0
   let oponents = 0
+  let init = []
   theGames.forEach(function(game) {
     if (game.players.white.user.name == player) {
       games++
       if (game.winner == "white") wins++
       if (game.players.white.berserk == true) berserks++
       oponents += game.players.black.rating
-      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "white")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(player, game, game.winner == "white", "white", init)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
     } else if (game.players.black.user.name == player) {
       games++
       if (game.winner == "black") wins++
       if (game.players.black.berserk == true) berserks++
       oponents += game.players.white.rating
-      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(game, game.winner == "black")}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(player, game, game.winner == "black", "black", init)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
     }
   })
 
@@ -975,33 +1095,43 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
     } else */
     html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
   }
+
+  html = html + `<div className="tooltiptext" style="bottom:0%; left:100%; margin-left:3px" id="board-${player}"></div>`
+
   html += "</table>"
 
-  return html
+  return {html, init}
 }
 
 function createTip(data, gamesData, tournament, player) {
   return function(event) {
+    if (isTooltipShown(player)) {
+      event.stopPropagation()
+      return
+    }
     event.stopPropagation()
     cancelAllTips()
 
-    let html = getTipHtml(gamesData.games, tournament, player)
+    let {html, init} = getTipHtml(gamesData.games, tournament, player)
 
     let tooltips = this.getElementsByClassName("tooltiptext")
     let el = tooltips[0]
     el.innerHTML = html
     el.style.visibility = "visible"
+    el.player = player
+    init.forEach(f => f())
 
     // maybe we have some specific requirements for test
     let spec = document.getElementById("tooltip-spec")
     if (spec) {
       let size = 1.0
-      let html = getTipHtml(gamesData.games, tournament, player, size)
+      let {html, init} = getTipHtml(gamesData.games, tournament, player, size)
       let tooltips = spec.getElementsByClassName("tooltiptext")
       let el = tooltips[0]
       el.style.fontSize = `${size}em`
       el.innerHTML = html
       el.style.visibility = "visible"
+      init.forEach(f => f())
     }
   }
 }
@@ -1011,7 +1141,24 @@ function cancelAllTips() {
   let tooltips = results.getElementsByClassName("tooltiptext")
   for (let i=0; i<tooltips.length; i++) {
     tooltips[i].style.visibility = "hidden"
+    if (tooltips[i].player) {
+      let el = document.getElementById(`board-${tooltips[i].player}`)
+      if (el) {
+        if (el.board) el.board.board.destroy()
+        //el.style.visibility = "hidden"
+        el.remove()
+      }
+    }
   }
+}
+
+function isTooltipShown(player) {
+  let results = document.getElementById("results")
+  let tooltips = results.getElementsByClassName("tooltiptext")
+  for (let i=0; i<tooltips.length; i++) {
+    if (tooltips[i].player === player && tooltips[i].style.visibility !== "hidden") return tooltips[i]
+  }
+  return null
 }
 
 function toPGN(g, addFen) {
@@ -1022,7 +1169,9 @@ function toPGN(g, addFen) {
     pgn += `\r\n[FEN "${g.initialFen}"]`
     pgn += `\r\n[SetUp "1"]`
   }
-  pgn += `\r\n\r\n${g.moves}\r\n`
+  let moves = g.moves
+  if (moves === "") moves = "*"
+  pgn += `\r\n\r\n${moves}\r\n`
   return pgn
 }
 

@@ -1169,8 +1169,8 @@ function tournamentSpecHtml(tournament, games) {
             let finalHtml = ""
             switch (tag) {
               case "tooltip":
-                let tooltipHtml = getTipHtml(games.games, tournament, parsed.id, parsed.size)
-                finalHtml = `<div class="tooltip no-dots" ${matches[2]}><div class="tooltiptext" style="visibility:visible; position:relative; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
+                let {html: tooltipHtml, init: ignoringInit} = getTipHtml(games.games, tournament, parsed.id, parsed.size)
+                finalHtml = `<div class="tooltip no-dots" ${matches[2]}><div class="tooltiptext" style="z-index:0; visibility:visible; position:relative; font-size:${parsed.size}em">${tooltipHtml}</div></div>`
                 html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
                 break
               case "board":
@@ -1185,7 +1185,7 @@ function tournamentSpecHtml(tournament, games) {
                 finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`
                 html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
                 init.push(() => {
-                  console.log(document.getElementById(boardId).clientWidth)
+                  //console.log(document.getElementById(boardId).clientWidth)
                   PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}})
                 }) // margin compensation
                 break
