@@ -438,7 +438,7 @@ export var tournamentSpec = [
     playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
     html: "<img src='img/cvekPrani.jpg'>"},
   {id: "playOFF2023",
-    playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>" +
+    playOFF: "<img src='img/pavouk2023-finale.jpg' style='width:100%;margin-top: 5px'>" +
       "<div class='mfColumns'>" +
       "<div class='lastTournament playOFF' style='margin-top: 0px'>" +
       "<h1>Tekele-tomzr 0:4</h1>" +
