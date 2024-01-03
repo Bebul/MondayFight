@@ -866,7 +866,7 @@ function showGameBoard(player, game, config, color, boardId, element) {
   let el = document.getElementById(`board-${player}`)
   let init = () => {
     if (el.board) el.board.board.destroy()
-    el.board = PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth}})
+    el.board = PGNV.pgnView(boardId, {...config, ...{boardSize: Math.max(document.getElementById(boardId).clientWidth, 200)}})
   }
 
   el.style.position = "absolute"  // TODO: glue it to the original tooltip window (ie. somewhat relative)
