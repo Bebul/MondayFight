@@ -479,7 +479,7 @@ export var tournamentSpec = [
       "<br><br><img src='img/lenochod-pesec.jpg'><br><b>Jouzolean:</b> Brzy se uzdrav🙂😎 Zde máš aspoň kartičku!" +
       "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂."},
   {id: "oGOkXond",
-    html: "<tooltip json='{\"id\":\"mozkomor\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
+    html: "<tooltip json='{\"id\":\"mozkomor\", \"size\":0.9}' align='center' style='margin:42px 0 5px 0'/> " +
       "<br><b>DJ-Pesec:</b> Skvělý výkon Mozkomore 👏 Gratuluju!" +
       "<br><br><b>Jouzolean:</b> Mozkomor to dneska zahrál jako Bůh! 😎🙂 Jeho hra byl skvělá!! Nedalo se dělat absolutně nic!" +
       "<br><br><b>Jouzolean:</b> Máme tady ještě jednu, poměrně důležitou, nedořešenou věc!! 😎 Všichni bedlivě očekáváme termín velkého finále!" +
