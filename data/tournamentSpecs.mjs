@@ -439,13 +439,23 @@ export var tournamentSpec = [
     html: "<img src='img/cvekPrani.jpg'>"},
   {id: "playOFF2023",
     achievements: [
+      {achievement: "lackOfSpirit", player: "Polgu", id: "PHF1LZSq", desc: "Remíza bez boje"},
       {achievement: "reporter", player: "jouzolean", id: "NBmhMPTe"},
       {achievement: "reporter", player: "DJ-Pesec", id: "ndYaWXai"},
       {achievement: "reporter", player: "bebul", id: "dsM0Dpqk"},
-      {achievement: "blackXX", player: "DJ-Pesec", id: "PA6aqELD", desc: "Tos posral, kámo"},
-      {achievement: "blackXX", player: "bukowskic", id: "PA6aqELD", desc: "Měls vyhrát!"},
-      {achievement: "blackXX", player: "jouzolean", id: "PA6aqELD", desc: "Vostudo jeden"},
+      {achievement: "blackXX", player: "LastScout", id: "PM0Keukr", desc: "Co výhoda dámy?"},
+      {achievement: "blackXX", player: "tomzr", id: "NBmhMPTe", desc: "Ztratil náskok -9"},
+      {achievement: "blackXX", player: "DJ-Pesec", id: "PA6aqELD", desc: "Zahodil tři mečboly"},
+      {achievement: "blackXX", player: "Tomas_1989", id: "szWfXGhl", desc: "Ani figura navíc"},
+      {achievement: "blackXX", player: "MichaelChmiel", id: "2nfu1kpk", desc: "Dal si vlastňáka"},
     ],
+    /*
+    LastScout (vs. MichaelChmiel) Nevyužitá výhoda dámy https://lichess.org/PM0Keukr
+    tomzr (vs. jouza) Ztracený náskok -9 https://lichess.org/NBmhMPTe
+    DJ-Pesec (vs. tomrz) Zahozené tři mečboly https://lichess.org/3SuQYpJg
+    Tomáš89 (vs. Margarita) Promarněný zisk figury ze zahájení https://lichess.org/szWfXGhl
+    MichaelChmiel (vs. skaut) Vlastní mat z vyhrané pozice https://lichess.org/2nfu1kpk
+     */
     playOFF: "<img src='img/pavouk2023-finale.jpg' style='width:100%;margin-top: 5px'>" +
       "<div class='mfColumns'>" +
       "<div class='lastTournament playOFF' style='margin-top: 0px'>" +
@@ -487,7 +497,9 @@ export var tournamentSpec = [
       "Nemam totiz na sachy vubec pomysleni. A diky tomu bysme si oba nase partie tak neuzili... Bude to tak lepsi. Holt, neni kazdy rok posviceni! 😀<br>" +
       "Dekuji za pochopeni" +
       "<br><br><img src='img/lenochod-pesec.jpg'><br><b>Jouzolean:</b> Brzy se uzdrav🙂😎 Zde máš aspoň kartičku!" +
-      "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂."},
+      "<br><br><b>Jouzolean:</b> Místo stonajícího Rychlého Lenochoda nastoupí do boje proti Dj&#x2011;Pěšcovi první náhradník pod čarou = Polgu .Ten již souhlasil a připravuje se na těžkou bitvu, kde může předvést svůj šustráček 🙂." +
+      "<br><br><b>Jouzolean:</b> Jen aby to nezapadlo! <b>Velké finále již dnes, 3.ledna, v 19 hodin.</b> Letošní play off má velkou sledovanost! Kupříkladu duel Margarita vs Bukowskic sledovalo v jeden moment 8 diváků. <b>Dnes pojď fandit i ty!</b> 😎🙂"
+  },
   {id: "oGOkXond",
     html: "<tooltip json='{\"id\":\"mozkomor\", \"size\":0.9}' align='center' style='margin:42px 0 5px 0'/> " +
       "<br><b>DJ-Pesec:</b> Skvělý výkon Mozkomore 👏 Gratuluju!" +

@@ -372,6 +372,16 @@ class AchievementEnPassantKiller {
   }
 }
 
+class AchievementLackOfSpirit {
+  constructor(player, id, desc) {
+    this.player = player
+    this.sortVal = 60
+    this.img = "question.png"
+    this.desc = desc || "Málo bojovnosti"
+    this.game = id
+  }
+}
+
 class AchievementBlackDot {
   constructor(player, id) {
     this.player = player
@@ -538,6 +548,7 @@ function collectAchievements(data, tournamentID, games) {
       case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
+      case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
     }
   })
 
@@ -710,6 +721,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementReporter(next()),
     new AchievementBlackDotGM(next()),
     new AchievementBlackDotXX(next()),
+    new AchievementLackOfSpirit(next()),
   ]
 
   let el = document.getElementById(id)
