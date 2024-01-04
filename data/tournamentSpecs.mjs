@@ -445,7 +445,7 @@ export var tournamentSpec = [
       {achievement: "reporter", player: "bebul", id: "dsM0Dpqk"},
       {achievement: "blackXX", player: "LastScout", id: "PM0Keukr", desc: "Co výhoda dámy?"},
       {achievement: "blackXX", player: "tomzr", id: "NBmhMPTe", desc: "Ztratil náskok -9"},
-      {achievement: "blackXX", player: "DJ-Pesec", id: "PA6aqELD", desc: "Zahodil tři mečboly"},
+      {achievement: "blackXX", player: "DJ-Pesec", id: "3SuQYpJg", desc: "Zahodil tři mečboly"},
       {achievement: "blackXX", player: "Tomas_1989", id: "szWfXGhl", desc: "Ani figura navíc"},
       {achievement: "blackXX", player: "MichaelChmiel", id: "2nfu1kpk", desc: "Dal si vlastňáka"},
     ],
@@ -489,7 +489,7 @@ export var tournamentSpec = [
       "</div>" + */
       "</div>" +
       "<div style='width:100%; margin-bottom:10px'><img src='img/wedding-crasher-hro.gif' style='width:100%;margin-top: 5px'>" +
-      "<div align='center'><i><b>Gratulujeme Tomzrovi k vítězství v PlayOFF, kde porazil bukowskice 4-2</b></i></div></div>",
+      "<div align='center'><i><b>Gratulujeme Tomzrovi k vítězství ve finále PlayOFF, kde porazil bukowskice 4-2</b></i></div></div>",
     html: "<h1>PlayOFF 2023</h1>" +
       "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>." +
       "<br><br><b>RychlyLenochod:</b> Vážení přátelé, <br>" +
