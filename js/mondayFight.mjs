@@ -1142,6 +1142,25 @@ export function createPlayersTable(theFights, tableId, enableJouzocoins) {
   else playersTable.setSort([{column: "totalPts", dir: "desc"}])
 }
 
+export function defaultBoardConfig(tournament) {
+  let date = new Date(tournament.startsAt)
+  let year = date.getFullYear()
+  let playOFF = tournament.id.includes("playOFF")
+  let s = tournamentSpec.find(s => s.id === tournament.id)
+  if (s && s.config) return s.config
+  else if (playOFF) return {theme: "metal", pieceStyle: "spatial"}
+  else {
+    switch (year) {
+      case 2020: return {theme: "sportverlag", pieceStyle: "alpha"}
+      case 2021: return {theme: "blue", pieceStyle: "wikipedia"}
+      case 2022: return {theme: "horsey", pieceStyle: "gioco"}
+      case 2023: return {theme: "brown", pieceStyle: "wikipedia"}
+      case 2024: return {theme: "blue3", pieceStyle: "merida"}
+      default: return {theme: "brown", pieceStyle: "wikipedia"}
+    }
+  }
+}
+
 function tournamentSpecHtml(tournament, games) {
   function specTagRegExp(tag) {
     return new RegExp(`<${tag}[ ]+json='([^'<]*)'[ ]*([^<]*)\\/>`)
@@ -1175,11 +1194,11 @@ function tournamentSpecHtml(tournament, games) {
                 break
               case "board":
                 let game = games.games.find(g => g.id===parsed.id)
-                let defaults = {
+                let defaults = {...{
                   pgn: MFPodium.toPGN(game, false),
                   showCoords: false, coordsInner: false, headers: true,
-                  theme: 'brown', movesHeight: 60
-                }
+                  movesHeight: 60
+                }, ...defaultBoardConfig(tournament)}
                 let config = {...defaults, ...parsed}  // merge with possible other values in json
                 let boardId = `board-${parsed.id}`
                 finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`

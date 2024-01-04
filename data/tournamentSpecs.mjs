@@ -100,7 +100,9 @@ export var tournamentSpec = [
       "<br><br><b>Bukowskic:</b> Nešel jsem na kolo a místo toho jsem se celý odpoledne rozehrával!" +
       "<br><br>... a jak vidno, příprava namísto velmistrovské hlavy pokosila nás ostatní. Gratulujeme!" +
       "<br><br><b>Bébul:</b> Už jste se podívali na nejrychlejší dnešní mat? To zas jednou Bébulkovi vyšla příprava! Nechť řady Královských Gambiterů houstnou!"},
-  {id: "fXU6tfJM", html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
+  {id: "fXU6tfJM",
+    config: {theme: "maple2", pieceStyle: "merida"},
+    html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
       "Dnešek je pro Monday Fights svátek, neb nás poctil svou návštěvou Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Byl to fofr. Nikdo z nás ho nenachytal na švestkách. Za návštěvu moc děkujeme a k vítězství gratulujeme." +
       "<img style='margin-top:5px' src='img/cvek-nss.jpg'><div style='text-align: center; margin-bottom:5px'><i>Robert Cvek jako vítěz turnaje ke 100 let Salo Flohra. I přes účast Davida Navary turnaj zcela ovládli velmistři Novoborského ŠK, zleva Viktor Láznička, Robert Cvek a Zbyněk Hráček<br> Zřejmě dobrý oddíl.</i></div>" +
       "K dnešním partiím Jouzoleanovi napsal, že to byly dobré partie a ze si konečně po dlouhé době s klidnou hlavou zahrál." +
@@ -416,6 +418,7 @@ export var tournamentSpec = [
     html: "<img src='img/masUzNecoNaTohoCveka.jpg'><br><b>Jouzolean:</b> Jak již jsem avizoval, příští týden by měl dorazit na MF GM Robert Cvek - doufám, že letos bude hvězdná účast a že někdo uhraje alespoň půlbodík. 😎Nějaké jeho hry najdete na lichess pod nickem sachycvek\n" +
       "On bude ale beztak hrát nějaké blbosti. 😎😁"},
   {id: "PJnn9LQi",
+    config: {theme: "maple2", pieceStyle: "merida"},
     achievements: [{achievement: "blackGM", player: "mrazek", id: "g4jzy7kX"}],
     html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
       "Že budou ty Vánoce, tak nás znovu po roce navštívil velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>. Za návštěvu a za nadílku moc děkujeme a k vítězství gratulujeme!" +
@@ -438,6 +441,7 @@ export var tournamentSpec = [
     playOFF: "<img src='img/pavouk2023.png' style='width:100%;margin-top: 5px'>",
     html: "<img src='img/cvekPrani.jpg'>"},
   {id: "playOFF2023",
+    // config: {theme: "horsey", pieceStyle: "gioco"}, // only test
     achievements: [
       {achievement: "lackOfSpirit", player: "Polgu", id: "PHF1LZSq", desc: "Remíza bez boje"},
       {achievement: "reporter", player: "jouzolean", id: "NBmhMPTe"},
@@ -467,7 +471,7 @@ export var tournamentSpec = [
       " <i>-jouz-</i>" +
       "</div>" +
       "<div class='boards'>" +
-      "<board json='{\"id\":\"J2neoXft\", \"startPlay\":10, \"theme\":\"sportverlag\", \"pieceStyle\":\"alpha\"}'/>" +
+      "<board json='{\"id\":\"J2neoXft\", \"startPlay\":10, \"theme\":\"metal\", \"pieceStyle\":\"spatial\"}'/>" +
       "</div>" +
       "<div class='leaderboard'>" +
       "<img src='img/tekele-tomzr-2023.jpg' style='width:100%'>" +

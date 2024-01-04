@@ -1,5 +1,6 @@
 import {MF} from "./tournamentsData.mjs"
 import {
+  defaultBoardConfig,
   gameListData,
   gameListTable,
   getLeagueData,
@@ -1201,7 +1202,7 @@ function toPGN(g, addFen) {
   return pgn
 }
 
-function selectGame(gamesData, hideId, boardId, selector) {
+function selectGame(tournament, gamesData, hideId, boardId, selector) {
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
   if (selectedGame) {
     document.getElementById(hideId).style.display = "block";
@@ -1211,18 +1212,23 @@ function selectGame(gamesData, hideId, boardId, selector) {
     moves.forEach((move) => mfChess.move(move))
 
     let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
-    let config = {
+    let config = {...{
       pgn: toPGN(selectedGame),
       showCoords: false, coordsInner: false, headers: true,
-      theme: 'brown',
       boardSize: mateBoardWidth - 10,
       movesHeight: 50,
       startPlay: `${moves.length}`
-    }
+    }, ...defaultBoardConfig(tournament)}
     if (fen) config.position = fen
     config.orientation = selectedGame.winner
 
-    PGNV.pgnView(boardId, config)
+    let current = document.getElementById(boardId)
+    let boardId2 = `${boardId}2`
+    if (current) {
+      if (current.board) current.board.board.destroy()
+      current.innerHTML = `<div id='${boardId2}'></div>`
+    }
+    current.board = PGNV.pgnView(boardId2, config)
     return selectedGame
   } else {
     // hide the board when no game was selected
@@ -1231,8 +1237,8 @@ function selectGame(gamesData, hideId, boardId, selector) {
   }
 }
 
-function sensationGame(games, hideid, boardId) {
-  let game = selectGame(games, hideid, boardId, MF.biggestDifferenceWinSelector)
+function sensationGame(tournament, games, hideid, boardId) {
+  let game = selectGame(tournament, games, hideid, boardId, MF.biggestDifferenceWinSelector)
   if (game) {
     if (game.winner == "white") document.getElementById("senzacionist").innerHTML = game.players.white.user.name
     else document.getElementById("senzacionist").innerHTML = game.players.black.user.name
@@ -1243,10 +1249,11 @@ function sensationGame(games, hideid, boardId) {
   return game
 }
 
-function updateSpecialBoards(games) {
-  let mateGame = selectGame(games, "fastMateId", "fastMateBoard", MF.fastestMateSelector)
-  let sensaGame = sensationGame(games, "surpriseGameId", "surpriseGameBoard")
-  let fastestGame = selectGame(games, "fastestId", "fastestBoard", MF.fastestGameSelector)
+function updateSpecialBoards(data, games) {
+  let tournament = data.findTournament(games.id)
+  let mateGame = selectGame(tournament, games, "fastMateId", "fastMateBoard", MF.fastestMateSelector)
+  let sensaGame = sensationGame(tournament, games, "surpriseGameId", "surpriseGameBoard")
+  let fastestGame = selectGame(tournament, games, "fastestId", "fastestBoard", MF.fastestGameSelector)
   if (fastestGame && (fastestGame === mateGame || fastestGame === sensaGame)) {
     document.getElementById("fastestId").style.display = "none" // hide it, because it is already shown
   }
@@ -1282,7 +1289,7 @@ function nextTournament(data, diff=1) {
   updateBackground(games.id)
   createPodium(data, games.id)
   createResults(data, games.id, games)
-  updateSpecialBoards(games)
+  updateSpecialBoards(data, games)
   createTournamentInfo(data, games.id)
   createAchievementsInfo(data, games.id, games)
 
