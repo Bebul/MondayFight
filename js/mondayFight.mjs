@@ -699,7 +699,7 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, challenge
     document.getElementById(leagueNoId).innerHTML = `${fightsCount}.týden`
   }
   if (challengeAvgId) {
-    let weeksLeft = 52 - fightsCount
+    let weeksLeft = 53 - fightsCount // year 2023 has 53 mondays
     let text = "** mission failed **"
     if (weeksLeft > 0) {
       let jouzoPts = Math.round(2 * dataOfPlayers[0].totalPts) / 2
