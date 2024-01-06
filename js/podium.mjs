@@ -893,7 +893,10 @@ function showGameBoard(player, game, config, color, boardId, element) {
 
   let el = document.getElementById(`board-${player}`)
   let init = () => {
-    if (el.board) el.board.board.destroy()
+    if (el.board) {
+      // el.board.board.destroy()
+      el.board.base.stop()
+    }
     el.board = PGNV.pgnView(boardId, {...config, ...{boardSize: Math.max(document.getElementById(boardId).clientWidth, 200)}})
   }
 
@@ -1172,7 +1175,10 @@ function cancelAllTips() {
     if (tooltips[i].player) {
       let el = document.getElementById(`board-${tooltips[i].player}`)
       if (el) {
-        if (el.board) el.board.board.destroy()
+        if (el.board) {
+          // el.board.board.destroy()
+          el.board.base.stop()
+        }
         //el.style.visibility = "hidden"
         el.remove()
       }
@@ -1204,6 +1210,16 @@ function toPGN(g, addFen) {
 }
 
 function selectGame(tournament, gamesData, hideId, boardId, selector) {
+  let current = document.getElementById(boardId)
+  let boardId2 = `${boardId}2`
+  if (current) {
+    if (current.board) {
+      console.log(`destroying ${boardId}`)
+      current.board.base.stop()
+      //current.board.board.destroy()
+    }
+    current.innerHTML = `<div id='${boardId2}'></div>`
+  }
   let selectedGame = gamesData.games.reduce(selector, null) // can return null, in such case we want to hide the hideId element
   if (selectedGame) {
     document.getElementById(hideId).style.display = "block";
@@ -1224,13 +1240,7 @@ function selectGame(tournament, gamesData, hideId, boardId, selector) {
     if (fen) config.position = fen
     config.orientation = selectedGame.winner
 
-    let current = document.getElementById(boardId)
-    let boardId2 = `${boardId}2`
-    if (current) {
-      if (current.board) current.board.board.destroy()
-      current.innerHTML = `<div id='${boardId2}'></div>`
-    }
-    current.board = PGNV.pgnView(boardId2, config)
+    if (current) current.board = PGNV.pgnView(boardId2, config)
     return selectedGame
   } else {
     // hide the board when no game was selected
