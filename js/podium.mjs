@@ -877,7 +877,8 @@ function packBoard(game, side) {
       pgn: MFPodium.toPGN(game, false),
       showCoords: false, coordsInner: false, headers: true,
       theme: 'brown', movesHeight: 60,
-      orientation: side, startPlay: lastMoveNo
+      orientation: side, startPlay: lastMoveNo,
+      resizable: false
     }, ...opening},
     boardId: `tb-${game.id}`,
     color: color
@@ -1213,12 +1214,13 @@ function selectGame(tournament, gamesData, hideId, boardId, selector) {
 
     let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
     let config = {...{
-      pgn: toPGN(selectedGame),
-      showCoords: false, coordsInner: false, headers: true,
-      boardSize: mateBoardWidth - 10,
-      movesHeight: 50,
-      startPlay: `${moves.length}`
-    }, ...defaultBoardConfig(tournament)}
+        pgn: toPGN(selectedGame),
+        showCoords: false, coordsInner: false, headers: true,
+        boardSize: mateBoardWidth - 10,
+        movesHeight: 50,
+        startPlay: `${moves.length}`,
+        resizable: false
+      }, ...defaultBoardConfig(tournament)}
     if (fen) config.position = fen
     config.orientation = selectedGame.winner
 
