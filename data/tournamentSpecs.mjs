@@ -511,4 +511,14 @@ export var tournamentSpec = [
       "<br><br><b>Jouzolean:</b> Máme tady ještě jednu, poměrně důležitou, nedořešenou věc!! 😎 Všichni bedlivě očekáváme termín velkého finále!" +
       "<br><br><b>Bebul:</b> Těsně před dnešním Monday Fight se hrálo druhé semifinále <a href='index.html?mf=playOFF2023'>PlayOFF 2023</a>, které určilo druhého finalistu. O vítězství si tedy zahrají <b>bukowskic</b> s <b>tomzrem</b>, kterým gratulujeme..." +
       "<br><br><b>Bebul:</b> Dosud jedinou plaketku v PlayOFF má <b>Margarita</b> za senzaci turnaje. Tak jestli to není nějaký BUG v softwaru (kdyžtak mi dejte vědět, kde to mělo nějakou plaketku uznat), tak držím palce oběma finalistům, aby nějakej šustráček, anastazia mate či opičení přidali :-) "},
+  {
+    id: "p15JLLsY",
+    html: "<img src='img/bebul-b.jpg'>" +
+      "<tooltip json='{\"id\":\"bebul\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
+      "<br><b>Bebul</b>: na základě výsledku hlasování jsem nastavil požadovaný počet rated her na <b>100</b>. </b> " +
+      "<br><br><b>HonzaHonzaHonza:</b> Nechci se do toho moc montovat, jelikož se tu stále považuju za nováčka mezi vámi co by neměl mít velké slovo 🙂 a ani neplánuju nikoho doporučovat a přidávat. Já s limitem souhlasim, jen si myslím, že můžou bejt situace, kdy třeba někoho chtít přidat budeme, může to být hráč, který třeba hraje přes jinou aplikaci nebo nehraje online vůbec. Podle mě 100 her je opravdu dost a ustálený rating je mnohem dříve (nebo to tak není?)." +
+      "<br>Ale v případě tohohle hlasování mi nepřijde demokraticky správně dát rovnou 100, když 4 lidi hlasovali pro 30 a 1 pro 50, klidně by ty 4 lidi raději dali také 50 a byla by to remíza. Nejspravedlivější by byl nějaký poměrný průměr, takhle to podle mě nevypovídá o názoru hlasujících. " +
+      "<br>Umím si představit, že se bude v budoucnu chtít přidat někdo nový a 100 her mi přijde až moc. Ale nijak zvlášť mi na tom nezáleží a pokud takhle rozhodnete, nevadí mi to 🙂"
+  }
+
 ]
