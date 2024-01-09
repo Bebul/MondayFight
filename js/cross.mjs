@@ -10,7 +10,7 @@ import {
   getLeagueDataOfPlayers
 } from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
-import {collectTrophies, joinTrophies, setOpeningTable, openingsHistogram} from "./podium.mjs";
+import {collectTrophies, joinTrophies, setOpeningTable, setOpeningTableDataAndRedraw, openingsHistogram} from "./podium.mjs";
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -536,6 +536,11 @@ function myCellClick(data, players, fights){
     updateMostOftenPositions(games.games, playerA, playerB)
     updateMostActivePlayer("gameListTable", gameData)
     updateGoogleBar("gameListTableBar", gameData)
+
+    let openingData = getOpeningsData(data, fights, g => g.players.white.user.name===playerA && g.players.black.user.name===playerB)
+    openingsHistogram.set(getOpeningsHistogram(openingData))
+    setOpeningTableDataAndRedraw(openingData)
+
     gameListTable.setData(gameData).then(function(){
       gameListTable.redraw(true)
     })
@@ -645,6 +650,9 @@ export function criterionChanged(data, tableId, createTableF) {
       break
     case "2023":
       createTableF(data, MF.filterYear(data.mondayFights(), 2023), tableId, criterion, season)
+      break
+    case "2024":
+      createTableF(data, MF.filterYear(data.mondayFights(), 2024), tableId, criterion, season)
       break
   }
 }

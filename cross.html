@@ -71,16 +71,20 @@
         <label>2021</label>
         <input type="radio" name="season"  value="2022" />
         <label>2022</label>
-        <input type="radio" name="season"  value="2023" checked="true" />
+        <input type="radio" name="season"  value="2023" />
         <label>2023</label>
+        <input type="radio" name="season"  value="2024" checked="true" />
+        <label>2024</label>
         <input type="radio" name="season"  value="year" />
         <label>Plovoucí rok</label>
         <input type="radio" name="season"  value="all" />
         <label>Za celou dobu</label>
     </form>
+
     <div id="crossTable"></div>
 
     <h2 id="gamesListTitle">Games list</h2>
+    <div id="openingsTable"></div>
     <div id="mostlyAsWhite"></div>
     <div id="mostlyAsBlack"></div>
 
@@ -97,7 +101,7 @@
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
   import {createGameListTable} from "./js/mondayFight.mjs"
-  import {createCrossTable, criterionChanged} from "./js/cross.mjs"
+  import {createOpeningsTable, createCrossTable, criterionChanged} from "./js/cross.mjs"
 
   function mainPage(data) {
     let seasons = document.selectSeason.season
@@ -113,8 +117,10 @@
       });
     }
 
-    let theFights = MF.filterYear(data.mondayFights(), 2023)
+    let theFights = MF.filterYear(data.mondayFights(), 2024)
     createCrossTable(data, theFights, "#crossTable")
+    let games = data.tournamentGames()[data.currentGameListTableIx]
+    createOpeningsTable(data, [games], "#openingsTable", null, "all", false)
     createGameListTable(data.tournamentGames()[data.currentGameListTableIx], "#gameListTable", true)
   }
 

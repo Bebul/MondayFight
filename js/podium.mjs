@@ -1280,6 +1280,11 @@ var openingsTable = null
 export function setOpeningTable(table) {
   openingsTable = table
 }
+export function setOpeningTableDataAndRedraw(openingData) {
+  openingsTable.setData(openingData).then(function () {
+    openingsTable.redraw(true)
+  })
+}
 
 function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
