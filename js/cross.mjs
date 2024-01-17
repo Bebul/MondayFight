@@ -20,6 +20,7 @@ export function createCrossTable(data, theFights, tableId, criterion = "score") 
     if (x > y) {return 1;}
     return 0;
   });
+
   document.getElementById(tableId.substring(1)).innerHTML = ""
   let crossTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -323,6 +324,102 @@ function getScores(data, players, fights) {
     }
   })
   return playerScore
+}
+
+export function getStreaks(data, players, fights, update) {
+  let record = {winner: null, loser: null, n: 0}
+  let playerStreak = new Map();
+  players.forEach( pl1 => {
+    let duels = new Map();
+    players.forEach( pl2 => {
+      duels.set(pl2, 0)
+      playerStreak.set(pl1, duels)
+    })
+  })
+
+  function debugMe(a,b,n,date) {
+    if (a==="tomzr" || b==="tomzr")
+      if(a==="Jouzolean" || b==="Jouzolean") {
+        console.log(`${a} vs ${b} is ${n} ${date}`)
+      }
+  }
+
+  function breakStreak(a,b,game,id,n) {
+    if (update) {
+      let player = game.players.white
+      if (game.players.black.user.name === a) player = game.players.black
+      let stats = player.stats || {}
+      stats.broken = n
+      player.stats = stats
+      if (n > record.n) {
+        record.winner = b
+        record.loser = a
+        record.n = n
+        record.id = id
+      }
+    }
+  }
+
+  let threshold = 8
+  function updateWin(winner, loser, game, id) {
+    let mapWinner = playerStreak.get(winner)
+    let dataWinner = mapWinner.get(loser)
+    if (dataWinner < 0) {
+      if (dataWinner <= -threshold) {
+        breakStreak(winner,loser,game,id,-dataWinner)
+      }
+      dataWinner = 0
+    }
+    mapWinner.set(loser, dataWinner + 1)
+    let mapLoser = playerStreak.get(loser)
+    mapLoser.set(winner, -dataWinner - 1)
+  }
+
+  function updateDraw(a, b, game, id){
+    function update(a,b) {
+      let myMap = playerStreak.get(a)
+      let data = myMap.get(b)
+      if (data < 0) {
+        if (data <= -threshold) {
+          breakStreak(a,b,game,id,-data)
+        }
+      }
+      myMap.set(b, 0)
+    }
+    update(a, b)
+    update(b, a)
+  }
+
+  Number.prototype.padLeft = function(base,chr){
+    var  len = (String(base || 10).length - String(this).length)+1
+    return len > 0? new Array(len).join(chr || '0')+this : this
+  }
+
+  fights.forEach( fight => {
+    //console.log(fight.startsAt)
+    let games = data.tournamentGames().find(tg => tg.id==fight.id);
+    if (games !== undefined) {
+      let gamesSrt = games.games.toSorted(function(a,b){ return Number(a.createdAt)-Number(b.createdAt) })
+      gamesSrt.forEach(game => {
+        let d = new Date(0) // The 0 there is the key, which sets the date to the epoch
+        d.setUTCSeconds(game.createdAt/1000)
+        let date = [d.getFullYear().padLeft(), (d.getMonth()+1).padLeft(), d.getDate().padLeft()].join('/')+' '+ [d.getHours().padLeft(), d.getMinutes().padLeft(), d.getSeconds().padLeft()].join(':')
+        //if (fight.id === "p15JLLsY") console.log(`${game.players.white.user.name} vs ${game.players.black.user.name} ${fight.id}--${date}`)
+        if (game.status !== "noStart") {
+          if (game.winner === undefined) {
+            updateDraw(game.players.white.user.name, game.players.black.user.name, game, fight.id)
+          } else if (game.winner === "white") {
+            updateWin(game.players.white.user.name, game.players.black.user.name, game, fight.id)
+          } else if (game.winner === "black") {
+            updateWin(game.players.black.user.name, game.players.white.user.name, game, fight.id)
+          }
+        }
+        //debugMe(game.players.white.user.name, game.players.black.user.name,playerStreak.get(game.players.white.user.name).get(game.players.black.user.name),date)
+      })
+    }
+  })
+  data.setStreaks({streak: playerStreak, record: record})
+  return playerStreak
 }
 
 function getCrossScores(data, players, fights) {

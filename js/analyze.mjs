@@ -1,5 +1,6 @@
 import {MFPodium} from "./podium.mjs"
-import {toNDJson, download} from "./mondayFight.mjs"
+import {toNDJson, download, getPlayers} from "./mondayFight.mjs"
+import {getStreaks} from "./cross.mjs"
 
 export function processAnalyze(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
@@ -555,6 +556,10 @@ async function addAllStats(data, report) {
 }
 
 export async function addNewGamesStats(data, newGames, report, chessP) {
+  //let fights = MF.filterYear(data.mondayFights(), -1)
+  let fights = data.mondayFights()
+  getStreaks(data, getPlayers(fights), fights, true)
+
   let games = []
   newGames.forEach(function(g) {
     games = games.concat(g.games)

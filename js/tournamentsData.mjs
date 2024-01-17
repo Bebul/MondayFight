@@ -183,7 +183,7 @@ export let MF = function() {
 }()
 
 // when used from node.js the ndjson data are loaded using fs and provided as parameters
-export async function LoadMFData(callback, loadedTournaments, loadedGames) {
+export async function LoadMFData(callback, loadedTournaments, loadedGames, loadedStreaks) {
   function ndjson2array(text) {
     let json = "[" + text.replace(/\n{/g, ",{") + "]"
     return json
@@ -198,9 +198,16 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
       .then(ndjson2array)
       .then(parse)
   }
+  async function downloadJson(url) {
+    return await fetch(url)
+      //.then(response => Promise.resolve(response))
+      .then(response => response.text())
+      .then(parse)
+  }
 
   let jouzoleanAndBebulsTournaments = loadedTournaments ? loadedTournaments : await downloadNDJson("data/tournaments.ndjson")
   let tournamentGames = loadedGames ? loadedGames :  await downloadNDJson("data/tournamentGames.ndjson")
+  let streaks = loadedStreaks ? loadedStreaks : await downloadJson("data/streaks.json")
 
   let mondayFights = filterFights()
 
@@ -342,6 +349,12 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames) {
     },
     tournamentGames: function() {
       return tournamentGames
+    },
+    streaks: function() {
+      return streaks
+    },
+    setStreaks: function(s) {
+      streaks = s
     },
     mondayFights: function() {
       return mondayFights

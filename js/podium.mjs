@@ -373,6 +373,19 @@ class AchievementEnPassantKiller {
   }
 }
 
+class AchievementBrokenChain {
+  constructor(player, id, n=8) {
+    this.player = player
+    this.sortVal = 95 + n
+    // this.frame = "fialova.png"
+    // this.pic = "kun.png"
+    // this.left = 38
+    this.img = "broken-chain.png"
+    this.desc = `Přetrhl šňůru ${n} proher`
+    this.game = id
+  }
+}
+
 class AchievementLackOfSpirit {
   constructor(player, id, desc) {
     this.player = player
@@ -570,6 +583,7 @@ function collectAchievements(data, tournamentID, games) {
         if (stats.monkey) achievements.push(new AchievementMonkey(player, stats.monkey, g.id))
         if (stats.queens) achievements.push(new AchievementQueens(player, stats.queens, g.id))
         if (stats.sensation) achievements.push(new AchievementSensation(player, g.id))
+        if (stats.broken) achievements.push(new AchievementBrokenChain(player, g.id, stats.broken))
         if (stats.bishopSac && wins) achievements.push(new AchievementBishopSac(player, g.id))
         if (stats.mate && wins) {
           if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
@@ -723,6 +737,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBlackDotGM(next()),
     new AchievementBlackDotXX(next()),
     new AchievementLackOfSpirit(next()),
+    new AchievementBrokenChain(next()),
   ]
 
   let el = document.getElementById(id)
@@ -964,6 +979,7 @@ function getDecorationTrophies(game, player, wins) {
     if (stats.queens) decorations.push("&#9813;")
     if (stats.lucky) decorations.push("&#8987;")
     if (stats.sensation) decorations.push("&#10024;")
+    if (stats.broken) decorations.push("&#128165;") // 💥
     if (stats.bishopSac && wins) decorations.push("<span style='color:red'>&#9815;</span>")
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations.push("&#9816;&#129505;")

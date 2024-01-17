@@ -670,11 +670,48 @@ export async function downloadUserDataIntoLeague(league) {
   })
 }
 
+function createChained(data, league) {
+  let {streak, record} = data.streaks()
+
+  let chains = []
+
+  function top12(pl) {
+    let ix = league.findIndex(p => p.name === pl)
+    return ix >= 0 && ix <= 12
+  }
+
+  streak.value.forEach(function(value) {
+    let [player, ar] = value
+    if (top12(player)) {
+      ar.value.forEach(function(v) {
+        let [opo, value] = v
+        if (value <= -8 && top12(opo)) {
+          chains.push({w: opo, l: player, n: -value})
+        }
+      })
+    }
+  })
+
+  chains = chains.toSorted((a,b) => b.n - a.n)
+
+  let el = document.getElementById("chained")
+  if (el){
+    let html = `<b>Rekord: ${record.winner}</b> drtil <i>${record.loser}</i> <b>${record.n}</b> her v řadě! Viz <a href="index.html?mf=${record.id}">turnaj</a>.<br>\n`
+    html += "<h2>Aktuálně</h2><img src='img/achievements/broken-chain.png'><br>"
+    chains.forEach(function(ch) {
+      html += `<b>${ch.w}</b> drtí <i>${ch.l}</i> už <b>${ch.n}</b> her v řadě.<br>\n`
+    })
+    el.innerHTML = html
+  }
+}
+
 export var leagueTable
 export function createLeagueTable(data, tableId, leagueNoId, spiderId, challengeAvgId, challengerId) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
 
   const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
+
+  createChained(data, dataOfPlayers)
 
   leagueTable = new Tabulator(tableId, {
     layout: "fitDataTable",
@@ -1045,6 +1082,17 @@ export function processAdmin(data) {
       LAPI.onDwnlTournamentClicked(data, rename)
     }
 
+    function replacer(key, value) {
+      if(value instanceof Map) {
+        return {
+          dataType: 'Map',
+          value: Array.from(value.entries()), // or with spread: value: [...value]
+        };
+      } else {
+        return value;
+      }
+    }
+
     document.getElementById("dwnlALL").onclick = function() {
       LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(LAPI.updateHTMLurlRequestsList)
         .then(function(downloadedTournaments) {
@@ -1059,9 +1107,17 @@ export function processAdmin(data) {
                     .then(function(result) {
                       download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
                       download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+                      download("streaks.json", JSON.stringify(data.streaks(), replacer))
                     })
                 })
-            }
+            }/* else {
+              addNewGamesStats(data, [])
+                .then(function(result) {
+                  download("tournaments.ndjson", toNDJson(data.jouzoleanAndBebulsTournaments()))
+                  download("tournamentGames.ndjson", toNDJson(data.tournamentGames()))
+                  download("streaks.json", JSON.stringify(data.streaks(), replacer))
+                })
+            }*/
           }
         )
     }
