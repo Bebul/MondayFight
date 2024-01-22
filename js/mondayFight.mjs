@@ -692,7 +692,7 @@ function createChained(data, league) {
     }
   })
 
-  chains = chains.toSorted((a,b) => b.n - a.n)
+  chains.sort((a,b) => b.n - a.n)
 
   let el = document.getElementById("chained")
   if (el){

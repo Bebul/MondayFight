@@ -399,7 +399,9 @@ export function getStreaks(data, players, fights, update) {
     //console.log(fight.startsAt)
     let games = data.tournamentGames().find(tg => tg.id==fight.id);
     if (games !== undefined) {
-      let gamesSrt = games.games.toSorted(function(a,b){ return Number(a.createdAt)-Number(b.createdAt) })
+
+      let gamesSrt = [...games.games]  // clone
+      gamesSrt.sort(function(a,b){ return Number(a.createdAt)-Number(b.createdAt) })
       gamesSrt.forEach(game => {
         let d = new Date(0) // The 0 there is the key, which sets the date to the epoch
         d.setUTCSeconds(game.createdAt/1000)
