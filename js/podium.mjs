@@ -847,7 +847,7 @@ function packBoard(game, side) {
       color = "seashell"
     } else if (mainName.includes("sicilian") && side==="black") {
       opening.theme = "green"
-      opening.pieceStyle = "maya"
+      opening.pieceStyle = "gioco"
       color = "green"
     } else if (mainName.includes("defense") && side==="black") {
       opening.theme = "sportverlag"
@@ -863,8 +863,8 @@ function packBoard(game, side) {
       color = "white"
     } else if (name.startsWith("ruy lopez") && side==="white") {
       opening.theme = "green"
-      opening.pieceStyle = "condal"
-      color = "yellow"
+      opening.pieceStyle = "gioco"
+      color = "#ffffcc"
     } else if (mainName.includes("russian game") && side==="black") {
       opening.theme = "informator"
       opening.pieceStyle = "uscf"
