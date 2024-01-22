@@ -826,6 +826,20 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
+function playsGambit(side, opening) {
+  let name= opening.toLowerCase()
+  let mainName = name.split(":")[0]
+  let secondary = name.split(":")[1]
+  return (name.includes("gambit") && side==="white"
+      && !(secondary && secondary.includes("rousseau"))
+      && !(name.includes("ruy lopez") && secondary && secondary.includes("alapin gambit"))
+      && !name.includes("latvian")
+      && !name.includes("lucchini")) ||
+    (name.includes("italian") && side==="black" && secondary && (secondary.includes("rousseau") || secondary.includes("lucchini"))) ||
+    (name.includes("latvian gambit") && side==="black") ||
+    (name.includes("alapin gambit") && side==="black")
+}
+
 function packBoard(game, side) {
   let lastMoveNo = 0
   if (game.moves !== "") lastMoveNo = game.moves.split(' ').length
@@ -838,10 +852,7 @@ function packBoard(game, side) {
     let name = game.opening.name.toLowerCase()
     let mainName = name.split(":")[0]
     let secondary = name.split(":")[1]
-    if ((name.includes("gambit") && side==="white" && !(secondary && secondary.includes("rousseau")) && !name.includes("latvian") && !name.includes("lucchini")) ||
-      (name.includes("italian") && side==="black" && secondary && (secondary.includes("rousseau") || secondary.includes("lucchini"))) ||
-      (name.includes("latvian gambit") && side==="black")
-    ) {
+    if (playsGambit(side, name)) {
       opening.theme = 'brown'
       opening.pieceStyle = "merida"
       color = "seashell"
