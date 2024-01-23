@@ -1,4 +1,5 @@
 import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
+import {playsGambit} from "./podium.mjs";
 
 function movesToArrayOfFen(initialPosition, moves) {
   let chess = new Chess(initialPosition)
@@ -87,6 +88,10 @@ export function searchGames(data, fights, tokens) {
             loser: loserName,
             white: game.players.white.user.name,
             black: game.players.black.user.name
+          }
+          if (game.opening && game.opening.name) {
+            if (playsGambit("white", game.opening.name)) appended[game.players.white.user.name] = "gambiter"
+            if (playsGambit("black", game.opening.name)) appended[game.players.black.user.name] = "gambiter"
           }
           stringBuilder.push(
             ` `,
