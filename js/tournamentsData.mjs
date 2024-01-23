@@ -1,3 +1,5 @@
+import {playsGambit} from "./podium.mjs";
+
 export let MF = function() {
   function playedAGame(player) {
     return player.performance !== undefined
@@ -264,6 +266,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
       delete player.diff
       delete player.points
       delete player.avgOponent
+      delete player.gambits
     })
     // NOTE: there is no need to add it as we can detect it for each tournament easily
     // played the winner 100% berserk?
@@ -322,6 +325,17 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
     tournament.standing.players.forEach( function(player) {
       let avgOponent = MF.avgOponent(player, games)
       if (avgOponent!==undefined) player.avgOponent = avgOponent
+    })
+    // gambits
+    tournament.standing.players.forEach( function(player) {
+      let gambits = 0
+      games.games.forEach(function(g) {
+        if (g.opening && g.opening.name) {
+          if (g.players.white.user.name === player.name && playsGambit("white", g.opening.name)) gambits++
+          else if (g.players.black.user.name === player.name && playsGambit("black", g.opening.name)) gambits++
+        }
+      })
+      if (gambits > 0) player.gambits = gambits
     })
   }
 

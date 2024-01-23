@@ -826,7 +826,7 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
-function playsGambit(side, opening) {
+export function playsGambit(side, opening) {
   let name= opening.toLowerCase()
   let mainName = name.split(":")[0]
   let secondary = name.split(":")[1]

@@ -46,6 +46,11 @@ function playerSensation(fight, playerName) {
   return player.sensation
 }
 
+function playerGambits(fight, playerName) {
+  let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player === undefined || !MF.playedAGame(player)) return 0
+  return player.gambits
+}
 
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -175,6 +180,16 @@ function getTotalSensations(player, theFights) {
   return total
 }
 
+function getTotalGambits(player, theFights) {
+  let total = 0
+  theFights.forEach(fight => {
+    fight.standing.players.forEach(pl => {
+      if (pl.name==player && pl.gambits) total += pl.gambits
+    })
+  })
+  return total
+}
+
 function getTotalGames(player, theFights) {
   let total = 0
   theFights.forEach(fight => {
@@ -263,7 +278,8 @@ function addFightsPoints(playerOut, playerName, theFights) {
       diff: playerRatingDiff(fight, playerName),
       mate: playerFastestMate(fight, playerName),
       fast: playerFastestGame(fight, playerName),
-      sensation: playerSensation(fight, playerName)
+      sensation: playerSensation(fight, playerName),
+      gambits: playerGambits(fight, playerName)
     }
   })
 }
@@ -288,7 +304,8 @@ function getDataOfPlayers(theFights) {
         ratingDiff: getTotalRatingDiff(player, theFights),
         fastestMates: getTotalMates(player, theFights),
         fastestGames: getTotalFastest(player, theFights),
-        sensations: getTotalSensations(player, theFights)
+        sensations: getTotalSensations(player, theFights),
+        gambits: getTotalGambits(player, theFights)
       }
       addFightsPoints(thePlayer, player, theFights)
       tableData.push(thePlayer)
@@ -309,7 +326,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
     {title: "R", field: "ratingDiff", resizable:false, headerSortStartingDir:"desc", headerTooltip:"změna ratingu"},
     {title: "M", field: "fastestMates", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší mat"},
     {title: "S", field: "sensations", resizable:false, headerSortStartingDir:"desc", headerTooltip:"senzace turnaje"},
-    {title: "F", field: "fastestGames", resizable:false, headerSortStartingDir:"desc", headerTooltip:"nejrychlejší hra"},
+    {title: "X", field: "gambits", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet gambitů"},
     {title: "#", field: "present", resizable:false, headerSortStartingDir:"desc", headerTooltip:"počet odehraných turnajů"}
   ]
   if (enableJouzocoins) leaderboardColumns.push({title: "Jz", field: "jouzoCoins", resizable:false, headerSortStartingDir:"desc", headerTooltip:"slavné Jouzocoins"})
@@ -1149,6 +1166,7 @@ function jouzoCoinsFormatter(cell, formatterParams) {
   else if (mfMode === 'fastestMates') value = cellValue.mate
   else if (mfMode === 'fastestGames') value = cellValue.fast
   else if (mfMode === 'sensations') value = cellValue.sensation
+  else if (mfMode === 'gambits') value = cellValue.gambits
 
   if (cellValue.present) return value
   else return ""
@@ -1172,7 +1190,8 @@ function dataSortedFunc(sorters) {
         srt.field === 'ratingDiff' ||
         srt.field === 'fastestMates' ||
         srt.field === 'fastestGames' ||
-        srt.field === 'sensations'
+        srt.field === 'sensations' ||
+        srt.field === 'gambits'
       ) newMode = srt.field
     }
   )
