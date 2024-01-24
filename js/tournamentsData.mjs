@@ -1,4 +1,4 @@
-import {playsGambit} from "./podium.mjs";
+import {involvedInGambit, playsGambit} from "./podium.mjs";
 
 export let MF = function() {
   function playedAGame(player) {
@@ -330,10 +330,10 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
     tournament.standing.players.forEach( function(player) {
       let gambits = 0
       games.games.forEach(function(g) {
-        if (g.opening && g.opening.name) {
-          if (g.players.white.user.name === player.name && playsGambit("white", g.opening.name)) gambits++
-          else if (g.players.black.user.name === player.name && playsGambit("black", g.opening.name)) gambits++
-        }
+        if (
+          (g.players.white.user.name === player.name || g.players.black.user.name === player.name) &&
+          g.opening && g.opening.name && involvedInGambit(g.opening.name)
+        ) gambits++
       })
       if (gambits > 0) player.gambits = gambits
     })

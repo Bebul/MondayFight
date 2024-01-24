@@ -826,6 +826,13 @@ function createResults(data, tournamentID, gamesData, id = "results") {
   }
 }
 
+export function involvedInGambit(opening) {
+  let name= opening.toLowerCase()
+  let mainName = name.split(":")[0]
+  let secondary = name.split(":")[1]
+  return name.includes("gambit")
+}
+
 export function playsGambit(side, opening) {
   let name= opening.toLowerCase()
   let mainName = name.split(":")[0]
@@ -834,10 +841,13 @@ export function playsGambit(side, opening) {
       && !(secondary && secondary.includes("rousseau"))
       && !(name.includes("ruy lopez") && secondary && secondary.includes("alapin gambit"))
       && !name.includes("latvian")
-      && !name.includes("lucchini")) ||
+      && !name.includes("lucchini")
+      && !name.includes("englund")
+    ) ||
     (name.includes("italian") && side==="black" && secondary && (secondary.includes("rousseau") || secondary.includes("lucchini"))) ||
     (name.includes("latvian gambit") && side==="black") ||
-    (name.includes("alapin gambit") && side==="black")
+    (name.includes("alapin gambit") && side==="black") ||
+    (name.includes("englund gambit") && side==="black")
 }
 
 function packBoard(game, side) {
