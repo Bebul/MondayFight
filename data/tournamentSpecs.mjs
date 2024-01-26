@@ -519,6 +519,14 @@ export var tournamentSpec = [
       "<br><br><b>HonzaHonzaHonza:</b> Nechci se do toho moc montovat, jelikož se tu stále považuju za nováčka mezi vámi co by neměl mít velké slovo 🙂 a ani neplánuju nikoho doporučovat a přidávat. Já s limitem souhlasim, jen si myslím, že můžou bejt situace, kdy třeba někoho chtít přidat budeme, může to být hráč, který třeba hraje přes jinou aplikaci nebo nehraje online vůbec. Podle mě 100 her je opravdu dost a ustálený rating je mnohem dříve (nebo to tak není?)." +
       "<br>Ale v případě tohohle hlasování mi nepřijde demokraticky správně dát rovnou 100, když 4 lidi hlasovali pro 30 a 1 pro 50, klidně by ty 4 lidi raději dali také 50 a byla by to remíza. Nejspravedlivější by byl nějaký poměrný průměr, takhle to podle mě nevypovídá o názoru hlasujících. " +
       "<br>Umím si představit, že se bude v budoucnu chtít přidat někdo nový a 100 her mi přijde až moc. Ale nijak zvlášť mi na tom nezáleží a pokud takhle rozhodnete, nevadí mi to 🙂"
+  },
+  {
+    id: "Kf7Yjbkg",
+    html: "<img src='img/rocky.jpg'>" +
+      "<br><b>Bebul</b>: Redakci se podařilo dostat hlasový záznam z turnajových klání mezi Jouzoleánem a Tekelem.<br>" +
+      "<audio controls>\n" +
+      "  <source src=\"img/tekele-vs-jouzolean.mp3\" type=\"audio/mpeg\">\n" +
+      "  Your browser does not support the audio tag.\n" +
+      "</audio>"
   }
-
 ]
