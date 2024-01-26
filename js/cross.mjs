@@ -62,8 +62,30 @@ export function getHistogram(ar, f) {
   return histogram
 }
 
+var openings = null
+function loadOpeningsTable(){
+  function tsv2array(txt) {
+    openings = txt.split("\n").map((line) => line.split('\t'))
+    let op = new Map()
+    openings.forEach(function (o) {
+      if (!op.get(o[1])) {
+        op.set(o[1], o[2])
+      }
+    })
+    openings = op
+  }
+  if (!openings) {
+    fetch("data/openings.tsv")
+      //.then(response => Promise.resolve(response))
+      .then(response => response.text())
+      .then(tsv2array)
+  }
+}
+
 export function createOpeningsTable(data, theFights, tableId, criterion, season, verbose = true, showAllGroups = false) {
   document.getElementById(tableId.substring(1)).innerHTML = ""
+
+  loadOpeningsTable()
 
   let dateFilter = ""
   switch (season) {
@@ -105,6 +127,16 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
   let table = new Tabulator(tableId, {
     layout: "fitDataTable",
     data: openingsData,
+    tooltipGenerationMode:"hover", //regenerate tooltip as users mouse enters the cell;
+    tooltips:function(cell){
+      console.log(`mouse entered ${cell}`)
+      if (openings && cell) {
+        let name = cell.getValue()
+        let entry = openings.get(name)
+        if (entry) return entry
+        else return false
+      } else return false
+    },
     initialSort: [{column:"count", dir:"desc"}],
     groupBy: item => {
       let short = getShortOpeningName(item.name)
