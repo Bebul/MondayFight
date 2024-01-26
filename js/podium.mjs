@@ -1158,11 +1158,10 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
 
   let avatar = Avatars.getAvatar(player)
   if (avatar) {
-    /*
-    if (player == "bebul") {
-      html += `<img src="${avatar}" style="position:absolute; bottom: -125px; right: -40px; width: 200px">`
-    } else */
     html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
+    if (player === "bebul" && size==0.8) {
+      html += `<img src="img/players/bebulAvatar2.png" style="position:absolute; bottom: -88px; left: -99px;transform: rotate(44deg)">`
+    }
   }
 
   html = html + `<div className="tooltiptext" style="bottom:0%; left:100%; margin-left:3px" id="board-${player}"></div>`
