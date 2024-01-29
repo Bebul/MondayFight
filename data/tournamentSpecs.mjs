@@ -528,5 +528,31 @@ export var tournamentSpec = [
       "  <source src=\"img/tekele-vs-jouzolean.mp3\" type=\"audio/mpeg\">\n" +
       "  Your browser does not support the audio tag.\n" +
       "</audio>"
+  },
+  {
+    id: "u4U2Ht3b",
+    init: function() {
+      let config = {
+        pgn: "[Date \"2024.01.29\"]" +
+          "[White \"Kamikazeee\"]\n" +
+          "[Black \"Engine\"]\n" +
+          '\r\n[Variant "From Position"]'+
+          "\r\n[FEN \"8/8/3kn3/8/8/3KQ3/8/8 w - - 0 1\"]" +
+          '\r\n[SetUp "1"]' +
+          "\r\n1. Kc4 Nc7 2. Qf4+ Kc6 3. Qe5 Kd7 4. Qf6 Ne6 5. Kd5 Nc7+ 6. Ke5 Kc8 7. Qc6 Kd8 8. Kf6 Ne8+ 9. Kf7 Nc7 10. Kf8 Na8 11. Qxa8+"
+        ,
+        showCoords: false, coordsInner: false, headers: true,
+        theme: 'purple-diag',
+        pieceStyle: 'dubrovny',
+        boardSize: 290,
+        movesHeight: 60,
+        resizable: false
+      }
+      PGNV.pgnView("board", config)
+    },
+    html: "<br><b>Bukowskic</b>: Zde pro zasmání, co jsem přehlédl po vyčerpávajícím čtyrhodinovém boji se silným soupeřem. Hrál jsem za bílého, už jsem se viděl doma a přijal jsem remízu 🤬, oba moji synové to hned viděli!<br>" +
+      "<img src='img/buki-fail.png'>" +
+      "<br><b>Bebul</b>: Jedna z možností výhry spočívala v oběti jezdce a koncovce dáma a král proti králi a jezdci. Každej ví, že dát takový mat je strašná pakárna a skoro to nejde. Kamikazeee se ozval, že s tím problém nemá a poslal video, kde to krásně ukázal. Jeho postup okleštěný o levitace figur nad poli, o kterých přemýšlel, uvádím na následujícím diagramu. Chapeau!<br>" +
+      "<div id='board'></div>"
   }
 ]
