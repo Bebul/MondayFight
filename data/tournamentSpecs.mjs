@@ -554,5 +554,12 @@ export var tournamentSpec = [
       "<img src='img/buki-fail.png'>" +
       "<br><b>Bebul</b>: Jedna z možností výhry spočívala v oběti jezdce a koncovce dáma a král proti králi a jezdci. Každej ví, že dát takový mat je strašná pakárna a skoro to nejde. Kamikazeee se ozval, že s tím problém nemá a poslal video, kde to krásně ukázal. Jeho postup okleštěný o levitace figur nad poli, o kterých přemýšlel, uvádím na následujícím diagramu. Chapeau!<br>" +
       "<div id='board'></div>"
-  }
+  },
+  {
+    id: "corliUdA",
+    html: "<img src='img/players/jouzolean.png' class='img100 right'><br><b>Bebul</b>: Jestli dobře počítám, Jouzolean dnes nehrál po neuvěřitelné šňůře 81 turnajů, kdy nevynechal ani jednou! KUDOS! 👍<br>" +
+      "Doufám, že to je jen jedna vyjímka, která potvrzuje pravidlo, protože Monday Fight bez Jouzoleána není to pravý vzrůšo!" +
+      "<br><br><br><b>Bebul</b>: a Bébulkovi se sice podařilo zastavit tomzra, jenže co je to platný, když k remíze opakováním tahů došlo v naprosto vyhraný pozici, kterou neuměl vyhrát? Tak příště!" +
+      "<board json='{\"id\":\"Gol8aU9b\", \"startPlay\":114}'/>"
+  },
 ]
