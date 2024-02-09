@@ -559,7 +559,10 @@ export var tournamentSpec = [
     id: "corliUdA",
     html: "<img src='img/players/jouzolean.png' class='img100 right'><br><b>Bebul</b>: Jestli dobře počítám, Jouzolean dnes nehrál po neuvěřitelné šňůře 81 turnajů, kdy nevynechal ani jednou! KUDOS! 👍<br>" +
       "Doufám, že to je jen jedna vyjímka, která potvrzuje pravidlo, protože Monday Fight bez Jouzoleána není to pravý vzrůšo!" +
-      "<br><br><br><b>Bebul</b>: a Bébulkovi se sice podařilo zastavit tomzra, jenže co je to platný, když k remíze opakováním tahů došlo v naprosto vyhraný pozici, kterou neuměl vyhrát? Tak příště!" +
+      "<br><br><b>Jouzolean</b>: asi mám chřipku. Je mi totálně na <i>cenzored</i>. Jouz. LEŽEL VEDLE mobilu naříkajíc nad neúčasti, schvácený Nemoci zlou. Kocour mě miluje, trpí se mnou. A dej tam fotku s tou kočkou!" +
+      "<br><br><img src='img/jouzoleanuv-kocour.png'>" +
+      "<div align='center'><i>Jouzoleanovo povlečení v aktuálních barvách MF šachovnic</i></div>" +
+      "<br><br><b>Bebul</b>: a Bébulkovi se sice podařilo zastavit tomzra, jenže co je to platný, když k remíze opakováním tahů došlo v naprosto vyhraný pozici, kterou neuměl vyhrát? Tak příště!" +
       "<board json='{\"id\":\"Gol8aU9b\", \"startPlay\":114}'/>"
   },
 ]
