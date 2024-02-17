@@ -565,4 +565,13 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: a Bébulkovi se sice podařilo zastavit tomzra, jenže co je to platný, když k remíze opakováním tahů došlo v naprosto vyhraný pozici, kterou neuměl vyhrát? Tak příště!" +
       "<board json='{\"id\":\"Gol8aU9b\", \"startPlay\":114}'/>"
   },
+  { id: "5nfJgmK7",
+    html: "<b>Bukowskic</b>: Margarita ovládla Hostomice! Minulý rok 3., včera 🥇! Graaats! <a href='https://chess-results.com/tnr889062.aspx?lan=5&art=1'>výsledky</a>. Gratulujeme Margarytě k včerejšímu celkovému vítězství v Hostomicích! 6,5 bodu ze 7 možných je vynikající výkon! " +
+      "<br><br><img src='img/margaritaPrvniMisto2024.jpg'>" +
+      "<br><br><b>Jouzolean</b>: Haaa kamikazee mi spadl do Byrneho pasti 😎😁. Celé jsem to odbulletoval. Stanovujeme někde rekord? 😁 3:05 na hodinách v okamžiku matu!" +
+      "<br><br><img src='img/byrnehoPast.jpg'>" +
+      "<br><br><b>Polgu</b>: Natalko, kak se jmenije ta restaurace.? Zahrada ?… 😘" +
+      "<img src='img/Natalie-Dior-Miss-Dior.jpg'>" +
+      "<div align='center'><i>Vítáme Natalii Portman na Monday Fights</i></div>"
+  }
 ]
