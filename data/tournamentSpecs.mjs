@@ -573,5 +573,22 @@ export var tournamentSpec = [
       "<br><br><b>Polgu</b>: Natalko, kak se jmenije ta restaurace.? Zahrada ?… 😘" +
       "<img src='img/Natalie-Dior-Miss-Dior.jpg'>" +
       "<div align='center'><i>Vítáme Natalii Portman na Monday Fights</i></div>"
-  }
+  },
+  { id: "k7211zgs",
+    html: "<b>Magnus Carlsen</b>: Bébulku, jestli se kvalifikuješ na turnaj kandidátů, o čemž nepochybuji, půjdu do toho!" +
+      "<br><br><b>Alireza Firouzja</b>: Ještě, že jsem dneska Monday Fights vynechal, dostal bych klepec!" +
+      "<br><br><b>Bubka</b>: Bébule, jestli budeš u šachů takhle nadávat, tak se s tebou rozvedu!" +
+      "<br><br><b>Neznama-00</b>: A tak to já si ho teda vemu!" +
+      "<br><br><img src='img/celebration.gif' style='width:100%;margin-top: 5px'>" +
+      "<br><br><b>Bebul</b>: <img src='img/players/bebul.png' class='img100 right'> Dneska bylo na pódiu těsno, těsněji, než v trenkách o dvě čísla menších, všechno o bod! A na čtvrtém místě RychlyLenochod se stejným počtem bodů jako bronzový HonzaHonzaHonza. " +
+      "Lenochod s Bebulem začali neslavně, prohráli čtyřikrát v řadě. Ale pak se vobá nadechli a začali s vítězným tažením. " +
+      "Jouzoleánové, Tekelové, Kamikazeové, ba i Mrázkové padali jak hrušky, dobře, aby to Polguovi nebylo líto tak ano, i on, ani Natálka mu nepomohla. " +
+      "Oba dosáhli pěti výher v řadě a těšili se na další tučná sousta, když tu se to stalo! V tratolišti poražených narazili na sebe navzájem! " +
+      "Lenochoda v tomto rozpoložení nebylo možno porazit. Jenže, čas se chýlil. Lenochod smutnil, že nestih zmáčknout berserk, a pro slzy pak neviděl na šachovnici." +
+      "Takže, právěže, štěstí se usmálo na otrhánka! " +
+      "<br><br><b>Tekele</b>: <img src='img/players/tekele.png' class='img100 right'> " +
+      "Radši sem hrál d4 abys, Bébule, nedostal i potřetí 😛. Já porazil buka tak co víc! 💪 " +
+      "Bebul a lenochod na pódiu? Svět se zbláznil! " +
+      "<br><br><b>Tekele</b>: Pět chvály sám na sebe? 😁 Na tohle jsou v medicíně diagnózy 😁 "
+  },
 ]
