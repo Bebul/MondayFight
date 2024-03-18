@@ -594,10 +594,12 @@ export var tournamentSpec = [
   { id: "AWLzCZqE",
     achievements: [{achievement: "black", player: "kamikazeee", id: "ZJ0ma4h9"}],
     html: "<b>Kamikazeee</b>: Tak hlavně, že obě hrály minulej tejden 300 metrů od nás v práci, ani jsme nezašli :D" +
-      "<br><br><img src='img/botez.jpg' style='width:100%;margin-top: 5px'><div align='center'><i>Andrea Botez</i></div>" +
-      "<br><br><b>Bebul</b>: to seš teda pěkná sketa, Kamikazeee, udělím ti za to černý puntík" +
+      "<br><img src='img/botez.jpg' style='width:100%;margin-top: 5px'><div align='center'><i>Andrea Botez</i></div>" +
+      "<br><b>Bebul</b>: to seš teda pěkná sketa, Kamikazeee, udělím ti za to černý puntík" +
       "<br><br><b>kamikazeee</b>: Já je neznal.  A když mi kámoš říkal, že mají nějakou přednášku, tak jsem řekl, že jdeme raději na pivo 😁" +
-      "<br><br><b>DJ-Pesec</b>: Když už jsme u těch Botezových, dnes jsem zahrál botez gambit na tomzra. Nepřistoupil na něj 😁" +
-      "<board json='{\"id\":\"oOZnOy1B\", \"startPlay\":31}'/>"
+      "<br><br><b>DJ-Pesec</b>: Když už jsme u těch Botezových, dnes jsem zahrál <a href='https://www.chess.com/terms/botez-gambit-chess#what-is'>botez gambit</a> na tomzra. Nepřistoupil na něj 😁" +
+      "<board json='{\"id\":\"oOZnOy1B\", \"startPlay\":31}'/>" +
+      "<br><br><b>Bebul</b>: Překrásným způsobem chytila Margarita dámu Kamikazeeeovi. Nejdřív vezme střelce jako návnadu, pak dá šach garde koněm, kterého obětuje a pak druhým koněm už dílo zkázy dokoná! Parááááááda! ❤️" +
+      "<board json='{\"id\":\"ZJ0ma4h9\", \"startPlay\":29}'/>"
   },
 ]
