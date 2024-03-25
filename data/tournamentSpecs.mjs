@@ -602,4 +602,11 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Překrásným způsobem chytila Margarita dámu Kamikazeeeovi. Nejdřív vezme střelce jako návnadu, pak dá šach garde koněm, kterého obětuje a pak druhým koněm už dílo zkázy dokoná! Parááááááda! ❤️" +
       "<board json='{\"id\":\"ZJ0ma4h9\", \"startPlay\":29}'/>"
   },
+  { id: "GPVfXW1y",
+    html: "<br><b>Bebul</b>: Polgu byl dneska při chuti. Jouzoleanovi slupnul dámu a Bébulkovi slupnul materiálu tak za tři věže." +
+      "<br><br><b>Kamikazeee</b>: Rychlý lenochod mě takhle hezky lákal na pat (kdybych si vzal pěšce), což s těmi pár sekundami nebylo úplně nereálné 😁" +
+      "<board json='{\"id\":\"zUhPdO1j\", \"startPlay\":124}'/>" +
+      "<br><b>Bebul</b>: A bukowskic spadnul Jouzoleanovi do phillidor trapu. Totálně. Bukowskicův oblíbený tah střelcem je zde blunder!" +
+      "<board json='{\"id\":\"8MTndcn6\", \"startPlay\":10}'/>"
+  },
 ]
