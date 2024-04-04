@@ -387,6 +387,35 @@ function analyzeGM(GM, history, sideGM) {
   }
 }
 
+function countPawns(board, color, column) {
+  let pawns = 0
+  for (let i = 0; i < 8; i++) {
+    let sq = board[i][column]
+    if (sq && sq.color === color && sq.type === 'p') pawns++
+  }
+  return pawns
+}
+
+function analyzeHistory(history) {
+  let chess = new Chess()
+
+  let pawnsMax = {w: 0, b: 0}
+  for (let i = 0; i < history.length; i++) {
+    let m = history[i]
+    chess.move(m)
+    if (m.piece === 'p' && m.captured &&
+      (i === history.length-1 || history[i+1].to !== m.to)
+    ) {
+      let board = chess.board()
+      let column = chess.SquaresMap[m.to] & 0x0f
+      let pawns = countPawns(board, m.color, column)
+      if (pawns > pawnsMax[m.color]) pawnsMax[m.color] = pawns
+    }
+  }
+
+  return pawnsMax
+}
+
 async function analyzeMoves(g, t, report, chessP) {
   let stats = {}
 
@@ -402,6 +431,8 @@ async function analyzeMoves(g, t, report, chessP) {
   chess.load_pgn(pgn)
 
   let history = chess.history({verbose: true})
+
+  stats.pawns = analyzeHistory(history) // record is LmtgAYf0 with 4 pawns in one column by bukowskic
 
   for(let prop in chess.FLAGS) {
     stats[chess.FLAGS[prop]] = {w:0, b:0}
@@ -503,9 +534,11 @@ export async function addStats(g, t, report, chess) {
           if (result.queens[color] > 2) stats.queens = result.queens[color]
           if (result.monkey[color] >= 5) stats.monkey = result.monkey[color]
           if (result.bishopSac) stats.bishopSac = true
-          if (g.winner==side && result.mate) stats.mate = result.mate
+          if (result.pawns[color] > 2) stats.pawns = result.pawns[color]
+            if (g.winner==side && result.mate) stats.mate = result.mate
           if (Object.keys(stats).length > 0) {
             if (stats.queens) console.log(`${g.id} has ${stats.queens} queens`)
+            if (stats.pawns) console.log(`${g.id} has placed ${stats.pawns} pawns in column`)
             if (stats.mate && stats.mate.enPassant) console.log(`${g.id} player delivered enPassant mate`)
             if (stats.epCheck) console.log(`${g.id} player delivered en passant check`)
             if (stats.mate && stats.mate.smothered) console.log(`${g.id} smothered mate`)
