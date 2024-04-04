@@ -290,6 +290,19 @@ class AchievementBlackburne {
   }
 }
 
+class AchievementMateGarde {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 105
+    this.img = "mate-garde.png"
+    this.desc = "Mat Garde"
+    //this.frame = "modra.png"
+    //this.left = 17
+    //this.char = "&#x1F4AB;"
+    this.game = id
+  }
+}
+
 class AchievementHalfburne {
   constructor(player, id) {
     this.player = player
@@ -602,6 +615,7 @@ function collectAchievements(data, tournamentID, games) {
           if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
           if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
           if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
+          if (stats.mate.garde) achievements.push(new AchievementMateGarde(player, g.id))
           if (stats.mate.fullmaterial && !stats.mate.scholar && !stats.mate.kingkong) achievements.push(new AchievementFullMaterial(player, g.id))
           if (stats.mate.kingkong) achievements.push(new AchievementKingKong(player, g.id))
         }
@@ -737,6 +751,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBlackDotGM(next()),
     new AchievementBlackDotXX(next()),
     new AchievementLackOfSpirit(next()),
+    new AchievementMateGarde(next()),
     new AchievementBrokenChain(next()),
   ]
 
@@ -1019,6 +1034,7 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.kingkong && !stats.mate.scholar) decorations.push("<b>&#129421;</b>") //different achievement == different symbol
       else if (stats.mate.fullmaterial && !stats.mate.scholar) decorations.push("&#129421;")
       if (stats.mate.castling || stats.mate.enPassant) decorations.push("&#x1F48E;")
+      if (stats.mate.garde) decorations.push("&#x1F4AB;")
     }
   }
   return decorations
