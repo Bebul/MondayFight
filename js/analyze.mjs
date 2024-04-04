@@ -38,7 +38,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac", "kingkong"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac", "kingkong", "garde"
 ]
 
 function reporter() {
@@ -85,6 +85,18 @@ function countQueens(board, color) {
       let sq = board[i][j]
       if (sq && sq.type=="q" && sq.color==color)
         queens++
+    }
+  }
+  return queens
+}
+
+function findQueens(board, color) {
+  var queens = []
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      let sq = board[i][j]
+      if (sq && sq.type=="q" && sq.color==color)
+        queens.push(algebraic(i,j))
     }
   }
   return queens
@@ -201,6 +213,16 @@ function findKing(color, board) {
     }
   }
   return null
+}
+
+function isGarde(color, chess) {
+  let queens = findQueens(chess.board(), color)
+  let opoColor = "w"
+  if (color === "w") opoColor = "b"
+  let atq = queens.find(queen =>
+    chess.attacked(opoColor, chess.SquaresMap[queen])
+  )
+  return atq !== undefined
 }
 
 function findPieces(type, color, board) {
@@ -417,6 +439,9 @@ async function analyzeMoves(g, t, report, chessP) {
     let mate = findKing(loseColor, board)
     mate.piece = lastMove.piece
     mate.to = lastMove.to
+    if (isGarde(loseColor, chess)) {
+      mate.garde = true
+    }
     if (lastMove.flags.includes("k") || lastMove.flags.includes("q")) mate.castling = true
     if (lastMove.flags.includes("p")) mate.promotion = true
     if (lastMove.flags.includes("e")) mate.enPassant = true
@@ -503,6 +528,7 @@ export async function addStats(g, t, report, chess) {
             if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
             if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate`)
             if (stats.mate && stats.mate.kingkong) console.log(`${g.id} King kong mate`)
+            if (stats.mate && stats.mate.garde) console.log(`${g.id} Mate-Garde`)
 
             player.stats = stats
           } // and add it finally
