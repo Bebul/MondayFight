@@ -616,6 +616,9 @@ export var tournamentSpec = [
     html: "<br><b>Bebul</b>: Nádherný mat! Vsadím se, žes ho, Jouzoleánku, nečekal?!" +
       "<board json='{\"id\":\"Kmcp2IxA\", \"startPlay\":40}'/>" +
       "<br><br><b>Jouzolean</b>: Ano, dušák ošklivej 😰" +
-      "<br><br><b>Polgu</b>: Ahoj všem a gratulace všem a obzvlášť Honzovi! 👍 Těch jeho 944 nechápu…."
+      "<br><br><b>Polgu</b>: Ahoj všem a gratulace všem a obzvlášť Honzovi! 👍 Těch jeho 944 nechápu…." +
+      "<br><br><b>Bébul:</b> <img src='img/achievements/pawns.png' class='img100 right'> Nově jsem na WEB přidal achievementy za postavení více pěšců do sloupce. Přitom ten pěšec nesmí být hned v dalším tahu vyměněn." +
+      "<p>A protože ten dušený mat byl současně garde, <img src='img/achievements/mate-garde.png' class='img100 left'>  přidal jsem ještě plaketku za mat při kterém je současně ohrožena i dáma. " +
+      "Ta je typicky ohrožena už déle, třeba dáma kouká na dámu a dáma může být třeba krytá. Ale mat-garde mi prostě přišlo sexy, tak to tu máme."
   },
 ]
