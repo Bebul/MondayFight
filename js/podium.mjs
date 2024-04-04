@@ -303,6 +303,19 @@ class AchievementMateGarde {
   }
 }
 
+class AchievementPawns {
+  constructor(player, n, id) {
+    this.player = player
+    this.sortVal = n * 25
+    this.img = "pawns.png"
+    this.desc = `${n} pěšci ve sloupci`
+    // this.frame = "stribrna.png"
+    // this.left = 34
+    // this.char = "&#x1F6A6;"
+    this.game = id
+  }
+}
+
 class AchievementHalfburne {
   constructor(player, id) {
     this.player = player
@@ -598,6 +611,7 @@ function collectAchievements(data, tournamentID, games) {
         if (stats.sensation) achievements.push(new AchievementSensation(player, g.id))
         if (stats.broken) achievements.push(new AchievementBrokenChain(player, g.id, stats.broken))
         if (stats.bishopSac && wins) achievements.push(new AchievementBishopSac(player, g.id))
+        if (stats.pawns) achievements.push(new AchievementPawns(player, stats.pawns, g.id))
         if (stats.mate && wins) {
           if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
           else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player, g.id))
@@ -723,6 +737,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementKingKiller(next()),
     new AchievementQueenSacrifice(next()),
     new AchievementBishopSac(next()),
+    new AchievementPawns(next(), 3),
     new AchievementScholar(next()),
     new AchievementAnastasia(next()),
     new AchievementFullMaterial(next()),
@@ -1017,6 +1032,7 @@ function getDecorationTrophies(game, player, wins) {
     if (stats.sensation) decorations.push("&#10024;")
     if (stats.broken) decorations.push("&#128165;") // 💥
     if (stats.bishopSac && wins) decorations.push("<span style='color:red'>&#9815;</span>")
+    if (stats.pawns) decorations.push("&#x1F6A6;")
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations.push("&#9816;&#129505;")
       else if (stats.mate.piece==="n") decorations.push("&#9816;")
