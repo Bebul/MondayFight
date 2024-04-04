@@ -609,4 +609,10 @@ export var tournamentSpec = [
       "<br><b>Bebul</b>: A bukowskic spadnul Jouzoleanovi do phillidor trapu. Totálně. Bukowskicův oblíbený tah střelcem je zde blunder!" +
       "<board json='{\"id\":\"8MTndcn6\", \"startPlay\":10}'/>"
   },
+  { id: "td9uxoJx",
+    html: "<br><b>Bebul</b>: Nádherný mat! Vsadím se, žes ho, Jouzoleánku, nečekal?!" +
+      "<board json='{\"id\":\"Kmcp2IxA\", \"startPlay\":40}'/>" +
+      "<br><br><b>Jouzolean</b>: Ano, dušák ošklivej 😰" +
+      "<br><br><b>Polgu</b>: Ahoj všem a gratulace všem a obzvlášť Honzovi! 👍 Těch jeho 944 nechápu…."
+  },
 ]
