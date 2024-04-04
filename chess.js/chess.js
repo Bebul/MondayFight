@@ -1248,6 +1248,9 @@ var Chess = function(fen) {
     QUEEN: QUEEN,
     KING: KING,
     SquaresMap: SQUARES,
+    attacked: function(color, square) {
+      return attacked(color, square)
+    },
     SQUARES: (function() {
       /* from the ECMA-262 spec (section 12.6.4):
        * "The mechanics of enumerating the properties ... is
