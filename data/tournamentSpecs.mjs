@@ -603,11 +603,14 @@ export var tournamentSpec = [
       "<board json='{\"id\":\"ZJ0ma4h9\", \"startPlay\":29}'/>"
   },
   { id: "GPVfXW1y",
+    achievements: [{achievement: "lackOfSpirit", player: "jouzolean", id: "S9y010En", desc: "Chtěl remízu za bod"}],
     html: "<br><b>Bebul</b>: Polgu byl dneska při chuti. Jouzoleanovi slupnul dámu a Bébulkovi slupnul materiálu tak za tři věže." +
       "<br><br><b>Kamikazeee</b>: Rychlý lenochod mě takhle hezky lákal na pat (kdybych si vzal pěšce), což s těmi pár sekundami nebylo úplně nereálné 😁" +
       "<board json='{\"id\":\"zUhPdO1j\", \"startPlay\":124}'/>" +
       "<br><b>Bebul</b>: A bukowskic spadnul Jouzoleanovi do phillidor trapu. Totálně. Bukowskicův oblíbený tah střelcem je zde blunder!" +
-      "<board json='{\"id\":\"8MTndcn6\", \"startPlay\":10}'/>"
+      "<board json='{\"id\":\"8MTndcn6\", \"startPlay\":10}'/>" +
+      "<br><b>Bebul</b>: Jouzolean mě ně kolenou prosil, že si zaslouží černý puntík za to, že Mrázkovi nabídl remízu v prohrané pozici těsně před koncem turnaje. Mrázek odmítl a vyhrál, ačkoli těsně před koncem mohl dát Jouzolean <a href='https://lichess.org/S9y010En#82'>mat jedním tahem</a>. Tak tedy dávám <i>lack of spirit</i> plaketku. " +
+      "Partie není na webu, neboť se dohrála až po skončení turnaje. Je ale pěkná, klikněte si na ni, ať víte, za co se Jouzoleán kaje 🙄"
   },
   { id: "td9uxoJx",
     html: "<br><b>Bebul</b>: Nádherný mat! Vsadím se, žes ho, Jouzoleánku, nečekal?!" +
