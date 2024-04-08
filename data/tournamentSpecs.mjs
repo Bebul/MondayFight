@@ -621,4 +621,9 @@ export var tournamentSpec = [
       "<p>A protože ten dušený mat byl současně garde, <img src='img/achievements/mate-garde.png' class='img100 left'>  přidal jsem ještě plaketku za mat při kterém je současně ohrožena i dáma. " +
       "Ta je typicky ohrožena už déle, třeba dáma kouká na dámu a dáma může být třeba krytá. Ale mat-garde mi prostě přišlo sexy, tak to tu máme."
   },
+  { id: "SOUF57Zr",
+    html: "<br><b>Mrázek</b>: Kdo že to tu nemá rád ty remízy? Začal turnaj kandidátů a výsledky prvního kola jsou.... překvapivě... počkej si na to.... samý remízy 🙂 (ženský se nepočítaj, ale nejsou na tom o moc líp)," +
+      "viz <a href='https://candidates2024.fide.com/crosstable'>turnaj kandidátů</a><br>" +
+      "<img src='img/candidates2round.jpg'><br><br><b>Bébul:</b>  no, ale vono to má pokračování. Ať koukám jak koukám, ať hledím jak hledím, vidím, že draw nevidím! 😁"
+  },
 ]
