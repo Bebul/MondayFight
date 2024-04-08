@@ -396,9 +396,9 @@ function countPawns(board, color, column) {
   return pawns
 }
 
-function analyzeHistory(history) {
-  let chess = new Chess()
-
+function analyzeHistory(chess, history) {
+  //let chess = new Chess() // cannot use new Chess(), it fails when run in node.js
+  chess.reset()
   let pawnsMax = {w: 0, b: 0}
   for (let i = 0; i < history.length; i++) {
     let m = history[i]
@@ -432,7 +432,7 @@ async function analyzeMoves(g, t, report, chessP) {
 
   let history = chess.history({verbose: true})
 
-  stats.pawns = analyzeHistory(history) // record is LmtgAYf0 with 4 pawns in one column by bukowskic
+  stats.pawns = analyzeHistory(chess, history) // record is LmtgAYf0 with 4 pawns in one column by bukowskic
 
   for(let prop in chess.FLAGS) {
     stats[chess.FLAGS[prop]] = {w:0, b:0}
