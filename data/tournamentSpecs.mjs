@@ -633,6 +633,7 @@ export var tournamentSpec = [
       "Bukowskice jsem přejel v koncovce snad poprvé v životě a Tomzr si ani nečutl 🙂!" +
       "<br><br><b>Bebul</b>: takže taky veliká gratulace!" +
       "<br><br><b>Bebul</b>: no a Bébulek se raduje ještě víc, protože je po sto letech zase nad 1700! Porazil i svého odvěkého rivala Tekeleho, jáááách!" +
+      "<br><br><b>Tania Sachdev</b>: Wau! Jak to mí klucí krásně hrají! Posílám pusu 💋❤️😘! <img src='img/taniasachdev.gif'> " +
       "<br><br><b>Jouzolean</b>: Bébulovi prospívá že hraje jen občas 🙂😁 Vzdycky přijde a všecky vymydlí 🙂 A pak jsou měsíc nasraní, že mu to nemůžou vrátit 🙂😁! " +
       "<board json='{\"id\":\"QQR7BDx6\", \"startPlay\":76}'/>"
   },
