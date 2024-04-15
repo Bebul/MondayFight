@@ -624,6 +624,16 @@ export var tournamentSpec = [
   { id: "SOUF57Zr",
     html: "<br><b>Mrázek</b>: Kdo že to tu nemá rád ty remízy? Začal turnaj kandidátů a výsledky prvního kola jsou.... překvapivě... počkej si na to.... samý remízy 🙂 (ženský se nepočítaj, ale nejsou na tom o moc líp)," +
       "viz <a href='https://candidates2024.fide.com/crosstable'>turnaj kandidátů</a><br>" +
-      "<img src='img/candidates2round.jpg'><br><br><b>Bébul:</b>  no, ale vono to má pokračování. Ať koukám jak koukám, ať hledím jak hledím, vidím, že draw nevidím! 😁"
+      "<img src='img/candidates2round.jpg'><br><br><b>Bébul:</b>  no, ale vono to má pokračování. Ať koukám jak koukám, ať hledím jak hledím, vidím, že draw nevidím! 😁" +
+      "<br><img src='img/candidates2round.jpg'>"
+  },
+  { id: "5AjDILmt",
+    html: "<br><b>Bebul</b>: Gratulace Tomzrovi, na jeho triumf jsme si už zvykli. Ale jak vypadá opravdová radost? Takhle:" +
+      "<br><br><b>Jouzolean</b>: Dnes se mi nejvíc dařilo 💪😎 a to v práci. Nikdo mě neporazil! Mrázek mi spadnul do Kveinis " +
+      "Bukowskice jsem přejel v koncovce snad poprvé v životě a Tomzr si ani nečutl 🙂!" +
+      "<br><br><b>Bebul</b>: takže taky veliká gratulace!" +
+      "<br><br><b>Bebul</b>: no a Bébulek se raduje ještě víc, protože je po sto letech zase nad 1700! Porazil i svého odvěkého rivala Tekeleho, jáááách!" +
+      "<br><br><b>Jouzolean</b>: Bébulovi prospívá že hraje jen občas 🙂😁 Vzdycky přijde a všecky vymydlí 🙂 A pak jsou měsíc nasraní, že mu to nemůžou vrátit 🙂😁! " +
+      "<board json='{\"id\":\"QQR7BDx6\", \"startPlay\":76}'/>"
   },
 ]
