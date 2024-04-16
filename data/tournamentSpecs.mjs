@@ -625,7 +625,10 @@ export var tournamentSpec = [
     html: "<br><b>Mrázek</b>: Kdo že to tu nemá rád ty remízy? Začal turnaj kandidátů a výsledky prvního kola jsou.... překvapivě... počkej si na to.... samý remízy 🙂 (ženský se nepočítaj, ale nejsou na tom o moc líp)," +
       "viz <a href='https://candidates2024.fide.com/crosstable'>turnaj kandidátů</a><br>" +
       "<img src='img/candidates2round.jpg'><br><br><b>Bébul:</b>  no, ale vono to má pokračování. Ať koukám jak koukám, ať hledím jak hledím, vidím, že draw nevidím! 😁" +
-      "<br><img src='img/candidates2round.jpg'>"
+      "<br><img src='img/candidates2round.jpg'> " +
+      "<br><br><b>Bébul:</b> V tomto turnaji zahrál jeden ze svých životních výkonů stále zlepšující se LastScout. " +
+      "Přetrhl šňůru sedmnácti proher s Mrázkem a ztrestal kupříkladu v rukách 3xHonza obávanou Francouzskou obranu! No podívejte se na to! Veliká gratulace! " +
+      "<tooltip json='{\"id\":\"LastScout\", \"size\":0.75}' align='center' style='margin:42px 0 5px 0'/> "
   },
   { id: "5AjDILmt",
     html: "<br><b>Bebul</b>: Gratulace Tomzrovi, na jeho triumf jsme si už zvykli. Ale jak vypadá opravdová radost? Takhle:" +
