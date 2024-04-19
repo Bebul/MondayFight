@@ -631,6 +631,15 @@ export var tournamentSpec = [
       "<tooltip json='{\"id\":\"LastScout\", \"size\":0.75}' align='center' style='margin:42px 0 5px 0'/> "
   },
   { id: "5AjDILmt",
+    playOFF: `
+      <h2>Už jste slyšeli Dona Giovanniho v Kasparpalově podání?</h2>
+      <p>
+      O senzaci turnaje se dnes postaral Kasparpalov, když porazil obávaného Michaela Chmiela, který před dvěma týdny ovládl celý turnaj!
+      <p>
+      Zde si můžete Kasparpalova vychutnat v roli Dona Giovanniho v traileru Národního Divadla.
+      Kasparpalův avatar hráče Monday Fights pochází právě odtud. 
+      <iframe src="https://www.youtube.com/embed/3OYMftbkTfI" style="width:100%; height: 100vh; margin: 10px 0px" allowFullScreen></iframe>
+    `,
     html: "<br><b>Bebul</b>: Gratulace Tomzrovi, na jeho triumf jsme si už zvykli. Ale jak vypadá opravdová radost? Takhle:" +
       "<br><br><b>Jouzolean</b>: Dnes se mi nejvíc dařilo 💪😎 a to v práci. Nikdo mě neporazil! Mrázek mi spadnul do Kveinis " +
       "Bukowskice jsem přejel v koncovce snad poprvé v životě a Tomzr si ani nečutl 🙂!" +
