@@ -648,4 +648,13 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: no a Bébulek se raduje nejvíc, protože je po sto letech zase nad 1700! Porazil i svého odvěkého rivala Tekeleho, jáááách!" +
       "<br><br><b>Jouzolean</b>: Bébulovi prospívá že hraje jen občas 🙂😁 Vzdycky přijde a všecky vymydlí 🙂 A pak jsou měsíc nasraní, že mu to nemůžou vrátit 🙂😁! "
   },
+  { id: "IA93NvE6",
+    achievements: [{achievement: "blackGM", player: "mates7824", id: "sQjNfMXm", desc: "Prohrál s Navarou"}],
+    html: "<br><b>Bébul</b>: Gratulujeme <a href='https://bebul.github.io/MondayFight/search.html?q=mates7824'>Matesovi7824</a> " +
+      "k prohře s Davidem Navarou na <a href='https://chess-results.com/tnr914906.aspx?lan=5&art=9&fed=CZE&turdet=YES&snr=76'>Memoriálu Jana Kováře</a>, tedy v Krajském přeboru v rapid šachu. " +
+      "<br><img src='img/matesVsNavara.jpg'> " +
+      "<br><br>Mates měl kliku, že byl s GM Davidem Navarou spárován hned v prvním kole. Celé Monday Fights na něj spoléhalo, věřili jsme, " +
+      "že důvěru v něj vloženou, zúročí, že konečně přinese do našich sbírek velmistrovský skalp, a to ne jen tak ledajaký. Inu, nepřinese... " +
+      "<p>Samou závistí tudíž udělujeme černý puntík za prohru z Velmistrem, tentokrát na opravdické šachovnici mimo Monday Fight! A máš to!"
+  },
 ]
