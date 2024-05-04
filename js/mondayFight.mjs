@@ -1650,9 +1650,14 @@ export async function drawEpicCard(dataOfPlayers, crossData, title, cardId) {
         return `${Math.floor((ply + 1) / 2)}. tahem`
       }
 
+      function getELO(ix) {
+        if (titans[ix].data.disabled) return "disabled"
+        else return titans[ix].data.perfs.blitz.rating
+      }
+
       let lines = [
         {c:'Nasazení', f: ix => titans[ix].rank, font: '15px BankGothic'},
-        {c:'Lichess elo', f: ix => titans[ix].data.perfs.blitz.rating, font: '15px BankGothic'},
+        {c:'Lichess elo', f: ix => getELO(ix), font: '15px BankGothic'},
         {c:'Vzájemná bilance', f: ix => titans[ix].crossData.pl0 + titans[ix].crossData.pl1, font: '15px BankGothic'},
         {c:'Dal mat druhému', f: ix => fastMate(titans[ix].crossData.fastMate), font: '15px BankGothic'},
         {c:'Celková bilance', f: ix =>  titans[ix].crossData.score, font: '14px BankGothic'},
