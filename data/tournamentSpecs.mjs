@@ -657,4 +657,12 @@ export var tournamentSpec = [
       "že důvěru v něj vloženou, zúročí, že konečně přinese do našich sbírek velmistrovský skalp, a to ne jen tak ledajaký. Inu, nepřinese... " +
       "<p>Samou závistí tudíž udělujeme černý puntík za prohru z Velmistrem, tentokrát na opravdické šachovnici mimo Monday Fight! A máš to!"
   },
+  { id: "3gTsQvVI",
+    html: "<br><b>RychlyLenochod</b>: teeeda 😀 dnes sem vam vyfoukl plaketky 😀 díky dík.... " +
+      "<board json='{\"id\":\"q07Se5pG\", \"startPlay\":24, \"orientation\":\"black\", \"theme\":\"metal\", \"pieceStyle\":\"spatial\"}'/>" +
+      "<br><br><b>Bebul</b>: Mat garde, koněm a ještě plnej materiál. Nádhera. Lenochod se často drží pravidla: \"to take is a mistake\" a narozdíl od bukowskice zasadně nemění figury, " +
+      "pokud nemusí. Asi proto jsou jeho partie tak hezké, medem a strdím oplývající 👍👏" +
+      "<br><br><b>Jouzolean</b>: Ten Lenochod je neskutečný 😁😁. Mě zničil jak psa zas jednou 😁"
+  },
+
 ]
