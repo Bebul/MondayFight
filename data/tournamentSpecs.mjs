@@ -3,7 +3,7 @@ export var tournamentSpec = [
   {id: "GijbwcSY", html: "<img src='img/mf-og-x.jpg'>", achievements: [{achievement: "reporter", player: "Neznama-00", id: "DxhcZO5O"}] },
   {id: "z2iN8qVr", html: "<b>Bebul:</b> Gratulujeme Rychlýmu Lenochodovi k prvnímu letošnímu King Kongovi! Dal mat, aniž by ztratil jakýkoli materiál a navíc stihl postavit dámu navíc! 🙂<br><br>"},
   {id: "x6hNptkr", html: "<b>Následující hry byly z turnaje odstraněny.</b><br><img src='img/buta.png'><br><br><b>Jouzolean:</b><br> A aby ten dnešek nebyl tak smutný, tak mám taky jednu dobrou zprávu 🙂 Kolem Prahy teď letělo hejno ptáků a skřehotaly, že letí od Dobříše a že prej se tam chystá velká věc! Náš mistr Bukowskic prý bude trénovat místní mládež v šachu! Takže doufáme, že do našich skromných řad přibydou nové šachové naděje v podobě Bukowskiho rekrutů. To je velký krok pro celou Dobříš - až jednou uslyšíte, že Dobříš hraje extraligu, pamatujte kdo za tím stojí!! 😎<br><br>" +
-      "<b>DJ-Pesec:</b><br> Tak to gratuluju! Az Buk deti nauci jeho neprostupnou Philidorovu obranu, urcite se neztrati 👍<br><br>" +
+      "<b>DJ-Strelec:</b><br> Tak to gratuluju! Az Buk deti nauci jeho neprostupnou Philidorovu obranu, urcite se neztrati 👍<br><br>" +
       "<b>Bukowskic:</b><br> Jo vrabci, no paráda, teď už z toho nevykroutím. Ale pravda, alespoň se doučím ta zahájení."
   },
   {id: "20AI0ybI", html: "<img src='img/vikJavMeme.jpg'>"},
@@ -35,7 +35,7 @@ export var tournamentSpec = [
     },
     html: "<h2>Добро пожаловать Маргарита</h2>Сегодня Маргарита впервые сыграла в Monday Fight. Но Lichess поставила ее в пару с другими игроками только один раз, и игра была завершена после окончания турнира. Какая красивая <a href='https://lichess.org/hlwuMuIF' target='_blank'>атакующая игра!</a><br><br><div id='board'></div>"
   },
-  {id: "ZNI7qbN3", html: "<b>Margarita</b> Привет<br><b>DJ-Pesec</b> Привет<br><b>Mrazek</b> Здравствуй<br><b>VikJav</b> Привет<br><b>tomasklimecky</b> dobře margarita<br><b>mozkomor</b> Nezapočítalo mi to remízu s Jouzoleanem. Vznáším námitku.<br><b>Mrazek</b> bodovaná je jen první remíza v řadě, za další jsou nuly<br><b>Mrazek</b> asi aby se skupinka lidí na turnaji nedohodla na systému neztrácejme čas, dáme remízu a tím by získávali body proti ostatním rychle<br><b>mozkomor</b> To dává smysl. Ale do leaderboadu to hude půlbod, ne?\<br><b>bebul</b> ano, do leaderboardu samozřejmě půl bodu"},
+  {id: "ZNI7qbN3", html: "<b>Margarita</b> Привет<br><b>DJ-Strelec</b> Привет<br><b>Mrazek</b> Здравствуй<br><b>VikJav</b> Привет<br><b>tomasklimecky</b> dobře margarita<br><b>mozkomor</b> Nezapočítalo mi to remízu s Jouzoleanem. Vznáším námitku.<br><b>Mrazek</b> bodovaná je jen první remíza v řadě, za další jsou nuly<br><b>Mrazek</b> asi aby se skupinka lidí na turnaji nedohodla na systému neztrácejme čas, dáme remízu a tím by získávali body proti ostatním rychle<br><b>mozkomor</b> To dává smysl. Ale do leaderboadu to hude půlbod, ne?\<br><b>bebul</b> ano, do leaderboardu samozřejmě půl bodu"},
   {id: "aHeatnDc", html: "<img src='img/pomlazka.jpg'>" +
       "<br><br><b>Bébul:</b> V leaderboardových tabulkách je nově sloupec s průměrným protihráčem," +
       "<img src='img/achievements/maraton.png' class='img100 right'> takže si můžeme porovnat, s jak těžkými soupeři kdo hrajeme. Na hlavní stránce jsou zobrazeny všechny odznáčky, ke kterým nově přibyl ševcovský mat s loupežníkem Rumcajsem." +
@@ -65,7 +65,7 @@ export var tournamentSpec = [
       "<img src='img/naplavka-jouzolean.jpg'><br><br>a knížku nevyhrál ani (pře)natěšený Jouzoleán, který první den nemohl zřejmě proto, aby celou noc trénoval, což se podepsalo na jeho výkonu.<br><br>"},
   {id: "kbGavs7v", html: "<img src='img/riegerovy-sady-jouzolean.jpg'>" +
       "<br><br><b>Jouzolean:</b>Hlásím, že dnešní turnaj v Riegerových sadech jsme s Tekelem ovládli. 😎👌😁 Zde <a href='http://chess-results.com/tnr646946.aspx?lan=5&art=1&flag=30'>výsledky.</a><br><br>" +
-      "<a href='https://lichess.org/@/DJ-Pesec'><img src='img/buki-pesec-dobris.jpg'></a><br><br><b>Bukowskic:</b> Neuvěřitelný, koho potkáte na nedělní mši na prvním svatém přijímání dětí! Kdo myslíte, že to je? <i>(5.6.2022, Dobříš)</i><br><br>"},
+      "<a href='https://lichess.org/@/DJ-Strelec'><img src='img/buki-pesec-dobris.jpg'></a><br><br><b>Bukowskic:</b> Neuvěřitelný, koho potkáte na nedělní mši na prvním svatém přijímání dětí! Kdo myslíte, že to je? <i>(5.6.2022, Dobříš)</i><br><br>"},
   {id: "QyFvQ3NF", html: "<b>Jouzolean:</b> Hlásíme, že Jouzolean i Tekele dnešní turnaj strategicky vynechají<br>" +
       "<b>Bukowskic:</b> 🤩<br><br>" +
       "<img src='img/iron-maden.jpg'><br><b>Jouzolean:</b> Iron maiden<br><br>" +
@@ -216,7 +216,7 @@ export var tournamentSpec = [
       "<br><br><b>Bébul:</b> Margarita dneska sice nejprve podlehla Jouzoleánovi, ale pak mu to hezky vrátila a nakonec získala kov nejcennější! Veliká gratulace!" +
       "<br><br><b>Jouzolean:</b> Jenomže teď ale vede jouzolean - a je to jeho jediná šance jak poprvé a naposledy vyhrát sezónu MF. <img src='img/players/jouzolean.png' class='img100 right'> Udělá vše pro to aby vyhrál 😁 " +
       "<br><br><b>Jouzolean:</b> Bukowskic ještě jednou nepřijde a je ve vážných problémech! 😁 Tento rok je to hodně dramatické! Šance má i Mrazek!" +
-      "<br><br><b>Bébul:</b> V tabulce dochází k vachrlatým posunům. Posun Jouzoleána na první místo místo Bukowskice také znamená, <img src='img/players/bukowskic.png' class='img100 left'> že se Bukowskic ocitá ve stejné osmifinálové skupině pro PlayOFF jako DJ-Pesec. Ten však může snadno párkrát na Monday Fight přijít a podle potřeby se posunout před PIRAT77 a zajistit si tak pozici ze druhé strany vyřazovacího pavouka, takže by se s Bukowskicem mohl případně potkat až ve finále!" +
+      "<br><br><b>Bébul:</b> V tabulce dochází k vachrlatým posunům. Posun Jouzoleána na první místo místo Bukowskice také znamená, <img src='img/players/bukowskic.png' class='img100 left'> že se Bukowskic ocitá ve stejné osmifinálové skupině pro PlayOFF jako DJ-Strelec. Ten však může snadno párkrát na Monday Fight přijít a podle potřeby se posunout před PIRAT77 a zajistit si tak pozici ze druhé strany vyřazovacího pavouka, takže by se s Bukowskicem mohl případně potkat až ve finále!" +
       "<br><br><b>Bébul:</b> Vítáme nového hráče <a href='https://lichess.org/@/HonzaHonzaHonza'>HonzaHonzaHonza</a>. Jeho vstup do Monday Fights arény byl správně nervózní a po šňůře šesti proher to už vypadalo, že ho maminka doma nepochválí.  <img src='img/players/honzahonzahonza.png' class='img100 right'> Dokázal se však oklepat jak málokdo a přinést domů pár skalpů. Našeho Jouzoleána by taková pohroma stála minimálně display mobilu." +
       "<br><br><b>Lichess:</b> API encountered an error: <a href='https://github.com/lichess-org/lila/issues/11971#event-7931043421'>Cannot download tournaments</a>. It takes about 10 days to find a temporary workaround." +
       "<img src='img/api-error.jpg'>"},
@@ -225,14 +225,14 @@ export var tournamentSpec = [
     html: "<h1>PlayOFF 2020</h1>" +
       "<b>Bebul:</b> Turnaj začal epickou bitvou mezi RychlyLenochod a Travinho, který skončil až bulletovým rozstřelem, když o celkovém vítězi rozhodl kavalírský PAT dvou dam ve druhém tie-breaku." +
       "<iframe src=\"https://lichess.org/embed/sYE9rYFE#123?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>" +
-      "<br><br><b>DJ-Pesec:</b> že uhraju jen půl bodu, to jsem teda nečekal. <img src='img/players/bukowskic.png' class='img100 right'>" +
+      "<br><br><b>DJ-Strelec:</b> že uhraju jen půl bodu, to jsem teda nečekal. <img src='img/players/bukowskic.png' class='img100 right'>" +
       "<br><br><b>Bebul:</b> Velká gratulace Bukowskicovi, že se nezalekl vysokého nasazení svých soupeřů a zlehka se přes ně přenesl. V osmifinále dovolil soupeři bod, v semifinále půl bodu a ve finále už ani ň."
   },
   {id: "playOFF2021",
     playOFF: "<img src='img/turnajPavouk2021.jpg' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2021</h1>" +
       "<b>Jouzolean:</b> Tak a je dobojováno! <a href='archiv2021.html'>Sezóna 2021</a> je s dnešním turnajem definitivně odpískána. Tato již legendární skupina hráčů se dokázala scházet v menším či větším počtu celý rok a ani jednou se nestalo, že by se nehrálo - a to ani tehdy, když jednou selhal lichess. To máme 52 kvalitních turnájů v roce. Náš seznam hráčů již čítá 26 jmen včetně jedné holky a všichni se známe." +
-      "<br><br><b>DJ-Pesec:</b> A do tohoto vyžazovacího PlayOFF turnaje Vám představujeme epesní vyzyvatelské kartičky! <img src='img/epesni-karticka4.jpg' style='margin-top:5px'>" +
+      "<br><br><b>DJ-Strelec:</b> A do tohoto vyžazovacího PlayOFF turnaje Vám představujeme epesní vyzyvatelské kartičky! <img src='img/epesni-karticka4.jpg' style='margin-top:5px'>" +
       "<br><br><img src='img/players/bukowskic.png' class='img100 right'><b>Bebul:</b> Velká gratulace Bukowskicovi, že přes počáteční dvojnásobný výprask od Rychlého Lenochoda dokázal kromě celkového turnaje ovládnout i závěrečné PlayOFF!"},
   {id: "playOFF2022",
     playOFF: "<img src='img/turnajPavouk2022.jpg' style='width:100%;margin-top: 5px'>",
@@ -240,7 +240,7 @@ export var tournamentSpec = [
       "<b>Jouzolean:</b> Nastoupili už známí borci z let minulých, pro 5 hráčů to bylo jejich poprvé - Pirat77, Margarita Vlasenko, <img src='img/players/margarita_vlasenko.png' class='img100 right'> Tomáš Klimecký, Dzin69 a Maurice Dodo. Všichni bojovali houževnatě a statečně, do dalších kol však postoupila pouze 12-letá Margarita, která došla až do semifinále, což je největší překvapení turnaje a Dzin69, který si poradil s <a href='index.html?mf=playOFF2021'>loňským</a> \"málem přemožitelem Bukowskice\" - Rychlým Lenochodem 4:0. Zkušení matadoři jinak nedávali nováčkům šanci, přesně podle statistik. " +
       "Opět jsme měli možnost nahlížet na duelové kartičky z grafické dílny Dj-Pěšce, které poté Bebul umístil na náš web, aby si tak každý mohl <a href='cards.html'>vygenerovat tu svou</a>." +
       "<img src='img/cardFinale2022.jpg' style='margin-top:5px'>" +
-      "<br><br><img src='img/players/dj-pesec.png' class='img100 right'><b>Jouzolean:</b> Grandfinále bylo velkou odvetou let minulých. Dvakrát se spolu bili, pokaždé trůn uhájil Bukowskic, až letos to Dj-Pěšec zlomil a stal se vítězem při výsledku 3½-2½. Bukowskic tak poprvé v kariéře nezískal ani jeden pohár vítěze a bude se tak muset soustředit na další rok, kde bude ovšem hodně hladový!" +
+      "<br><br><img src='img/players/dj-strelec.png' class='img100 right'><b>Jouzolean:</b> Grandfinále bylo velkou odvetou let minulých. Dvakrát se spolu bili, pokaždé trůn uhájil Bukowskic, až letos to Dj-Pěšec zlomil a stal se vítězem při výsledku 3½-2½. Bukowskic tak poprvé v kariéře nezískal ani jeden pohár vítěze a bude se tak muset soustředit na další rok, kde bude ovšem hodně hladový!" +
       "<br><b>Gratulace vítězům a čest poraženým.</b>"},
   {id: "EvpGRc5W",
     html: "<h2>Blíží se PlayOFF 2022</h2>" +
@@ -366,9 +366,9 @@ export var tournamentSpec = [
       "<br><br><b>Bebul:</b> Vítáme nového hráče <i>buban303</i> a těšíme se na další bitvy."
       },
   {id: "JMdetVA8",
-    html: "<img src='img/players/dj-pesec.png' class='img100 right'><b>Bebul:</b> gratulujeme DJ&#x2011;Pescovi k vítězství v turnaji, když všechny partie hrál jako berserk. V historii Monday Fights se to předtím podařilo pouze <a href='index.html?mf=kjCdiqAI'>jedenkrát</a>, a to rovněž DJ&#x2011;Pescovi, před bezmála třemi roky!"},
+    html: "<img src='img/players/dj-strelec.png' class='img100 right'><b>Bebul:</b> gratulujeme DJ&#x2011;Pescovi k vítězství v turnaji, když všechny partie hrál jako berserk. V historii Monday Fights se to předtím podařilo pouze <a href='index.html?mf=kjCdiqAI'>jedenkrát</a>, a to rovněž DJ&#x2011;Pescovi, před bezmála třemi roky!"},
   {id: "T5HQgRLI",
-    html: "<b>DJ-Pesec:</b> Gratuluju! Za mě jeden z nejkrásnějších závěrů MFA. O vítězství hrálo v posledních 10 minutách pět hráčů. Jsem rád, že jsem si to mohl bez nervů u večeře užít 😀"},
+    html: "<b>DJ-Strelec:</b> Gratuluju! Za mě jeden z nejkrásnějších závěrů MFA. O vítězství hrálo v posledních 10 minutách pět hráčů. Jsem rád, že jsem si to mohl bez nervů u večeře užít 😀"},
   {id: "zT04UBgm",
     html: "<img src='img/koleda.jpg'><div align='center'>Koleda koleda o svátcích,<br>Buki Ritu vyplácí!<br>Dobře Rito, dobře tak,<br>nemělas mi ten mat dát!</div>"},
   {id: "jkqzKDk1",
@@ -408,7 +408,7 @@ export var tournamentSpec = [
   {id: "b1xWJ2sM",
     html: "<img src='img/mistrovstvi-amateru.jpg'>"},
   {id: "YfekfStP",
-    html: "<img src='img/pesec-vs-travinho.jpg'><BR><b>DJ-Pesec: </b> kdesi nad Arizonou Travinho vs. DJ Pesec 1:4. <i>(Ve skutečnosti někdy kolem 8.února, pozn. redakce)</i>"},
+    html: "<img src='img/pesec-vs-travinho.jpg'><BR><b>DJ-Strelec: </b> kdesi nad Arizonou Travinho vs. DJ Pesec 1:4. <i>(Ve skutečnosti někdy kolem 8.února, pozn. redakce)</i>"},
   {id: "Ar3cxBL6",
     html: "<img src='img/cvek-otb.jpg'><BR><i>(Ilustrační foto mimo MF)</i><br><b>Jouzolean: </b> Na vědomí se se dává, že 18.12.2023 se našeho turnaje zúčastní již podruhé GM R. Cvek. 😎Jen připomínám, že minule jsme všichni dostali čočku 😁" +
       "<br><br><b>Bebul:</b> Dnes ráno WhatsApp <b>26 zpráv</b> od Jouzoleana. Nebudu Vám prozrazovat detaily, ale <b>SachyCvek</b> se zhroutí v desátém tahu. Je to téměř jisté. Co tah, to návnada, kterou Cvek ve svých partiích hraje, včetně toho blunderu. Geniálně upravený move order, že očekávaný tah hraje vždy nejčastěji. Takže Jouzolean ho porazí. SachyCvek se otřesou v základech a jeho druhý pád by měl zařídit <b>Tekele</b>, kterého tímto pověřuji. Třetí ránu už má vyhrazen <b>Polgyho</b> šustráček. ❤️"},
@@ -427,7 +427,7 @@ export var tournamentSpec = [
       "Radost s duelu mělo 8 hráčů, což je o 3 méně, než loni. " +
       "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
       "Neuvěřitelně pětkrát došlo na duel s DJ&#x2011;Pescem. O to více se čekalo, že uhrajeme aspoň ten půlbodík! Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo. 😀" +
-      "<br><br><b>DJ-Pesec:</b> Já měl partií s ním až až... a upřímně je mi to líto vůči těm, na které se nedostalo. Navíc jsem byl ve fázi, kdy jsem si ho už znovu upřímně nepřál. Navozoval mi pocit totální bezmoci 😭" +
+      "<br><br><b>DJ-Strelec:</b> Já měl partií s ním až až... a upřímně je mi to líto vůči těm, na které se nedostalo. Navíc jsem byl ve fázi, kdy jsem si ho už znovu upřímně nepřál. Navozoval mi pocit totální bezmoci 😭" +
       "<br><br><board json='{\"id\":\"uVV5mGe0\", \"startPlay\":22}'/> " +
       "<br><div align='center'><i>Jak Jouzolean na tahu odmítl získat výhodu</i></div>" +
       "<br>Jaká byla vlastně šance, že uhrajeme aspoň půlbod? Je to kosmicky nepravděpodobné, nebo jsme měli naději? Výpočet pomocí např. tohoto <a href='https://wismuth.com/elo/calculator.html#rating1=2598&rating2=2129&formula=logistic'>kalkulátoru</a> ukazuje, že šanci jsme měli. A to pade na pade!" +
@@ -445,18 +445,18 @@ export var tournamentSpec = [
     achievements: [
       {achievement: "lackOfSpirit", player: "Polgu", id: "PHF1LZSq", desc: "Remíza bez boje"},
       {achievement: "reporter", player: "jouzolean", id: "NBmhMPTe"},
-      {achievement: "reporter", player: "DJ-Pesec", id: "ndYaWXai"},
+      {achievement: "reporter", player: "DJ-Strelec", id: "ndYaWXai"},
       {achievement: "reporter", player: "bebul", id: "dsM0Dpqk"},
       {achievement: "blackXX", player: "LastScout", id: "PM0Keukr", desc: "Co výhoda dámy?"},
       {achievement: "blackXX", player: "tomzr", id: "NBmhMPTe", desc: "Ztratil náskok -9"},
-      {achievement: "blackXX", player: "DJ-Pesec", id: "3SuQYpJg", desc: "Zahodil tři mečboly"},
+      {achievement: "blackXX", player: "DJ-Strelec", id: "3SuQYpJg", desc: "Zahodil tři mečboly"},
       {achievement: "blackXX", player: "Tomas_1989", id: "szWfXGhl", desc: "Ani figura navíc"},
       {achievement: "blackXX", player: "MichaelChmiel", id: "2nfu1kpk", desc: "Dal si vlastňáka"},
     ],
     /*
     LastScout (vs. MichaelChmiel) Nevyužitá výhoda dámy https://lichess.org/PM0Keukr
     tomzr (vs. jouza) Ztracený náskok -9 https://lichess.org/NBmhMPTe
-    DJ-Pesec (vs. tomrz) Zahozené tři mečboly https://lichess.org/3SuQYpJg
+    DJ-Strelec (vs. tomrz) Zahozené tři mečboly https://lichess.org/3SuQYpJg
     Tomáš89 (vs. Margarita) Promarněný zisk figury ze zahájení https://lichess.org/szWfXGhl
     MichaelChmiel (vs. skaut) Vlastní mat z vyhrané pozice https://lichess.org/2nfu1kpk
      */
@@ -506,7 +506,7 @@ export var tournamentSpec = [
   },
   {id: "oGOkXond",
     html: "<tooltip json='{\"id\":\"mozkomor\", \"size\":0.9}' align='center' style='margin:42px 0 5px 0'/> " +
-      "<br><b>DJ-Pesec:</b> Skvělý výkon Mozkomore 👏 Gratuluju!" +
+      "<br><b>DJ-Strelec:</b> Skvělý výkon Mozkomore 👏 Gratuluju!" +
       "<br><br><b>Jouzolean:</b> Mozkomor to dneska zahrál jako Bůh! 😎🙂 Jeho hra byl skvělá!! Nedalo se dělat absolutně nic!" +
       "<br><br><b>Jouzolean:</b> Máme tady ještě jednu, poměrně důležitou, nedořešenou věc!! 😎 Všichni bedlivě očekáváme termín velkého finále!" +
       "<br><br><b>Bebul:</b> Těsně před dnešním Monday Fight se hrálo druhé semifinále <a href='index.html?mf=playOFF2023'>PlayOFF 2023</a>, které určilo druhého finalistu. O vítězství si tedy zahrají <b>bukowskic</b> s <b>tomzrem</b>, kterým gratulujeme..." +
@@ -597,7 +597,7 @@ export var tournamentSpec = [
       "<br><img src='img/botez.jpg' style='width:100%;margin-top: 5px'><div align='center'><i>Andrea Botez</i></div>" +
       "<br><b>Bebul</b>: to seš teda pěkná sketa, Kamikazeee, udělím ti za to černý puntík" +
       "<br><br><b>kamikazeee</b>: Já je neznal.  A když mi kámoš říkal, že mají nějakou přednášku, tak jsem řekl, že jdeme raději na pivo 😁" +
-      "<br><br><b>DJ-Pesec</b>: Když už jsme u těch Botezových, dnes jsem zahrál <a href='https://www.chess.com/terms/botez-gambit-chess#what-is'>botez gambit</a> na tomzra. Nepřistoupil na něj 😁" +
+      "<br><br><b>DJ-Strelec</b>: Když už jsme u těch Botezových, dnes jsem zahrál <a href='https://www.chess.com/terms/botez-gambit-chess#what-is'>botez gambit</a> na tomzra. Nepřistoupil na něj 😁" +
       "<board json='{\"id\":\"oOZnOy1B\", \"startPlay\":31}'/>" +
       "<br><br><b>Bebul</b>: Překrásným způsobem chytila Margarita dámu Kamikazeeeovi. Nejdřív vezme střelce jako návnadu, pak dá šach garde koněm, kterého obětuje a pak druhým koněm už dílo zkázy dokoná! Parááááááda! ❤️" +
       "<board json='{\"id\":\"ZJ0ma4h9\", \"startPlay\":29}'/>"
