@@ -664,5 +664,21 @@ export var tournamentSpec = [
       "pokud nemusí. Asi proto jsou jeho partie tak hezké, medem a strdím oplývající 👍👏" +
       "<br><br><b>Jouzolean</b>: Ten Lenochod je neskutečný 😁😁. Mě zničil jak psa zas jednou 😁"
   },
-
+  { id: "GVv7gG6J",
+    playOFF: `
+      <h2>Mrázek, ústředna!</h2>
+      <p>
+      <b>Mrázek:</b> Netypická šachová úloha pro dnešní den: Mám smutnou zprávu. Bohužel již nikdy si s námi Helena Zr. (sestra tomzra) šachy nezahraje 😢 A můžu za to jenom já, je to moje vina a nikdy si to neodpustím, že jsem takhle selhal😫 I nadále se budu pokoušet, aby si místo ní s námi někdy v budoucnu zahrála Helena Mr. (sestra tomzra), ale za úspěch neručím, vypadá neoblomně i po transformaci. Pak už bude zbývat jen naděje, že ???.Mr. najde v této hře oblibu a za pár let se připojí ona a pomstí mě.      
+      <p>
+      <iframe src="https://www.youtube.com/embed/SY_26ffvxc4" style="width:100%; height: 100vh; margin: 10px 0px" allowFullScreen></iframe>
+    `,
+    html: "<img src='img/dj-pesec-disabled.jpg'>" +
+      "<br><br><b>DJ-Pesec</b>: Hrál jsem minutový bullet a každou hru ztrácel 7-15 vteřin kvůli jejich serverům. Naštval jsem se na Lichess a profil uzavřel." +
+      "<br><br><b>Bebul</b>: Ale tím sis zavřel možnost hrát Monday Fights?!" +
+      "<br><br><b>DJ-Pesec</b>: to mi pak taky došlo... ale v ten moment jsem byl vytočený... měl jsem x vyhraných partií a třeba v čase, kdy mi zbývalo 15 vteřin, mi to táhlo až na dvou vteřinách. A obnovit si ho už nemůžu, jak jsem posléze zjistil... protože já se registroval se svým pracovním mailem, který už nemám" +
+      "<br><br><b>Bebul</b>: nakonec jsme to vymysleli tak, že DJ-Pesec byl na WEBových stránkách Monday Fights zpětně přejmenován na DJ-Strelec, což je Pěšcův nový lichessový profil, staré partie z webu povedou na partie DJ-Pesce, ačkoli na webu bude psáno, že je hrál DJ-Strelec. Snad se mi konverze povedla korektně. Na některých místech v aktualitách apod. zůstal DJ-Pesec, stejně tak na různých screenshotech, ale to ničemu nevadí. Případné pády webu nebo nesmyslná data stran DJ-Strelce mi, prosím, hlašte." +
+      "<br><br><img src='img/kasparov.gif'>" +
+      "<br><br><b>Jouzolean</b>: Teda 😁 dj pěšec je taky psychopat, dlouho jsem si myslel že nás inteligenčně převyšuje 😁" +
+      "<br><br><b>Bebul</b>: ... říká veliký Jouzoleán, který, když jednou s Bébulkem prohrál, vzteky mobilem švihnul a rozbil si displej."
+  },
 ]
