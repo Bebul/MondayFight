@@ -682,6 +682,15 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: ... říká veliký Jouzoleán, který, když jednou s Bébulkem prohrál, vzteky mobilem švihnul a rozbil si displej."
   },
   { id: "ITRyIxHh",
+    playOFF: `
+      <h2>Robert a Petr Šachy</h2>
+      <p>Celý svět čerpá z mouder na portálu Robert a Petr Šachy, kupuje si předplatné a tréninky a ti ostatní pak všude prohrávají.
+      Teď je v jednom videu i záznam z našeho Monday Fights!   
+      <p>
+      <iframe src="https://www.youtube.com/embed/tKbP-76ktOs?si=_Fy0LDwYzUjqP_et" style="width:100%; height: 100vh; margin: 10px 0px" allowFullScreen></iframe>
+    `,
     html: "<img src='img/rp-sachy-zive.png'>" +
-      "<br><br><b>Bebul</b>: Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/live/tKbP-76ktOs?si=YEWzrjm3MQNaYDep'>Robert a Petr Šachy</a>. Moc děkujeme!"  },
+      "<br><br><b>Bebul</b>: Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/live/tKbP-76ktOs?si=YEWzrjm3MQNaYDep'>Robert a Petr Šachy</a>. Gratulujeme k vítězství a moc děkujeme!<br><br>" +
+      "<tooltip json='{\"id\":\"RoyalChessyoutube\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/>"
+  },
 ]
