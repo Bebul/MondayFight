@@ -681,4 +681,7 @@ export var tournamentSpec = [
       "<br><br><b>Jouzolean</b>: Teda 😁 dj pěšec je taky psychopat, dlouho jsem si myslel že nás inteligenčně převyšuje 😁" +
       "<br><br><b>Bebul</b>: ... říká veliký Jouzoleán, který, když jednou s Bébulkem prohrál, vzteky mobilem švihnul a rozbil si displej."
   },
+  { id: "ITRyIxHh",
+    html: "<img src='img/rp-sachy-zive.png'>" +
+      "<br><br><b>Bebul</b>: Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/live/tKbP-76ktOs?si=YEWzrjm3MQNaYDep'>Robert a Petr Šachy</a>. Moc děkujeme!"  },
 ]
