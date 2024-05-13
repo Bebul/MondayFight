@@ -690,7 +690,9 @@ export var tournamentSpec = [
       <iframe src="https://www.youtube.com/embed/tKbP-76ktOs?si=_Fy0LDwYzUjqP_et" style="width:100%; height: 100vh; margin: 10px 0px" allowFullScreen></iframe>
     `,
     html: "<img src='img/rp-sachy-zive.png'>" +
-      "<br><br><b>Bebul</b>: Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/live/tKbP-76ktOs?si=YEWzrjm3MQNaYDep'>Robert a Petr Šachy</a>. Gratulujeme k vítězství a moc děkujeme!<br><br>" +
+      "<br><br><b>Bebul</b>: <img src='img/rp-sachy.png' class='img100 right'>Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/c/RobertaPetr%C5%A1achy'>Robert a Petr Šachy</a>. Gratulujeme k vítězství a moc děkujeme!" +
+      "<br><br><b>Jouzolean</b>: Tomzr byl ve streamu označen za bombarďáka. 😁 \"Jen si klidně utíkej, nakonec ti ho tam stejně šoupnu<br>jako za mlada.\"" +
+      "<br><br><b>Jouzolean</b>: A DJ-Pěšec je<br>panáček couváček 😁 " +
       "<tooltip json='{\"id\":\"RoyalChessyoutube\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/>"
   },
 ]
