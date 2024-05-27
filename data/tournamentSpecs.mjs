@@ -854,4 +854,14 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: <img src='img/players/tomzr.png' class='img100 left'/> Tomzr si dneska téměř zruinoval rating, když padl o 75 dólů, ale je to opravdu bojovník! Vyhrát 100% berserkem je kumšt a odvaha! A skoro to navíc nevyšlo. Tak to teda veliká gratulace! " +
       "<br><br><b>Bebul</b>: <img src='img/players/mozkomor.png' class='img100 right'/> A mozkomor Monday Fights čtyřikrát vynechal, aby pak přišel, všechny vymydlil a skončil na bedně! Taky gratulujeme!"
   },
+  {
+    id: "EgykYX4J",
+    html: "<br><b>Bebul</b>: Velká gratulace Mrázkovi k vítězství v turnaji! V závěrečném tažení dvakrát vymetl s letos téměř nepřemožitelným tomzrem, podruhé s pastí vedoucí k oběti dámy! A ke všemu se ještě vyhoupl mezi první čtyři v aktuálním leaderboardu! Gráááts! " +
+      "<tooltip json='{\"id\":\"Mrazek\", \"size\":0.8}' align='center' style='margin:32px 0 5px 0'/>" +
+      "<br><b>Bebul</b>: <img src='img/players/sumaspandy.png' class='img100 left'/> Po milion letech se k turnaji připojil SumaSpandy, aby chytil dámu nováčkovi soutěže, PeinSamaCZe a postaral se tak o senzaci turnaje! Podobnost Suma a Sama je zcela náhodná. K senzační plaketce gratulujeme! " +
+      "<br><br><img src='img/smichovskySoudek.jpg'><div align='center'><i>Na turnaji Smíchovský Soudek, zleva LastScout, Tekele, Jouzolean a Mrázek</i></div>" +
+      "<br><b>Bebul</b>: Na turnaji <a href='https://chess-results.com/tnr919077.aspx?lan=5'>Smíchovský Soudek</a> potkali naši borcí další borce, z nichž na Monday Fights vítáme PeinSamaCZe. Přišel, viděl a hned na bedně stanul. Grats! " +
+      "<br><br><b>Bebul</b>: <img src='img/achievements/blackDot.png' class='img100 right'/> Černý puntík Tekelovi, Jouzoleanovi, Mrázkovi a LastScoutovi za nereprezentativní chování. Na Smíchovském Soudku se jako tým nepojmenovali Monday Fights! Tak Snad příště!"
+  },
+
 ]
