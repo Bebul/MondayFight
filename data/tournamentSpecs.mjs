@@ -863,5 +863,23 @@ export var tournamentSpec = [
       "<br><b>Bebul</b>: Na turnaji <a href='https://chess-results.com/tnr919077.aspx?lan=5'>Smíchovský Soudek</a> potkali naši borcí další borce, z nichž na Monday Fights vítáme PeinSamaCZe. Přišel, viděl a hned na bedně stanul. Grats! " +
       "<br><br><b>Bebul</b>: <img src='img/achievements/blackDot.png' class='img100 right'/> Černý puntík Tekelovi, Jouzoleanovi, Mrázkovi a LastScoutovi za nereprezentativní chování. Na Smíchovském Soudku se jako tým nepojmenovali Monday Fights! Tak Snad příště!"
   },
+  {
+    id: "f6h7t9GF",
+    html: "<br><b>Bébul</b>: Gratulace PeinSamaCZe k vítěztství v turnaji, navíc s krásně provedeným dušeným matem!" +
+      "<board json='{\"id\":\"SszqhFyR\", \"startPlay\":61}'/>"
+  },
+  {
+    id: "PmTSp0ZQ",
+    html: "<br><b>Tekele</b>: Gratuluju Mrazkovi k 3. místu, v posledních vteřinách turnaje při vyhrané partii nabídl remízu a zachránil bednu. Vyhráli tak všichni, až na Tekeleho na 4. místě 😁" +
+      "<br><br><b>Mrazek</b>: Na mou obranu - remízu v remízové pozici jsem odmítnul... a až na poslední chvíli mi došlo, že každý bod se hodí 🙂 Prostě jsem hrál do poslední sekundy... a to doslova (čas turnaje byl už 0:00 a já myslel, že se to nestihlo). A ano, stydím se za to 😀" +
+      "<tooltip json='{\"id\":\"Kamikazeee\", \"size\":0.8}' align='center' style='margin:32px 0 5px 0'/>" +
+      "<br><b>Bebul</b>: To jste se vyznamenali. Kdysi jsem udělal plaketku vyvalených vočí, ale byl proti ní odpor. Tak jsem ji zakazal ukazovat mezi plaketkami, ale nechavam ji jako pidiikonku v řadku partie. Za mě to je nesportovní chování. Resp. v tom nedokažu spatřovat bojového ducha." +
+      "<br><br><b>Kamikazeee</b>: Tak vzít remízu pár sekund před koncem turnaje remízu je nesportovní? Nabídnout remízu silnějšímu hráči, abych měl dostatek času sehrát ještě partií s někým rovným je nesportovní? A já myslel, že turnaj se hraje proto, abychom si hezky zahrali a vyhráli. Pravidla platí pro všechny stejne. Tady se běžně pozastavuje i nad tím, že někdo soupeři nevzdá s dvěma dámami. :)"
+  },
+  {
+    id: "ihuiXpkI",
+    html: "<br><b>Bebul</b>: Dvě zajímavé remízy. O první se postaral RychlyLenochod, když těsně před matem mu Tekele dovolil Pat! Druhá, nejdelší dnešní partie, skončila po padesáti tazích bezradnosti. Inu, chce si to nechat do koncovky nějaké pěšce. Dvě věže proti věži je v blitzání pěknej vopruz!" +
+      "<board json='{\"id\":\"JtL66z15\", \"startPlay\":178}'/>"
+  },
 
 ]
