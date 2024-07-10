@@ -881,5 +881,9 @@ export var tournamentSpec = [
     html: "<br><b>Bebul</b>: Dvě zajímavé remízy. O první se postaral RychlyLenochod, když těsně před matem mu Tekele dovolil Pat! Druhá, nejdelší dnešní partie, skončila po padesáti tazích bezradnosti. Inu, chce si to nechat do koncovky nějaké pěšce. Dvě věže proti věži je v blitzání pěknej vopruz!" +
       "<board json='{\"id\":\"JtL66z15\", \"startPlay\":178}'/>"
   },
-
+  {
+    id: "aOxS2ctp",
+    html: "<br><b>HonzaHonzaHonza</b>: šest vteřin do konce a vražedný jezdec PainSamaCZe - aneb jak prohrát partii během pár tahů 😄" +
+      "<board json='{\"id\":\"4hqfy0Nc\", \"startPlay\":67}'/>"
+  },
 ]
