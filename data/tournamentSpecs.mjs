@@ -886,4 +886,9 @@ export var tournamentSpec = [
     html: "<br><b>HonzaHonzaHonza</b>: šest vteřin do konce a vražedný jezdec PainSamaCZe - aneb jak prohrát partii během pár tahů 😄" +
       "<board json='{\"id\":\"4hqfy0Nc\", \"startPlay\":67}'/>"
   },
+  {
+    id: "8tpLeoHX",
+    html: "<br><b>Bebul</b>: RychlyLenochod byl dneska při chuti a pustil se do svého oblíbeného berserkování. A podívejte se, jak s materiálem -9 dal Tekelovi krásný mat!" +
+      "<board json='{\"id\":\"OFiiqQIW\", \"startPlay\":65}'/>"
+  },
 ]
