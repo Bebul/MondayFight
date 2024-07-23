@@ -422,6 +422,17 @@ class AchievementLackOfSpirit {
   }
 }
 
+class AchievementPersonalBest {
+  constructor(player, id, desc) {
+    this.player = player
+    this.sortVal = 100 + Number.parseInt(desc) / 100
+    this.img = "personal-best.png"
+    this.decoration = "🥇"
+    this.desc = "Osobáček " + desc
+    this.game = id
+  }
+}
+
 class AchievementBlackDot {
   constructor(player, id) {
     this.player = player
@@ -578,6 +589,24 @@ class AchievementFontPrototype {
   }
 }
 
+function collectSpecAchievementDecorations(player, tournamentID, gameID) {
+  let decorations = []
+  let s = tournamentSpec.find(s => s.id === tournamentID)
+  if (s && s.achievements) s.achievements.forEach(a => {
+    let achievement = null
+    switch (a.achievement) {
+      case "reporter": achievement = new AchievementReporter(a.player, a.id); break;
+      case "black": achievement = new AchievementBlackDot(a.player, a.id); break;
+      case "blackGM": achievement = new AchievementBlackDotGM(a.player, a.id); break;
+      case "blackXX": achievement = new AchievementBlackDotXX(a.player, a.id, a.desc); break;
+      case "lackOfSpirit": achievement = new AchievementLackOfSpirit(a.player, a.id, a.desc); break;
+      case "personalBest": achievement = new AchievementPersonalBest(a.player, a.id, a.desc); break;
+    }
+    if (a.player === player && a.id == gameID && achievement) decorations.push(achievement.decoration)
+  })
+  return decorations
+}
+
 function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
@@ -589,6 +618,7 @@ function collectAchievements(data, tournamentID, games) {
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
+      case "personalBest": achievements.push(new AchievementPersonalBest(a.player, a.id, a.desc)); break;
     }
   })
 
@@ -768,6 +798,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementLackOfSpirit(next()),
     new AchievementMateGarde(next()),
     new AchievementBrokenChain(next()),
+    new AchievementPersonalBest(next()),
   ]
 
   let el = document.getElementById(id)
@@ -1087,12 +1118,12 @@ export function joinTrophies(trophies, tr) {
   }
 }
 
-function whitePlayerDecorated(game) {
+function whitePlayerDecorated(game, specDecorations = []) {
   let ratingDiff = ""
   ratingDiff = ratingDiffDeco(game.players.white)
   let wins = game.winner === "white"
 
-  let decorations = getDecorationTrophies(game, game.players.white, wins).join("")
+  let decorations = getDecorationTrophies(game, game.players.white, wins).join("") + specDecorations.join("")
   if (decorations) decorations += "&nbsp;"
 
   if (wins) {
@@ -1102,13 +1133,13 @@ function whitePlayerDecorated(game) {
   }
 }
 
-function blackPlayerDecorated(game) {
+function blackPlayerDecorated(game, specDecorations = []) {
   let ratingDiff = ""
   ratingDiff = ratingDiffDeco(game.players.black)
 
   let wins = game.winner === "black"
 
-  let decorations = getDecorationTrophies(game, game.players.black, wins).join("")
+  let decorations = getDecorationTrophies(game, game.players.black, wins).join("") + specDecorations.join("")
   if (decorations) decorations = "&nbsp;" + decorations
 
   if (wins) {
@@ -1165,17 +1196,19 @@ export function getTipHtml(theGames, tournament, player, size) {
   let init = []
   theGames.forEach(function(game) {
     if (game.players.white.user.name == player) {
+      let specDecorations = collectSpecAchievementDecorations(player, tournament.id, game.id)
       games++
       if (game.winner == "white") wins++
       if (game.players.white.berserk == true) berserks++
       oponents += game.players.black.rating
-      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(player, game, game.winner == "white", "white", init)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+      html = `<tr><td>${whitePlayerDecorated(game, specDecorations)}</td><td>${decorateGameResult(player, game, game.winner == "white", "white", init)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
     } else if (game.players.black.user.name == player) {
+      let specDecorations = collectSpecAchievementDecorations(player, tournament.id, game.id)
       games++
       if (game.winner == "black") wins++
       if (game.players.black.berserk == true) berserks++
       oponents += game.players.white.rating
-      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(player, game, game.winner == "black", "black", init)}</td><td>${blackPlayerDecorated(game)}</td></tr>` + html
+      html = `<tr><td>${whitePlayerDecorated(game)}</td><td>${decorateGameResult(player, game, game.winner == "black", "black", init)}</td><td>${blackPlayerDecorated(game, specDecorations)}</td></tr>` + html
     }
   })
 
