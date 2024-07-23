@@ -220,6 +220,7 @@ function lichessAPI() {
       let mf = data.mondayFights()[ix++]
       if (data.tournamentGames().find(tg => tg.id==mf.id) === undefined) {
         let games = await downloadGames(mf, data)
+        await addUnfinishedGames(mf, games)
         downloadedTournamentsGames.push(games)
         if(logger) logger("<b>Downloading in progress: " + ix + "</b>")
       }
@@ -256,6 +257,38 @@ function lichessAPI() {
     return gamesList
   }
 
+  async function addUnfinishedGames(t, g) {
+    let tsince = new Date(t.startsAt).getTime()
+    let tuntil = tsince + t.minutes * 60000
+
+    let players = Array.from(t.standing.players)
+    let games = g.games
+
+    while (players.length > 0) {
+      let player = players.pop()
+      let url = `https://lichess.org/api/games/user/${player.name}?since=${tsince}&until=${tuntil}&perfType=blitz`
+      let gamesList = await fetch(url, {
+        headers: {
+          'Accept': 'application/x-ndjson'
+        }
+      })
+        .then(promiseTimeout(1500))
+        .then(status)
+        .then(text)
+        .then(ndjson2array)
+        .then(parse)
+
+      gamesList.forEach(pg => {
+          if (pg.tournament === t.id && !games.find(g => g.id === pg.id)) {
+            pg.overtime = true
+            games.unshift(pg)
+            console.log(`${pg.id} ${pg.players.white.user.name} - ${pg.players.black.user.name}`)
+            console.log(`  tuntil - pg.createdAt=${tuntil - pg.createdAt}  pg.lastMoveAt - tuntil = ${pg.lastMoveAt - tuntil}`)
+          }
+      })
+    }
+  }
+
   return {
     downloadMissingTournamentGames: function(data, logger) {
       return downloadMissingTournamentGames(data, logger)
@@ -268,6 +301,9 @@ function lichessAPI() {
     },
     games: function(ids){
       return games(ids)
+    },
+    addUnfinishedGames: function(tournament, data) {
+      addUnfinishedGames(tournament, data)
     }
   }
 }
