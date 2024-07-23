@@ -1055,6 +1055,7 @@ function getDecorationTrophies(game, player, wins) {
   if (player.berserk == true) decorations.push("&#9889;")
   if (game.ply && game.ply<19 && wins && game.ply>2 && game.status !== "timeout") decorations.push("&#128640;")
   if (game.ply && game.ply>=200) decorations.push("&#9200;")
+  if (game.overtime) decorations.push("⏱")
   if (player.stats) {
     let stats = player.stats
     if (stats.monkey) decorations.push("&#128053;")
