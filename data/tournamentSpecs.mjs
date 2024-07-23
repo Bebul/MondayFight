@@ -926,7 +926,8 @@ export var tournamentSpec = [
       "Uvádím zde seznam turnajů, u kterých jsem to ručně detekoval a informaci přidal. " +
       "Ostatní se podívejte na svoje personal best a pokud jste ho dosáhli na turnaji Monday Fights, dejte mi vědět a já vám plaketku dodám. " +
       "<br><br><b>Bebul</b>: Kliknutím na jméno hráče se dostanete na turnaj: <a href='index.html?mf=sRMjI0GQ'>bukowskic</a>, <a href='index.html?mf=xU8rUcFi'>Mrazek</a>, <a href='index.html?mf=Tx6Hx1Ph'>mozkomor</a>, <a href='index.html?mf=ZNI7qbN3'>Margarita</a> " +
-      "<br><br><b>Bebul</b>: Za zmínku dneska stojí nejrychlejší partie turnaje, kde se PeinSamaCZe chytil Jouzoleanovi do Englunďácké pasti, kterou nás naučil sám veliký DJ-Pesec! Škoda, že to je jenom chycená dáma a ne ten mat 😀"
+      "<br><br><b>Bebul</b>: Za zmínku dneska stojí nejrychlejší partie turnaje, kde se PeinSamaCZe chytil Jouzoleanovi do Englunďácké pasti, kterou nás naučil sám veliký DJ-Pesec! Škoda, že to je jenom chycená dáma a ne ten mat 😀" +
+      "<br><br><b>Jouzolean</b>: Akorát sedím s Rychlým Lenochodem na pivu, po dlouhé době 😁😎<br><br> <img src='img/pivo-rl.jpg'>"
   },
 
 ]
