@@ -53,6 +53,9 @@ export var tournamentSpec = [
   },
   {
     id: "ZNI7qbN3",
+    achievements: [
+      {achievement: "personalBest", player: "Margarita_Vlasenko", id: "xGJRZfQS", desc: "1798"},
+    ],
     html: "<b>Margarita</b> Привет<br><b>DJ-Strelec</b> Привет<br><b>Mrazek</b> Здравствуй<br><b>VikJav</b> Привет<br><b>tomasklimecky</b> dobře margarita<br><b>mozkomor</b> Nezapočítalo mi to remízu s Jouzoleanem. Vznáším námitku.<br><b>Mrazek</b> bodovaná je jen první remíza v řadě, za další jsou nuly<br><b>Mrazek</b> asi aby se skupinka lidí na turnaji nedohodla na systému neztrácejme čas, dáme remízu a tím by získávali body proti ostatním rychle<br><b>mozkomor</b> To dává smysl. Ale do leaderboadu to hude půlbod, ne?\<br><b>bebul</b> ano, do leaderboardu samozřejmě půl bodu"
   },
   {
@@ -891,4 +894,39 @@ export var tournamentSpec = [
     html: "<br><b>Bebul</b>: RychlyLenochod byl dneska při chuti a pustil se do svého oblíbeného berserkování. A podívejte se, jak s materiálem -9 dal Tekelovi krásný mat!" +
       "<board json='{\"id\":\"OFiiqQIW\", \"startPlay\":65}'/>"
   },
+  {
+    id: "xU8rUcFi",
+    achievements: [
+      {achievement: "personalBest", player: "Mrazek", id: "2SwMwvWa", desc: "1855"},
+    ],
+    html: "<br><b>Bebul</b>: Mrázku, ty bejku! Rating 1855 v blitzu? No to si snad děláš p**el! Gratuluju!"
+  },
+  {
+    id: "sRMjI0GQ",
+    achievements: [
+      {achievement: "personalBest", player: "bukowskic", id: "B2vA6cXB", desc: "2115"},
+    ],
+    html: "<br><b>Bebul</b>: Bukowskic! Krásně ty! Rating 2115 v blitzu! Tak držíme palce na cestě k 2200!"
+  },
+  {
+    id: "Tx6Hx1Ph",
+    achievements: [
+      {achievement: "personalBest", player: "mozkomor", id: "vG3Jclak", desc: "1799"},
+    ],
+    html: "<br><b>Bebul</b>: mozkomor je blízko k ratingu 1800! Gratulace!"
+  },
+  {
+    id: "cifpyU8N",
+    achievements: [
+      {achievement: "personalBest", player: "bebul", id: "Oko4ZQVK", desc: "1775"},
+      {achievement: "personalBest", player: "polgu", id: "d1s7NFLA", desc: "1516"},
+    ],
+    html: "<br><b>Bebul</b>: V dnešním turnaji se podařilo hned dvěma hráčům uhrát svoje osobní maximum v blitzovém ratingu na Lichessu. Hlavně proto, že se tak podařilo i mně, přidal jsem plaketku s grafem, která sděluje, jaké to maximum bylo. " +
+      "Chvilku jsem hledal, komu se to ještě na Monday Fights podařilo a bude toho asi hodně. " +
+      "Uvádím zde seznam turnajů, u kterých jsem to ručně detekoval a informaci přidal. " +
+      "Ostatní se podívejte na svoje personal best a pokud jste ho dosáhli na turnaji Monday Fights, dejte mi vědět a já vám plaketku dodám. " +
+      "<br><br><b>Bebul</b>: Kliknutím na jméno hráče se dostanete na turnaj: <a href='index.html?mf=sRMjI0GQ'>bukowskic</a>, <a href='index.html?mf=xU8rUcFi'>Mrazek</a>, <a href='index.html?mf=Tx6Hx1Ph'>mozkomor</a>, <a href='index.html?mf=ZNI7qbN3'>Margarita</a> " +
+      "<br><br><b>Bebul</b>: Za zmínku dneska stojí nejrychlejší partie turnaje, kde se PeinSamaCZe chytil Jouzoleanovi do Englunďácké pasti, kterou nás naučil sám veliký DJ-Pesec! Škoda, že to je jenom chycená dáma a ne ten mat 😀"
+  },
+
 ]
