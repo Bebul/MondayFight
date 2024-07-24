@@ -5,6 +5,22 @@ export let MF = function() {
     return player.performance !== undefined
   }
 
+  function setPlayerStatsValue(game, player, key, value) {
+    let pl = null
+    if (game.players.white.user.name.toLowerCase() === player.toLowerCase()) {
+      pl = game.players.white
+    } else if (game.players.black.user.name.toLowerCase() === player.toLowerCase()) {
+      pl = game.players.black
+    }
+    if (pl) {
+      let stats = pl.stats || {}
+      stats[key] = value
+      pl.stats = stats
+    } else {
+      console.log(`${player} not found!`)
+    }
+  }
+
   function playersCountWhoPlayed(fight) {
     let total = 0
     fight.standing.players.forEach(pl => {
@@ -180,7 +196,8 @@ export let MF = function() {
     filterUpTo: filterUpTo,
     last10: last10,
     winner: winner,
-    loser: loser
+    loser: loser,
+    setPlayerStatsValue: setPlayerStatsValue
   }
 }()
 
@@ -355,6 +372,43 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
     }
   }
 
+  function findGame(id) {
+    for (let i=0; i<tournamentGames.length; i++) {
+      let game = tournamentGames[i].games.find(g => g.id===id)
+      if (game) return game
+    }
+  }
+
+  function updatePerformances(performances) {
+    performances.forEach(p => {
+      if (p.stat.highest) {
+        let g = findGame(p.stat.highest.gameId) // let g = findGame("d1s7NFLA")
+        if (g) {
+          console.log(`updating highest of ${p.user.name} to ${p.stat.highest.int}`)
+          MF.setPlayerStatsValue(g, p.user.name, "highest", p.stat.highest.int)
+        }
+      }
+      if (p.stat.bestWins && p.stat.bestWins.results) {
+        p.stat.bestWins.results.forEach( best => {
+          let g = findGame(best.gameId)
+          if (g) {
+            console.log(`updating bestGame of ${p.user.name}`)
+            MF.setPlayerStatsValue(g, p.user.name, "best", true)
+          }
+        })
+      }
+      if (p.stat.worstLosses && p.stat.worstLosses.results) {
+        p.stat.worstLosses.results.forEach( worst => {
+          let g = findGame(worst.gameId)
+          if (g) {
+            console.log(`updating worstGame of ${p.user.name}`)
+            MF.setPlayerStatsValue(g, p.user.name, "worst", true)
+          }
+        })
+      }
+    })
+  }
+
   // addExtras() // no need to add, as all these stats should be already downloaded and saved in data folder
 
   let api = {
@@ -388,6 +442,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
         return dateComparator(dateA, dateB)
       })
     },
+    updatePerformances: updatePerformances,
     addExtras: function (fight) {
       addExtras(fight)
     },
@@ -400,12 +455,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
     tournamentIsRated: function (id) {
       return tournamentGames.find(g => g.id==id).games[0].rated
     },
-    findGame: function(id) {
-      for (let i=0; i<tournamentGames.length; i++) {
-        let game = tournamentGames[i].games.find(g => g.id===id)
-        if (game) return game
-      }
-    },
+    findGame: findGame,
     forEachGame: function(f) {
       for (let i=0; i<tournamentGames.length; i++) {
         let games = tournamentGames[i].games

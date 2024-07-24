@@ -65,11 +65,18 @@ function process(data) {
             data.addGames(games)
             downloadedTournaments.forEach(t => data.addExtras(t))
             return addNewGamesStats(data, games, undefined, chess)
-          })
-          .then( v => {
-            fs.writeFileSync('../data/tournaments.ndjson', toNDJson(data.jouzoleanAndBebulsTournaments()))
-            fs.writeFileSync('../data/tournamentGames.ndjson', toNDJson(data.tournamentGames()))
-            fs.writeFileSync('../data/streaks.json', JSON.stringify(data.streaks(), replacer))
+          }).then( v => {
+            let players = new Set()
+            downloadedTournaments.forEach(t => {
+              t.standing.players.forEach(p => players.add(p.name))
+            })
+            LAPI.lichessAPI().perfs(Array.from(players.values()))
+              .then( performances => {
+                data.updatePerformances(performances)
+                fs.writeFileSync('../data/tournaments.ndjson', toNDJson(data.jouzoleanAndBebulsTournaments()))
+                fs.writeFileSync('../data/tournamentGames.ndjson', toNDJson(data.tournamentGames()))
+                fs.writeFileSync('../data/streaks.json', JSON.stringify(data.streaks(), replacer))
+              })
           })
       }/* else {
         addNewGamesStats(data, [])
