@@ -906,9 +906,9 @@ export var tournamentSpec = [
   {
     id: "cifpyU8N",
     html: "<br><b>Bebul</b>: V dnešním turnaji se podařilo hned dvěma hráčům uhrát svoje osobní maximum v blitzovém ratingu na Lichessu. Hlavně proto, že se tak podařilo i mně, přidal jsem plaketku s grafem, která sděluje, jaké to maximum bylo. " +
-      "Automatickou detekce pak dala plaketku celkem osmnácti hráčům. " +
+      "Automatická detekce pak dala plaketku celkem osmnácti hráčům. " +
       "Seznam všech lze vždy dostat v searchi pomocí klíčového slova <a href='search.html?q=highest'>highest</a>. " +
-      "<br><br><b>Bebul</b>: Lichess dále drží pro každého hráče seznam pěti nehodnotnějších výher a pěti nejstrašnějších proher. <img src='img/achievements/best.png' class='img100 left'>Nově tyto stahuji a kontroluji, zda se nejedná o partie odehrané na Monday Fights. Pokud ano, obdrží hráči buďto best plaketku, nebo worst plaketku. " +
+      "<br><br><b>Bebul</b>: Lichess dále drží pro každého hráče seznam pěti nejhodnotnějších výher a pěti nejstrašnějších proher. <img src='img/achievements/best.png' class='img100 left'>Nově tyto stahuji a kontroluji, zda se nejedná o partie odehrané na Monday Fights. Pokud ano, obdrží hráči buďto best plaketku, nebo worst plaketku. " +
       "<img src='img/achievements/worst.png' class='img100 right'>Největším donorem skvělých výher je nejsilnější z nás, DJ-Strelec. Seznam partií, ve kterých jeho porazitel drží tuto partii ve svém TOP FIVE seznamu lze najít " +
       "v search enginu pomocí dotazu <a href='search.html?q=loser%3Adj-strelec%20best'>loser:dj-strelec best</a> a je jich úctyhodných čtyřicet!" +
       "<br><br><b>Bebul</b>: Za zmínku dneska stojí nejrychlejší partie turnaje, kde se PeinSamaCZe chytil Jouzoleanovi do Englunďácké pasti, kterou nás naučil sám veliký DJ-Pesec! Škoda, že to je jenom chycená dáma a ne ten mat 😀" +
