@@ -64,13 +64,13 @@ function setPlayerStatsValue(game, player, key, value) {
 }
 
 function process(data) {
-  let players = allPlayers(data)
+  let players = allPlayers(data) // ["polgu"]
 
   LAPI.lichessAPI().perfs(players)
     .then(function(performances) {
       performances.forEach(p => {
         if (p.stat.highest) {
-          let g = data.findGame(p.stat.highest.gameId)
+          let g = data.findGame(p.stat.highest.gameId) // let g = data.findGame("d1s7NFLA")
           if (g) {
             console.log(`updating highest of ${p.user.name} to ${p.stat.highest.int}`)
             setPlayerStatsValue(g, p.user.name, "highest", p.stat.highest.int)
