@@ -241,6 +241,28 @@ function lichessAPI() {
     return userList
   }
 
+  async function perfs(ids) {
+    let performances = []
+    while (ids.length > 0) {
+      let player = ids.pop()
+      let url = `https://lichess.org/api/user/${player}/perf/blitz`
+      console.log(url)
+      try {
+        let perf = await fetch(url)
+          .then(promiseTimeout(500))
+          .then(status)
+          .then(text)
+          .then(parse)
+
+        console.log(`${perf.user.name} highest: ${JSON.stringify(perf.stat.highest)}`)
+        performances.push(perf)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    return performances
+  }
+
   async function games(ids) {
     let gamesList = await fetch("https://lichess.org/api/games/export/_ids?opening=true", {
       method: 'POST',
@@ -298,6 +320,9 @@ function lichessAPI() {
     },
     users: function(ids) {
       return users(ids)
+    },
+    perfs: function(ids) {
+      return perfs(ids)
     },
     games: function(ids){
       return games(ids)
