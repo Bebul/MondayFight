@@ -427,7 +427,6 @@ class AchievementPersonalBest {
     this.player = player
     this.sortVal = 100 + Number.parseInt(desc) / 100
     this.img = "personal-best.png"
-    this.decoration = "🥇"
     this.desc = "Osobáček " + desc
     this.game = id
   }
@@ -600,7 +599,6 @@ function collectSpecAchievementDecorations(player, tournamentID, gameID) {
       case "blackGM": achievement = new AchievementBlackDotGM(a.player, a.id); break;
       case "blackXX": achievement = new AchievementBlackDotXX(a.player, a.id, a.desc); break;
       case "lackOfSpirit": achievement = new AchievementLackOfSpirit(a.player, a.id, a.desc); break;
-      case "personalBest": achievement = new AchievementPersonalBest(a.player, a.id, a.desc); break;
     }
     if (a.player === player && a.id == gameID && achievement) decorations.push(achievement.decoration)
   })
@@ -618,7 +616,6 @@ function collectAchievements(data, tournamentID, games) {
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
-      case "personalBest": achievements.push(new AchievementPersonalBest(a.player, a.id, a.desc)); break;
     }
   })
 
