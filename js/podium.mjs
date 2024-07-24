@@ -432,6 +432,30 @@ class AchievementPersonalBest {
   }
 }
 
+class AchievementBest {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 80
+    //this.frame = "tyrkysova.png"
+    //this.char = "💪"
+    this.img = "best.png"
+    this.desc = "Nelepší výhra"
+    this.game = id
+  }
+}
+
+class AchievementWorst {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 70
+    //this.frame = "krvava.png"
+    //this.char = "😱"
+    this.img = "worst.png"
+    this.desc = "Nejhorší prohra"
+    this.game = id
+  }
+}
+
 class AchievementBlackDot {
   constructor(player, id) {
     this.player = player
@@ -639,6 +663,9 @@ function collectAchievements(data, tournamentID, games) {
         if (stats.broken) achievements.push(new AchievementBrokenChain(player, g.id, stats.broken))
         if (stats.bishopSac && wins) achievements.push(new AchievementBishopSac(player, g.id))
         if (stats.pawns) achievements.push(new AchievementPawns(player, stats.pawns, g.id))
+        if (stats.highest) achievements.push(new AchievementPersonalBest(player, g.id, stats.highest))
+        if (stats.best) achievements.push(new AchievementBest(player, g.id))
+        if (stats.worst) achievements.push(new AchievementWorst(player, g.id))
         if (stats.mate && wins) {
           if (stats.mate.smothered) achievements.push(new AchievementSmothered(player, g.id))
           else if (stats.mate.piece==="n") achievements.push(new AchievementKnightKiller(player, g.id))
@@ -796,6 +823,8 @@ function testAchievementsInfo(id="achievements") {
     new AchievementMateGarde(next()),
     new AchievementBrokenChain(next()),
     new AchievementPersonalBest(next()),
+    new AchievementBest(next()),
+    new AchievementWorst(next()),
   ]
 
   let el = document.getElementById(id)
@@ -1062,6 +1091,9 @@ function getDecorationTrophies(game, player, wins) {
     if (stats.broken) decorations.push("&#128165;") // 💥
     if (stats.bishopSac && wins) decorations.push("<span style='color:red'>&#9815;</span>")
     if (stats.pawns) decorations.push("&#x1F6A6;")
+    if (stats.highest) decorations.push("🥇")
+    if (stats.worst) decorations.push("😱")
+    if (stats.best) decorations.push("💪")
     if (stats.mate && wins) {
       if (stats.mate.smothered) decorations.push("&#9816;&#129505;")
       else if (stats.mate.piece==="n") decorations.push("&#9816;")
