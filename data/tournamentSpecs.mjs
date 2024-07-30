@@ -914,5 +914,18 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Za zmínku dneska stojí nejrychlejší partie turnaje, kde se PeinSamaCZe chytil Jouzoleanovi do Englunďácké pasti, kterou nás naučil sám veliký DJ-Pesec! Škoda, že to je jenom chycená dáma a ne ten mat 😀" +
       "<br><br><b>Jouzolean</b>: Akorát sedím s Rychlým Lenochodem na pivu, po dlouhé době 😁😎<br><br> <img src='img/pivo-rl.jpg'>"
   },
+  {
+    id: "qMhvu7bi",
+    html: "<br><b>Bebul</b>: Jouzolean, mozkomor a DJ-Pesec, mě zaúkolovali, jestli bych nezkusil implementovat stažení partií z Monday Fights, které se dohrály až po skončení turnaje. " +
+      "Máme totiž za to, že kolikrát hodnotné bitvy se dobojovaly až po tomto limitu a je škoda je v Monday Fights leaderboardu a databázi partií nemít. " +
+      "Partie po limitu se započtou do MF leaderboardu, ukáží se v seznamu odehraných her hráče, budou mít označení budíkostopkama " +
+      "a budou se ve všech dalších směrech chovat jako plnohodnotné partie Monday Fights turnaje s vyjímkou Lichess turnajového pořadí a score bodů. " +
+      "To nepřepočítávám, vezme se jak to v Lichess dopadlo. Již odehrané turnaje nebudou aktualizovány." +
+      "<br><br><img src='img/anketa1.png'/>" +
+      "<br><br><b>Jouzolean</b>: Jsem historicky první, kdo bral body po skončení turnaje 🙂" +
+      "<br><br><b>Bebul</b>: Lichess tedy píše, že Jouzolean hrál 10 partií a posledních šest vyhrál. Pro Monday Fights web je to ale 11 partií a posledních 7 vyhraných.<br>" +
+      "Jadrná tečka s Bukowskicem<br>nakonec! Gratulujeme!" +
+      "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.8}' align='center' style='margin:22px 0 5px 0'/>"
+  }
 
 ]
