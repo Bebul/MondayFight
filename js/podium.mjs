@@ -1257,6 +1257,8 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
     html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
     if (player === "bebul" && size==0.8) {
       html += `<img src="img/players/bebulAvatar2.png" style="position:absolute; bottom: -88px; left: -99px;transform: rotate(44deg)">`
+    } else if (player === "Jouzolean" && size==0.8) {
+      html += `<img src="img/players/jouzolean-mirror.gif." style="width: 190px; position:absolute; bottom: -25px; left: -96px">`
     }
   }
 

@@ -883,7 +883,9 @@ export var tournamentSpec = [
   },
   {
     id: "aOxS2ctp",
-    html: "<br><b>HonzaHonzaHonza</b>: šest vteřin do konce a vražedný jezdec PainSamaCZe - aneb jak prohrát partii během pár tahů 😄" +
+    html: "<b>Bebul</b>: Mezitím někde v odlehlé části vesmíru Bébul s Bukowskicem..." +
+      "<img src='img/indiani2024.jpg'/>" +
+    "<br><br><b>HonzaHonzaHonza</b>: šest vteřin do konce a vražedný jezdec PainSamaCZe - aneb jak prohrát partii během pár tahů 😄" +
       "<board json='{\"id\":\"4hqfy0Nc\", \"startPlay\":67}'/>"
   },
   {
