@@ -928,6 +928,13 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Lichess tedy píše, že Jouzolean hrál 10 partií a posledních šest vyhrál. Pro Monday Fights web je to ale 11 partií a posledních 7 vyhraných.<br>" +
       "Jadrná tečka s Bukowskicem<br>nakonec! Gratulujeme!" +
       "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.8}' align='center' style='margin:22px 0 5px 0'/>"
-  }
+  },
+  {
+    id: "nvwWKcZI",
+    html: "<br><b>Jouzolean</b>: Turnaj století, <img src='img/players/peinsamacze.png' class='img100 right'/>který pro nás, Monday Fighťáky, zorganizoval PeinSamaCZe, se odehrál tuto neděli v pražských Holešovicích. Šlo vlastně o dva turnaje, v našem blitzu 3+2 a pak taky rapidu 11+0. O turnaji brzy více v aktualitách, zde hlavně obrovské díky PeinSamaCZe za vynikající turnaj, který jsme si všichni užili. <img src='img/players/tomas_1989.png' class='img100 left'/> V takovém počtu se hráči Monday Fights naživo ještě nesešli! Dorazil i Tomas_1989 s miminem...  Tím dorovnal počet Monday Fighťáků na rovnejch dvanáct, jako apoštolů!" +
+      "<br><br><img src='img/turnajStoleti.jpg'/><div align='center'><i>Zleva: HonzaHonza, Lenochod, Baron Gorc, tomzr, Jouzolean, Mrazek, DJ-Pesec, Tekele, Scout a Bukowskic. Nevešli se PeinSamaCZe a Tomas_1989 s mimčem.</i></div>" +
+      "<br><br><b>Jouzolean</b>: Dnes si s náma poprvé zahraje kámoš z Klobouků Pajk013. Hraje teprve krátce, ale celkem mu to už jde. Skupina Klobouků tak dorovnává počet členů Dobříše. 😎 " +
+      "<br><br><b>Bebul</b>: Valašské Klobouky, taková díra a takových borců! No tohle? Slovutný Jouzoleán, berserkář RychlyLenochod, Mates co hrál s Navarou, Dzin, Travinho a kdysi ButaCzech, který svůj dušený mat v Blackburne - Kostič zopakoval hned několikrát..."
+  },
 
 ]
