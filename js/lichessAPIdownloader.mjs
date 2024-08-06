@@ -288,7 +288,7 @@ function lichessAPI() {
 
     while (players.length > 0) {
       let player = players.pop()
-      let url = `https://lichess.org/api/games/user/${player.name}?since=${tsince}&until=${tuntil}&perfType=blitz`
+      let url = `https://lichess.org/api/games/user/${player.name}?since=${tsince}&until=${tuntil}&perfType=blitz&opening=true`
       let gamesList = await fetch(url, {
         headers: {
           'Accept': 'application/x-ndjson'
