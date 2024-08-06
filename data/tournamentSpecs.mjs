@@ -935,7 +935,7 @@ export var tournamentSpec = [
       "Šlo vlastně o dva turnaje, v našem blitzu <a href='https://chess-results.com/tnr969671.aspx?lan=5&art=4&fed=CZE&turdet=YES&flag=30'>3+2</a> " +
       "a pak taky rapidu <a href='https://chess-results.com/tnr969668.aspx?lan=5&art=4&fed=CZE&turdet=YES&flag=30'>11+0</a>. O turnaji brzy více v aktualitách, zde hlavně obrovské díky PeinSamaCZe za vynikající turnaj, který jsme si všichni užili. <img src='img/players/tomas_1989.png' class='img100 left'/> V takovém počtu se hráči Monday Fights naživo ještě nesešli! Dorazil i Tomas_1989 s miminem...  Tím dorovnal počet Monday Fighťáků na rovnejch dvanáct, jako apoštolů!" +
       "<br><br><img src='img/turnajStoleti.jpg'/><div align='center'><i>Zleva: HonzaHonza, Lenochod, Baron Gorc, tomzr, Jouzolean, Mrazek, DJ-Pesec, Tekele, Scout a Bukowskic. Nevešli se PeinSamaCZe a Tomas_1989 s mimčem.</i></div>" +
-      "<br><br><b>Jouzolean</b>: Dnes si s náma poprvé zahraje kámoš z Klobouků Pajk013. Hraje teprve krátce, ale celkem mu to už jde. Skupina Klobouků tak dorovnává počet členů Dobříše. 😎 " +
+      "<br><br><b>Jouzolean</b>: Dnes si s náma poprvé zahraje kámoš z Klobouků Pajk013. Hraje teprve krátce, ale celkem mu to už jde. <img src='img/players/pajk013.png' class='img100 right'/>Skupina Klobouků tak dorovnává počet členů Dobříše. 😎 " +
       "<br><br><b>Bebul</b>: Valašské Klobouky, taková díra a takových borců! No tohle? Slovutný Jouzoleán, berserkář RychlyLenochod, Mates co hrál s Navarou, Dzin, Travinho a kdysi ButaCzech, který svůj dušený mat v Blackburne - Kostič zopakoval hned několikrát..."
   },
 
