@@ -945,6 +945,8 @@ export var tournamentSpec = [
       "<board json='{\"id\":\"LaupFUz9\", \"startPlay\":160, \"orientation\":\"black\"}'/>" +
       "<br><br><b>Bebul</b>: Někteří se flákají na dovolených, jiní statečně hrajou a honí plaketky 🎖😃 " +
       "<br><br><img src='img/egypt.jpg'>" +
-      "<img src='img/heart.png'>"
+      "<img src='img/heart.png'>" +
+      "<br><br><b>Bebul</b>: Turnaj Století konečně reportován v <a href='actualities.html#turnajStoleti'>aktualitách</a>... " +
+      "<br><br><img src='img/ts-rapid.jpg'>"
   },
 ]
