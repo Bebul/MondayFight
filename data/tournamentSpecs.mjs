@@ -938,5 +938,13 @@ export var tournamentSpec = [
       "<br><br><b>Jouzolean</b>: Dnes si s náma poprvé zahraje kámoš z Klobouků Pajk013. Hraje teprve krátce, ale celkem mu to už jde. <img src='img/players/pajk013.png' class='img100 right'/>Skupina Klobouků tak dorovnává počet členů Dobříše. 😎 " +
       "<br><br><b>Bebul</b>: Valašské Klobouky, taková díra a takových borců! No tohle? Slovutný Jouzoleán, berserkář RychlyLenochod, Mates co hrál s Navarou, Dzin, Travinho a kdysi ButaCzech, který svůj dušený mat v Blackburne - Kostič zopakoval hned několikrát..."
   },
-
+  {
+    id: "3KNb4e98",
+    html: "<b>DJ-Strelec</b>: Hlásím své all time hight elo během turnaje (než mi ho zase srazil 3xHonza), tak prosím plaketku 🎖😃" +
+      "<br><br><b>Bebul</b>: Gratulace! Ale je to fakt přísný... jediná remíza a všechno ostatní vyhraný a celková bilance +1. Jinak plaketku za maximální dosažený rating by to mělo umět detekovat automaticky. Ptám se na to po každém turnaji Lichessu." +
+      "<board json='{\"id\":\"LaupFUz9\", \"startPlay\":160, \"orientation\":\"black\"}'/>" +
+      "<br><br><b>Bebul</b>: Někteří se flákají na dovolených, jiní statečně hrajou a honí plaketky 🎖😃 " +
+      "<br><br><img src='img/egypt.jpg'>" +
+      "<img src='img/heart.png'>"
+  },
 ]
