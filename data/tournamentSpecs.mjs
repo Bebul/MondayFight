@@ -949,4 +949,12 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Turnaj Století konečně reportován v <a href='actualities.html#turnajStoleti'>aktualitách</a>... " +
       "<br><br><img src='img/ts-rapid.jpg'>"
   },
+  {
+    id: "q4yTm8ok",
+    html: "<b>Bébul</b>: PeinSamaCZe v týdnu uhrál svoje maximum v lichess bulletu, 2001. Napsal k tomu: <img src='img/players/peinsamacze.png' class='img100 right'/>" +
+      "<i>'Pro mě je to ukázka toho, že když se člověk pro něco rozhodne a věnuje se tomu, jde to. A i když to není jednoduché (a také by nemělo být), právě ta motivace kupředu je něco, co by měl mít každý. Co by mu mělo dávat důvod se ráno budit a večer jít spát. A ano, píšu tu něco extrémně 'deep' a přitom je to příspěvek o šachách - ano je. A také trochu splněný sen.'</i>" +
+      "<br>Gratulujeme!" +
+      "<br><br><b>Bebul</b>: Dneska jsem si vzpomněl na RychlyhoLenochoda, jak občas protivníka v naprosto prohrané pozici zdrtí matem a trápil jsem Kamikazeeeho, dokud byla nějaká naděje. A teda hejsa! Hejsasá! " +
+      "<board json='{\"id\":\"eK98FRsu\", \"startPlay\":42}'/>"
+  },
 ]
