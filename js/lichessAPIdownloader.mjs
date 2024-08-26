@@ -281,7 +281,7 @@ function lichessAPI() {
 
   async function addUnfinishedGames(t, g) {
     let tsince = new Date(t.startsAt).getTime()
-    let tuntil = tsince + t.minutes * 60000
+    let tuntil = tsince + (t.minutes + 15) * 60000
 
     let players = Array.from(t.standing.players)
     let games = g.games
@@ -294,7 +294,7 @@ function lichessAPI() {
           'Accept': 'application/x-ndjson'
         }
       })
-        .then(promiseTimeout(1500))
+        .then(promiseTimeout(3000))
         .then(status)
         .then(text)
         .then(ndjson2array)
