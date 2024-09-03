@@ -957,4 +957,27 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Dneska jsem si vzpomněl na RychlyhoLenochoda, jak občas protivníka v naprosto prohrané pozici zdrtí matem a trápil jsem Kamikazeeeho, dokud byla nějaká naděje. A teda hejsa! Hejsasá! " +
       "<board json='{\"id\":\"eK98FRsu\", \"startPlay\":42}'/>"
   },
+  {
+    id: "C0JSuQmL",
+    html: "<b>Bébul</b>: Dneska to byl boj. Ležím s blokádou zad, nadopovanej práškama a těším se na Monday Fights, jak si podám Tekeleho. Jenže Teklee se nepřihlásil a nejen to, já taky ne! " +
+      "Pro samé nadšení jsem 3x nedokázal zadat svoje heslo (bohužel, není stejné, jako ot naše vstupní do MF) a Lichess mi další pokusy nedovolil, ať si počkám. A tak jsem musel otevřít na mobilu " +
+      "Chrome, kde jsem přihlášenej pořád a hrát odtamo. Což bylo strašný... S Kamikazeee jsem dlouho vůbec nedokázal najít tlačitko pro resign, Bébulek nerad vzdává a ještě když to nemůže " +
+      "najít?" +
+      "<tooltip json='{\"id\":\"bebul\", \"size\":0.81}' align='center' style='margin:40px 0 0px 0'/>" +
+      "<br><br><b>Bebul</b>: Nadopovanej práškama jsem pak hrál jak opilej, což na vás, hochy v kravatách a fracích, platilo. To jste nečekali, co, takový majstrštiky!? <img src='img/achievements/berserker.png' class='img100 right'>" +
+      "Díky DJ-Pesec za naučení jeho majstr trap-matu v Englundovi, to vždycky potěší, zvlášť proti přesilnému PeinSamovi. " +
+      "S berserkujícím tomzrem jsme se několikrát přetahovali o první místo, " +
+      "ale on, jak je ženatej, zamilovanej, chce se před ní blejsknout, je nezdolnej. Veliká gratulace! Maestro Berserker je zaslouženě jeho! " +
+      "<br><br><b>Bebul</b>: Já vím, že Vám to přijde jako bohapusté chvástání, ale pochopte, že rating 1800, kterým se honosili jen monstra Bukowskico-DJ-Pesco-Tomzrovských rozměrů " +
+      "a také samozřejmě maestro Mrázek, tak tenhle rating si dneska urval i Bébulek, a to na Monday Fights, když porazil tuze nebezpečného LastScouta!<br>" +
+      "<div style='margin:5px;font-family: \"Roboto\", Sans-Serif; text-align: center;font-size:150%'>Highest rating: <span style='color: green'>1804</span></div>" +
+      "A nesmíme zapomenout ani na slovutného Jouzoleána, který má 1800+ furt a pořád, kromě konce tohoto turnaje, kde došlo na vzájemný střet! " +
+      "Byla to bitva obrů jako u Homéra, byly tam shluky draků a hyder a mračna přeludů jako u Miltona, byly tam vizionářské přízraky jako u Danta! " +
+      "A Bébulek se přehoupl zpátky nad 1800+, zatímco nejslovutnější Jouzolean pod 1800- padl! Může-li být vůbec jaká radost označena za opravdou, kromě tedy vítězství Bohemky nad Duklou, " +
+      "je to právě takový závěr turnaje! A co nám k tomu řekl Jouzolean?" +
+      "<br><br><b>Jouzolean</b>: grats k výkonu 💪 A samozřejmě k výhře nade mnou 😁 to byla příprava! Ja 2 tydny nehrál, vůbec mi to nešlo. 💪😁 Seš děsnej haluzák! Ale s pajkem jsi prohrál! " +
+      "<img src='img/players/pajk013.png' class='img100 right'>" +
+      "<br><br><b>Bebul</b>: jo, s tím Pajkem. To je hrozný, jak von to tady na Monday Fights kosí! Sláma mu ještě čouhá z bot, ale podal si i tomzra! Co na tom, že berserkujícího, pořád tomzra! A to se počítá! Gratulace!"
+  },
+
 ]
