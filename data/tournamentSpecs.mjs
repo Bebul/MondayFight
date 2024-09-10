@@ -979,5 +979,13 @@ export var tournamentSpec = [
       "<img src='img/players/pajk013.png' class='img100 right'>" +
       "<br><br><b>Bebul</b>: jo, s tím Pajkem. To je hrozný, jak von to tady na Monday Fights kosí! Sláma mu ještě čouhá z bot, ale podal si i tomzra! Co na tom, že berserkujícího, pořád tomzra! A to se počítá! Gratulace!"
   },
+  {
+    id: "ohHIXGQB",
+    html: "<img src='img/mf-og-pesec-buki.jpg' style='margin:5px 0'>" +
+      "<b>Bébul</b>: Dneska po dlouhé době vynechal tomzr, zato hrál bukowskic a DJ-Strelec, které to spolu čtyřikrát spárovalo! <img src='img/players/bukowskic.png' class='img100 right'/>" +
+      "To se ovšem bývalý šampion vybičoval k nadlidskému výkonu <b>3-1</b> a nakonec zvítězil i v celém turnaji. Nebylo to ale lehké! LastScouta porazil při stejném bodovém zisku (Sic!) až na lepší performance! Gratulujeme!" +
+      "<br><br><b>Bebul</b>: Gratulace také LastScoutovi, jehož rating stoupá k nebi <img src='img/players/lastscout.png' class='img100 right'> jako dým a přetnutí kulaté hranice 1600 lze očekávat na příštím Monday Fight!. Když dneska v poslední partii vyklouzl z Jouzoleanových pařátů, přiklepl si totiž krásný osobáček 1585! " +
+      "<board json='{\"id\":\"IBXjbgel\", \"startPlay\":95, \"orientation\":\"black\"}'/>"
+  },
 
 ]
