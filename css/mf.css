@@ -36,6 +36,10 @@ body {
     width: 97vw;
 }
 
+#slider {
+    width: 50%;
+}
+
 @media only screen and (max-width: 500px) {
     body {
         padding: 0;
@@ -72,6 +76,10 @@ body {
     #tournament-spec, #tournament-auto, #surpriseGameId, .playOFF {
         font-size: 1.4em;
     }
+
+    #slider {
+        width: 95vw;
+    }
 }
 
 @media only screen and (min-width: 500px) {
@@ -91,6 +99,9 @@ body {
         margin: 0;
         display: inline-block; /*or table */
         min-width: 290px;
+    }
+    #slider {
+        width: 80%;
     }
 }
 
@@ -117,6 +128,9 @@ body {
         width: 63%;
         margin: 0;
         display: inline-block; /*or table */
+    }
+    #slider {
+        width: 70%;
     }
 }
 
@@ -176,6 +190,9 @@ body {
     .playOFF {
         margin: 10px;
         max-width: 580px;
+    }
+    #slider {
+        width: 60%;
     }
 }
 
@@ -472,8 +489,40 @@ td, th {
     z-index: 2;
 }
 
+button.active {
+    background-color: red;
+}
+
+loss::after {
+    /*    margin-right: .2em; */
+    content: "";
+    /*    font-size: 1.2em; */
+    vertical-align: middle;
+    font-family: "lichess";
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    speak: none;
+    opacity: .5;
+    unicode-bidi: isolate;
+}
+
 loss {
     color: red;
+}
+
+win::after {
+/*    margin-right: .2em; */
+    content: "";
+/*    font-size: 1.2em; */
+    vertical-align: middle;
+    font-family: "lichess";
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+    speak: none;
+    opacity: .5;
+    unicode-bidi: isolate;
 }
 
 win {
@@ -701,6 +750,14 @@ img.img75 {
     src: url('../fonts/BankGothic Md BT Medium.ttf');
     font-style: normal;
     font-stretch: condensed;
+}
+
+@font-face {
+    font-family: 'lichess';
+    src: url('../fonts/lichess.woff2') format('woff2');
+    font-display: block;
+    font-weight: normal;
+    font-style: normal;
 }
 
 #tournament-spec img {

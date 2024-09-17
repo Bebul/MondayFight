@@ -160,6 +160,13 @@ export let MF = function() {
     })
   }
 
+  function filterSeason(theFights, season) {
+    return Array.from(theFights).filter(fight => {
+      let date = new Date(fight.startsAt)
+      return season.from <= date && date <= season.to
+    })
+  }
+
   function last10(theFights) {
     let filtered = Array.from(theFights)
     while(filtered.length > 10) {
@@ -199,6 +206,7 @@ export let MF = function() {
     fastestDecisiveGameSelector: fastestDecisiveGameSelector,
     filterYear: filterYear,
     filterUpTo: filterUpTo,
+    filterSeason: filterSeason,
     last10: last10,
     winner: winner,
     loser: loser,

@@ -12,6 +12,7 @@ import {
 } from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
 import {collectTrophies, joinTrophies, setOpeningTable, setOpeningTableDataAndRedraw, openingsHistogram} from "./podium.mjs";
+import noUiSlider from '../node_modules/nouislider/dist/nouislider.mjs';
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
@@ -760,33 +761,26 @@ function generateCrossTableColumns(data, theFights, players) {
   return columnsBuilder;
 }
 
-export function criterionChanged(data, tableId, createTableF) {
-  let season = document.querySelector('input[name="season"]:checked').value
-  let criterion = document.querySelector('input[name="criterion"]:checked').value
-  console.log(`selected season: ${season} criterion ${criterion}`)
-  switch (season) {
-    case "all":
-      createTableF(data, data.mondayFights(), tableId, criterion)
-      break
-    case "year":
-      createTableF(data, MF.filterYear(data.mondayFights(), -1), tableId, criterion, season)
-      break
-    case "2020":
-      createTableF(data, MF.filterYear(data.mondayFights(), 2020), tableId, criterion, season)
-      break
-    case "2021":
-      createTableF(data, MF.filterYear(data.mondayFights(), 2021), tableId, criterion, season)
-      break
-    case "2022":
-      createTableF(data, MF.filterYear(data.mondayFights(), 2022), tableId, criterion, season)
-      break
-    case "2023":
-      createTableF(data, MF.filterYear(data.mondayFights(), 2023), tableId, criterion, season)
-      break
-    case "2024":
-      createTableF(data, MF.filterYear(data.mondayFights(), 2024), tableId, criterion, season)
-      break
+export function activeSeason(tagName = "seasons") {
+  let currentYear = () => {
+    let today = new Date()
+    let start = new Date(today.getFullYear(), 0, 1)
+     return {text: today.getFullYear(), from: start, to: today}
   }
+  let el = document.getElementById("seasons")
+  if (el) {
+    let active = el .getElementsByClassName('active')
+    if (active && active.length > 0 && active[0].mfSeason) return active[0].mfSeason
+    else return currentYear()
+  } else return currentYear()
+}
+
+export function criterionChanged(data, tableId, createTableF) {
+  let season = activeSeason()
+  let criterionSel = document.querySelector('input[name="criterion"]:checked')
+  let criterion = criterionSel ? criterionSel.value : null
+  console.log(`selected season: ${season} criterion ${criterion}`)
+  createTableF(data, MF.filterSeason(data.mondayFights(), season), tableId, criterion, season)
 }
 
 function filterDuels(data, theFights, player1, player2) {
@@ -847,6 +841,90 @@ export function initCardsUI(data) {
   document.getElementById("createCard").onclick = function() {
     criterionChanged(data, "epicCard", createEpicCard)
   }
+
+  let startDate = new Date(2020, 0, 1)
+  let today = new Date() // current date
+  let initial = new Date(new Date().setDate(today.getDate() - 365))
+  const oneDay = 24 * 60 * 60 * 1000
+  let yearPips = []
+  let seasons = []
+  seasons.push({text: "VŠE", from: startDate, to: today})
+  for (let year = 2020; year <= today.getFullYear(); year++) {
+    yearPips.push(new Date(year, 0, 1))
+    seasons.push({text: year, from: new Date(year, 0, 1), to: new Date(year + 1, 0, 1)})
+  }
+  seasons.push({text: "ROK", from: initial, to: today})
+  let sliderSeason = {text: "", from: initial, to: today, hidden: true}
+  seasons.push(sliderSeason)
+
+  let slider = document.getElementById('slider')
+  let seasonsEl = document.getElementById('seasons')
+  seasons.forEach(s => {
+    let button = document.createElement("button")
+    button.classList.add("btn-rack__btn")
+    button.innerText = s.text
+    if (s.hidden) button.style.visibility = "hidden"
+    button.mfSeason = s
+    if (s.text == today.getFullYear()) button.classList.add("active")
+    button.addEventListener("click", function() {
+      let seasonsEl = document.getElementById('seasons')
+      let buttons= seasonsEl.getElementsByClassName('active')
+      if (buttons) while (buttons.length) buttons[0].classList.remove('active'); // getElementsByClassName collection is live !
+      button.classList.add('active')
+      console.log(`clicked: ${s.text} classList: ${button.classList} slider:${slider.noUiSlider.get()}`)
+      slider.noUiSlider.set([s.from.getTime(), s.to.getTime()]);
+      criterionChanged(data, "players", updatePlayerList)
+    })
+    seasonsEl.appendChild(button)
+  })
+
+  function formatDate(value) {
+    let date = new Date(value)
+    return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`
+  }
+  const opts = {
+    start: [initial.valueOf(), today.valueOf()],
+    tooltips: [
+      {to: formatDate},
+      {to: formatDate}
+    ],
+    connect: true,
+    margin: 7 * oneDay,
+    direction: 'ltr',
+    behaviour: 'drag',
+    step: oneDay,
+    range: {
+      min: startDate.valueOf(),
+      max: today.valueOf(),
+    },
+    pips: {
+      mode: "values",
+      values: yearPips.map(y => y.valueOf()),
+      filter: (val, tpe) => (tpe == 1 ? val : -1),
+      format: {
+        to: val => new Date(val).getFullYear(),
+      },
+    },
+  };
+
+  noUiSlider.create(slider, opts);
+
+  slider.noUiSlider.on('end', function (values, handle) {
+    let seasonsEl = document.getElementById('seasons')
+    let buttons= seasonsEl.getElementsByClassName('active')
+    if (buttons) while (buttons.length) buttons[0].classList.remove('active'); // getElementsByClassName collection is live !
+    let children = seasonsEl.children
+    if (children && children.length > 0) {
+      let last = children[children.length - 1]
+      last.style.visibility = "visible"
+      last.classList.add('active')
+      last.innerText = `${formatDate(parseInt(values[0]))}-${formatDate(parseInt(values[1]))}`
+      sliderSeason.from = new Date(parseInt(values[0]))
+      sliderSeason.to = new Date(parseInt(values[1]))
+      criterionChanged(data, "players", updatePlayerList)
+    }
+  })
+
 }
 
 export function updatePlayerList(data, theFights, selectId, criterion, season, verbose = true) {

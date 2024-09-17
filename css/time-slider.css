@@ -1,0 +1,527 @@
+:root {
+    --c-bg: hsl(0, 0%, 100%);
+    --c-bg-box: hsl(0, 0%, 100%);
+    --c-bg-high: hsl(0, 0%, 100%);
+    --c-bg-low: hsl(0, 0%, 89%);
+    --c-bg-page: hsl(37, 10%, 92%);
+    --c-bg-zebra: hsl(37, 12%, 96.5%);
+    --c-bg-zebra2: hsl(37, 12%, 92%);
+    --c-bg-popup: hsl(0, 0%, 100%);
+    --c-bg-header-dropdown: hsl(0, 0%, 100%);
+    --c-bg-input: #24221e;
+    --c-bg-variation: hsl(37, 5%, 15%);
+    --c-header-dropdown: hsl(0, 0%, 30%);
+    --c-body-gradient: hsl(37, 12%, 84%);
+    --c-font: hsl(0, 0%, 30%);
+    --c-shade: hsl(0, 0%, 84%);
+    --c-dark: #333;
+    --c-dimmer: #fff;
+    --c-clearer: #000;
+    --c-page-input: hsl(0, 0%, 100%);
+    --c-page-mask: hsla(0, 0%, 0%, 0.6);
+    --c-metal-top: hsl(37, 7%, 22%);
+    --c-metal-bottom: hsl(37, 5%, 19%);
+    --c-metal-top-hover: hsl(37, 7%, 25%);
+    --c-metal-bottom-hover: hsl(37, 5%, 22%);
+    --c-font-dim: #949494;
+    --c-font-dimmer: #6b6b6b;
+    --c-font-clear: #cccccc;
+    --c-font-clearer: #e3e3e3;
+    --c-font-page: var(--c-font-dim);
+    --c-font-shadow: hsla(0, 0, 0%, 0);
+    --c-primary-dim: #3d8cd7;
+    --c-link-hover: #005bb0;
+    --c-chat-host-bg: rgba(78, 122, 29, 0.4);
+    --c-chat-mention-bg: rgba(59, 92, 22, 0.4);
+    --c-fancy: hsl(294, 62%, 48%);
+    --c-border: hsl(0, 0%, 25%);
+    --c-border-page: hsl(0, 0%, 22%);
+    --c-border-tour: #939291;
+    --c-border-light: hsl(0, 0%, 40%);
+    --c-primary: hsl(209, 77%, 46%);
+    --c-primary-clear: #1664ad;
+    --c-secondary: hsl(88, 62%, 37%);
+    --c-secondary-dim: #81ad50;
+    --c-secondary-dimmer: #a1c27c;
+    --c-accent: hsl(22, 100%, 42%);
+    --c-link: hsl(209, 77%, 46%);
+    --c-link-dim: var(--c-primary-dim);
+    --c-link-clear: var(--c-primary-clear);
+    --c-over: #fff;
+    --c-brag: hsl(37, 74%, 48%);
+    --c-contours: #d59e44;
+    --c-accent-dim: #dd6d2b;
+    --c-accent-faint: hsla(22, 100%, 42%, 0.4);
+    --c-accent-clear: #dd6d2b;
+    --c-dasher: hsl(88, 62%, 37%);
+    --c-clas: rgb(127, 90, 240);
+    --c-clas-light: #9171f2;
+    --c-bot: var(--c-fancy);
+    --c-good: hsl(88, 62%, 37%);
+    --c-warn: hsl(37, 74%, 48%);
+    --c-bad: hsl(0, 60%, 50%);
+    --c-error: hsl(0, 60%, 50%);
+    --c-live: hsl(0, 60%, 50%);
+    --c-dasher-light: #afc597;
+    --c-racer-boost: white;
+    --c-marathon: #7e726d;
+    --c-tutor-bg: #80a05d;
+    --c-inaccuracy: hsl(202, 78%, 40%);
+    --c-mistake: hsl(41, 100%, 35%);
+    --c-blunder: hsl(0, 68%, 50%);
+    --c-good-move: hsl(88, 62%, 37%);
+    --c-brilliant: hsl(129, 71%, 30%);
+    --c-interesting: hsl(307, 80%, 59%);
+    --c-pool-button: hsla(37, 7%, 19%, 0.66);
+    --c-paper: hsl(60, 56%, 86%);
+    --c-bg-input: #fafaf9;
+    --c-bg-variation: hsl(37, 12%, 92%);
+    --c-bg-header-dropdown: hsl(0, 0%, 100%);
+    --c-header-dropdown: hsl(0, 0%, 30%);
+    --c-page-input: hsl(0, 0%, 89%);
+    --c-metal-top: hsl(0, 0%, 96%);
+    --c-metal-bottom: hsl(0, 0%, 93%);
+    --c-metal-top-hover: hsl(0, 0%, 98%);
+    --c-metal-bottom-hover: hsl(0, 0%, 95%);
+    --c-font-dim: #787878;
+    --c-font-dimmer: #b3b3b3;
+    --c-font-clear: #1f1f1f;
+    --c-font-clearer: black;
+    --c-font-page: #5e5e5e;
+    --c-font-shadow: #fff;
+    --c-primary-dim: #428fd8;
+    --c-link-hover: #004f99;
+    --c-chat-host-bg: rgba(125, 170, 73, 0.4);
+    --c-chat-mention-bg: rgba(161, 194, 124, 0.4);
+    --c-fancy: hsl(294, 61%, 62%);
+    --c-border: hsl(0, 0%, 85%);
+    --c-border-page: hsl(0, 0%, 80%);
+    --c-border-tour: #dddcdb;
+    --c-border-light: hsl(0, 0%, 80%);
+    --m-accent--fade-30: hsla(22, 100%, 42%, 0.7);
+    --m-accent--fade-40: hsla(22, 100%, 42%, 0.6);
+    --m-accent--fade-50: hsla(22, 100%, 42%, 0.5);
+    --m-accent--fade-70: hsla(22, 100%, 42%, 0.3);
+    --m-accent--fade-80: hsla(22, 100%, 42%, 0.2);
+    --m-accent--fade-85: hsla(22, 100%, 42%, 0.15);
+    --m-accent_bg--mix-10: hsl(22, 72%, 94%);
+    --m-accent_bg--mix-12: hsl(22, 72%, 93%);
+    --m-accent_bg--mix-15: hsl(22, 72%, 91%);
+    --m-accent_bg--mix-20: hsl(22, 72%, 88%);
+    --m-accent_bg--mix-60: hsl(22, 72%, 65%);
+    --m-accent_bg--mix-70: hsl(22, 72%, 59%);
+    --m-accent_bg-popup--mix-10: hsl(22, 72%, 94%);
+    --m-accent_bg-zebra--mix-10: hsl(23, 51%, 91%);
+    --m-accent_black--mix-70: hsl(22, 100%, 29%);
+    --m-accent_white--mix-80: hsl(22, 72%, 54%);
+    --m-bad--alpha-50: hsla(0, 60%, 50%, 0.5);
+    --m-bad--fade-40: hsla(0, 60%, 50%, 0.6);
+    --m-bad--fade-80: hsla(0, 60%, 50%, 0.2);
+    --m-bad--lighten-11: hsl(0, 60%, 61%);
+    --m-bad_bg--mix-10: hsl(0, 60%, 95%);
+    --m-bad_bg--mix-15: hsl(0, 60%, 93%);
+    --m-bad_bg--mix-20: hsl(0, 60%, 90%);
+    --m-bad_bg--mix-25: hsl(0, 60%, 88%);
+    --m-bad_bg--mix-30: hsl(0, 60%, 85%);
+    --m-bad_bg--mix-50: hsl(0, 60%, 75%);
+    --m-bad_bg--mix-60: hsl(0, 60%, 70%);
+    --m-bad_bg--mix-80: hsl(0, 60%, 60%);
+    --m-bad_bg-zebra--mix-20: hsl(1, 49%, 87%);
+    --m-bad_bg-zebra2--mix-20: hsl(4, 41%, 84%);
+    --m-bad_bg-zebra2--mix-30: hsl(3, 47%, 79%);
+    --m-bad_bg-zebra2--mix-60: hsl(1, 55%, 67%);
+    --m-bad_clearer--mix-80: hsl(0, 60%, 40%);
+    --m-bad_dark--mix-80: hsl(0, 55%, 44%);
+    --m-bg--alpha-40: hsla(0, 0%, 100%, 0.4);
+    --m-bg--fade-20: hsla(0, 0%, 100%, 0.8);
+    --m-bg--fade-30: hsla(0, 0%, 100%, 0.7);
+    --m-bg--fade-50: hsla(0, 0%, 100%, 0.5);
+    --m-bg-page_bg--mix-50: hsl(30, 10%, 96%);
+    --m-bg-zebra2--fade-1: hsla(37, 12%, 92%, 0.99);
+    --m-blunder_bg--mix-30: hsl(0, 68%, 85%);
+    --m-blunder_font--mix-70: hsl(0, 54%, 44%);
+    --m-body-gradient_bg-page--mix-50: hsl(34, 11%, 88%);
+    --m-brag--alpha-70: hsla(37, 74%, 48%, 0.7);
+    --m-brag--fade-50: hsla(37, 74%, 48%, 0.5);
+    --m-brag_bg--mix-15: hsl(37, 68%, 92%);
+    --m-brag_bg--mix-20: hsl(37, 68%, 90%);
+    --m-brag_bg--mix-40: hsl(37, 68%, 79%);
+    --m-brag_bg--mix-60: hsl(37, 68%, 69%);
+    --m-brag_bg--mix-70: hsl(37, 68%, 64%);
+    --m-brag_bg--mix-80: hsl(37, 68%, 58%);
+    --m-brag_bg-page--mix-20: hsl(37, 46%, 83%);
+    --m-brag_bg-page--mix-60: hsl(37, 63%, 66%);
+    --m-brag_dark--mix-85: hsl(37, 69%, 44%);
+    --m-brag_white--mix-80: hsl(37, 68%, 58%);
+    --m-brilliant_bg--mix-30: hsl(129, 31%, 79%);
+    --m-clas_bg--mix-10: hsl(255, 83%, 96%);
+    --m-clas_bg--mix-30: hsl(255, 83%, 89%);
+    --m-clas_bg--mix-7: hsl(255, 83%, 98%);
+    --m-clas_bg--mix-80: hsl(255, 83%, 72%);
+    --m-clas_bg-zebra--mix-20: hsl(257, 57%, 90%);
+    --m-clas_white--mix-20: hsl(255, 83%, 93%);
+    --m-clearer_bg-page--mix-70: hsl(30, 1%, 28%);
+    --m-clearer_bg-page--mix-80: hsl(30, 1%, 18%);
+    --m-clearer_body-gradient--mix-65: hsl(36, 2%, 29%);
+    --m-clearer_body-gradient--mix-75: hsl(36, 2%, 21%);
+    --m-dimmer_clearer--mix-63: hsl(0, 0%, 63%);
+    --m-dimmer_font--mix-60: hsl(0, 0%, 72%);
+    --m-dimmer_font--mix-90: hsl(0, 0%, 93%);
+    --m-font--fade-50: hsla(0, 0%, 30%, 0.5);
+    --m-font--fade-70: hsla(0, 0%, 30%, 0.3);
+    --m-font--fade-83: hsla(0, 0%, 30%, 0.17);
+    --m-font_bg--mix-20: hsl(0, 0%, 86%);
+    --m-font_bg--mix-30: hsl(0, 0%, 79%);
+    --m-font_clas--mix-40: hsl(255, 36%, 51%);
+    --m-font_dimmer--mix-50: hsl(0, 0%, 65%);
+    --m-font_dimmer--mix-85: hsl(0, 0%, 41%);
+    --m-font_white--mix-20: hsl(0, 0%, 86%);
+    --m-good_bg--mix-30: hsl(0, 0%, 70%);
+    --m-inaccuracy_bg--mix-30: hsl(202, 52%, 82%);
+    --m-inaccuracy_font--mix-70: hsl(202, 59%, 37%);
+    --m-interesting_bg--mix-30: hsl(307, 80%, 88%);
+    --m-mistake_bg--mix-30: hsl(41, 54%, 81%);
+    --m-mistake_font--mix-70: hsl(41, 73%, 34%);
+    --m-primary--alpha-70: hsla(209, 77%, 46%, 0.7);
+    --m-primary--fade-50: hsla(209, 77%, 46%, 0.5);
+    --m-primary--fade-80: hsla(209, 77%, 46%, 0.2);
+    --m-primary--lighten-10: hsl(209, 77%, 56%);
+    --m-primary--lighten-7: hsl(209, 77%, 53%);
+    --m-primary_bg--mix-10: hsl(209, 66%, 95%);
+    --m-primary_bg--mix-12: hsl(209, 66%, 94%);
+    --m-primary_bg--mix-15: hsl(209, 66%, 92%);
+    --m-primary_bg--mix-17: hsl(209, 66%, 91%);
+    --m-primary_bg--mix-18: hsl(209, 66%, 90%);
+    --m-primary_bg--mix-20: hsl(209, 66%, 89%);
+    --m-primary_bg--mix-25: hsl(209, 66%, 87%);
+    --m-primary_bg--mix-30: hsl(209, 66%, 84%);
+    --m-primary_bg--mix-35: hsl(209, 66%, 81%);
+    --m-primary_bg--mix-40: hsl(209, 66%, 78%);
+    --m-primary_bg--mix-50: hsl(209, 66%, 73%);
+    --m-primary_bg--mix-60: hsl(209, 66%, 68%);
+    --m-primary_bg--mix-70: hsl(209, 66%, 62%);
+    --m-primary_bg--mix-75: hsl(209, 66%, 60%);
+    --m-primary_bg--mix-80: hsl(209, 66%, 57%);
+    --m-primary_bg-page--mix-15: hsl(209, 32%, 85%);
+    --m-primary_bg-page--mix-20: hsl(209, 38%, 83%);
+    --m-primary_bg-page--mix-60: hsl(209, 59%, 65%);
+    --m-primary_bg-zebra--mix-10: hsl(209, 37%, 91%);
+    --m-primary_bg-zebra2--mix-20: hsl(208, 37%, 83%);
+    --m-primary_black--mix-70: hsl(209, 77%, 32%);
+    --m-primary_black--mix-80: hsl(209, 77%, 37%);
+    --m-primary_dark--mix-80: hsl(209, 69%, 41%);
+    --m-primary_font--mix-35: hsl(209, 35%, 36%);
+    --m-primary_font--mix-50: hsl(209, 47%, 38%);
+    --m-primary_font--mix-90: hsl(209, 72%, 44%);
+    --m-primary_white--mix-40: hsl(209, 66%, 78%);
+    --m-primary_white--mix-60: hsl(209, 66%, 68%);
+    --m-primary_white--mix-80: hsl(209, 66%, 57%);
+    --m-secondary--fade-30: hsla(88, 62%, 37%, 0.7);
+    --m-secondary--fade-40: hsla(88, 62%, 37%, 0.6);
+    --m-secondary--fade-50: hsla(88, 62%, 37%, 0.5);
+    --m-secondary--fade-60: hsla(88, 62%, 37%, 0.4);
+    --m-secondary--fade-80: hsla(88, 62%, 37%, 0.2);
+    --m-secondary--lighten-4: hsl(88, 62%, 41%);
+    --m-secondary_bg--mix-10: hsl(88, 36%, 94%);
+    --m-secondary_bg--mix-12: hsl(88, 36%, 92%);
+    --m-secondary_bg--mix-15: hsl(88, 36%, 91%);
+    --m-secondary_bg--mix-20: hsl(88, 36%, 87%);
+    --m-secondary_bg--mix-25: hsl(88, 36%, 84%);
+    --m-secondary_bg--mix-30: hsl(88, 36%, 81%);
+    --m-secondary_bg--mix-35: hsl(88, 36%, 78%);
+    --m-secondary_bg--mix-40: hsl(88, 36%, 75%);
+    --m-secondary_bg--mix-50: hsl(88, 36%, 69%);
+    --m-secondary_bg--mix-70: hsl(88, 36%, 56%);
+    --m-secondary_bg--mix-75: hsl(88, 36%, 53%);
+    --m-secondary_bg--mix-80: hsl(88, 37%, 50%);
+    --m-secondary_bg-page--mix-50: hsl(87, 33%, 64%);
+    --m-secondary_bg-popup--mix-10: hsl(88, 36%, 94%);
+    --m-secondary_bg-popup--mix-27: hsl(88, 36%, 83%);
+    --m-secondary_bg-popup--mix-36: hsl(88, 36%, 77%);
+    --m-secondary_bg-zebra--mix-12: hsl(83, 27%, 89%);
+    --m-secondary_bg-zebra--mix-20: hsl(85, 30%, 84%);
+    --m-secondary_dark--mix-50: hsl(88, 40%, 29%);
+    --m-secondary_dark--mix-85: hsl(88, 57%, 35%);
+    --m-secondary_dimmer--mix-82: hsl(88, 39%, 48%);
+    --m-secondary_white--mix-80: hsl(88, 37%, 50%);
+    --m-yellow_bg--mix-30: hsl(60, 100%, 85%)
+}
+
+
+/* Functional styling;
+ * These styles are required for noUiSlider to function.
+ * You don't need to change these rules to apply your design.
+ */
+.noUi-target,
+.noUi-target * {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: none;
+    -ms-touch-action: none;
+    touch-action: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.noUi-target {
+    position: relative;
+}
+.noUi-base,
+.noUi-connects {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+/* Wrapper for all connect elements.
+   */
+.noUi-connects {
+    overflow: hidden;
+    z-index: 0;
+}
+.noUi-connect,
+.noUi-origin {
+    will-change: transform;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    -webkit-transform-style: preserve-3d;
+    transform-origin: 0 0;
+    transform-style: flat;
+}
+/* Offset direction
+   */
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
+    left: 0;
+    right: auto;
+}
+/* Give origins 0 height/width so they don't interfere with clicking the
+   * connect elements.
+   */
+.noUi-horizontal .noUi-origin {
+    height: 0;
+}
+.noUi-handle {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+}
+.noUi-touch-area {
+    cursor: w-resize;
+    height: 100%;
+    width: 100%;
+}
+.noUi-state-tap .noUi-connect,
+.noUi-state-tap .noUi-origin {
+    -webkit-transition: transform 0.3s;
+    transition: transform 0.3s;
+}
+.noUi-state-drag * {
+    cursor: grabbing !important;
+}
+/* Slider size and handle placement;
+   */
+.noUi-horizontal {
+    height: 7px;
+    margin-top: 5px;
+    margin-left: 15px;
+    margin-right: 5px;
+}
+
+.noUi-horizontal .noUi-handle {
+    width: 5px;
+    height: 21px;
+    right: 0px;
+    top: -6px;
+}
+.noUi-txt-dir-rtl.noUi-horizontal .noUi-handle {
+    left: 0px;
+    right: auto;
+}
+/* Styling;
+   * Giving the connect element a border radius causes issues with using transform: scale
+   */
+.noUi-target {
+    background: rgba(255, 255, 255, 0);
+    border-radius: 4px;
+    border: 1px solid var(--c-font);
+}
+.noUi-connects {
+    border-radius: 3px;
+}
+.noUi-connect {
+    background: #00b5ad;
+    cursor: grab;
+}
+/* Handles and cursors;
+   */
+.noUi-handle {
+    border: 1px solid black;
+    border-radius: 3px;
+    background: aliceblue;
+    cursor: w-resize;
+    box-shadow:
+            inset 0 0 1px #fff,
+            inset 0 1px 7px #ebebeb,
+            0 3px 6px -3px #bbb;
+}
+.noUi-active {
+    box-shadow:
+            inset 0 0 1px #fff,
+            inset 0 1px 7px #ddd,
+            0 3px 6px -3px #bbb;
+}
+/* Handle stripes;
+   */
+.noUi-handle:before,
+.noUi-handle:after {
+    left: 17px;
+}
+/* Base;
+   *
+   */
+.noUi-pips,
+.noUi-pips * {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.noUi-pips {
+    position: absolute;
+    color: var(--c-font);
+}
+/* Values;
+   *
+   */
+.noUi-value {
+    position: absolute;
+    white-space: nowrap;
+    text-align: center;
+}
+.noUi-value-sub {
+    color: #ccc;
+    font-size: 10px;
+}
+/* Markings;
+   *
+   */
+.noUi-marker {
+    position: absolute;
+    background: var(--c-font);
+}
+.noUi-marker-sub {
+    background: #aaa;
+}
+.noUi-marker-large {
+    background: #aaa;
+}
+/* Horizontal layout;
+   *
+   */
+.noUi-pips-horizontal {
+    height: 100%;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+.noUi-value-horizontal {
+    -webkit-transform: translate(-50%, 50%);
+    transform: translate(-50%, 50%);
+}
+.noUi-rtl .noUi-value-horizontal {
+    -webkit-transform: translate(50%, 50%);
+    transform: translate(50%, 50%);
+}
+.noUi-marker-horizontal.noUi-marker {
+    margin-left: -1px;
+    width: 2px;
+    height: 5px;
+}
+.noUi-marker-horizontal.noUi-marker-sub {
+    height: 10px;
+}
+.noUi-marker-horizontal.noUi-marker-large {
+    height: 15px;
+}
+
+
+.noUi-tooltip {
+    display: block;
+    position: absolute;
+    border: 1px solid #D9D9D9;
+    border-radius: 3px;
+    background: #fff;
+    color: #000;
+    padding: 5px;
+    text-align: center;
+    white-space: nowrap;
+}
+.noUi-horizontal .noUi-tooltip {
+    -webkit-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    left: 50%;
+    bottom: 120%;
+}
+.noUi-vertical .noUi-tooltip {
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    top: 50%;
+    right: 120%;
+}
+.noUi-horizontal .noUi-origin > .noUi-tooltip {
+    -webkit-transform: translate(50%, 0);
+    transform: translate(50%, 0);
+    left: auto;
+    bottom: 10px;
+}
+.noUi-vertical .noUi-origin > .noUi-tooltip {
+    -webkit-transform: translate(0, -18px);
+    transform: translate(0, -18px);
+    top: auto;
+    right: 28px;
+}
+
+
+/* show tooltips only when moving */
+#slider .noUi-tooltip {
+    display: none;
+}
+#slider .noUi-active .noUi-tooltip {
+    display: block;
+}
+
+
+.btn-rack__btn {
+    background: linear-gradient(to bottom, var(--c-metal-top), var(--c-metal-bottom));
+    text-shadow: 0 1px 0 var(--c-font-shadow)
+}
+
+.btn-rack__btn:hover {
+    background: linear-gradient(to bottom, var(--c-metal-top-hover), var(--c-metal-bottom-hover));
+    text-shadow: 0 1px 0 var(--c-font-shadow)
+}
+
+.btn-rack__btn.active,.button.active {
+    box-shadow: 0 3px 4px rgba(0,0,0,.15) inset
+}
+
+.btn-rack__btn.active,.button.active {
+    background: #00b5ad;
+    color: #ffeeba;
+    text-shadow: 0 1px 1px #000 !important;
+}
+
+.btn-rack__btn {
+    justify-content: center;
+    text-align: center;
+    line-height: 2rem;
+    cursor: pointer;
+    border-inline-end:1px solid var(--c-border);color: var(--c-font);
+    white-space: nowrap;
+}
