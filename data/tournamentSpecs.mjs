@@ -987,5 +987,14 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Gratulace také LastScoutovi, jehož rating stoupá k nebi <img src='img/players/lastscout.png' class='img100 right'> jako dým a přetnutí kulaté hranice 1600 lze očekávat na příštím Monday Fight!. Když dneska v poslední partii vyklouzl z Jouzoleanových pařátů, přiklepl si totiž krásný osobáček 1585! " +
       "<board json='{\"id\":\"IBXjbgel\", \"startPlay\":95, \"orientation\":\"black\"}'/>"
   },
-
+  {
+    id: "KqWg6eHp",
+    html: "<b>Bébul</b>: <img src='img/players/margarita_vlasenko.png' class='img100 right'/> Dneska, už podruhé bez tomzra !!, zato hrála po dlouhé době  Margarita. A že se bylo na co dívat! " +
+      "Takhle pěkně rozebrala 3x Honzovu jindy pevnou francouzskou obranu! " +
+      "<board json='{\"id\":\"iXn0S7sn\", \"startPlay\":36}'/>" +
+      "<br><br><b>Bebul</b>: <img src='img/players/janshorny.png' class='img100 right'/>  Gratulace také Baronu Gorcovi k pěknému vymanění se z Jouzoleanova řetězu. Škoda, že jenom remizoval, protože koncovka to už byla školácky vyhraná." +
+      "<board json='{\"id\":\"dVFTjAnl\", \"startPlay\":95, \"orientation\":\"black\"}'/>" + 
+      "<br><br><b>Bebul</b>: <img src='img/players/peinsamacze.png' class='img100 right'/> A kdo neví, co hrát na siláka PeinSamuCZe, tak rozhodně vyzkoušejte Englund Gambit! Není třeba se učit " +
+      "žádné složité teorie, stačí čtyři tahy. 😅"
+  },
 ]
