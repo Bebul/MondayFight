@@ -997,4 +997,20 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: <img src='img/players/peinsamacze.png' class='img100 right'/> A kdo neví, co hrát na siláka PeinSamuCZe, tak rozhodně vyzkoušejte Englund Gambit! Není třeba se učit " +
       "žádné složité teorie, stačí čtyři tahy. 😅"
   },
+  {
+    id: "YLVDXHJP",
+    html: "<b>Jouzolean</b>: Tohle je hustý. Tekele mi mohl dát mat, ale raději vzdal 😁" +
+      "<board json='{\"id\":\"5Ov6KXdw\", \"startPlay\":68, \"orientation\":\"black\"}'/>" +
+      "<br><br><b>Bebul</b>: hurá, tomzr se nám vrátil. Gratulace! A taky koukám na Mrázka, třikrát po sobě mu rating letí vzhůru, ještě chvíli a bude zase nad 1800, jak se sluší a patří. Gratulujeme!"
+  },
+  {
+    id: "LuH6Bszf",
+    html: "<b>Bebul</b>: dneska se to na prvním místě střídalo jak v hokeji. PeinSamaCZe začal hrát až později a navzlínal až málem na trůn, ze kterého ho na poslední chvíli sesadil Mrázek. " +
+      "A ještě navrch k tomu, jako bonus, se dostal na rating 1800! Tak to velká gratulace! " +
+      "Ještě teď, víc jak dvě hodiny po turnaji, to určitě doma vypráví manželce a strašně přehání, a ta se chudák nevyspí. Za tým Monday Fights se tímto omlouvám/e. ❤️" +
+      "<tooltip json='{\"id\":\"Mrazek\", \"size\":0.81}' align='center' style='margin:40px 0 0px 0'/> " +
+      "<br><br><b>Bebul</b>: Sicilské obraně se dneska moc nedařilo, to teda ne, bílí si černé namazali na chleba 6-1, a to se to v řadách černých siláky jen hemžilo! " +
+      "Za to Královský gambit dnes za bílé stoprocentní. Nechť řady královských gambiterů houstnou!"
+  },
+
 ]
