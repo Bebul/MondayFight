@@ -1012,5 +1012,9 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Sicilské obraně se dneska moc nedařilo, to teda ne, bílí si černé namazali na chleba 6-1, a to se to v řadách černých siláky jen hemžilo! " +
       "Za to Královský gambit dnes za bílé stoprocentní. Nechť řady královských gambiterů houstnou!"
   },
-
+  {
+    id: "ORu2IpQv",
+    html: "<b>Bébul</b>: Mrázek vyhrál podruhé v řadě. S Jouzoleanem prohrál až po limitu, což vlastně tag ňák říká, že dneska tak trochu vyhráli voba dvá. Gratulace oběma! " +
+      "<br><br><b>Bébul</b>: Jouzolean v nejrychlejším matu skolil Bukowskice osmým tahem. Hustokrutopřísný. V turnaji odehrál Jouzolean svou 17000. partii na Lichess. Gratulace!"
+  }
 ]
