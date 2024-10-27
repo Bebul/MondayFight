@@ -480,6 +480,18 @@ class AchievementBlackDotGM {
   }
 }
 
+class AchievementRedDotIM {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 51
+    //this.frame = "zlata.png"
+    //this.char = "⚫"
+    this.img = "redDot.png"
+    this.desc = "Napomenutí prohrál s IM"
+    this.game = id
+  }
+}
+
 class AchievementBlackDotXX {
   constructor(player, id, desc) {
     this.player = player
@@ -638,6 +650,7 @@ function collectAchievements(data, tournamentID, games) {
       case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
       case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
+      case "blackIM": achievements.push(new AchievementRedDotIM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
     }
@@ -696,18 +709,20 @@ function collectAchievements(data, tournamentID, games) {
   let winRate = winner.nb.win / winner.nb.game
   if (winRate >= 1) {
     // if the winner is the Grand Master we should give all his Monday Fights losers Black Mark for bad representation :-D
-    let gm = "sachycvek"
-    if (winner.name === gm) {
+    let gm = ["sachycvek"]
+    let masters = gm + ["Lukas_Vlasak"]
+    if (masters.includes(winner.name)) {
       let losers = new Map()
       games.games.forEach(function(g) {
-        if (g.players.white.user.name === gm) losers.set(g.players.black.user.id, [g.id, g.players.black.rating])
-        else if (g.players.black.user.name === gm) losers.set(g.players.white.user.id, [g.id, g.players.white.rating])
+        if (masters.includes(g.players.white.user.name)) losers.set(g.players.black.user.id, [g.id, g.players.black.rating])
+        else if (masters.includes(g.players.black.user.name)) losers.set(g.players.white.user.id, [g.id, g.players.white.rating])
       })
       let sorted = Array.from(losers).sort(function(a,b) {
         return a[1][1] - b[1][1]
       })
       for(let [loser, [game, rating]] of sorted) {
-        achievements.push(new AchievementBlackDotGM(loser, game))
+        if (gm.includes(winner.name)) achievements.push(new AchievementBlackDotGM(loser, game))
+        else achievements.push(new AchievementRedDotIM(loser, game))
       }
     }
     achievements.push(new Achievement100PercentWinner({user: {name: winner.name}}))
@@ -818,6 +833,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementBlackDot(next()),
     new AchievementReporter(next()),
     new AchievementBlackDotGM(next()),
+    new AchievementRedDotIM(next()),
     new AchievementBlackDotXX(next()),
     new AchievementLackOfSpirit(next()),
     new AchievementMateGarde(next()),
@@ -1190,7 +1206,7 @@ export var Avatars = function() {
     "dzin69", "janshorny", "arytmik", "tykev123", "pirat77", "puklejchleba", "margarita_vlasenko", "felcar", "droider66",
     "sachycvek", "lastscout", "sumaspandy", "honzahonzahonza", "tomas_1989", "polgu",
     "barongorc", "michaelchmiel", "tomzr", "tomasklimecky2024", "kamikazeee", "kasparpalov", "dj-strelec",
-    "royalchessyoutube", "peinsamacze", "pajk013"]
+    "royalchessyoutube", "peinsamacze", "pajk013", "lukas_vlasak"]
   let useGif = []
   //let useGif = ["bebul", "mrazek", "mozkomor", "jouzolean", "bukowskic", "margarita_vlasenko", "dj-strelec", "neznama-00", "janshorny", "dzin69", "pirat77", "lastscout", "tekele", "vikjav", "mauricedodo", "rychlylenochod", "hrobotron", "felcar", "tomasklimecky", "arytmik", "sachycvek", "travinho", "mates78", "mates7824", "dj-strelec"]
   let defaults = ["default2", "default3"]
