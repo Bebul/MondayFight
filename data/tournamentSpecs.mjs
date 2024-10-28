@@ -1027,4 +1027,18 @@ export var tournamentSpec = [
       "Bude se konat překvapení i na Monday Fights? Uhrajeme aspoň půl bodu? " +
       "<img src='img/players/LukasVlasak.jpg' style='margin-top:10px'><div align='center'><i>IM Lukáš Vlasák, ELO FIDE 2461</i></div>"
   },
+  {
+    id: "eZy8bwEn",
+    html: "<img src='img/mf-og-im-lukas-vlasak.jpg'>" +
+      "<br><br><b>Kamikazeee</b>: Lukáš trénuje jako jeden z trenérů Vaška Fiňka, našeho největšího talentu a bývalé světové jedničky do 12 let. " +
+      "<br><br><b>Kamikazeee</b>: Lukáš hraje extraligu, je to IM a byl uveden do síně slávy vedle Navary za práci s mládeží. Je to též jeden z televiznich expertů pro Českou televizi na šachy a je držitelem titulu IM." +
+      "<br><br><b>Kamikazeee</b>: Na navnadění posílám jeden z náhodně vybraných podcastů ... <a href='https://ceskepodcasty.cz/epizoda/135539'>Jsem rozhodně víc trenér než hráč, svou poslední normu bych uhrát chtěl.</a>" +
+      "<br><br><b>Kamikazeee:</b>: Lukáš ale umí ocenit hru a dává rád remízu, když si ji zasloužite ... Tj moje zkušenost a tajný tip. " +
+      "<tooltip json='{\"id\":\"Lukas_Vlasak\", \"size\":0.8}' align='center' style='margin:32px 0 5px 0'/>" +
+      "<br><br><b>Bebul:</b>: Jé... ja se bránil jako lev lvoucí. A jak Kamikazeee slíbil, dostal jsem dárek. Děkuji!" +
+      "<br><br><b>Mrázek:</b>: koukám, že Bebul dostal protekčního půlboda 😃" +
+      "<br><br><b>Lukáš Vlasák:</b>: Já jsem o žádném slibu nevěděl, to zase něco opomněl říct 😊. Díky za pozvání." +
+      "<br><br><b>DJ Střelec:</b>: Děkujeme za poučné partie 😊" +
+      "<br><br><b>Bebul:</b>: Díky Lukáši Vlasákovi, že nám věnoval svůj čas a Kamikazeeemu, že ho k nám dovedl, byť dal tajný tip a teď to prasklo a bude bit. 😅❤️❤️"
+  },
 ]
