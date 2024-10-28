@@ -1001,20 +1001,30 @@ export var tournamentSpec = [
     id: "YLVDXHJP",
     html: "<b>Jouzolean</b>: Tohle je hustý. Tekele mi mohl dát mat, ale raději vzdal 😁" +
       "<board json='{\"id\":\"5Ov6KXdw\", \"startPlay\":68, \"orientation\":\"black\"}'/>" +
-      "<br><br><b>Bebul</b>: hurá, tomzr se nám vrátil. Gratulace! A taky koukám na Mrázka, třikrát po sobě mu rating letí vzhůru, ještě chvíli a bude zase nad 1800, jak se sluší a patří. Gratulujeme!"
+      "<br><br><b>Bébul</b>: hurá, tomzr se nám vrátil. Gratulace! A taky koukám na Mrázka, třikrát po sobě mu rating letí vzhůru, ještě chvíli a bude zase nad 1800, jak se sluší a patří. Gratulujeme!"
   },
   {
     id: "LuH6Bszf",
-    html: "<b>Bebul</b>: dneska se to na prvním místě střídalo jak v hokeji. PeinSamaCZe začal hrát až později a navzlínal až málem na trůn, ze kterého ho na poslední chvíli sesadil Mrázek. " +
+    html: "<b>Bébul</b>: dneska se to na prvním místě střídalo jak v hokeji. PeinSamaCZe začal hrát až později a navzlínal až málem na trůn, ze kterého ho na poslední chvíli sesadil Mrázek. " +
       "A ještě navrch k tomu, jako bonus, se dostal na rating 1800! Tak to velká gratulace! " +
       "Ještě teď, víc jak dvě hodiny po turnaji, to určitě doma vypráví manželce a strašně přehání, a ta se chudák nevyspí. Za tým Monday Fights se tímto omlouvám/e. ❤️" +
       "<tooltip json='{\"id\":\"Mrazek\", \"size\":0.81}' align='center' style='margin:40px 0 0px 0'/> " +
-      "<br><br><b>Bebul</b>: Sicilské obraně se dneska moc nedařilo, to teda ne, bílí si černé namazali na chleba 6-1, a to se to v řadách černých siláky jen hemžilo! " +
+      "<br><br><b>Bébul</b>: Sicilské obraně se dneska moc nedařilo, to teda ne, bílí si černé namazali na chleba 6-1, a to se to v řadách černých siláky jen hemžilo! " +
       "Za to Královský gambit dnes za bílé stoprocentní. Nechť řady královských gambiterů houstnou!"
   },
   {
     id: "ORu2IpQv",
     html: "<b>Bébul</b>: Mrázek vyhrál podruhé v řadě. S Jouzoleanem prohrál až po limitu, což vlastně tag ňák říká, že dneska tak trochu vyhráli voba dvá. Gratulace oběma! " +
       "<br><br><b>Bébul</b>: Jouzolean v nejrychlejším matu skolil Bukowskice osmým tahem. Hustokrutopřísný. V turnaji odehrál Jouzolean svou 17000. partii na Lichess. Gratulace!"
-  }
+  },
+  {
+    id: "qVDVLcdH",
+    html: "<b>Bébul</b>: Bukowskic si dal po <img src='img/players/bukowskic.png' class='img100 right'> předminulém výprasku minule pauzu, aby se dneska vřítil do turnaje se silou vpravdě Herkulovskou. Jenže Herkules dokáže skolit lva nebo hydru, ale nestačil na Bébulkova Slona (Elephant gambit). " +
+      "Kdyby pak stihl Mrázka porazit v limitu, vyhrál by i celý turnaj. Gratulace Tomzrovi k vítězství a Jouzoleanovi, že se mu vyvlíknul z řetězu a rovněž pajkovi013 k bedně! A samozřejmě Bukimu ke skvělému výkonu." +
+      "<br><br><b>Bébul</b>: Pokud Kamikazeee nekecá, příští Monday Fight turnaj, na státní svátek 28.října, si s námi zahraje" +
+      " mezinárodní mistr <a href='https://klatovsky.denik.cz/ostatni_region/lukas-vlasak-vybojoval-titul-juniorskeho-mistra-cr.html'>Lukáš Vlasák</a>! " +
+      "O něm jsem se mimo jiné dočetl, že v roce 2009 překvapivě vybojoval titul Juniorského mistra ČR v bleskovém šachu! " +
+      "Bude se konat překvapení i na Monday Fights? Uhrajeme aspoň půl bodu? " +
+      "<img src='img/players/LukasVlasak.jpg' style='margin-top:10px'><div align='center'><i>IM Lukáš Vlasák, ELO FIDE 2461</i></div>"
+  },
 ]
