@@ -1325,6 +1325,10 @@ function createTip(data, gamesData, tournament, player) {
     el.innerHTML = html
     el.style.visibility = "visible"
     el.player = player
+    if (player === "bebul") {
+      el.style.backgroundImage = 'url("img/halloween/walking.webp")'
+    }
+
     init.forEach(f => f())
 
     // maybe we have some specific requirements for test
@@ -1465,6 +1469,14 @@ function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
   //else document.body.style.backgroundColor = "#e9ecef";
   else document.body.style.backgroundColor = "#ffebcc";
+/*
+  else {
+    document.body.style.backgroundImage = "url(img/halloween/halloweenTap.jpg)";
+    document.body.style.backgroundRepeat = "repeat";
+    document.body.style.backgroundSize = "520px";
+    document.body.style.backgroundBlendMode = "screen";
+  }
+*/
 }
 
 function nextTournament(data, diff=1) {
