@@ -1207,7 +1207,7 @@ export var Avatars = function() {
     "sachycvek", "lastscout", "sumaspandy", "honzahonzahonza", "tomas_1989", "polgu",
     "barongorc", "michaelchmiel", "tomzr", "tomasklimecky2024", "kamikazeee", "kasparpalov", "dj-strelec",
     "royalchessyoutube", "peinsamacze", "pajk013", "lukas_vlasak"]
-  let useGif = ["bebul.gif", "mrazek.gif", "mozkomor.gif", "jouzolean.gif", "bukowskic.gif", "margarita_vlasenko.gif",
+  let useGif = ["bebul.gif", "mrazek.gif", "mozkomor.gif", "jouzolean.webp", "bukowskic.gif", "margarita_vlasenko.gif",
     "dj-strelec.gif", "neznama-00.gif", "janshorny.gif", "dzin69.gif", "pirat77.gif", "lastscout.gif", "tekele.gif", "vikjav.gif",
     "mauricedodo.gif", "rychlylenochod.gif", "hrobotron.gif", "felcar.gif", "tomasklimecky.gif", "arytmik.gif", "sachycvek.gif",
     "travinho.gif", "mates78.gif", "mates7824.gif", "dj-strelec.gif",
