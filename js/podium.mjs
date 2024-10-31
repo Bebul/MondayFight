@@ -1207,8 +1207,13 @@ export var Avatars = function() {
     "sachycvek", "lastscout", "sumaspandy", "honzahonzahonza", "tomas_1989", "polgu",
     "barongorc", "michaelchmiel", "tomzr", "tomasklimecky2024", "kamikazeee", "kasparpalov", "dj-strelec",
     "royalchessyoutube", "peinsamacze", "pajk013", "lukas_vlasak"]
-  let useGif = []
-  //let useGif = ["bebul", "mrazek", "mozkomor", "jouzolean", "bukowskic", "margarita_vlasenko", "dj-strelec", "neznama-00", "janshorny", "dzin69", "pirat77", "lastscout", "tekele", "vikjav", "mauricedodo", "rychlylenochod", "hrobotron", "felcar", "tomasklimecky", "arytmik", "sachycvek", "travinho", "mates78", "mates7824", "dj-strelec"]
+  let useGif = ["bebul.gif", "mrazek.gif", "mozkomor.gif", "jouzolean.gif", "bukowskic.gif", "margarita_vlasenko.gif",
+    "dj-strelec.gif", "neznama-00.gif", "janshorny.gif", "dzin69.gif", "pirat77.gif", "lastscout.gif", "tekele.gif", "vikjav.gif",
+    "mauricedodo.gif", "rychlylenochod.gif", "hrobotron.gif", "felcar.gif", "tomasklimecky.gif", "arytmik.gif", "sachycvek.gif",
+    "travinho.gif", "mates78.gif", "mates7824.gif", "dj-strelec.gif",
+    "lukas_vlasak.webp", "honzahonzahonza.webp", "kamikazeee.webp", "michaelchmiel.webp", "pajk013.webp", "tomzr.webp", "peinsamacze.webp"]
+  let halloweens = ["witch.webp", "trainer.webp", "ghost2.webp", "ghost3.webp", "grave.webp",
+    "pumpkin.webp", "skeleton10.webp", "skeleton12.webp", "skeleton13.webp", "skeleton5.webp", "skeleton6.webp", "skeleton7.webp", "skeleton8.webp"]
   let defaults = ["default2", "default3"]
 
   function getAvatar(playerName, defaultAvatar) {
@@ -1218,8 +1223,19 @@ export var Avatars = function() {
     else if (defaultAvatar) return defaultAvatar
     else fileName = defaults[playerName.length % defaults.length]
 
-    if (useGif.includes(playerLow)) return `img/players/${fileName}.gif`
-    else return `img/players/${fileName}.png`
+    let halloween = true
+    if (halloween) {
+      let prepared = (useGif.map(v => v.split(".")).find(v => v[0] === playerLow))
+      if (prepared) {
+        return `img/players/${prepared[0]}.${prepared[1]}`
+      }
+      else {
+        fileName = halloweens[playerName.length % halloweens.length]
+        return `img/halloween/${fileName}`
+      }
+    } else {
+      return `img/players/${fileName}.png`
+    }
   }
 
   return {
@@ -1275,6 +1291,14 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
       html += `<img src="img/players/bebulAvatar2.png" style="position:absolute; bottom: -88px; left: -99px;transform: rotate(44deg)">`
     } else if (player === "Jouzolean" && size==0.8) {
       html += `<img src="img/players/jouzolean-mirror.gif" style="width: 190px; position:absolute; bottom: -25px; left: -96px">`
+    } else if (player === "mozkomor" && size==0.8) {
+      html += `<img src="img/halloween/houpacka.webp" style="width: 237px; position:absolute; top: 0px; left: -93px">`
+    } else if (player === "LastScout" && size==0.8) {
+      html += `<img src="img/halloween/skeleton2.webp" style="width: 200px; position:absolute; top: 0px; left: -104px">`
+    } else if (player === "RychlyLenochod" && size==0.8) {
+      html += `<img src="img/halloween/spiderLeft.webp" style="width: 180px; position:absolute; top: 24px; left: -93px">`
+    } else if (player === "HonzaHonzaHonza" && size==0.8) {
+      html += `<img src="img/halloween/skeleton3.webp" style="width: 200px; position:absolute; top: 24px; left: -86px">`
     }
   }
 
@@ -1439,7 +1463,8 @@ export function setOpeningTableDataAndRedraw(openingData) {
 
 function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
-  else document.body.style.backgroundColor = "#e9ecef";
+  //else document.body.style.backgroundColor = "#e9ecef";
+  else document.body.style.backgroundColor = "#ffebcc";
 }
 
 function nextTournament(data, diff=1) {
