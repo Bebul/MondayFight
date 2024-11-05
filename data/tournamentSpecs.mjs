@@ -1041,4 +1041,52 @@ export var tournamentSpec = [
       "<br><br><b>DJ Střelec:</b>: Děkujeme za poučné partie 😊" +
       "<br><br><b>Bebul:</b>: Díky Lukáši Vlasákovi, že nám věnoval svůj čas a Kamikazeeemu, že ho k nám dovedl, byť dal tajný tip a teď to prasklo a bude bit. 😅❤️❤️"
   },
+  {
+    id: "6j5HZTUw",
+    init: function () {
+      let config = {
+        pgn: "[Date \"2024.11.04\"]" +
+          "[White \"Kamikazeee\"]\n" +
+          "[Black \"Bebul\"]\n" +
+          '[Variant "From Position"]' +
+          "[FEN \"8/1pK5/p1p5/8/5k2/PP6/8/8 b - - 1 47\"]" +
+          '[SetUp "1"]' +
+          "\r\n47... Ke3 48. Kxb7 Kd3 49. Kxc6 Kc3 50. a4 Kxb3 51. a5 Kc4 52. Kb6 Kd5 53. Kxa6 Kc6 54. Ka7 Kc7 55. Ka8 Kc8 56. Ka7 Kc7"
+        ,
+        showCoords: false, coordsInner: false, headers: true,
+        theme: 'purple-diag',
+        pieceStyle: 'dubrovny',
+        boardSize: 290,
+        movesHeight: 60,
+        resizable: false,
+        orientation: 'black'
+      }
+      let config2 = {
+        pgn: "[Date \"2024.11.04\"]" +
+          "[White \"Kamikazeee\"]\n" +
+          "[Black \"Bebul\"]\n" +
+          '[Variant "From Position"]' +
+          "[FEN \"8/8/pK6/1p6/P7/1Pk5/8/8 b - - 0 51\"]" +
+          '[SetUp "1"]' +
+          "\r\n51... b4 52. Kxa6 Kxb3 53. a5 Kc4 54. Kb7 b3 55. a6 b2 56. a7 b1=Q+ 57. Kc7 Qh7+ 58. Kb8 Kc5 59. a8=Q Kb6"
+        ,
+        showCoords: false, coordsInner: false, headers: true,
+        theme: 'purple-diag',
+        pieceStyle: 'dubrovny',
+        boardSize: 290,
+        movesHeight: 60,
+        resizable: false,
+        orientation: 'black'
+      }
+      PGNV.pgnView("board", config)
+      PGNV.pgnView("board2", config2)
+    },
+    html: "<br><b>Bébul:</b> Bukowskic se dneska vřítil do turnaje s nasbíraným ratingem přes 2000 a skvělým výkonem se nad touto hranicí i po náročném Monday Fight udržel. Gratulujeme! " +
+      "<tooltip json='{\"id\":\"bukowskic\", \"size\":0.8}' align='center' style='margin:32px 0 5px 0'/>" +
+      "<br><b>Bebul</b>: Zajímavá pěšcová koncovka vznikla v klání Bébulka s Kamikazeee. Černý se mohl ubránit prostě tak, " +
+      "že si půjde králem pro ty dva bílé pěšce a na ty svoje úplně zapomene. " +
+      "<div id='board'></div>" +
+      "<br><br><b>Bebul</b>: Po sérii blunderů na obou stranách mohl později Bébulek vyhrát v této pozici. Vítězný postup je tento: " +
+      "<div id='board2'></div>"
+  },
 ]
