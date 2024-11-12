@@ -1096,6 +1096,6 @@ export var tournamentSpec = [
       "<board json='{\"id\":\"FxwgyawM\", \"startPlay\":41, \"orientation\":\"white\"}'/>" +
       "<br><br><b>Bébul</b>: <img src='img/players/bebul.gif' class='img100 right'> Ze všech těch zahájení, co nás rmoutí, jedno zlé, obludné, vyniká nade všemi. To s námi zacloumá, zaburácí, má chuť, smělého Bébulka rozdrtit na padrť a jedním mávnutím " +
       "královské křídlo rozbít. Toť <b>Boden-Kieseritzski Gambit</b>. Dneska se ale Bébulek nedal, dneska ne. A to je nejvíc! " +
-      "<board json='{\"id\":\"5Wz2DwOS\", \"startPlay\":9, \"orientation\":\"black\"}'/>"
+      "<br><br><b>Jouzolean</b>: Za to, že někdo rozbije Jouzoleanovi Bodena, by se měla udělovat plaketka. 😎"
   },
 ]
