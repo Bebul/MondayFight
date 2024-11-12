@@ -1080,7 +1080,7 @@ function decorateGameResult(player, g, winner, side, init) {
   let tb = `<div className="tooltiptext" style="left: 100%" id="b-${gid}"></div>`
   return `<a id="${gid}" class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}${tb}</a>`
 */
-  return `<a id="${gid}" class="user-link" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
+  return `<a id="${gid}" class="user-link z-index-2" href="https://lichess.org/${g.id}" target="_blank">${result}</a>`
 }
 
 function ratingDiffDeco(pl) {

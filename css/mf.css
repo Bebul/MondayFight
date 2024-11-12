@@ -468,6 +468,11 @@ td, th {
     color: #1b78d0;
 }
 
+.z-index-2 {
+    position: relative;
+    z-index: 2;
+}
+
 loss {
     color: red;
 }
