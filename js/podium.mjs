@@ -1223,7 +1223,7 @@ export var Avatars = function() {
     else if (defaultAvatar) return defaultAvatar
     else fileName = defaults[playerName.length % defaults.length]
 
-    let halloween = true
+    let halloween = false
     if (halloween) {
       let prepared = (useGif.map(v => v.split(".")).find(v => v[0] === playerLow))
       if (prepared) {
@@ -1467,8 +1467,8 @@ export function setOpeningTableDataAndRedraw(openingData) {
 
 function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
-  //else document.body.style.backgroundColor = "#e9ecef";
-  else document.body.style.backgroundColor = "#ffebcc";
+  else document.body.style.backgroundColor = "#e9ecef";
+  //else document.body.style.backgroundColor = "#ffebcc";
 /*
   else {
     document.body.style.backgroundImage = "url(img/halloween/halloweenTap.jpg)";
