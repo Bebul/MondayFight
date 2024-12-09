@@ -1098,4 +1098,14 @@ export var tournamentSpec = [
       "královské křídlo rozbít. Toť <b>Boden-Kieseritzski Gambit</b>. Dneska se ale Bébulek nedal, dneska ne. A to je nejvíc! " +
       "<br><br><b>Jouzolean</b>: Za to, že někdo rozbije Jouzoleanovi Bodena, by se měla udělovat plaketka. 😎"
   },
+  {
+    id: "3uZkHPK9", achievements: [{achievement: "reporter", player: "kunc99", id: "5jZZthcP"}],
+    html: "<b>Bebul</b>: Pánové PeinSamaCZE s Jouzoleánem <img src='img/achievements/reporter.png' class='img100 right'> pro nás znovu uspořádali turnaj v Holešovicích. Po turnaji se k nám do " +
+        "Monday Fights turnajů připojil silák Honza Kunc a rovnou sepsal o holešovickém maratonu <a href='actualities.html#turnajStoleti2'>reportáž!</a>" +
+        "<br> Děkujeme a gratulujeme k pódiu v Holešovicích i na prvním MF. Buď vítán!" +
+        "<a href='actualities.html#turnajStoleti2'><img src='img/mf-og-turnaj2.jpg' style='margin-top:10px'></a>" +
+        "<br><br><b>Bebul</b>: <img src='img/players/polgu.png' class='img100 right'> V Holešovicích mě Polgu vymlask matem asi devátým tahem. Jak vidno, zůstal při chuti a dneska stejným zahájením " +
+        "překvapil velikého Bukowskice! Gratulujeme k senzaci turnaje!"
+  },
+
 ]
