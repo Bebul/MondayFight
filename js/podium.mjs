@@ -1285,6 +1285,7 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
   }
 
   let avatar = Avatars.getAvatar(player)
+  let halloween = false
   if (avatar) {
     html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
     if (player === "bebul" && size==0.8) {
@@ -1293,11 +1294,11 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
       html += `<img src="img/players/jouzolean-mirror.gif" style="width: 190px; position:absolute; bottom: -25px; left: -96px">`
     } else if (player === "mozkomor" && size==0.8) {
       html += `<img src="img/halloween/houpacka.webp" style="width: 237px; position:absolute; top: 0px; left: -93px">`
-    } else if (player === "LastScout" && size==0.8) {
+    } else if (halloween && player === "LastScout" && size==0.8) {
       html += `<img src="img/halloween/skeleton2.webp" style="width: 200px; position:absolute; top: 0px; left: -104px">`
-    } else if (player === "RychlyLenochod" && size==0.8) {
+    } else if (halloween && player === "RychlyLenochod" && size==0.8) {
       html += `<img src="img/halloween/spiderLeft.webp" style="width: 180px; position:absolute; top: 24px; left: -93px">`
-    } else if (player === "HonzaHonzaHonza" && size==0.8) {
+    } else if (halloween && player === "HonzaHonzaHonza" && size==0.8) {
       html += `<img src="img/halloween/skeleton3.webp" style="width: 200px; position:absolute; top: 24px; left: -86px">`
     }
   }
