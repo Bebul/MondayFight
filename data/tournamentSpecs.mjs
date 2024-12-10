@@ -1112,7 +1112,9 @@ export var tournamentSpec = [
     html: "<b>Bebul</b>: Rychlý Lenochod <img src='img/achievements/reporter.png' class='img100 right'> napsal reportáž o tom slavném brněnském turnaji, " +
         "kde si navzájem <a href='actualities.html#underground'>pomlouvali</a> svoje mámy a milenky, " +
         "a kde za Monday Fights vybojoval krásné 11. místo! Gratulujeme!" +
-        "<a href='actualities.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>"
+        "<a href='actualities.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>" +
+        "<br><b>Kamikazeee</b>:Dneska ty šachy pěkně bolely, ale budu mít zase pěknou vzpomínku v podobě tetování na to dnešní čtvrté místo ..." +
+        "<img src='img/kami-tet.jpg' style='margin-top:10px'>"
   },
 
 ]
