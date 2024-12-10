@@ -1107,5 +1107,12 @@ export var tournamentSpec = [
         "<br><br><b>Bebul</b>: <img src='img/players/polgu.png' class='img100 right'> V Holešovicích mě Polgu vymlask matem asi devátým tahem. Jak vidno, zůstal při chuti a dneska stejným zahájením " +
         "překvapil velikého Bukowskice! Gratulujeme k senzaci turnaje!"
   },
+  {
+    id: "VNBiu9WQ", achievements: [{achievement: "reporter", player: "rychlyLenochod", id: "jn8SYMzb"}],
+    html: "<b>Bebul</b>: Rychlý Lenochod <img src='img/achievements/reporter.png' class='img100 right'> napsal reportáž o tom slavném brněnském turnaji, " +
+        "kde si navzájem <a href='actualities.html#underground'>pomlouvali</a> svoje mámy a milenky, " +
+        "a kde za Monday Fights vybojoval krásné 11. místo! Gratulujeme!" +
+        "<a href='actualities.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>"
+  },
 
 ]
