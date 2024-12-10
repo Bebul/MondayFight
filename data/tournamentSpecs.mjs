@@ -1089,6 +1089,15 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Po sérii blunderů na obou stranách mohl později Bébulek vyhrát v této pozici. Vítězný postup je tento: " +
       "<div id='board2'></div>"
   },
+  { id: "uSHcG6JF", achievements: [{achievement: "black", player: "honzaHonzaHonza", id: "2hUofiie"}],
+    html: "<b>HonzaHonzaHonza</b>: Psal jsem si i s Jouzoleanem, bohužel mě potkal stejný osud jako bratrance, na stará kolena jsem se rozhodl pro dálkové studium " +
+    "ještě jedné vysoké školy, takže moje i bohužel pondělní večery vypadají takto. Snad to nebude mít dlouhého trvání (studium snad ano, ale to že v tom musím ležet " +
+    "každý večer snad ne) a zase budu stíhat šachy, už aby to bylo. Ale dění pečlivě sleduji a doufám, že se k vám zase brzy přidám 💪 " +
+    "<img src='img/honza-math.jpg' style='margin:10px 0'>" +
+    "<br><b>Bebul</b>: musíme udělit 3xHonzovi černej puntík, že MF fláká, což? Nejde o to, že ho fláká, to třeba DJ-Pesec taky. " +
+        "Ale že se vymlouvá na matematiku, která je v tom nevinně! Tady nejsme na Lenochodově turnaji, kde se smí dámy beztrestně napadat. " +
+        "A matematika je První Dáma! ❤️"
+  },
   {
     id: "jWc23ZDQ",
     html: "<b>Bebul</b>: <img src='img/players/rychlylenochod.gif' class='img100 right'> RychlyLenochod má tu přezdívku jistě proto, že rád hraje berserk. Mnozí z nás, co mu berserk neopětují, na začátku partie zajásají, že tohle by měl být pohodlnej bod. " +
