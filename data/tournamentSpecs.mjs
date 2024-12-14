@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 export var tournamentSpec = [
   {id: "pwCJHYPg", html: "", achievements: [{achievement: "reporter", player: "bukowskic", id: "kKsQ2Krl"}]},
   {
@@ -1118,12 +1120,41 @@ export var tournamentSpec = [
   },
   {
     id: "VNBiu9WQ", achievements: [{achievement: "reporter", player: "rychlyLenochod", id: "jn8SYMzb"}],
+    init: function () {
+      let config = {
+        pgn: "[Event \"Monday figts\"]\n" +
+            "[White \"kunc99 2155\"]\n" +
+            "[Black \"tomzr 2064\"]\n" +
+            "[Result \"1-0\"]\n" +
+            "[Annotator \"Honza, Kunc\"]\n" +
+            "\n" +
+            "1.e4 c6 { Komentuje Honza Volf, ten co neumí hrát golf, totiž vlastně Honza Kunc } 2.d4 d5 3.e5 Bf5 4.h4 h6 5.g4 Bh7 6.e6 fxe6 7.Bd3 Bxd3 8.Qxd3 Nf6 9.f4 {[%cal Rb8d7,Gd3g6] [%csl Rd7,Gg6]} " +
+            "{Chtěl jsem navždy zabránit protihře e5, ale prioritnější byl rozhodně vývin jezdce na f3.} (9.Qg6+ Kd7 10.Nf3+-) {Útok bílého je nejspíš rozhodující, jezdec skočí na e5 a pozice černého by se brzy měla rozpadnout.} " +
+            "9...Qd6?  (9...c5!? 10.dxc5 Qa5+ (10...Nbd7?? {Toto by bylo poměrně tragikomické.} 11.Qg6#) 11.Nc3 Ne4 {s velmi zajímavými komplikacemi - jak tomzr správně po partii napsal do chatu na lichessu: \"ten kůň měl skočit na e4 už dávno\"}) " +
+            "10.Nf3 {[%cal Gd3g6,Gg6g4,Gg6e8,Rf6g4] [%csl Rg4,Gg6] Pěšce na g4 samozřejmně nelze brát kvůli dvojímu úderu Qg6+.} 10...Na6?? {Logický vývinový tah, ale překvapivě v podstatě okamžitě prohrává - důvodem jsou extrémně slabá pole e5, g6 a f7.} " +
+            "(10...Ne4! {Zde by byla pozice nejasná a objektivně blízko rovnováze.}) 11.Qg6+ Kd8 12.Ne5 Kc7 13.Nf7 Qb4+ 14.c3 Qc4 15.Nxh8 {Počítač preferuje Nd2 s profylaxí proti Ne4, ale moje materialistické braní věže také vede k výhře - mat tam nedostanu, takže věž navíc rozhodne.} " +
+            "15...Qd3?? (15...Ne4 16.Rh3 {Silnější je podle počítače Nd2, ale to jsem v partii neviděl a plánoval jsem tedy místo toho zahrát Rh3 a zabránit tím nepříjemnému Qd3. Obojí vyhrává za bílé.} " +
+            "16...Nb4 17.Na3 Nd3+ 18.Kf1! Ne5+ 19.Nxc4 Nxg6 20.Nxg6 dxc4 21.Re3+-) 16.Qxd3+- " +
+            "{tomzr se vzdal} 1-0",
+        showCoords: false, coordsInner: false, headers: true,
+        theme: 'wood4',
+        pieceStyle: 'gioco',
+        boardSize: 290,
+        movesHeight: 250,
+        resizable: false,
+        orientation: 'white',
+        autoplay: true,
+        startPlay: '18'
+      };
+      PGNV.pgnView('kunc-tomzr', config);
+    },
     html: "<b>Bebul</b>: Rychlý Lenochod <img src='img/achievements/reporter.png' class='img100 right'> napsal reportáž o tom slavném brněnském turnaji, " +
         "kde si navzájem <a href='actualities.html#underground'>pomlouvali</a> svoje mámy a milenky, " +
         "a kde za Monday Fights vybojoval krásné 11. místo! Gratulujeme!" +
         "<a href='actualities.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>" +
         "<br><b>Kamikazeee</b>:Dneska ty šachy pěkně bolely, ale budu mít zase pěknou vzpomínku v podobě tetování na to dnešní čtvrté místo ..." +
-        "<img src='img/kami-tet.jpg' style='margin-top:10px'>"
-  },
+        "<img src='img/kami-tet.jpg' style='margin-top:10px'> " +
+        "<div id='kunc-tomzr'></div>"
+  }
 
-]
+];
