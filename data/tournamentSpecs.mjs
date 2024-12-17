@@ -1159,8 +1159,8 @@ export var tournamentSpec = [
   {
     id: "SB1mCF7y",
     html: "<b>Kamikazeee</b>: Dneska by se přidala ta kamarádka - stačila tedy 80 partií - případně ještě nějaké přidá do začátku. Mohu ji dát pak přístup? Na Lichchess je tam pak jako HGlockk " +
-        "<br><br><b>Bebul:</b> Osmdesát partií kvůli Monday Fights! Jo jo, tak tak... je nedočkavá. A hned napoprvé málem na Bedně! Vítáme a gratulujeme! " +
-        "<br><br><b>HGlockk:</b> Šachujte mne, matujte mne, mučte si mne královským gambitem - přece jsem nejšťastnějším děvčetem: vždyť jsem hrála Monday Fights! " +
+        "<br><br><b>Bébul:</b> Osmdesát partií kvůli Monday Fights! Jo jo, tak tak... je nedočkavá. A hned napoprvé málem na Bedně! Vítáme a gratulujeme! " +
+        "<br><br><b>Bébul:</b> Šachujte ji, matujte ji, mučte ji královským gambitem - přece bude nejšťastnějším děvčetem: vždyť hraje Monday Fights! " +
         "<tooltip json='{\"id\":\"HGlockk\", \"size\":0.9}' align='center' style='margin:40px 0 0px 0'/> " +
         "<br><br><img src='img/trapteSiMe.jpg'>"
   },
