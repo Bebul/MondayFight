@@ -1155,6 +1155,13 @@ export var tournamentSpec = [
         "<br><b>Kamikazeee</b>:Dneska ty šachy pěkně bolely, ale budu mít zase pěknou vzpomínku v podobě tetování na to dnešní čtvrté místo ..." +
         "<img src='img/kami-tet.jpg' style='margin-top:10px'> " +
         "<div id='kunc-tomzr'></div>"
-  }
-
+  },
+  {
+    id: "SB1mCF7y",
+    html: "<b>Kamikazeee</b>: Dneska by se přidala ta kamarádka - stačila tedy 80 partií - případně ještě nějaké přidá do začátku. Mohu ji dát pak přístup? Na Lichchess je tam pak jako HGlockk " +
+        "<br><br><b>Bebul:</b> Osmdesát partií kvůli Monday Fights! Jo jo, tak tak... je nedočkavá. A hned napoprvé málem na Bedně! Vítáme a gratulujeme! " +
+        "<br><br><b>HGlockk:</b> Šachujte mne, matujte mne, mučte si mne královským gambitem - přece jsem nejšťastnějším děvčetem: vždyť jsem hrála Monday Fights! " +
+        "<tooltip json='{\"id\":\"HGlockk\", \"size\":0.9}' align='center' style='margin:40px 0 0px 0'/> " +
+        "<br><br><img src='img/trapteSiMe.jpg'>"
+  },
 ];
