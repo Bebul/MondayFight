@@ -1180,13 +1180,13 @@ export var tournamentSpec = [
             "[BlackElo \"2665\"]\n" +
             "[PlyCount \"56\"]\n" +
             "\n" +
-            "1. e4 c6 { Navara si proti silákovi Kuncovi klidně střihne i Jouzoleánem opuštěného Karkokána! } 2. d4 d5 3. e5 c5 4. Nf3 { Kunc nechce pěšce zadarmo. Namísto toho zkouší Navaru vlákat do stejných sítí jako Wesley So, který ho takhle porazil! } cxd4 " +
-            "5. Nxd4 Nc6 6. Nxc6 { Tak nezkouší. Tady totiž Wesley So Navaru nachytal na švestkách, když zahrál nejdřív c4. Většina grandmasterů ale mění jezdce už teď. Snažit se hrát jako GM, ale přitom nebýt GM, je chyba. Kunc by měl jít na školení k Jouzoleánovi! } (6. c4 e6 7. Nc3 Bc5 8. Nxc6) bxc6 7. Bd3 e6 " +
-            "8. O-O Ne7 9. Nd2 a5 { Až sem všechny tahy jako z učebnice. } 10. Qe2 Ng6 11. f4 { f4! Skoro jako v Královském gambtitu! Nechť řady královských gambiterů houstnou! Karjakin do téhle pozice taky přišel, a Popov viděl, jak zvítězil. } Ba6 " +
+            "1. e4 c6 { Navara si proti silákovi Kuncovi klidně střihne i Jouzoleánem opuštěného Karkokána! } 2. d4 d5 3. e5 c5 4. Nf3 { Honza nechce pěšce zadarmo. Namísto toho zkouší Navaru vlákat do stejných sítí jako Wesley So, který ho takhle porazil! } cxd4 " +
+            "5. Nxd4 Nc6 6. Nxc6 { Tak nezkouší. Tady totiž Wesley So Navaru nachytal na švestkách, když zahrál nejdřív c4. Většina grandmasterů ale mění jezdce už teď. Snažit se hrát jako GM, ale přitom nebýt GM, je chyba. Honza musí na školení k Jouzoleánovi! } (6. c4 e6 7. Nc3 Bc5 8. Nxc6) bxc6 7. Bd3 e6 " +
+            "8. O-O Ne7 9. Nd2 a5 { Až sem všechny tahy jako z učebnice. } 10. Qe2 Ng6 11. f4 { f4! Skoro jako v Královském gambitu! Nechť řady královských gambiterů houstnou! Karjakin do téhle pozice taky přišel, a Popov viděl, jak zvítězil. } Ba6 " +
             "12. Nf3 Be7 13. Kh1 { Kdo se bojí, sere v koutě. Monday Fighťák by radši zahrál Be3! A nemusel se bát vlka nic! } Bxd3 14. cxd3 O-O 15. Be3 c5 16. Rac1 { Nemůžeš mu, Kunci, na všechno skočit! Měls prostě zahrát g3 a mít big four, nebo jak se tomu říká. To se prej nedá prohrát! } d4 " +
             "17. Bd2 Qd5 { V tomto okamžiku měl přijít zničující úder, na který Honza prostě neměl odvahu. Každej Monday Fighťák by nyní sebral dámu mimochodem! V nastalém zmatku, po zavolání rozhodčního a úpravě hodin by Navara ztratil potřebnou koncentraci a snadno prohrál. } " +
             "18. b3? { Namísto toho béčkový tah, místo áčkovýho a3. Teď se dá Navarův chlapeček do pohybu! } a4 19. bxa4?? { 'To take is a mistake!', to ti maminka nežikala? } Rxa4 20. Rc2 Rfa8 " +
-            "21. f5 { Na akci na křídle, protiúder v centru? } exf5 22. Re1!! { A Navara vzdal, neboť na mohutný útok po sloupci e není spolehlivé obrany. } Rxa2 { Aha, tak nevzdal! } " +
+            "21. f5 { Na akci na křídle, protiúder v centru? } exf5 22. Re1!! { A Navara vzdal, neboť na mohutný útok po sloupci e nenašel spolehlivou obranu. } Rxa2 { Aha, tak nevzdal! } " +
             "23. Rxa2 Rxa2 24. e6 fxe6 25. Qxe6+ { První šach v partii! } Qxe6 26. Rxe6 { A Honza si s Navarou vyměnil dámu! Toho zas umíme v Monday Fights ocenit! } Ra1+ " +
             "27. Be1 Kf7 28. Rc6 Nh4 { Na tomto místě Honza vzdal. Správné bylo Nxh4 Rxe1# aby udělal Navarovi radost a první partie skončila, jak se sluší a patří. Každopádně, za prohru s Grand Masterem udělujeme povinný černý puntík. A ke šťastnému losu gratulujeme! } 0-1",
         showCoords: false, coordsInner: false, headers: true,
