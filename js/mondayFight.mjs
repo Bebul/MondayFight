@@ -68,7 +68,6 @@ function playerAvgOponent(fight, playerName) {
 function playerPoints(fight, playerName) {
   if (!fight) return [0,0]
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player !== undefined) console.log(`${player.name} ${player.points}`)
   if (player === undefined || player.points === undefined || !MF.playedAGame(player)) return [0,0]
   return player.points
 }
