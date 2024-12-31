@@ -1,3 +1,4 @@
+/* jshint -W033, esversion: 6 */
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"

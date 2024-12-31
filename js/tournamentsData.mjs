@@ -1,3 +1,4 @@
+/* jshint -W033, esversion: 6 */
 import {involvedInGambit, playsGambit} from "./podium.mjs";
 
 export let MF = function() {

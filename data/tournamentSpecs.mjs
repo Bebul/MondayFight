@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/* jshint -W033, esversion: 6 */
 
 export var tournamentSpec = [
   {id: "pwCJHYPg", html: "", achievements: [{achievement: "reporter", player: "bukowskic", id: "kKsQ2Krl"}]},
