@@ -55,7 +55,7 @@ function playerGambits(fight, playerName) {
 
 function playerPerformance(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
-  if (player === undefined || !MF.playedAGame(player)) return 0
+  if (player === undefined || player.performance === undefined) return 0
   return player.performance
 }
 
@@ -68,6 +68,7 @@ function playerAvgOponent(fight, playerName) {
 function playerPoints(fight, playerName) {
   if (!fight) return [0,0]
   let player = fight.standing.players.find( pl => pl.name==playerName )
+  if (player !== undefined) console.log(`${player.name} ${player.points}`)
   if (player === undefined || player.points === undefined || !MF.playedAGame(player)) return [0,0]
   return player.points
 }

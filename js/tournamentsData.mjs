@@ -3,7 +3,10 @@ import {involvedInGambit, playsGambit} from "./podium.mjs";
 
 export let MF = function() {
   function playedAGame(player) {
-    return player.performance !== undefined
+    if (player.performance === undefined && Array.isArray(player.points)) {
+      let sum = player.points.reduce((total, cur) => total + cur, 0)
+      return (sum > 0)
+    } else return player.performance !== undefined
   }
 
   function setPlayerStatsValue(game, player, key, value) {
