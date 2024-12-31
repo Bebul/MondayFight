@@ -1205,5 +1205,13 @@ export var tournamentSpec = [
         "<img src='img/kuncNavara.jpg'><div style='text-align: center'><i>Honza Kunc v partii s Navarou v Brně otevíral MČR v Blitzu!</i></div>" +
         "<br><b>Jouzolean:</b> Tak hned 2 černé puntíky za den! 😁Hezky to sbíráš! " +
         "<br><br><div id='kunc-navara'></div>"
+  },
+  {
+    id: "bq5NczDG",
+    html: "<b>Bébul</b>: Tomzrovi chybělo tento turnaj uhrát jeden ušmudlaný bod, aby dorovnal Bukowskičův rekord 371 bodů z roku 2021. A jeden a půl bodu k jeho překonání. Tomzr ale dneska nehrál, takže prémiový 53.turnaj nevyužil. " +
+        "<br><br><b>Bébul:</b> <img src='img/players/tekele.png' class='img100 right'> Zato Tekele řádil jak pominutej. Z posledního místa tabulky se nejdřív přehoupl přes pisatele těchto řádků. A aby mu to nestačilo, zmlátil i Kamikazeeeho. Bébulka taková brutalita tuze polekala. Se Scoutem prohrává furt a pořád, " +
+        "a tak se pokusil na poslední chvíli uhrát potřebnýho boda. Spárovalo ho to s Mrázkem, což vypadalo věru nesnadně. Bébulek ale postupně utahoval pozici, až Mrázka o ten bod picnul. Engine si myslí, že " +
+        "teda Mrázek stál totálně na výhru, jen si nechal dát mat. Bébulek ale takovéhle složitosti neviděl a měl celou dobu za to, jag to krásně hraje! " +
+        "<br><br><b>Bébul:</b> O pořadí na poslední a předposlední příčce pavouka tak rozhodla až vyšší performance. "
   }
 ];
