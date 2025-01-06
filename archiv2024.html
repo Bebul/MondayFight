@@ -5,7 +5,7 @@
     <meta http-equiv="Cache-Control" content="max-age=3600" />
     <link rel="icon" type="image/png" href="favicon.png"/>
     <meta charset="UTF-8">
-    <title>"Monday Fight 2023"</title>
+    <title>"Monday Fight 2024"</title>
     <link href="dist/css/tabulator.min.css" rel="stylesheet">
 
     <meta property="og:locale" content="cs_CZ" />
@@ -31,11 +31,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'G-CX3WGLDEW7');
+        gtag('config', 'G-CX3WGLDEW7');
     </script>
 </head>
 
@@ -49,7 +49,7 @@
             <i class="fa fa-bars hamburger"></i>
               </a>
         </span>
-        <span class="captionText">Monday Fights 2023</span>
+        <span class="captionText">Monday Fights 2024</span>
         <div class="topnav">
             <div id="myLinks">
                 <a href="index.html">Main page</a>
@@ -62,14 +62,14 @@
                 <a href="archiv2020.html">Archiv 2020</a>
                 <a href="archiv2021.html">Archiv 2021</a>
                 <a href="archiv2022.html">Archiv 2022</a>
-                <a href="archiv2024.html">Archiv 2024</a>
+                <a href="archiv2023.html">Archiv 2023</a>
                 <a href="players.html">Players</a>
             </div>
         </div>
     </div>
 
     <div class="article first">
-        <h1>LeaderBoard roku 2023</h1>
+        <h1>LeaderBoard roku 2024</h1>
         <ul>
             <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
             <li><b>Score</b> je součet uhraného skóre.
@@ -80,46 +80,48 @@
         </ul>
     </div>
 
-    <h1>Kompletní rok 2023</h1>
+    <h1>Kompletní rok 2024</h1>
     <div id="myChart"></div>
     <div id="mondayFightsLeaderboard"></div>
 
-    <div class="article">
-        <h1>Turnaj šampionů</h1>
-        <p>Letošního <a href="index.html?mf=playOFF2023">play off</a> se mělo účastnit 12 nejlepších hráčů z tabulky.
-            První čtveřice měla jistou účast ve čtvrtfinále a ostatní se o postup do něj měli teprve utkat
-            v kvalifikaci/osmifinále. Ze závěrečného turnaje odstoupili hráči Bebul a Mozkokor,
-            na poslední chvíli taky Rychlý Lenochod kvůli nemoci.
-            Do bojů se tak dostali šanci zapojit i 3 hráči pod čarou - Tomas_1989, Dj-Pěšec a Polgu.
-        <p>
-        <div>
-            <img src="img/bukowskic-margarita2023.jpg" class="flow33">
-            <img src="img/tomzr-djpesec2023.jpg" class="flow33">
-            <img src="img/tomzr-bukowskic2023.jpg" class="flow33">
+<!--
+        <div class="article">
+            <h1>Turnaj šampionů</h1>
+            <p>Letošního <a href="index.html?mf=playOFF2023">play off</a> se mělo účastnit 12 nejlepších hráčů z tabulky.
+                První čtveřice měla jistou účast ve čtvrtfinále a ostatní se o postup do něj měli teprve utkat
+                v kvalifikaci/osmifinále. Ze závěrečného turnaje odstoupili hráči Bebul a Mozkokor,
+                na poslední chvíli taky Rychlý Lenochod kvůli nemoci.
+                Do bojů se tak dostali šanci zapojit i 3 hráči pod čarou - Tomas_1989, Dj-Pěšec a Polgu.
+            <p>
+            <div>
+                <img src="img/bukowskic-margarita2023.jpg" class="flow33">
+                <img src="img/tomzr-djpesec2023.jpg" class="flow33">
+                <img src="img/tomzr-bukowskic2023.jpg" class="flow33">
+            </div>
+            <div align="center" style="margin-bottom:5px"><i>Vyzyvatelské kartičky z dilny DJ-Pesce</i></div>
+            <p>
+                <b>Gratulace vítězům a čest poraženým.</b>
+            <p>
+                Přeji hodně zdaru do další sezóny.
+                <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
+                <br><br><hr>
+            <p>
+                <a href="index.html?mf=playOFF2023"><img src="img/pavouk2023-finale.jpg" style="max-width:1900px; width:1500px"></a>
         </div>
-        <div align="center" style="margin-bottom:5px"><i>Vyzyvatelské kartičky z dilny DJ-Pesce</i></div>
-        <p>
-            <b>Gratulace vítězům a čest poraženým.</b>
-        <p>
-            Přeji hodně zdaru do další sezóny.
-            <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
-            <br><br><hr>
-        <p>
-            <a href="index.html?mf=playOFF2023"><img src="img/pavouk2023-finale.jpg" style="max-width:1900px; width:1500px"></a>
-    </div>
+    -->
 </div>
 
 <script type="module">
-  import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-  import {createPlayersTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
+    import {LoadMFData, MF} from "./js/tournamentsData.mjs"
+    import {createPlayersTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
 
-  function mainPage(data) {
-    let the2023 = MF.filterYear(data.mondayFights(), 2023)
-    createPlayersTable(the2023, "#mondayFightsLeaderboard", false) //no Jouzocoins
-    createLeagueHistoryChart(data, "myChart", new Date(2023,11,31))
-  }
+    function mainPage(data) {
+        let the2024 = MF.filterYear(data.mondayFights(), 2024)
+        createPlayersTable(the2024, "#mondayFightsLeaderboard", false) //no Jouzocoins
+        createLeagueHistoryChart(data, "myChart", new Date(2024,11,31))
+    }
 
-  LoadMFData(mainPage)
+    LoadMFData(mainPage)
 </script>
 
 </br>
