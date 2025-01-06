@@ -57,6 +57,7 @@ export let MF = function() {
     return diff
   }
 
+  // returns (myPoints, opoPoints)
   function getPoints(player, games) {
     let points = 0
     let oponent = 0
