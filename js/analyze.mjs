@@ -1,3 +1,4 @@
+/* jshint -W033, esversion: 6 */
 import {MFPodium} from "./podium.mjs"
 import {toNDJson, download, getPlayers} from "./mondayFight.mjs"
 import {getStreaks} from "./cross.mjs"
