@@ -65,6 +65,7 @@ function playerAvgOponent(fight, playerName) {
   return player.avgOponent
 }
 
+// returns (myPoints, opoPoints)
 function playerPoints(fight, playerName) {
   if (!fight) return [0,0]
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -195,7 +196,7 @@ function getTotalGames(player, theFights) {
   let total = 0
   theFights.forEach(fight => {
     fight.standing.players.forEach(pl => {
-      if (pl.name==player) total += pl.sheet.scores.length
+      if (pl.name==player) total += pl.points.reduce((acc, a) => acc + a, 0)
     })
   })
   return total
