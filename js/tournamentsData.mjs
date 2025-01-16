@@ -49,8 +49,8 @@ export let MF = function() {
 
     let diff = 0
     games.games.forEach( game => {
-        if (game.players.white.user.name === player.name) diff += game.players.white.ratingDiff
-        else if (game.players.black.user.name === player.name) diff += game.players.black.ratingDiff
+        if (game.players.white.user.name === player.name) diff += game.players.white.ratingDiff || 0
+        else if (game.players.black.user.name === player.name) diff += game.players.black.ratingDiff || 0
       }
     )
 
