@@ -469,6 +469,16 @@ class AchievementBlackDot {
   }
 }
 
+class AchievementPinkDot {
+  constructor(player, id, desc) {
+    this.player = player
+    this.sortVal = 52
+    this.img = "pinkDot.png"
+    this.desc = desc || "Růžový puntík"
+    this.game = id
+  }
+}
+
 class AchievementBlackDotGM {
   constructor(player, id) {
     this.player = player
@@ -643,6 +653,7 @@ function collectSpecAchievementDecorations(player, tournamentID, gameID) {
     switch (a.achievement) {
       case "reporter": achievement = new AchievementReporter(a.player, a.id); break;
       case "black": achievement = new AchievementBlackDot(a.player, a.id); break;
+      case "pink": achievement = new AchievementPinkDot(a.player, a.id, a.desc); break;
       case "blackGM": achievement = new AchievementBlackDotGM(a.player, a.id); break;
       case "blackXX": achievement = new AchievementBlackDotXX(a.player, a.id, a.desc); break;
       case "lackOfSpirit": achievement = new AchievementLackOfSpirit(a.player, a.id, a.desc); break;
@@ -660,6 +671,7 @@ function collectAchievements(data, tournamentID, games) {
     switch (a.achievement) {
       case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
       case "black": achievements.push(new AchievementBlackDot(a.player, a.id)); break;
+      case "pink": achievements.push(new AchievementPinkDot(a.player, a.id, a.desc)); break;
       case "blackGM": achievements.push(new AchievementBlackDotGM(a.player, a.id)); break;
       case "blackIM": achievements.push(new AchievementRedDotIM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
