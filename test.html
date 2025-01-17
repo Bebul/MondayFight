@@ -40,6 +40,551 @@
 
 <body>
 
+<svg style="position: absolute">
+    <filter id="pixelate" x="0" y="0">
+        <feFlood x="4" y="4" height="2" width="2"/>
+        <feComposite width="10" height="10"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="5"/>
+    </filter>
+    <filter id="pixelate2" x="0" y="0">
+        <feFlood x="4" y="4" height="2" width="2"/>
+        <feComposite width="10" height="10"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="10"/>
+    </filter>
+    <filter id="pixelate3" x="0" y="0">
+        <feFlood x="6" y="6" height="3" width="3"/>
+        <feComposite width="5" height="5"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="8"/>
+    </filter>
+    <filter id="pixelate4" x="0" y="0">
+        <feFlood x="2" y="2" height="1" width="1"/>
+        <feComposite width="5" height="5"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="10"/>
+    </filter>
+    <filter id="pixelate5" x="0" y="0">
+        <feFlood x="4" y="4" height="2" width="2"/>
+        <feComposite width="8" height="8"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="2"/>
+    </filter>
+    <filter id="pixelate6" x="0" y="0">
+        <feFlood x="4" y="4" height="2" width="2"/>
+        <feComposite width="8" height="8"/>
+        <feTile result="a"/>
+        <feComposite in="SourceGraphic" in2="a" operator="in"/>
+        <feMorphology operator="dilate" radius="1"/>
+    </filter>
+    <filter id="splash" width="150%" height="160%" x="-25%" y="-25%">
+        <!-- COLORS -->
+        <feFlood flood-color="#16B5FF" result="COLOR-blue" />‚
+        <feFlood flood-color="#9800FF" result="COLOR-violet" />
+        <feFlood flood-color="#A64DFF" result="COLOR-violet-light" />
+        <!-- COLORS END -->
+
+        <!-- BOTTOM SPLASH -->
+        <feTurbulence baseFrequency="0.05" type="fractalNoise" numOctaves="1" seed="2" result="BOTTOM-SPLASH_10" />
+        <feGaussianBlur stdDeviation="6.5"  in="SourceAlpha" result="BOTTOM-SPLASH_20" />
+        <feDisplacementMap scale="420" in="BOTTOM-SPLASH_20" in2="BOTTOM-SPLASH_10" result="BOTTOM-SPLASH_30"/>
+        <feComposite operator="in" in="COLOR-blue" in2="BOTTOM-SPLASH_30" result="BOTTOM-SPLASH_40" />
+        <!-- BOTTOM END -->
+
+        <!-- MIDDLE SPLASH -->
+        <feTurbulence baseFrequency="0.1" type="fractalNoise" numOctaves="1" seed="1" result="MIDDLE-SPLASH_10" />
+        <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="MIDDLE-SPLASH_20" />
+        <feDisplacementMap in="MIDDLE-SPLASH_20" in2="MIDDLE-SPLASH_10" scale="25" result="MIDDLE-SPLASH_30"/>
+        <feComposite in="COLOR-violet-light" in2="MIDDLE-SPLASH_30" operator="in" result="MIDDLE-SPLASH_40" />
+        <!-- MIDDLE END -->
+
+        <!-- TOP SPLASH -->
+        <feTurbulence baseFrequency="0.07" type="fractalNoise" numOctaves="1" seed="1" result="TOP-SPLASH_10" />
+        <feGaussianBlur stdDeviation="3.5" in="SourceAlpha" result="TOP-SPLASH_20" />
+        <feDisplacementMap scale="220" in="TOP-SPLASH_20" in2="TOP-SPLASH_10" result="TOP-SPLASH_30"/>
+        <feComposite operator="in" in="COLOR-violet" in2="TOP-SPLASH_30" result="TOP-SPLASH_40" />
+        <!-- TOP END -->
+
+        <!-- LIGHT EFFECTS -->
+        <feMerge  result="LIGHT-EFFECTS_10">
+            <feMergeNode in="BOTTOM-SPLASH_40" />
+            <feMergeNode in="MIDDLE-SPLASH_40" />
+            <feMergeNode in="TOP-SPLASH_40" />
+        </feMerge>
+        <feColorMatrix type="matrix"
+                       values="0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 1 0" in="LIGHT-EFFECTS_10" result="LIGHT-EFFECTS_20" />
+        <feGaussianBlur stdDeviation="2" in="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_30" />
+        <feSpecularLighting surfaceScale="5" specularConstant=".75" specularExponent="30" lighting-color="#white" in="LIGHT-EFFECTS_30" result="LIGHT-EFFECTS_40">
+            <fePointLight x="-50" y="-100" z="400" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="LIGHT-EFFECTS_40" in2="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_50"/>
+        <feComposite operator="arithmetic" k1="0" k2="1" k3="1" k4="0" in="LIGHT-EFFECTS_10" in2="LIGHT-EFFECTS_50" result="LIGHT-EFFECTS_60"/>
+    </filter>
+    <filter id="3dNeon">
+        <!-- Colors: -->
+        <feFlood flood-color="#4CFED7"  flood-opacity="1" result="COL_green-l" />
+        <feFlood flood-color="#0A4D39"  flood-opacity="1" result="COL_green-m" />
+        <feFlood flood-color="#2A9B83"  flood-opacity="1" result="COL_green-d" />
+        <feFlood flood-color="#FA5C71"  flood-opacity="1" result="COL_red-l" />
+        <feFlood flood-color="#A5122B"  flood-opacity="1" result="COL_red-d" />
+        <feFlood flood-color="rgba(0,0,0,0)" flood-opacity="0" result="TRANSPARENT" />
+        <!-- Colors end -->
+
+        <!-- Lower Green Bevel -->
+        <feMorphology operator="dilate" radius="10" in="SourceAlpha" result="GREEN-BEVEL-1_10" />
+        <feConvolveMatrix order="8,8" divisor="1"
+                          kernelMatrix = "1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1" in="GREEN-BEVEL-1_10" result = "GREEN-BEVEL-1_20" />
+        <feComposite operator="in" in="COL_green-d"  in2="GREEN-BEVEL-1_20" result="GREEN-BEVEL-1_30" />
+        <!-- Lower Green Bevel End -->
+
+        <!-- Lower Green Front -->
+        <feComposite operator="in" in="COL_green-l" in2="GREEN-BEVEL-1_10" result="GREEN-FRONT-1_0" />
+        <feOffset dx="4" dy="4" in="GREEN-FRONT-1_0" result="GREEN-FRONT-1_10"/>
+        <feSpecularLighting surfaceScale="0" specularConstant=".75" specularExponent="30" lighting-color="#white" in="GREEN-FRONT-1_10" result="GREEN-FRONT-1_20">
+            <fePointLight x="0" y="-30" z="400" />
+        </feSpecularLighting>
+        <feComposite operator="out" in2="GREEN-FRONT-1_20" in="GREEN-FRONT-1_10" result="GREEN-FRONT-1_30" />
+        <!-- Lower Green Front End -->
+
+        <!-- Upper Green Bevel -->
+        <feMorphology operator="dilate" radius="7" in="SourceAlpha" result="GREEN-BEVEL-2_0" />
+        <feConvolveMatrix order="8,8" divisor="1"
+                          kernelMatrix = "1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1" in="GREEN-BEVEL-2_0" result = "GREEN-BEVEL-2_10" />
+        <feComposite operator="in" in="COL_green-d" in2="GREEN-BEVEL-2_10" result="GREEN-BEVEL-2_20" />
+        <feOffset dx="9" dy="9" in="GREEN-BEVEL-2_20" result="GREEN-BEVEL-2_30"/>
+        <!-- Upper Green Bevel end -->
+
+        <!-- Upper Green Front -->
+        <feOffset dx="18" dy="18" in="GREEN-BEVEL-2_0" result="GREEN-FRONT-2_10"/>
+        <feComposite operator="in" in="COL_green-l" in2="GREEN-FRONT-2_10" result="GREEN-FRONT-2_20" />
+        <feSpecularLighting surfaceScale="0" specularConstant="0.75" specularExponent="40" lighting-color="#white" in="GREEN-FRONT-2_20" result="GREEN-FRONT-2_30">
+            <fePointLight x="120" y="170" z="500" />
+        </feSpecularLighting>
+        <feComposite operator="in" in2="GREEN-FRONT-2_10" in="GREEN-FRONT-2_30" result="GREEN-FRONT-2_40" />
+        <!-- Upper Green Front end -->
+
+        <!-- Bevels and Front shaded -->
+        <feMerge  result="SHADED-BEVELS_0">
+            <feMergeNode in="GREEN-BEVEL-1_10" />
+            <feMergeNode in="GREEN-FRONT-1_30" />
+            <feMergeNode in="GREEN-BEVEL-2_30" />
+            <feMergeNode in="GREEN-FRONT-2_20" />
+            <feMergeNode in="GREEN-FRONT-2_40" />
+            <feMergeNode in="TRANSPARENT" />
+        </feMerge>
+
+        <feSpecularLighting surfaceScale="0" specularConstant="0.45" specularExponent="30" lighting-color="#white" in="SHADED-BEVELS_0" result="SHADED-BEVELS_10">
+            <fePointLight x="320" y="-20" z="400" />
+        </feSpecularLighting>
+        <feComposite operator="in" in2="SHADED-BEVELS_0" in="SHADED-BEVELS_10" result="SHADED-BEVELS_30" />
+        <!-- Bevels and Front shaded end -->
+
+        <!-- Upper Red Bevel -->
+        <feConvolveMatrix order="4,4" divisor="1"
+                          kernelMatrix="1 0 0 0
+          0 1 0 0
+          0 0 1 0
+          0 0 0 1" in="SourceAlpha" result = "RED-BEVEL-0_0" />
+        <feComposite in="COL_red-d" in2="RED-BEVEL-0_0" operator="in"  result="RED-BEVEL-0_10" />
+        <feOffset dx="20" dy="20" in="RED-BEVEL-0_10" result="RED-BEVEL-0_20"/>
+        <!-- Upper Red Bevel end -->
+
+        <!-- Upper Red Front -->
+        <feComposite operator="in"  in="COL_red-l" in2="SourceAlpha" result="RED-FRONT-0_0" />
+        <feOffset dx="24" dy="24" in="RED-FRONT-0_0" result="RED-FRONT-0_10"/>
+        <feSpecularLighting surfaceScale="0" specularConstant=".45" specularExponent="30" lighting-color="#white" in="RED-FRONT-0_10" result="RED-FRONT-0_20">
+            <fePointLight x="20" y="180" z="300" />
+        </feSpecularLighting>
+        <feComposite operator="in" in2="RED-FRONT-0_10" in="RED-FRONT-0_20" result="RED-FRONT-0_30" />
+        <!-- Upper Red Front end-->
+
+        <!-- Inner Line -->
+        <feMorphology radius="4" in="SourceAlpha" result="INNER-LINE_0"/>
+        <feMorphology radius="5" in="SourceAlpha" result="INNER-LINE_10"/>
+        <feComposite operator="out" in="INNER-LINE_0" in2="INNER-LINE_10" result="INNER-LINE_20" />
+        <feComposite operator="in" in="COL_green-l" in2="INNER-LINE_20" result="INNER-LINE_30" />
+        <feOffset dx="24" dy="24" in="INNER-LINE_30" result="INNER-LINE_40"/>
+        <!-- Inner Line end -->
+
+        <feMerge  result="extruded-m">
+
+            <feMergeNode in="SHADED-BEVELS_0" />
+            <feMergeNode in="SHADED-BEVELS_30" />
+            <feMergeNode in="RED-BEVEL-0_20" />
+            <feMergeNode in="RED-FRONT-0_10" />
+            <feMergeNode in="RED-FRONT-0_30" />
+            <feMergeNode in="INNER-LINE_40" />
+
+            <feMergeNode in="TRANSPARENT" />
+        </feMerge>
+    </filter>
+    <filter id="sketchy">
+        <!-- COLOR -->
+        <feFlood flood-color="#73DCFF" flood-opacity="0.75" result="COLOR-blu" />
+        <feFlood flood-color="#9673FF" flood-opacity="0.4" result="COLOR-red" />
+        <!-- COLOR END -->
+
+        <!-- Texture -->
+        <feTurbulence baseFrequency=".05" type="fractalNoise" numOctaves="3" seed="0" result="Texture_10" />
+        <feColorMatrix type="matrix"
+                       values="0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 -2.1 1.1" in="Texture_10"  result="Texture_20" />
+
+        <feColorMatrix result="Texture_30" type="matrix"
+                       values="0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 -1.7 1.8" in="Texture_10" />
+        <!-- Texture -->
+
+        <!-- FILL -->
+        <feOffset dx="-3" dy="4" in="SourceAlpha" result="FILL_10"/>
+        <feDisplacementMap scale="17" in="FILL_10" in2="Texture_10" result="FILL_20" />
+        <feComposite operator="in" in="Texture_30" in2 = "FILL_20" result="FILL_40"/>
+        <feComposite operator="in" in="COLOR-blu" in2="FILL_40" result="FILL_50" />
+        <!-- FILL END-->
+
+        <!-- OUTLINE -->
+        <feMorphology operator="dilate" radius="3" in="SourceAlpha" result="OUTLINE_10" />
+        <feComposite operator="out" in="OUTLINE_10" in2 = "SourceAlpha" result="OUTLINE_20" />
+        <feDisplacementMap scale="7" in="OUTLINE_20" in2="Texture_10" result="OUTLINE_30" />
+        <feComposite operator="arithmetic" k2="-1" k3="1" in="Texture_20" in2="OUTLINE_30" result="OUTLINE_40" />
+        <!-- OUTLINE END-->
+
+        <!-- BEVEL OUTLINE -->
+        <feConvolveMatrix order="8,8" divisor="1"
+                          kernelMatrix="1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 " in="SourceAlpha" result="BEVEL_10" />
+        <feMorphology operator="dilate" radius="2" in="BEVEL_10" result="BEVEL_20" />
+        <feComposite operator="out" in="BEVEL_20" in2="BEVEL_10" result="BEVEL_30"/>
+        <feDisplacementMap scale="7" in="BEVEL_30" in2="Texture_10" result="BEVEL_40" />
+        <feComposite operator="arithmetic" k2="-1" k3="1" in="Texture_20" in2="BEVEL_40" result="BEVEL_50" />
+        <feOffset dx="-7" dy="-7" in="BEVEL_50" result="BEVEL_60"/>
+        <feComposite operator="out" in="BEVEL_60" in2 = "OUTLINE_10" result="BEVEL_70" />
+        <!-- BEVEL OUTLINE END -->
+
+        <!-- BEVEL FILL -->
+        <feOffset dx="-9" dy="-9" in="BEVEL_10" result="BEVEL-FILL_10"/>
+        <feComposite operator="out" in="BEVEL-FILL_10" in2 = "OUTLINE_10" result="BEVEL-FILL_20" />
+        <feDisplacementMap scale="17" in="BEVEL-FILL_20" in2="Texture_10" result="BEVEL-FILL_30" />
+        <feComposite operator="in" in="COLOR-red" in2="BEVEL-FILL_30" result="BEVEL-FILL_50" /> <!-- -->
+        <!-- BEVEL FILL END-->
+
+        <feMerge  result="merge2">
+            <feMergeNode in="BEVEL-FILL_50" />
+            <feMergeNode in="BEVEL_70" />
+            <feMergeNode in="FILL_50" />
+            <feMergeNode in="OUTLINE_40" />
+        </feMerge>
+    </filter>
+    <filter id="cooperate" filterUnits="userSpaceOnUse">
+        <!-- COLORS -->
+        <feFlood flood-color="white" result="COLOR-white" />
+        <feFlood flood-color="black" result="COLOR-black" />
+        <feFlood flood-color="rgba(0,0,0,0)" flood-opacity="0" result="TRANSPARENT" />
+        <!-- COLORS END -->
+
+        <!-- FAT OUTLINE -->
+        <feMorphology operator="dilate" radius="4" in="SourceAlpha" result="FAT-OUTLINE_10" />
+        <feConvolveMatrix in="FAT-OUTLINE_10" order="6,5" divisor="1"
+                          kernelMatrix="0 0 1 1 0 0 0 1 1 1 1 0 1 1 1 1 1 1 0 1 1 1 1 0 0 0 1 1 0 0 " result = "FAT-OUTLINE_20" />
+        <feOffset dx="4" dy="0" in="FAT-OUTLINE_20" result="FAT-OUTLINE_30"/>
+        <!--  FAT OUTLINE END -->
+
+        <!-- STRIPED SHADOW -->
+        <feImage xlink:href="data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%22100px%22%20height%3D%22200px%22%20%20%3E%0A%09%3Cdefs%3E%0A%09%09%3Cpattern%20id%3D%22pattern%22%20patternUnits%3D%22userSpaceOnUse%22%20width%3D%225px%22%20height%3D%225px%22%20viewBox%3D%220%200%205%205%22%20%3E%0A%09%09%09%3Cpolygon%20points%3D%225%2C0%204.012%2C0%205%2C0.989%20%09%22%2F%3E%0A%09%09%09%3Cpolygon%20points%3D%225%2C5%200%2C0%200%2C0.989%204.01%2C5%20%09%22%2F%3E%0A%09%09%3C%2Fpattern%3E%0A%09%3C%2Fdefs%3E%0A%09%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23pattern)%22%20%2F%3E%0A%3C%2Fsvg%3E" x="0" y="2" width="100" height="200" result="STRIPED-SHADOW_10"/>
+        <feTile in="STRIPED-SHADOW_10" result="STRIPED-SHADOW_20"/>
+        <feOffset dx="7" dy="8" in="FAT-OUTLINE_30" result="STRIPED-SHADOW_30"/>
+        <feComposite operator="in" in="STRIPED-SHADOW_20" in2="STRIPED-SHADOW_30" result="STRIPED-SHADOW_40" />
+        <feComposite operator="in" in="COLOR-black" in2="STRIPED-SHADOW_40" result="STRIPED-SHADOW_50" />
+        <!--   STRIPED SHADOW END -->
+
+        <!-- STRIPED FILL -->
+        <feImage xlink:href='data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%22100px%22%20height%3D%22200px%22%20%20%3E%0A%09%3Cdefs%3E%0A%09%09%3Cpattern%20id%3D%22pattern%22%20patternUnits%3D%22userSpaceOnUse%22%20width%3D%2210%22%20height%3D%2210%22%3E%0A%0A%09%09%09%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M0%2C8.239V10h1.761L0%2C8.239z%22%2F%3E%0A%09%09%09%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M5%2C0l5%2C5l0%2C0V3.238L6.762%2C0H5z%22%2F%3E%0A%09%09%09%3Cpolygon%20fill%3D%22%23FFFFFF%22%20points%3D%220%2C3.239%200%2C5%205%2C10%206.761%2C10%20%22%2F%3E%0A%09%09%09%3Cpolygon%20fill%3D%22%23FFFFFF%22%20points%3D%221.762%2C0%200%2C0%2010%2C10%2010%2C8.238%20%22%2F%3E%0A%09%09%3C%2Fpattern%3E%0A%09%3C%2Fdefs%3E%0A%09%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22url(%23pattern)%22%20%2F%3E%0A%3C%2Fsvg%3E' x="0" y="2" width="100" height="200" result="STRIPED-FILL_10"/>
+        <feTile in="STRIPED-FILL_10" result="STRIPED-FILL_20"/>
+        <feComposite operator="in" in="STRIPED-FILL_20" in2="SourceAlpha" result="STRIPED-FILL_30" />
+        <feComposite operator="in" in="COLOR-white" in2="STRIPED-FILL_30" result="STRIPED-FILL_40" />
+        <!-- STRIPED FILL END -->
+
+        <!-- REFLECTION -->
+        <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="REFLECTION_10"/>
+        <feSpecularLighting surfaceScale="7" specularConstant="1.8" specularExponent="30" lighting-color="#white" in="REFLECTION_10" result="REFLECTION_20">
+            <fePointLight x="-100" y="-150" z="250">
+            </fePointLight>
+        </feSpecularLighting>
+        <feComposite in2="SourceAlpha" operator="in" in="REFLECTION_20" result="REFLECTION_30" />
+        <!--  REFLECTION END -->
+
+        <feMerge  result="merge2">
+            <feMergeNode in="STRIPED-SHADOW_50" />
+            <feMergeNode in="FAT-OUTLINE_30" />
+            <feMergeNode in="STRIPED-FILL_40" />
+            <feMergeNode in="REFLECTION_30" />
+            <!-- Merging a transparent area is a hack to prevent some browsers from cutting off feMorphology -->
+            <feMergeNode in="TRANSPARENT" />
+        </feMerge>
+    </filter>
+    <filter id="extruded" filterUnits="userSpaceOnUse">
+        <!-- COLORS -->
+        <feFlood flood-color="#663300" result="COLOR-red" />‚
+        <feFlood flood-color="#D7A500" result="COLOR-y" />
+        <!-- COLORS END -->
+
+        <!-- STRIPE FILL -->
+        <feImage xlink:href="data:image/svg+xml;charset=utf-8,%3Csvg%20version%3D%221.1%22%20id%3D%22Untitled-Seite_x25_201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20width%3D%2210px%22%20height%3D%224px%22%3E%0A%3Crect%20fill%3D%22%239F6B00%22%20width%3D%2210%22%20height%3D%222%22%2F%3E%3C%2Fsvg%3E" x="0" y="0" width="10" height="4" result="STRIPE FILL_10"/>
+        <feTile in="STRIPE FILL_10" result="STRIPE FILL_20"/>
+        <feComposite operator="in" in="STRIPE FILL_20" in2="SourceAlpha" result="STRIPE FILL_30"/>
+        <!-- STRIPE FILL END -->
+
+        <!-- THIN BEVEL -->
+        <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="THIN-BEVEL_10" />
+        <feComposite operator="out" in="THIN-BEVEL_10" in2="SourceAlpha" result="THIN-BEVEL_20"/>
+        <feComposite operator="in" in="COLOR-y" in2="THIN-BEVEL_20" result="THIN-BEVEL_30" />
+        <!-- THIN BEVEL END -->
+
+        <!-- OUTER BEVEL -->
+        <feConvolveMatrix order="8,8" divisor="1"
+                          kernelMatrix="1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 " in="SourceGraphic" result="OUTER-BEVEL_10" />
+        <feOffset dx="4" dy="4" in="OUTER-BEVEL_10" result="OUTER-BEVEL_20"/>
+        <feComposite operator="in" in="COLOR-red" in2="OUTER-BEVEL_20" result="OUTER-BEVEL_30" />
+        <!-- OUTER BEVEL END -->
+
+        <!-- INNER BEVEL -->
+        <feOffset in="SourceAlpha" dx="4" dy="4" result="INNER-BEVEL_10"/>
+        <feComposite operator="out" in="SourceAlpha" in2="INNER-BEVEL_10" result="INNER-BEVEL_20" />
+        <feComposite in="COLOR-red" operator="in" in2="INNER-BEVEL_20" result="INNER-BEVEL_30" />
+        <!--  INNER BEVEL END -->
+
+        <!-- FAT OUTLINE -->
+        <feMorphology operator="dilate" radius="6" in="OUTER-BEVEL_30" result="FAT-OUTLINE_10" />
+        <feComposite operator="in" in="COLOR-y" in2="FAT-OUTLINE_10" result="FAT-OUTLINE_20" />
+        <!-- FAT OUTLINE END -->
+
+        <feMerge  result="merge2">
+            <feMergeNode in="FAT-OUTLINE_20" />
+            <feMergeNode in="OUTER-BEVEL_30" />
+            <feMergeNode in="STRIPE FILL_30" />
+            <feMergeNode in="INNER-BEVEL_30" />
+            <feMergeNode in="THIN-BEVEL_30" />
+        </feMerge>
+    </filter>
+    <filter id="pop-1">
+        <!-- COLORS -->
+        <feFlood flood-color="#551C0B" result="COLOR-outline" />
+        <!-- COLORS END -->
+
+        <!-- OUTLINE -->
+        <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="OUTLINE_10" />
+        <feComposite in="COLOR-outline" operator="in" in2="OUTLINE_10" result="OUTLINE_20" />
+        <!-- OUTLINE END -->
+
+        <!-- LIGHTING EFFECTS -->
+        <feGaussianBlur stdDeviation="8" in="SourceAlpha" result="LIGHTING-EFFECTS-10"/>
+        <feSpecularLighting surfaceScale="9" specularConstant="0.9" specularExponent="10" lighting-color="#blue" in="LIGHTING-EFFECTS-10" result="LIGHTING-EFFECTS-20">
+            <fePointLight x="-100" y="-200" z="100" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="LIGHTING-EFFECTS-20" in2="SourceAlpha" result="LIGHTING-EFFECTS-30"/>
+        <feComposite in="SourceGraphic" in2="LIGHTING-EFFECTS-30" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="LIGHTING-EFFECTS-40"/>
+        <!-- LIGHTING EFFECTS END-->
+
+        <!-- COLOR EFFECTS -->
+        <feComponentTransfer in="LIGHTING-EFFECTS-40" result="COLOR-EFFECTS_10">
+            <feFuncR id="RedT" type="table" tableValues="0 6 1 0 3"/>
+            <feFuncG id="GrnT" type="table" tableValues="2 0 1 3 2"/>
+            <feFuncB id="BluT" type="table" tableValues="1 -1 0 1 1"/>
+        </feComponentTransfer>
+
+        <feColorMatrix type="matrix"
+                       values="0.6 0.2 0 -0.3 0,
+            -0.5 1 0 -0.1 0,
+            -0.4 0.5 0.7 0 0,
+            0 0 0 1 0" in="COLOR-EFFECTS_10" result="COLOR-EFFECTS_20" />
+        <!-- COLOR EFFECTS END-->
+
+        <feMerge>
+            <feMergeNode in="OUTLINE_20" />
+            <feMergeNode in="COLOR-EFFECTS_20"/>
+        </feMerge>
+    </filter>
+    <filter id="pop-2" >
+
+        <!-- COLORS -->
+        <feFlood flood-color="#551C0B" result="COLOR-outline" />
+        <!-- COLORS END-->
+
+        <!-- OUTLINE -->
+        <feMorphology operator="dilate" radius="5" in="SourceAlpha" result="OUTLINE_10" />
+        <feComposite operator="in" in="COLOR-outline" in2="OUTLINE_10" result="OUTLINE_20" />
+        <!-- OUTLINE END -->
+
+        <!-- LIGHTING EFFECTS -->
+        <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="LIGHTING-EFFECTS_10"/>
+        <feSpecularLighting surfaceScale="5" specularConstant="0.8" specularExponent="7.5" lighting-color="#white" in="LIGHTING-EFFECTS_10" result="LIGHTING-EFFECTS_20">
+            <fePointLight x="-250" y="-50" z="300" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="LIGHTING-EFFECTS_20" in2="SourceAlpha" result="LIGHTING-EFFECTS_30"/>
+        <feComposite in="SourceGraphic" in2="LIGHTING-EFFECTS_30" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="LIGHTING-EFFECTS_40"/>
+        <!-- LIGHTING EFFECTS END -->
+
+        <!-- COLOR EFFECTS -->
+        <feComponentTransfer in="LIGHTING-EFFECTS_40" result="COLOR-EFFECTS_10">
+            <feFuncR type="gamma" offset="-0.3" amplitude="1.1" exponent="4.84"/>
+            <feFuncG type="gamma" offset="-0.3" amplitude="3.1" exponent="4.84"/>
+            <feFuncB type="gamma" offset="13.3" amplitude="0.1" exponent="1.84"/>
+        </feComponentTransfer>
+        <!-- COLOR EFFECTS END -->
+
+        <feMerge>
+            <feMergeNode in="OUTLINE_20" />
+            <feMergeNode in="COLOR-EFFECTS_10"/>
+        </feMerge>
+    </filter>
+    <filter id="pop-3" height="220%">
+        <!-- COLORS -->
+        <feFlood flood-color="#551C0B" result="COLOR-outline" />
+        <!-- COLORS END-->
+
+        <!-- OUTLINE -->
+        <feMorphology operator="dilate" radius="3" in="SourceAlpha" result="OUTLINE_10" />
+        <feComposite operator="in" in="COLOR-outline" in2="OUTLINE_10"  result="OUTLINE_20" />
+        <!-- OUTLINE END -->
+
+        <!-- LIGHTING EFFECTS -->
+        <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="LIGHTING-EFFECTS_10"/>
+        <feSpecularLighting surfaceScale="5" specularConstant="0.5" specularExponent="7.5" lighting-color="#white" in="LIGHTING-EFFECTS_10" result="LIGHTING-EFFECTS_20">
+            <fePointLight x="750" y="-50" z="300" />
+        </feSpecularLighting>
+        <feComposite in2="SourceAlpha" operator="in" in="LIGHTING-EFFECTS_20" result="LIGHTING-EFFECTS_30"/>
+        <feComposite operator="arithmetic" k1="0" k2="1" k3="1" k4="0" in="SourceGraphic" in2="LIGHTING-EFFECTS_30" result="LIGHTING-EFFECTS_40"/>
+        <!-- LIGHTING EFFECTS END -->
+
+        <!-- COLOR EFFECTS -->
+        <feComponentTransfer in="LIGHTING-EFFECTS_40" result="COLOR-EFFECTS_10">
+            <feFuncR type="gamma" offset="-1.3" amplitude="10" exponent="4.84"/>
+            <feFuncB type="gamma" offset="-1.3" amplitude="10.1" exponent="40.84"/>
+        </feComponentTransfer>
+        <!-- COLOR EFFECTS END -->
+
+        <feMerge>
+            <feMergeNode in="OUTLINE_20" />
+            <feMergeNode in="COLOR-EFFECTS_10"/>
+        </feMerge>
+    </filter>
+    <filter id="pop-4" height="220%">
+
+        <!-- COLORS -->
+        <feFlood flood-color="#551C0B" result="COLOR-outline" />
+        <feFlood flood-color="#551C0B" flood-opacity="0" result="TRANSPARENT" />
+        <!-- COLORS END-->
+
+        <!-- OUTLINE -->
+        <feMorphology operator="dilate" radius="5" in="SourceAlpha" result="OUTLINE_10" />
+        <feComposite operator="in" in="COLOR-outline" in2="OUTLINE_10" result="OUTLINE_20" />
+        <!-- OUTLINE END-->
+
+        <!-- LIGHTING EFFECTS -->
+        <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="LIGHTING-EFFECTS_10" />
+        <feSpecularLighting surfaceScale="7" specularConstant="0.8" specularExponent="7" lighting-color="#white" in="LIGHTING-EFFECTS_10" result="LIGHTING-EFFECTS_20">
+            <fePointLight x="-100" y="-150" z="200" />
+        </feSpecularLighting>
+        <feComposite operator="in" in="LIGHTING-EFFECTS_20" in2="SourceAlpha" result="LIGHTING-EFFECTS_30" />
+        <feComposite operator="arithmetic" k1="0" k2="1" k3="1" k4="0" in="SourceGraphic" in2="LIGHTING-EFFECTS_30" result="LIGHTING-EFFECTS_40" />
+        <!-- LIGHTING EFFECTS END-->
+
+        <!-- COLOR EFFECTS -->
+        <feComponentTransfer in="LIGHTING-EFFECTS_40" result="COLOR-EFFECTS_10">
+            <feFuncR id="RedT" type="table" tableValues="13 6 1 0 3"></fefuncr>
+            <feFuncG id="GrnT" type="table" tableValues="2 0 0 1"></fefuncg>
+            <feFuncB id="BluT" type="table" tableValues="1 0 0 -8"></fefuncb>
+        </feComponentTransfer>
+        <!-- COLOR EFFECTS END-->
+
+        <femerge>
+            <feMergeNode in="OUTLINE_20" />
+            <feMergeNode in="COLOR-EFFECTS_10" />
+            <feMergeNode in="TRANSPARENT" />
+        </femerge>
+    </filter>
+    <filter id="weathered" >
+        <!-- COLORS -->
+        <feFlood flood-color="#582D1B" result="COLOR-red" />
+        <!-- COLORS END -->
+
+        <!-- FRACTAL TEXTURE -->
+        <feTurbulence baseFrequency=".05,.004" top="-50%" type="fractalNoise" numOctaves="4" seed="0" result="FRACTAL-TEXTURE_10" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 0 0,
+          0 0 0 -1.2 1.1" in="FRACTAL-TEXTURE_10" result="FRACTAL-TEXTURE_20" />
+        <!-- FRACTAL TEXTURE END -->
+
+        <!-- STROKE -->
+        <feMorphology operator="dilate" radius="4" in="SourceAlpha" result="STROKE_10" />
+        <!-- STROKE END -->
+
+        <!-- EXTRUDED BEVEL -->
+        <feConvolveMatrix order="8,8" divisor="1"
+                          kernelMatrix="1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1" in="STROKE_10" result="BEVEL_20" />
+
+        <feOffset dx="4" dy="4" in="BEVEL_20" result="BEVEL_25"/>
+        <feComposite operator="out" in="BEVEL_25" in2="STROKE_10" result="BEVEL_30"/>
+        <feComposite in="COLOR-red" in2="BEVEL_30" operator="in" result="BEVEL_40" />
+        <feMerge result="BEVEL_50">
+            <feMergeNode in="BEVEL_40" />
+            <feMergeNode in="SourceGraphic" />
+        </feMerge>
+        <!-- EXTRUDED BEVEL END -->
+
+        <feComposite in2 =  "FRACTAL-TEXTURE_20" in="BEVEL_50" operator="in"/>
+    </filter>
+    <filter id="bebul">
+        <!-- The following code will create a 100 × 200-pixel square filled with "myfill.svg": -->
+
+        <feImage xlink:href="myfill.svg" x="0" y="0" width="100" height="200" result="IMAGEFILL"/>
+
+        <!-- We then use this fill as an input for feTile, creating a repeating pattern this way: -->
+
+        <feTile in="IMAGEFILL" result="TILEPATTERN"/>
+
+        <!-- Now we will use feComposite to "cut off" SourceAlpha’s transparent areas from the fill: -->
+
+        <feComposite operator="in" in="TILEPATTERN" in2="SourceAlpha" />
+    </filter>
+    <filter id="turbulence50">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.02" numOctaves="1" result="NOISE"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="50">
+        </feDisplacementMap>
+    </filter>
+    <filter id="turbulence40">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.02" numOctaves="1" result="NOISE"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="40">
+        </feDisplacementMap>
+    </filter>
+    <filter id="turbulence30">
+        <feTurbulence type="turbulence" baseFrequency="0.01 0.02" numOctaves="1" result="NOISE"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="30">
+        </feDisplacementMap>
+    </filter>
+    <filter id="wavy">
+        <feTurbulence id="turbulence" type="turbulence" numOctaves="1"
+                      result="NOISE"></feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="NOISE" scale="50">
+        </feDisplacementMap>
+        <animate xlink:href="#turbulence" attributeName="baseFrequency" dur="60s" keyTimes="0;0.5;1"
+                 values="0.01 0.02;0.02 0.04;0.01 0.02" repeatCount="indefinite"></animate>
+    </filter>
+</svg>
+
 <div class="body">
 
     <div class="mondayFightCaption">

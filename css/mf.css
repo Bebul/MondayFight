@@ -296,7 +296,6 @@ body {
     background: center / contain no-repeat;
 }
 
-
 table, tbody, tfoot, thead, tr, th, td {
     border: 0;
     font: inherit;
@@ -523,6 +522,35 @@ draw {
 .achievementH110 {
     max-height: 110px;
     height: 22vw;
+}
+
+.sketchy {
+    filter: url(#sketchy);
+}
+
+.turbulence {
+    filter: url(#turbulence50);
+}
+.turbulence40 {
+    filter: url(#turbulence40);
+}
+.turbulence30 {
+    filter: url(#turbulence30);
+}
+.turbulence20 {
+    filter: url(#turbulence20);
+}
+.turbulence10 {
+    filter: url(#turbulence10);
+}
+.pixelate {
+    filter: url(#pixelate);
+}
+.pixelate5 {
+    filter: url(#pixelate5);
+}
+.pixelate6 {
+    filter: url(#pixelate6);
 }
 
 .achievementH75 {

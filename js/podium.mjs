@@ -28,7 +28,7 @@ let dummyKasparov = {
   nb: {game: 1, win:1, berserk: 0}
 }
 
-function getPlayerPodiumHTML(gambler, showBullet = false) {
+function getPlayerPodiumHTML(gambler, showBullet = false, specClass="") {
   if (!gambler) gambler = dummyKasparov
   let place = placeTxt[gambler.rank]
   let player = gambler.name
@@ -42,7 +42,7 @@ function getPlayerPodiumHTML(gambler, showBullet = false) {
     bulletPistol = `<img src="img/westernPistol.png" style="position:absolute; right:0px; top:50px; width:70%">`
   }
   let html = `<div class="${place}">
-  <div class="trophy" style="position:relative;overflow:visible">
+  <div class="trophy ${specClass}" style="position:relative;overflow:visible">
     ${bulletPistol}
   </div>
   <a class="text user-link" href="https://lichess.org/@/${player}" target="_blank">${player}</a>
@@ -60,9 +60,12 @@ function getPlayerPodiumHTML(gambler, showBullet = false) {
 function getPodiumHTML(tournament) {
   let podium = tournament.podium
   let showBullet = tournament.perf.name.toLowerCase()=="bullet"
-  let first = getPlayerPodiumHTML(podium[0], showBullet)
-  let second = getPlayerPodiumHTML(podium[1])
-  let third = getPlayerPodiumHTML(podium[2])
+  let spec = ""
+  let s = tournamentSpec.find(s => s.id === tournament.id)
+  if (s && s.specClass) spec = s.specClass[0]
+  let first = getPlayerPodiumHTML(podium[0], showBullet, spec)
+  let second = getPlayerPodiumHTML(podium[1], false, spec)
+  let third = getPlayerPodiumHTML(podium[2], false, spec)
   let html = second + first + third
   html = html
   return html
@@ -757,7 +760,7 @@ function collectAchievements(data, tournamentID, games) {
   return achievements
 }
 
-function renderAchievements(achievements, maxCount = 25) {
+function renderAchievements(achievements, maxCount = 25, specClass="") {
   let divs = []
   for (let i=0; i < Math.min(achievements.length, maxCount); i++) {
     let achievement = achievements[i]
@@ -765,16 +768,16 @@ function renderAchievements(achievements, maxCount = 25) {
     if (typeof player !== 'string' && !(player instanceof String)) player = achievement.player.user.name
     let html = `<div class="achievementTab"><div class="achievement left">`
     let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
-    html += `<img src="${avatar}" class="achievementH110">`
+    html += `<img src="${avatar}" class="achievementH110 ${specClass}">`
     html += `<div class="achievementPlayer"><a class="user-link achievementW110" href="https://lichess.org/@/${player}" target="_blank"><b class="achievementPlayerFont">${player}</b></a></div>`
     html += "</div>"
     divs.push(html)
 
     html = `<div class="achievement right">`
-    if (achievement.img) html += `<img src="img/achievements/${achievement.img}" class="achievementH110">`
+    if (achievement.img) html += `<img src="img/achievements/${achievement.img}" class="achievementH110 ${specClass}">`
     else if (achievement.frame) {
-      html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" class="achievementH110">`
-      if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" class="achievementH75 achievementImg">`
+      html += `<div style="position: relative"><img src="img/achievements/${achievement.frame}" class="achievementH110 ${specClass}">`
+      if (achievement.pic) html += `<img src="img/achievements/${achievement.pic}" class="achievementH75 achievementImg ${specClass}">`
       else {
         // used only to render new achievements
         let leftPx = achievement.left || 15
@@ -782,7 +785,7 @@ function renderAchievements(achievements, maxCount = 25) {
       }
       html += `</div>`
     } else {
-      html += `<img src="img/achievements/zlata.png" class="achievementH110">`
+      html += `<img src="img/achievements/zlata.png" class="achievementH110 ${specClass}">`
     }
     html += `<div class="achievementDesc"><a class="user-link" href="https://lichess.org/${achievement.game}" target="_blank">${achievement.desc}</a></div>`
     html += "</div></div>"
@@ -801,7 +804,10 @@ function createAchievementsInfo(data, tournamentID, games, id="achievements") {
     achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
     if (achievements.length===0) achievements.push(new AchievementNothing())
 
-    let divs = renderAchievements(achievements)
+    let spec = ""
+    let s = tournamentSpec.find(s => s.id === tournament.id)
+    if (s && s.specClass) spec = s.specClass[1]
+    let divs = renderAchievements(achievements, 25, spec)
     let html = `${divs.join("")}`
     el.innerHTML = html
   }
@@ -872,7 +878,7 @@ function testAchievementsInfo(id="achievements") {
   if (el) {
     //achievements.sort((a, b) => (a.sortVal < b.sortVal) ? 1 : -1)
 
-    let divs = renderAchievements(achievements, 1000)
+    let divs = renderAchievements(achievements, 1000, "lastTournamentAchievement")
     let html = `${divs.join("")}`
     el.innerHTML = html
   }
