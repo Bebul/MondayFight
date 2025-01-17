@@ -1220,5 +1220,16 @@ export var tournamentSpec = [
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>." +
         "<br><br><b>DJ-Strelec:</b> Pro letošek jsme s Jouzoleanem připravili novinku – Tipovačku play off, z níž se na základě získaných bodů za přesné tipy ze všech sérií po skončení turnaje vybere nejlepší tipér, který bude oceněn plaketkou. Zúčastnit se jí mohou úplně všichni, tedy i ti, kteří play off nehrají. Pravidla jsou jednoduchá: v anketě se tipuje vítěz (za jeden bod) a počet bodů získaných poraženým (za druhý bod). Tipovat lze až do zahájení první partie, na pozdější tipy již nebude brán zřetel. " +
         "<img src='img/tipovacka2024.jpg' style='margin-top:5px'>" //"<img src='img/tomzr-dj.jpg' style='margin-top:5px'>"
+  },{
+    id: "c1tC3P7b",
+    specClass: ["turbulence30", "turbulence40"],
+    html: "<b>HGlockk:</b> Vy to berete všichni nějak hrozně vážně ne 🙈  <img src='img/players/jouzolean.png' class='img100 turbulence right'>" +
+        "<br><br><b>Jouzolean:</b> Ono to je vážné. 😁 " +
+        "<br><br><b>DJ-Strelec:</b> ... za tu poznámku bych dal černý puntík! 😀 " +
+        "<br><br><b>LastScout:</b> Jestli ho bude mit Hana, ja ho chci taky!!! " +
+        "<br><br><b>HGlockk:</b> <img src='img/achievements/pinkDot.png' class='img100 turbulence30 right'> Já bych ráda růžový puntík když už teda 😌 " +
+        "<br><br><b>Bebul:</b> Dostala ho jenom HGlockk, v turnaji <a href='index.html?mf=playOFF2024'>PlayOFF 2024</a>. " +
+        "<br><br><b>LastScout:</b> Na to jde rict jen jedine….. to neni fer. " +
+        "<br><br><b>Bebul:</b> dneska jsou asi ňáký turbulence, nebo co? 😅"
   }
 ];
