@@ -613,6 +613,16 @@ class AchievementNothing {
   }
 }
 
+class AchievementUnratedDuel {
+  constructor(id) {
+    this.player = {user: {name: "Kasparov"}}
+    this.sortVal = 52
+    this.img = "blackDot.png"
+    this.desc = "Hrajte to příště rated!"
+    this.game = id
+  }
+}
+
 // use it to render something and use it by screenshot at last
 class AchievementFontPrototype {
   constructor(player, id) {
@@ -656,9 +666,7 @@ function collectAchievements(data, tournamentID, games) {
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
     }
   })
-  tournament.standing.players.forEach(p => {
-    if (p.warnUnrated) achievements.push(new AchievementBlackDot(p.name, p.warnUnrated, "Měls ho vyzvat rated"))
-  })
+  tournament.unratedDuels.forEach(id => achievements.push(new AchievementUnratedDuel(id)))
 
   games.games.forEach(function(g) {
 /*
@@ -745,7 +753,7 @@ function renderAchievements(achievements, maxCount = 25) {
     let html = `<div class="achievementTab"><div class="achievement left">`
     let avatar = Avatars.getAvatar(player, "img/achievements/strelec.png")
     html += `<img src="${avatar}" class="achievementH110">`
-    html += `<div class="achievementPlayer"><a class="user-link" class="achievementW110" href="https://lichess.org/@/${player}" target="_blank"><b class="achievementPlayerFont">${player}</b></a></div>`
+    html += `<div class="achievementPlayer"><a class="user-link achievementW110" href="https://lichess.org/@/${player}" target="_blank"><b class="achievementPlayerFont">${player}</b></a></div>`
     html += "</div>"
     divs.push(html)
 
