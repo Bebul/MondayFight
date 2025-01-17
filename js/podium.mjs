@@ -666,7 +666,8 @@ function collectAchievements(data, tournamentID, games) {
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
     }
   })
-  tournament.unratedDuels.forEach(id => achievements.push(new AchievementUnratedDuel(id)))
+  if (tournament.unratedDuels) tournament.unratedDuels.forEach(id => achievements.push(new AchievementUnratedDuel(id)))
+  if (!tournament.rated) achievements.push(new AchievementUnratedDuel(games.games[0].id))
 
   games.games.forEach(function(g) {
 /*
