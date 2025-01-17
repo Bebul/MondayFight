@@ -1238,6 +1238,7 @@ export function defaultBoardConfig(tournament) {
       case 2022: return {theme: "horsey", pieceStyle: "gioco"}
       case 2023: return {theme: "brown", pieceStyle: "wikipedia"}
       case 2024: return {theme: "blue3", pieceStyle: "merida"}
+      case 2025: return {theme: "canvas3", pieceStyle: "alpha"}
       default: return {theme: "brown", pieceStyle: "wikipedia"}
     }
   }
