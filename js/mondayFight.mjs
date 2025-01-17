@@ -1,4 +1,4 @@
-/* jshint -W033, esversion: 6 */
+/* jshint -W033, esversion: 8 */
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
@@ -459,7 +459,8 @@ export function gameListData(games) {
       "time": time,
       "opening": opening,
       "status": g.status,
-      "trophy": getTrophies(g)
+      "trophy": getTrophies(g),
+      "rated": g.rated
     }
     tableData.push(row)
   })
@@ -498,8 +499,11 @@ export function createGameListTable(games, tableId, addDate, noStats, winner) {
     reactiveData: true, // we want setData having effect
     rowFormatter: function(row){
       if (row.getData().date && row.getData().date.html.match(/playOFF/)) {
-        let col = '#def'
-        if (row.getPosition(false) % 2 > 0) col = '#d0e0f0'
+        let col = '#ff5c33'
+        if (row.getData().rated) {
+          col = '#def'
+          if (row.getPosition(false) % 2 > 0) col = '#d0e0f0'
+        } else if (row.getPosition(false) % 2 > 0) col = '#f53'
         const children = row.getElement().childNodes[1].style.backgroundColor = col
       }
     },

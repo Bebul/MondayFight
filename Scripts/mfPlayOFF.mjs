@@ -163,9 +163,16 @@ async function extractTournamentData(data, tournament, games, playOFFId, seed, y
 
   // get players
   let players = new Set()
+  let higherSeedUnratedPlayers = new Map()
   games.forEach(g => {
     players.add(g.players.white.user.name)
     players.add(g.players.black.user.name)
+    if (seed && !g.rated) {
+      if (seed.indexOf(g.players.white.user.name) < seed.indexOf(g.players.black.user.name)) {
+        if (!higherSeedUnratedPlayers.has(g.players.white.user.name)) higherSeedUnratedPlayers.set(g.players.white.user.name, g.id)
+      }
+      else if (!higherSeedUnratedPlayers.has(g.players.black.user.name)) higherSeedUnratedPlayers.set(g.players.black.user.name, g.id)
+    }
   })
   tournament.nbPlayers = players.size
   tournament.fullName = playOFFFullName
@@ -177,6 +184,7 @@ async function extractTournamentData(data, tournament, games, playOFFId, seed, y
   let plData = pl.map(name => {
     let player = JSON.parse(JSON.stringify(tournament.standing.players[0])) // deep copy of template value
     player.name = name
+    if (higherSeedUnratedPlayers.has(name)) player.warnUnrated = higherSeedUnratedPlayers.get(name)
     return player
   })
   tournament.standing.players = plData

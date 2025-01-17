@@ -458,13 +458,13 @@ class AchievementWorst {
 }
 
 class AchievementBlackDot {
-  constructor(player, id) {
+  constructor(player, id, desc) {
     this.player = player
     this.sortVal = 52
     //this.frame = "zlata.png"
     //this.char = "⚫"
     this.img = "blackDot.png"
-    this.desc = "Černý puntík"
+    this.desc = desc || "Černý puntík"
     this.game = id
   }
 }
@@ -655,6 +655,9 @@ function collectAchievements(data, tournamentID, games) {
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
     }
+  })
+  tournament.standing.players.forEach(p => {
+    if (p.warnUnrated) achievements.push(new AchievementBlackDot(p.name, p.warnUnrated, "Měls ho vyzvat rated"))
   })
 
   games.games.forEach(function(g) {
