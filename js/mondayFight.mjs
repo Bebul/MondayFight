@@ -1,4 +1,4 @@
-/* jshint -W033, esversion: 8 */
+/* jshint -W033, esversion: 9 */
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
@@ -340,7 +340,7 @@ function generatePlayersTableColumns(theFights, enableJouzocoins) {
       columns: leaderboardColumns
     }
   ]
-  let curMonth = undefined
+  let curMonth
   let curColumns = []
   let colNo = 1
 
@@ -518,9 +518,9 @@ export function createGameListTable(games, tableId, addDate, noStats, winner) {
 function myLinkFormatter(cell, formatterParams) {
   let cellValue = cell.getValue()
   let data = cell.getData()
-  let label = data["name"]
-  let rank = data["rank"]
-  let prank = data["prank"]
+  let label = data.name
+  let rank = data.rank
+  let prank = data.prank
 
 
   let color = "red"
@@ -536,7 +536,7 @@ function myLinkFormatter(cell, formatterParams) {
 
 function rankFormatter(cell, formatterParams) {
   let cellValue = cell.getValue()
-  let rank = cell.getData()["rank"]
+  let rank = cell.getData().rank
 
   let color = "red"
   if (rank < 5) color = "green"
@@ -686,8 +686,9 @@ export function getLeagueData(data) {
 export async function downloadUserDataIntoLeague(league) {
   let ids = league.map(p => p.name).join(',')
   return await LAPI.lichessAPI().users(ids).then( users => {
-    for (let i=0; i<league.length; i++) {
-      let data = users.find(u => u.username === league[i].name)
+    for (let i= 0; i<league.length; i++) {
+      const name = league[i].name
+      let data = users.find(u => u.username === name)
       league[i].data = data
     }
     return league
@@ -774,7 +775,7 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, challenge
   }
 }
 
-let myChart = undefined
+let myChart
 export function createLeagueHistoryChart(data, chartId, date) {
   if (chartId) {
     const chartDiv = document.getElementById(chartId);
@@ -789,14 +790,13 @@ export function createLeagueHistoryChart(data, chartId, date) {
       performance: false
     }
     let first = true
+    let listener = function(key){ return () => changeChartDataType(key) }
     for (let key in selData) {
       let input = document.createElement("input");
       input.type = "radio";
       input.setAttribute("name", "type")
       input.setAttribute("value", key)
-      input.addEventListener('click', function() {
-        changeChartDataType(key)
-      })
+      input.addEventListener('click', listener(key))
       if (first) {
         input.setAttribute("checked", true)
         first = false
@@ -858,7 +858,7 @@ function getGameListMostActivePlayerStats(gamesData, winner) {
     bossPlayer = winner
   } else {
     let players = new Map()
-    function incrementPlayer(player) {
+    let incrementPlayer = function(player) {
       let data = players.get(player)
       if (data === undefined) data = 0
       data++
@@ -966,33 +966,34 @@ function createStatisticsBars(gamesData, tableId, winner) {
 }
 
 function createStatsBar4GameList(arrayData, id, vw, colorListPar) {
-    let colorList = (colorListPar !== undefined) ? colorListPar : ['white', 'grey', 'black']
-    let barElement = document.getElementById(id)
-    if (barElement != null) {
-      // Load google charts
-      google.charts.load('current', {'packages':['corechart']})
+  let colorList = (colorListPar !== undefined) ? colorListPar : ['white', 'grey', 'black']
+  let barElement = document.getElementById(id)
 
-      google.charts.setOnLoadCallback(drawChart)
+  // Draw the chart and set the chart values
+  let drawChart = function() {
+    var data = google.visualization.arrayToDataTable(arrayData)
 
-      // Draw the chart and set the chart values
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(arrayData)
-
-        var options = {
-          width: Math.min(vw, 600),
-          height: 80,
-          legend: { position: 'top', maxLines: 3 },
-          bar: { groupWidth: '75%' },
-          colors: colorList,
-          backgroundColor: '#E4E4E4',
-          isStacked: 'percent'
-        }
-        // Display the chart inside the <div> element with id="piechart"
-        var chart = new google.visualization.BarChart(barElement)
-        myGoogleCharts.set(id, {'chart': chart, 'options': options})
-        chart.draw(data, options)
-      }
+    var options = {
+      width: Math.min(vw, 600),
+      height: 80,
+      legend: { position: 'top', maxLines: 3 },
+      bar: { groupWidth: '75%' },
+      colors: colorList,
+      backgroundColor: '#E4E4E4',
+      isStacked: 'percent'
     }
+    // Display the chart inside the <div> element with id="piechart"
+    var chart = new google.visualization.BarChart(barElement)
+    myGoogleCharts.set(id, {'chart': chart, 'options': options})
+    chart.draw(data, options)
+  }
+
+  if (barElement != null) {
+    // Load google charts
+    google.charts.load('current', {'packages':['corechart']})
+
+    google.charts.setOnLoadCallback(drawChart)
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1106,7 +1107,7 @@ export function processAdmin(data) {
       LAPI.onDwnlTournamentClicked(data, rename)
     }
 
-    function replacer(key, value) {
+    let replacer = function(key, value) {
       if(value instanceof Map) {
         return {
           dataType: 'Map',
@@ -1186,7 +1187,7 @@ function totalPtsFormatter(cell, formatterParams) {
 }
 
 function dataSortedFunc(sorters) {
-  let newMode = undefined
+  let newMode
   sorters.forEach( function(srt) {
       if (srt.field === 'jouzoCoins' ||
         srt.field === 'totalScore' ||
@@ -1254,7 +1255,7 @@ function tournamentSpecHtml(tournament, games) {
     let playOFF = s.playOFF
     let init = []
 
-    function parseHtml(html) {
+    let parseHtml = function(html) {
       let specialTagList = ["tooltip", "board"]
       for (let tagIx in specialTagList) {
         let tag = specialTagList[tagIx]
@@ -1276,20 +1277,20 @@ function tournamentSpecHtml(tournament, games) {
                 html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
                 break
               case "board":
-                let game = games.games.find(g => g.id===parsed.id)
+                const parsedId = parsed.id
+                let game = games.games.find(g => g.id === parsedId)
                 let defaults = {...{
                   pgn: MFPodium.toPGN(game, false),
                   showCoords: false, coordsInner: false, headers: true,
                   movesHeight: 60
                 }, ...defaultBoardConfig(tournament)}
-                let config = {...defaults, ...parsed}  // merge with possible other values in json
-                let boardId = `board-${parsed.id}`
+                const config = {...defaults, ...parsed}  // merge with possible other values in json
+                const boardId = `board-${parsed.id}`
+                const PGNVConst = PGNV
                 finalHtml = `<div class="boards board"><div id="${boardId}"></div></div>`
                 html = html.replace(regex, `<div ${matches[2]}>${finalHtml}</div>`)
-                init.push(() => {
-                  //console.log(document.getElementById(boardId).clientWidth)
-                  PGNV.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}})
-                }) // margin compensation
+                let initF = function() { PGNVConst.pgnView(boardId, {...config, ...{boardSize: document.getElementById(boardId).clientWidth - 10}}) }
+                init.push(initF) // margin compensation
                 break
             }
           } else done = true
@@ -1344,8 +1345,52 @@ export function updateTournamentHtmlAuto(divId, tournamentId, data) {
      `
 }
 
+class SpiderConfig {
+  constructor(background = "img/players/background.jpg", filter = "none", filterMan = undefined, dx = 0, dy = 0, dyText = 0, dxMan = 0, dyMan = 0) {
+    this.filter = filter
+    this.filterMan = filterMan
+    this.dx = dx
+    this.dy = dy
+    this.dxMan = dxMan
+    this.dyMan = dyMan
+    this.dyText = dyText
+    this.background = background
+  }
+  get manDX() {
+    return this.dx + this.dxMan
+  }
+  get manDY() {
+    return this.dy + this.dyMan
+  }
+}
+
+function sketchy(filterMan, dxMan, dyMan) {
+  return new SpiderConfig("img/players/background2.jpg", "url(#sketchy)", filterMan, 0, 5, 10, dxMan || 0, dyMan || 0)
+}
+function sketchyTurbulent() {
+  return sketchy("url(#turbulence20)")
+}
+function sketchyOutline() {
+  return sketchy("url(#outline)", 5, -8)
+}
+function outline(filterMan, dxMan, dyMan) {
+  return new SpiderConfig("img/players/background2.jpg", "url(#outline)", filterMan || "url(#outline)", 0, 5, 0, dxMan || 0, dyMan || 0)
+}
+function silhouette() {
+  return new SpiderConfig("img/players/background2.jpg", "invert(50%) brightness(50%)")
+}
+function extruded(filterMan) {
+  let config = new SpiderConfig("img/players/background2.jpg", "url(#extruded)", filterMan)
+  config.filterBackground = "hue-rotate(180deg)"
+  config.dyText = 2
+  return config
+}
+function extrudedPlayers() {
+  return extruded("none")
+}
+
 let withdrawals = ['bebul'] // ['bebul','mozkomor']
-async function drawSpider(dataOfPlayers, spiderId, year) {
+async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbulent() ) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
     ! withdrawals.includes(p.toLowerCase())
@@ -1375,10 +1420,13 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
   ]).then(function() {
     let img = new Image()
     img.onload = function () {
+      if (config.filterBackground) ctx.filter = config.filterBackground
       ctx.drawImage(img, 0, 0)
+      ctx.filter = "none"
 
       let topLine = GLOB.padTop
       ctx.font = `${1.3 * GLOB.fontSize}px FjallaOne`
+      ctx.filter = config.filter
       let text = "MONDAY FIGHT ARENA"
       let textInfo = ctx.measureText(text)
       let textX = 0.5 * GLOB.width - textInfo.width / 2
@@ -1391,6 +1439,7 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
       ctx.fillStyle = "red";
       //ctx.fillText(text2,  textX + textInfo.width - textInfo2.width, topLine + 1.2 * fs2 )
       ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, topLine + 1.2 * fs2 + 20)
+      ctx.filter = "none"
 
       let fs3 = GLOB.fontSize * 13 / 45
       let fs4 = GLOB.fontSize * 20 / 45
@@ -1416,38 +1465,49 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
       }
 
       function drawWithdrawals() {
+        let images = []
+        function initF(img) {
+          return () => {
+            images.push(img)
+            if (images.length === withdrawingPlayers.length) {
+              let space = 10
+              let totalLength = images.reduce(function f(a, img) {
+                let aspect = img.width / img.height
+                return a + aspect * GLOB.wPicH
+              }, 0)
+              totalLength += space * (withdrawingPlayers.length - 1)
+
+              let curX = (GLOB.width - totalLength) / 2
+              images.forEach( function(img) {
+                let aspect = img.width / img.height
+                ctx.filter = config.filter
+                ctx.drawImage(img, curX, GLOB.netH, aspect * GLOB.wPicH, GLOB.wPicH)
+                if (config.filterMan) {
+                  ctx.filter = config.filterMan
+                  ctx.drawImage(img, config.manDX + curX, GLOB.netH, aspect * (GLOB.wPicH - config.manDY), GLOB.wPicH - config.manDY)
+                }
+                ctx.filter = "none"
+                curX += aspect * GLOB.wPicH + space
+              })
+            }
+          }
+        }
         if (withdrawingPlayers.length > 0) {
           let fs2 = 1.3 * GLOB.fontSize * 15 / 45
           ctx.font = `${fs2}px FjallaOne`
           let text2 = "ODSTOUPILI"
           let textInfo2 = ctx.measureText(text2)
           ctx.fillStyle = "red";
-          ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, GLOB.netH - 10)
+          ctx.filter = config.filter
+          ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, GLOB.netH - config.dyText)
+          ctx.filter = "none"
 
-          let images = []
           for (let i = 0; i < withdrawingPlayers.length; i++) {
             let name = withdrawingPlayers[i]
             let avatar = Avatars.getAvatar(name, "img/achievements/kun.png")
             if (avatar) {
               let img = new Image();
-              img.onload = function () {
-                images.push(img)
-                if (images.length === withdrawingPlayers.length) {
-                  let space = 10
-                  let totalLength = images.reduce(function f(a, img) {
-                    let aspect = img.width / img.height
-                    return a + aspect * GLOB.wPicH
-                  }, 0)
-                  totalLength += space * (withdrawingPlayers.length - 1)
-
-                  let curX = (GLOB.width - totalLength) / 2
-                  images.forEach( function(img) {
-                    let aspect = img.width / img.height
-                    ctx.drawImage(img, curX, GLOB.netH, aspect * GLOB.wPicH, GLOB.wPicH)
-                    curX += aspect * GLOB.wPicH + space
-                  })
-                }
-              }
+              img.onload = initF(img)
               img.src = avatar
             }
           }
@@ -1460,7 +1520,35 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
         let img = new Image();
         img.onload = function () {
           // 60*121 i.e. 1:2
+          ctx.filter = config.filter
           ctx.drawImage(img, (GLOB.width - GLOB.centerWidth) / 2, 250, GLOB.centerWidth, 2 * GLOB.centerWidth)
+          ctx.filter = "none"
+        }
+        function onLoadA(image, right, y) {
+          return () => {
+            let aspect = image.width / image.height
+            let imgX = right ? 0 : aspect * GLOB.picH
+            ctx.filter = config.filter
+            ctx.drawImage(image, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            if (config.filterMan) {
+              ctx.filter = config.filterMan
+              ctx.drawImage(image, config.manDX + trans(imgX) - aspect * GLOB.picH, y - 0.5 * config.manDY - GLOB.picH, aspect * (GLOB.picH - config.manDY), GLOB.picH - config.manDY)
+            }
+            ctx.filter = "none"
+          }
+        }
+        function onLoadB(image, right, y, len) {
+          return () => {
+            let aspect = image.width / image.height
+            let imgX = right ? aspect * GLOB.picH : 0
+            ctx.filter = config.filter
+            ctx.drawImage(image, trans(imgX + len - aspect * GLOB.picH), y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            if (config.filterMan) {
+              ctx.filter = config.filterMan
+              ctx.drawImage(image, config.manDX+ trans(imgX + len - aspect * GLOB.picH), y - 0.5 * config.manDY - GLOB.picH, aspect * (GLOB.picH - config.manDY), (GLOB.picH - config.manDY))
+            }
+            ctx.filter = "none"
+          }
         }
         img.src = "img/players/logo-kral.png"
 
@@ -1484,30 +1572,22 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
           let name = playerList[no - 1]
           if (i % 3 === 2) {
             alx = right ? alignLeft(trans, len, name) : alignRight(trans, len, name)
-            ctx.fillText(name, alx, y - 0.3 * fs4)
+            ctx.fillText(name, alx, y - 0.3 * fs4 - 1.5 * config.dyText)
             // avatar
             let avatar = Avatars.getAvatar(name, "img/achievements/kun.png")
             if (avatar) {
               let img = new Image();
-              img.onload = function () {
-                let aspect = img.width / img.height
-                let imgX = right ? 0 : aspect * GLOB.picH
-                ctx.drawImage(img, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH - 1, aspect * GLOB.picH, GLOB.picH)
-              }
+              img.onload = onLoadA(img, right, y)
               img.src = avatar
             }
           } else {
             alx = right ? alignRight(trans, 0, name) : alignLeft(trans, 0, name)
-            ctx.fillText(name, alx, y - 0.3 * fs4)
+            ctx.fillText(name, alx, y - 0.3 * fs4 - 1.5 * config.dyText)
             // avatar
             let avatar = Avatars.getAvatar(name, "img/achievements/strelec.png")
             if (avatar) {
               let img = new Image();
-              img.onload = function () {
-                let aspect = img.width / img.height
-                let imgX = right ? aspect * GLOB.picH : 0
-                ctx.drawImage(img, trans(imgX + len - aspect * GLOB.picH - 1), y - GLOB.picH - 1, aspect * GLOB.picH, GLOB.picH)
-              }
+              img.onload = onLoadB(img, right, y, len)
               img.src = avatar
             }
           }
@@ -1527,7 +1607,9 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
               ctx.lineTo(trans(len + 1.75 * GLOB.conex), y + GLOB.netH / 8 + GLOB.netH / 4)
             }
           }
+          ctx.filter = config.filter
           ctx.stroke();
+          ctx.filter = "none"
         }
       }
 
@@ -1536,7 +1618,7 @@ async function drawSpider(dataOfPlayers, spiderId, year) {
       drawNet(trLeft, false)
       drawNet(trRight, true)
     }
-    img.src = "img/players/background.jpg"
+    img.src = config.background
   })
 }
 

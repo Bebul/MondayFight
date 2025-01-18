@@ -552,6 +552,9 @@ draw {
 .pixelate6 {
     filter: url(#pixelate6);
 }
+.outline {
+    filter: url(#outline);
+}
 
 .achievementH75 {
     max-height: 75px;
