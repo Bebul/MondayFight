@@ -1222,7 +1222,7 @@ export var tournamentSpec = [
         "<img src='img/tipovacka2024.jpg' style='margin-top:5px'>" //"<img src='img/tomzr-dj.jpg' style='margin-top:5px'>"
   },{
     id: "c1tC3P7b",
-    specClass: ["turbulence30", "turbulence40"],
+    specClass: ["turbulence40", "turbulence30"],
     html: "<b>HGlockk:</b> Vy to berete všichni nějak hrozně vážně ne 🙈  <img src='img/players/jouzolean.png' class='img100 turbulence right'>" +
         "<br><br><b>Jouzolean:</b> Ono to je vážné. 😁 " +
         "<br><br><b>DJ-Strelec:</b> ... za tu poznámku bych dal černý puntík! 😀 " +
