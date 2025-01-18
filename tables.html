@@ -48,11 +48,14 @@
 <div class="body">
     <svg  style="position: absolute; visibility: hidden">
         <filter id="pixelate" x="0" y="0">
-            <feFlood x="4" y="4" height="2" width="2"/>
-            <feComposite width="10" height="10"/>
-            <feTile result="a"/>
-            <feComposite in="SourceGraphic" in2="a" operator="in"/>
-            <feMorphology operator="dilate" radius="5"/>
+            <feConvolveMatrix kernelMatrix="1 1 1
+                              1 1 1
+                              1 1 1" result="AVG" />
+            <feFlood x="1" y="1" width="1" height="1" />
+            <feComposite width="6" height="6" />
+            <feTile result="TILE" />
+            <feComposite in="AVG" in2="TILE" operator="in" />
+            <feMorphology operator="dilate" radius="3" />
         </filter>
         <filter id="pixelate2" x="0" y="0">
             <feFlood x="4" y="4" height="2" width="2"/>
@@ -222,6 +225,44 @@
                 <feMergeNode in="colormatrix6" />
             </feMerge>
         </filter>
+        <filter id="outline2">
+            <feConvolveMatrix order="5 5" kernelMatrix="-1 -1 -1 -1 -1
+                                                      -1 -1 -1 -1 -1
+                                                      -1 -1  24 -1 -1
+                                                      -1 -1 -1 -1 -1
+                                                      -1 -1 -1 -1 -1
+                                                      "
+                              divisor="1" bias="1" targetX="0" targetY="0" edgeMode="duplicate" preserveAlpha="true"
+                              x="0%" y="0%"
+                              in="SourceGraphic" result="edges5"/>
+            <feConvolveMatrix order="3 3" kernelMatrix="-1 -1 -1
+                                                      -1  8 -1
+                                                      -1 -1 -1
+                                                      "
+                              divisor="1" bias="1" targetX="0" targetY="0" edgeMode="duplicate" preserveAlpha="true"
+                              x="0%" y="0%" result="edges"/>
+            <!-- Převedení výsledku do černobílé podoby -->
+            <feColorMatrix type="matrix" values="3 3 3 0 -8
+                                               3 3 3 0 -8
+                                               3 3 3 0 -8
+                                               0 0 0 1 0" x="0%" y="0%"
+                           in="edges" result="colormatrix5"/>
+            <!-- Zprůhlednění bílé -->
+            <feColorMatrix type="matrix" values="1 0 0 0 0
+                                               0 1 0 0 0
+                                               0 0 1 0 0
+                                              -0.33 -0.33 -0.33 1 0" x="0%" y="0%"
+                           result="colormatrix6"/>
+
+            <!-- Blur -->
+            <feGaussianBlur stdDeviation="5" in="SourceGraphic" result="BLUR1"/>
+            <feComposite in2="SourceGraphic" operator="in" result="BLUR"/>/>
+
+            <feMerge>
+                <feMergeNode in="BLUR" />
+                <feMergeNode in="colormatrix6" />
+            </feMerge>
+        </filter>
         <filter id="extruded" filterUnits="userSpaceOnUse">
             <!-- COLORS -->
             <feFlood flood-color="#663300" result="COLOR-red" />‚
@@ -266,6 +307,52 @@
                 <feMergeNode in="THIN-BEVEL_30" />
             </feMerge>
         </filter>
+        <filter id="splash" width="150%" height="160%" x="-25%" y="-25%">
+            <!-- COLORS -->
+            <feFlood flood-color="#16B5FF" result="COLOR-blue" />‚
+            <feFlood flood-color="#9800FF" result="COLOR-violet" />
+            <feFlood flood-color="#A64DFF" result="COLOR-violet-light" />
+            <!-- COLORS END -->
+
+            <!-- BOTTOM SPLASH -->
+            <feTurbulence baseFrequency="0.05" type="fractalNoise" numOctaves="1" seed="2" result="BOTTOM-SPLASH_10" />
+            <feGaussianBlur stdDeviation="6.5"  in="SourceAlpha" result="BOTTOM-SPLASH_20" />
+            <feDisplacementMap scale="420" in="BOTTOM-SPLASH_20" in2="BOTTOM-SPLASH_10" result="BOTTOM-SPLASH_30"/>
+            <feComposite operator="in" in="COLOR-blue" in2="BOTTOM-SPLASH_30" result="BOTTOM-SPLASH_40" />
+            <!-- BOTTOM END -->
+
+            <!-- MIDDLE SPLASH -->
+            <feTurbulence baseFrequency="0.1" type="fractalNoise" numOctaves="1" seed="1" result="MIDDLE-SPLASH_10" />
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.1" result="MIDDLE-SPLASH_20" />
+            <feDisplacementMap in="MIDDLE-SPLASH_20" in2="MIDDLE-SPLASH_10" scale="25" result="MIDDLE-SPLASH_30"/>
+            <feComposite in="COLOR-violet-light" in2="MIDDLE-SPLASH_30" operator="in" result="MIDDLE-SPLASH_40" />
+            <!-- MIDDLE END -->
+
+            <!-- TOP SPLASH -->
+            <feTurbulence baseFrequency="0.07" type="fractalNoise" numOctaves="1" seed="1" result="TOP-SPLASH_10" />
+            <feGaussianBlur stdDeviation="3.5" in="SourceAlpha" result="TOP-SPLASH_20" />
+            <feDisplacementMap scale="220" in="TOP-SPLASH_20" in2="TOP-SPLASH_10" result="TOP-SPLASH_30"/>
+            <feComposite operator="in" in="COLOR-violet" in2="TOP-SPLASH_30" result="TOP-SPLASH_40" />
+            <!-- TOP END -->
+
+            <!-- LIGHT EFFECTS -->
+            <feMerge  result="LIGHT-EFFECTS_10">
+                <feMergeNode in="BOTTOM-SPLASH_40" />
+                <feMergeNode in="MIDDLE-SPLASH_40" />
+                <feMergeNode in="TOP-SPLASH_40" />
+            </feMerge>
+            <feColorMatrix type="matrix"
+                           values="0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 0 0,
+        0 0 0 1 0" in="LIGHT-EFFECTS_10" result="LIGHT-EFFECTS_20" />
+            <feGaussianBlur stdDeviation="2" in="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_30" />
+            <feSpecularLighting surfaceScale="5" specularConstant=".75" specularExponent="30" lighting-color="#white" in="LIGHT-EFFECTS_30" result="LIGHT-EFFECTS_40">
+                <fePointLight x="-50" y="-100" z="400" />
+            </feSpecularLighting>
+            <feComposite operator="in" in="LIGHT-EFFECTS_40" in2="LIGHT-EFFECTS_20" result="LIGHT-EFFECTS_50"/>
+            <feComposite operator="arithmetic" k1="0" k2="1" k3="1" k4="0" in="LIGHT-EFFECTS_10" in2="LIGHT-EFFECTS_50" result="LIGHT-EFFECTS_60"/>
+        </filter>
     </svg>
 
     <div class="mondayFightCaption">
@@ -294,7 +381,13 @@
         </div>
     </div>
 
+    <div style="clear: both">
+        <canvas id="spider" width="1190px" height="670px"></canvas>
+        <div align="center" style="visibility: hidden"></b><i>Pozn.: hráči Bebul a Mozkomor účast v PlayOFF 2023 nepočítají, pokud se nominují, budou vedeni jako odstupující.</i></div>
+    </div>
+
     <div class="article first">
+
         <h1>Legenda k tabulkám</h1>
         <ul>
             <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
@@ -335,11 +428,6 @@
  6. Korchnoi     200
            </pre>
         </div>
-
-            <div style="clear: both; padding-bottom: 15px">
-               <canvas id="spider" width="1190px" height="670px"></canvas>
-                <div align="center" style="visibility: hidden"></b><i>Pozn.: hráči Bebul a Mozkomor účast v PlayOFF 2023 nepočítají, pokud se nominují, budou vedeni jako odstupující.</i></div>
-            </div>
 
         </div>
     </div>

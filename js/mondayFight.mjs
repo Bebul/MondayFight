@@ -754,7 +754,7 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, challenge
   if (spiderId) {
     let mfId = data.tournamentGames()[data.currentGameListTableIx].id
     let date = new Date(data.findTournament(mfId).startsAt)
-    drawSpider(dataOfPlayers, spiderId, date.getFullYear())
+    drawSpider(dataOfPlayers, spiderId, date.getFullYear(), spiderConfigByCurrentMonth())
   }
 
   if (leagueNoId) {
@@ -1370,8 +1370,11 @@ function sketchy(filterMan, dxMan, dyMan) {
 function sketchyTurbulent() {
   return sketchy("url(#turbulence20)")
 }
-function sketchyOutline() {
-  return sketchy("url(#outline)", 5, -8)
+function sketchyOutline(filterMan) {
+  return sketchy(filterMan || "url(#outline)", 5, -8)
+}
+function sketchyOutline2() {
+  return sketchyOutline("url(#outline2)")
 }
 function outline(filterMan, dxMan, dyMan) {
   return new SpiderConfig("img/players/background2.jpg", "url(#outline)", filterMan || "url(#outline)", 0, 5, 0, dxMan || 0, dyMan || 0)
@@ -1385,12 +1388,43 @@ function extruded(filterMan) {
   config.dyText = 2
   return config
 }
-function extrudedPlayers() {
-  return extruded("none")
+function extrudedPlayers(hueRotate) {
+  let config = extruded("none")
+  config.filterBackground = "hue-rotate(180deg)" + (hueRotate ? " " + hueRotate : "")
+  config.notRenderFirstPlayer = false
+  config.filter = config.filter + (hueRotate ? " " + hueRotate : "")
+  return config
+}
+function saintValentine() {
+  let config = sketchyTurbulent()
+  config.filterBackground = "hue-rotate(120deg)"
+  config.notRenderFirstPlayer = false
+  config.filter = config.filter + " hue-rotate(90deg)"
+  config.filterMan = config.filterMan + " sepia(0.8) hue-rotate(290deg) saturate(1.1) drop-shadow(0 0 25px red)"
+  config.dyText = 10
+  config.bottomText = "❤️"
+  config.bottomTextSize = 5
+  return config
+}
+
+function spiderConfigByCurrentMonth() {
+  let date = new Date()
+  if (date.getMonth() === 1) return saintValentine()
+  let seed = (date.getFullYear() + date.getMonth()) % 8 // 2025 + 0 for january 2025
+  switch (seed) {
+    case 0: return silhouette()
+    case 1: return sketchy()
+    case 2: return silhouette()
+    case 3: return extruded()
+    case 4: return sketchyOutline()
+    case 5: return extrudedPlayers("hue-rotate(350deg)")
+    case 6: return outline()
+    case 7: return sketchyTurbulent()
+  }
 }
 
 let withdrawals = ['bebul'] // ['bebul','mozkomor']
-async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbulent() ) {
+async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyOutline()) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
     ! withdrawals.includes(p.toLowerCase())
@@ -1480,8 +1514,10 @@ async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbule
               let curX = (GLOB.width - totalLength) / 2
               images.forEach( function(img) {
                 let aspect = img.width / img.height
-                ctx.filter = config.filter
-                ctx.drawImage(img, curX, GLOB.netH, aspect * GLOB.wPicH, GLOB.wPicH)
+                if (!config.notRenderFirstPlayer) {
+                  ctx.filter = config.filter
+                  ctx.drawImage(img, curX, GLOB.netH, aspect * GLOB.wPicH, GLOB.wPicH)
+                }
                 if (config.filterMan) {
                   ctx.filter = config.filterMan
                   ctx.drawImage(img, config.manDX + curX, GLOB.netH, aspect * (GLOB.wPicH - config.manDY), GLOB.wPicH - config.manDY)
@@ -1511,6 +1547,15 @@ async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbule
               img.src = avatar
             }
           }
+        } else {
+          let fontSize = config.bottomTextSize || 2.5
+          let text2 = config.bottomText || "HROZNĚ  TO  TU  HROTÍME !"
+          let fs2 = fontSize * GLOB.fontSize * 15 / 45
+          ctx.font = `${fs2}px FjallaOne`
+          let textInfo2 = ctx.measureText(text2)
+          ctx.filter = config.filter
+          ctx.fillText(text2, 0.5 * GLOB.width - textInfo2.width / 2, (GLOB.netH + GLOB.height) / 2 - config.dyText)
+          ctx.filter = "none"
         }
       }
 
@@ -1528,8 +1573,10 @@ async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbule
           return () => {
             let aspect = image.width / image.height
             let imgX = right ? 0 : aspect * GLOB.picH
-            ctx.filter = config.filter
-            ctx.drawImage(image, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            if (!config.notRenderFirstPlayer) {
+              ctx.filter = config.filter
+              ctx.drawImage(image, trans(imgX) - aspect * GLOB.picH, y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            }
             if (config.filterMan) {
               ctx.filter = config.filterMan
               ctx.drawImage(image, config.manDX + trans(imgX) - aspect * GLOB.picH, y - 0.5 * config.manDY - GLOB.picH, aspect * (GLOB.picH - config.manDY), GLOB.picH - config.manDY)
@@ -1541,8 +1588,10 @@ async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyTurbule
           return () => {
             let aspect = image.width / image.height
             let imgX = right ? aspect * GLOB.picH : 0
-            ctx.filter = config.filter
-            ctx.drawImage(image, trans(imgX + len - aspect * GLOB.picH), y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            if (!config.notRenderFirstPlayer) {
+              ctx.filter = config.filter
+              ctx.drawImage(image, trans(imgX + len - aspect * GLOB.picH), y - GLOB.picH, aspect * GLOB.picH, GLOB.picH)
+            }
             if (config.filterMan) {
               ctx.filter = config.filterMan
               ctx.drawImage(image, config.manDX+ trans(imgX + len - aspect * GLOB.picH), y - 0.5 * config.manDY - GLOB.picH, aspect * (GLOB.picH - config.manDY), (GLOB.picH - config.manDY))

@@ -555,6 +555,15 @@ draw {
 .outline {
     filter: url(#outline);
 }
+.outline1 {
+    filter: url(#outline1);
+}
+.outline2 {
+    filter: url(#outline2);
+}
+.experimentalFilter {
+    filter: url(#splash);
+}
 
 .achievementH75 {
     max-height: 75px;
