@@ -1214,12 +1214,15 @@ export var tournamentSpec = [
         "<br><br><b>Bébul:</b> O pořadí na poslední a předposlední příčce pavouka tak rozhodla až vyšší performance. "
   },{
     id: "playOFF2024",
-    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"}],
+    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "reporter", player: "Kamikazeee", id: "cBMQBydt"}],
     playOFF: "<img src='img/turnajPavouk2024.jpg' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2024</h1>" +
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>." +
         "<br><br><b>DJ-Strelec:</b> Pro letošek jsme s Jouzoleanem připravili novinku – Tipovačku play off, z níž se na základě získaných bodů za přesné tipy ze všech sérií po skončení turnaje vybere nejlepší tipér, který bude oceněn plaketkou. Zúčastnit se jí mohou úplně všichni, tedy i ti, kteří play off nehrají. Pravidla jsou jednoduchá: v anketě se tipuje vítěz (za jeden bod) a počet bodů získaných poraženým (za druhý bod). Tipovat lze až do zahájení první partie, na pozdější tipy již nebude brán zřetel. " +
-        "<img src='img/tipovacka2024.jpg' style='margin-top:5px'>" //"<img src='img/tomzr-dj.jpg' style='margin-top:5px'>"
+        "<img src='img/tipovacka2024.jpg' style='margin-top:5px'>" +
+        "<br><b>Kamikazeee</b>: Ty vole a jdu slavit!<br> Kurva. Jo!<br>" +
+        "<video controls='controls' style='max-width: 100%'><source src='img/tyVoleAJduKurvaSlavitJo.mp4' type='video/mp4'/></video> " +
+        "<br><br><b>Kamikazeee:</b> Reportáž z plaOFF jsem sepsal do <a href='actualities.html#kamikazeee2024'>aktualit</a>."
   },{
     id: "c1tC3P7b",
     specClass: ["turbulence40", "turbulence30"],
