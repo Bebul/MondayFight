@@ -1,3 +1,4 @@
+/* jshint -W033, esversion: 8 */
 import {addNewGamesStats} from "./analyze.mjs"
 import {toNDJson, download} from "./mondayFight.mjs"
 
@@ -288,7 +289,7 @@ function lichessAPI() {
 
     while (players.length > 0) {
       let player = players.pop()
-      let url = `https://lichess.org/api/games/user/${player.name}?since=${tsince}&until=${tuntil}&perfType=blitz&opening=true`
+      let url = `https://lichess.org/api/games/user/${player.name}?since=${tsince}&until=${tuntil}&perfType="blitz"&opening=true`
       let gamesList = await fetch(url, {
         headers: {
           'Accept': 'application/x-ndjson'
@@ -300,6 +301,8 @@ function lichessAPI() {
         .then(ndjson2array)
         .then(parse)
 
+      console.log(`${player.name} found ${gamesList.length} games in given interval`)
+      console.log(`       ${url}`)
       gamesList.forEach(pg => {
           if (pg.tournament === t.id && !games.find(g => g.id === pg.id)) {
             pg.overtime = true
