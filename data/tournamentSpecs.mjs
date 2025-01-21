@@ -1234,5 +1234,21 @@ export var tournamentSpec = [
         "<br><br><b>Bebul:</b> Dostala ho jenom HGlockk, v turnaji <a href='index.html?mf=playOFF2024'>PlayOFF 2024</a>. " +
         "<br><br><b>LastScout:</b> Na to jde rict jen jedine….. to neni fer. " +
         "<br><br><b>Bebul:</b> dneska jsou asi ňáký turbulence, nebo co? 😅"
+  },{
+    id: "NGzduBq9",
+    html: "<b>Bebul:</b> Na závěr loňského roku se Jouzoleanovi podařilo překecat Mrázka, <img src='img/players/mrazek.png' class='img100 outline right'> aby znovu hrál <b>e4 e5</b>. Přece nechce hrát celej Monday Fights Owena nebo Modern defense, " +
+        "to jest utíkat do ňákých zatuchlých koutů světa jenom proto, že se bojí léček a pastí, který na něj číhají v jeho milované Italce. Do konce roku hrál hezky <b>e4 e5</b>, dovolil Italku i Královský gambit, " +
+        "ale v novém roce se zatím spíše uchyluje k útěkům typu <b>b3,b6,g6</b>. No hrůza! Kéž by se zase umoudřil a hrál něco víc sexy. To si přejeme a za to se přimlouváme! ❤️ " +
+        "<br><br><b>Bebul:</b> K redakci se ale dostala čerstvá informace, že v podobném gardu vzplál oheň mezi Jouzoleánem a Kamikazeeem. Tentokrát však nikoli o prvním tahu ve druhém sloupci z kraje," +
+        "<img src='img/players/jouzolean.png' class='img100 outline left'> " +
+        "ale hned v tom prvním. Kamikazeeemu pan Ambrož vštěpoval, že tah <b>1. a3</b> se hodí všude, a že pak může přejít do různých zahájení a to tempo chybět nebude. " +
+        "<img src='img/players/kamikazeee.png' class='img100 outline right'>" +
+        "Oproti tomu, Jouzoleán si myslí, že tah <b>1.a3</b> nebo <b>1...,a6</b> je sračka. No jo, už je to tak, klucí se nám před turnajem trochu chytli, " +
+        "a tak dneska došlo na lámání chleba. Kamikazeeemu budiž ke cti, že si za svou pravdou stál. A&nbsp;Jouzoleanovi? Jouzoleanovi buď dík, že s tím vymet.! 😂 Merci beaocoup! " +
+        "<br><br><b>Bebul:</b> No a senzace turnaje, Rychly Lenochod s <img src='img/players/rychlylenochod.png' class='img100 outline left'> Michaelem Chmielem, to je " +
+        "přesně ten Rychlý Lenochod, pro nějž více než pro kohokoli jiného platí, že naděje umírá poslední! " +
+        "Opravdu krásnej berserk! Gratulujeme! " +
+        "<br><br><b>Bebul:</b> Nechť řady královských gambiterů houstnou!"
   }
+
 ];
