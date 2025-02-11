@@ -1249,6 +1249,27 @@ export var tournamentSpec = [
         "přesně ten Rychlý Lenochod, pro nějž více než pro kohokoli jiného platí, že naděje umírá poslední! " +
         "Opravdu krásnej berserk! Gratulujeme! " +
         "<br><br><b>Bebul:</b> Nechť řady královských gambiterů houstnou!"
-  }
+  },{
+    id: "6M8W1ueJ",
+    achievements: [{achievement: "beatGM", player: "tomzr", id: "LiDBsou6"}],
+    html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
+        "Dnes byl pro Monday Fighťáky svátek, neboť nás poctil svou návštěvou Velmistr Robert Cvek, a to již potřetí. " +
+        "Poprvé to bylo v roce <a href='index.html?mf=fXU6tfJM'>2022</a>, podruhé v roce <a href='index.html?mf=PJnn9LQi'>2023</a> a dneska, do třetice všeho dobrého... " +
+        "<p> Slovutný Jouzoleán, jak hrdobec hrdý na náš Monday Fights turnaj, bombardoval Roberta Cveka s upomínkami, že konec roku se blíží a s ním i zlatý hřeb " +
+        "turnaje, to jest právě účast Roberta Cveka na našem turnaji. " +
+        "Ale na konci roku to nevyšlo a v lednu to taky nakonec padlo, tak už se nejeden Monday Fighťák začal bát, jestli na tu slávu vůbec dojde. Ten nás ale nenechal dlouho na pochybách a dnes do naší hustokruté arény odvážně vstoupil. Moc děkujeme! " +
+        "<br><br><b>Jouzoleán:</b> Ja vůbec nevěděl co mam dělat se Cvekem 😁. Takhle pasivně jsem se ještě necítil. Byl jsem donucen psychicky zahrát Kg8--Kh8. Protože jsem nevěděl jak pokračovat 😁. Za 2 další tahy smrt... " +
+        "<tooltip json='{\"id\":\"sachycvek\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
+        "<br><br><b>Bébul:</b> Jiní taky nevěděli, co proti Robertu Cvekovi hrát, ale jak říká Kamikazeee, dej šach a třeba to bude mat. A tak se to stalo... " +
+        "<br><br><b>tomzr:</b> tomzr mission done :) " +
+        "<br><br><b>Bébul:</b> Blunder v podobě dvoutahového matu! Určitě nejslavnější blunder v historii Monday Fights. Ve WhatsApp diskusi pak bylo vidět, že někteří hráči to tomzrovi trochu záviděli. Postěžovali si, že jim takový blunder nabídnut nebyl 😁. " +
+        "<br><br><b>Kunc99:</b> ...hrál to zkušeně, držel si lepší čas a byla vidět ta kvalita. Asi si se mnou dával větší pozor :-D " +
+        "<br><br><b>tomzr:</b> a kde je plaketka \"porazil velmistra\"? " +
+        "<br><br><b>Bébul:</b> Nevím, jak namalovat štěstí, které se usmálo na otrhánka. " +
+        "<br><br><b>tomzr:</b> jéé, já umím malovat :-D <img src='img/achievements/beatGM.png'> " +
+        "<br><br><b>Bébul:</b> No, ale tomzrovi ta sláva vstoupila do hlavy. Mozek mu dělal výkruty a tak se stalo, že senzací turnaje není jeho výhra nad Velmistrem, ale jeho porážka s Rychlým Lenochodem, kde byl ke všemu přetržen řetěz dvanácti předchozích proher! A takhle to v našem milém Monday Fights chodí! " +
+        "Štěstí se sice usmálo na Otrhánka, ale pak si řeklo, že to asi právěže kouda přehnalo, tak se to muselo nějak zaretušovat, právěže. " +
+        "<br><br><b>Bébul:</b> Tomzře, víš? Nevíš, viď? Ty zas nic nevíš! 😁"
+  },
 
 ];

@@ -518,6 +518,16 @@ class AchievementBlackDotXX {
   }
 }
 
+class AchievementBeatGM {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 200
+    this.img = "beatGM.png"
+    this.desc = "Porazil Velmistra"
+    this.game = id
+  }
+}
+
 class AchievementReporter {
   constructor(player, id) {
     this.player = player
@@ -660,6 +670,7 @@ function collectSpecAchievementDecorations(player, tournamentID, gameID) {
       case "blackGM": achievement = new AchievementBlackDotGM(a.player, a.id); break;
       case "blackXX": achievement = new AchievementBlackDotXX(a.player, a.id, a.desc); break;
       case "lackOfSpirit": achievement = new AchievementLackOfSpirit(a.player, a.id, a.desc); break;
+      case "beatGM": achievement = new AchievementBeatGM(a.player, a.id); break;
     }
     if (a.player === player && a.id == gameID && achievement) decorations.push(achievement.decoration)
   })
@@ -679,6 +690,7 @@ function collectAchievements(data, tournamentID, games) {
       case "blackIM": achievements.push(new AchievementRedDotIM(a.player, a.id)); break;
       case "blackXX": achievements.push(new AchievementBlackDotXX(a.player, a.id, a.desc)); break;
       case "lackOfSpirit": achievements.push(new AchievementLackOfSpirit(a.player, a.id, a.desc)); break;
+      case "beatGM": achievements.push(new AchievementBeatGM(a.player, a.id)); break;
     }
   })
   if (tournament.unratedDuels) tournament.unratedDuels.forEach(id => achievements.push(new AchievementUnratedDuel(id)))
@@ -872,6 +884,7 @@ function testAchievementsInfo(id="achievements") {
     new AchievementPersonalBest(next()),
     new AchievementBest(next()),
     new AchievementWorst(next()),
+    new AchievementBeatGM(next())
   ]
 
   let el = document.getElementById(id)
