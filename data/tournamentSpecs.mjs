@@ -1261,7 +1261,7 @@ export var tournamentSpec = [
         "<br><br><b>Jouzoleán:</b> Ja vůbec nevěděl co mam dělat se Cvekem 😁. Takhle pasivně jsem se ještě necítil. Byl jsem donucen psychicky zahrát Kg8--Kh8. Protože jsem nevěděl jak pokračovat 😁. Za 2 další tahy smrt... " +
         "<tooltip json='{\"id\":\"sachycvek\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
         "<br><br><b>Bébul:</b> Jiní taky nevěděli, co proti Robertu Cvekovi hrát, ale jak říká Kamikazeee, dej šach a třeba to bude mat. A tak se to stalo... " +
-        "<br><br><b>tomzr:</b> tomzr mission done :) " +
+        "<br><br><b>tomzr:</b> mission done :) " +
         "<br><br><b>Bébul:</b> Blunder v podobě dvoutahového matu! Určitě nejslavnější blunder v historii Monday Fights. Ve WhatsApp diskusi pak bylo vidět, že někteří hráči to tomzrovi trochu záviděli. Postěžovali si, že jim takový blunder nabídnut nebyl 😁. " +
         "<br><br><b>Kunc99:</b> ...hrál to zkušeně, držel si lepší čas a byla vidět ta kvalita. Asi si se mnou dával větší pozor :-D " +
         "<br><br><b>tomzr:</b> a kde je plaketka \"porazil velmistra\"? " +
