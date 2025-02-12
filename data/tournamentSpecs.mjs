@@ -1252,11 +1252,19 @@ export var tournamentSpec = [
   },{
     id: "6M8W1ueJ",
     achievements: [{achievement: "beatGM", player: "tomzr", id: "LiDBsou6"}],
+    playOFF: `
+      <h2>Robert a Petr Šachy</h2>
+      <p>Celý svět čerpá z mouder na portálu Robert a Petr Šachy, kupuje si předplatné a tréninky a ti ostatní pak všude prohrávají.
+         Loni nás poctil svou návštěvou Petr Koutný na turnaji <a href="index.html?mf=ITRyIxHh">v květnu</a>.
+         A tady je krásný záznam z našeho dnešního Monday Fights s Velmistrem Robertem Cvekem. Děkujeme!   
+      <p>
+      <iframe src="https://www.youtube.com/embed/B2PVuI9k4m0?si=yl35mqDAezkQNbxf" style="width:100%; height: 100vh; margin: 10px 0px" allowFullScreen></iframe>
+      `,
     html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
         "Dnes byl pro Monday Fighťáky svátek, neboť nás poctil svou návštěvou Velmistr Robert Cvek, a to již potřetí. " +
         "Poprvé to bylo v roce <a href='index.html?mf=fXU6tfJM'>2022</a>, podruhé v roce <a href='index.html?mf=PJnn9LQi'>2023</a> a dneska, do třetice všeho dobrého... " +
         "<p> Slovutný Jouzoleán, jak hrdobec hrdý na náš Monday Fights turnaj, bombardoval Roberta Cveka s upomínkami, že konec roku se blíží a s ním i zlatý hřeb " +
-        "turnaje, to jest právě účast Roberta Cveka na našem turnaji. " +
+        "turnaje, to jest právě účast Roberta Cveka na našem turnaji. <img src='img/rp-sachy.png' class='img100 right'> " +
         "Ale na konci roku to nevyšlo a v lednu to taky nakonec padlo, tak už se nejeden Monday Fighťák začal bát, jestli na tu slávu vůbec dojde. Ten nás ale nenechal dlouho na pochybách a dnes do naší hustokruté arény odvážně vstoupil. Moc děkujeme! " +
         "<br><br><b>Jouzoleán:</b> Ja vůbec nevěděl co mam dělat se Cvekem 😁. Takhle pasivně jsem se ještě necítil. Byl jsem donucen psychicky zahrát Kg8--Kh8. Protože jsem nevěděl jak pokračovat 😁. Za 2 další tahy smrt... " +
         "<tooltip json='{\"id\":\"sachycvek\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
