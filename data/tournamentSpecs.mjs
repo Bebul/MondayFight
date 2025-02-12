@@ -1251,7 +1251,7 @@ export var tournamentSpec = [
         "<br><br><b>Bebul:</b> Nechť řady královských gambiterů houstnou!"
   },{
     id: "6M8W1ueJ",
-    achievements: [{achievement: "beatGM", player: "tomzr", id: "LiDBsou6"}],
+    achievements: [{achievement: "beatGM", player: "tomzr", id: "LiDBsou6"}, {achievement: "blackXX", player: "Kamikazeee", id: "sex-misto-cveka", desc: "Zapomněl na Cveka"}],
     playOFF: `
       <h2>Robert a Petr Šachy</h2>
       <p>Celý svět čerpá z mouder na portálu Robert a Petr Šachy, kupuje si předplatné a tréninky a ti ostatní pak všude prohrávají.
