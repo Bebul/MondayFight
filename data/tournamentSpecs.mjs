@@ -1262,12 +1262,12 @@ export var tournamentSpec = [
       `,
     html: "<div align='center'><h3>Monday Fight</h3><h2>s GM Robertem Cvekem</h2></div>" +
         "Dnes byl pro Monday Fighťáky svátek, neboť nás poctil svou návštěvou Velmistr Robert Cvek, a to již potřetí. " +
-        "Poprvé to bylo v roce <a href='index.html?mf=fXU6tfJM'>2022</a>, podruhé v roce <a href='index.html?mf=PJnn9LQi'>2023</a> a dneska, do třetice všeho dobrého, dokonce s natočením videa na a turnaj streamoval na youtube <a href='https://www.youtube.com/c/RobertaPetr%C5%A1achy'>Robert a Petr Šachy</a>! " +
-        "Slovutný Jouzoleán, jak hrdobec hrdý na náš Monday Fights turnaj, bombardoval Roberta Cveka s upomínkami, že konec roku se blíží a s ním i zlatý hřeb " +
-        "turnaje, to jest právě účast Roberta Cveka na našem turnaji. <a href='https://www.rpsachy.cz/'><img src='img/rp-sachy.png' class='img100 right'></a>  " +
+        "Poprvé to bylo v roce <a href='index.html?mf=fXU6tfJM'>2022</a>, podruhé v roce <a href='index.html?mf=PJnn9LQi'>2023</a> a dneska, do třetice všeho dobrého, dokonce s natočením videa na youtube <a href='https://www.youtube.com/c/RobertaPetr%C5%A1achy'>Robert a Petr Šachy</a>! " +
+        "<a href='https://www.rpsachy.cz/'><img src='img/rp-sachy.png' class='img100 right'></a>  " +
         "<p><i>Pozn.: Jestli ještě neznáte youtube Robert a Petr Šachy, klikněte si na černou ikonku a šachově se dovzdělejte :-)</i> " +
         "<a href='https://www.youtube.com/playlist?list=PLNh_R4J8WvZc8iEelfyuVYuOIovbcR8Qh'><img src='img/speku-kus.png' style='margin-top: 10px'></a>" +
         "<div align='center' style='margin: -15px 0 0 0'><i>Nebo ještě spíš na Špeku kus!</i></div>" +
+        "<p>Slovutný Jouzoleán, jak hrdobec hrdý na náš Monday Fights turnaj, bombardoval Roberta Cveka s upomínkami, že konec roku se blíží a s ním i zlatý hřeb turnaje, to jest právě účast Roberta Cveka na našem turnaji. " +
         "<p>Ale na konci roku to nevyšlo a v lednu to taky nakonec padlo, tak už se nejeden Monday Fighťák začal bát, jestli na tu slávu vůbec dojde. Ten nás ale nenechal dlouho na pochybách a dnes do naší hustokruté arény odvážně vstoupil. Moc děkujeme! " +
         "<br><br><b>Jouzoleán:</b> Ja vůbec nevěděl co mam dělat se Cvekem 😁. Takhle pasivně jsem se ještě necítil. Byl jsem donucen psychicky zahrát Kg8--Kh8. Protože jsem nevěděl jak pokračovat 😁. Za 2 další tahy smrt... " +
         "<tooltip json='{\"id\":\"sachycvek\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
