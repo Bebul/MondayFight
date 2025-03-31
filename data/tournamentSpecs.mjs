@@ -1281,6 +1281,14 @@ export var tournamentSpec = [
         "<br><br><b>Bébul:</b> No, ale tomzrovi ta sláva vstoupila do hlavy. Mozek mu dělal výkruty a tak se stalo, že senzací turnaje není jeho výhra nad Velmistrem, ale jeho porážka s Rychlým Lenochodem, kde byl ke všemu přetržen řetěz dvanácti předchozích proher! A takhle to v našem milém Monday Fights chodí! " +
         "Štěstí se sice usmálo na Otrhánka, ale pak si řeklo, že to asi právěže kouda přehnalo, tak se to muselo nějak zaretušovat, právěže. " +
         "<br><br><b>Bébul:</b> Tomzře, víš? Nevíš, viď? Ty zas nic nevíš! 😁"
-  },
+  },{
+    id: "siz0zGXl",
+    html: "<b>Bébul</b>: Asi nejnižší účast nejmíň od pádu Tunguzského meteoritu! KUDOS všem, kdo se turnaje zúčastnili. Nezhyne Monday Fights, když hrát nepřestanem."
+  },{
+    id: "VPIRgE80",
+    achievements: [{achievement: "blackXX", player: "Kamikazeee", id: "DPUAJuPy", desc: "Kritický NoStart"}],
+    html: "<img src='img/achievements/blackDot.png' class='img100 pixelate5 right'><b>Bébul</b>: Kamikazeee asi musí dostat černý puntík, ne? Chápu, že se to může stát každýmu, ale <b>NoStart</b> úplně na konci turnaje, který rozhodne o vítězi, to se nedá nic dělat. Souhlasíte? " +
+        "<img src='img/halloween/houpacka.webp' class='img100 outline1 right'><br><br><b>Alexandra Botez:</b> A můj Bébulek se dneska přehoupl přes Mozkomora! Gratuluju! Et bisou ! 💋"
+  }
 
 ];
