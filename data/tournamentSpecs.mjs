@@ -1304,7 +1304,7 @@ export var tournamentSpec = [
         "se taky nakrknul, že mu to prej nejde, nebo co, a že dokud se nezlepší, nepřijde. Jako bych slyšel sám sebe! 😁 Já ale vždycky jenom hromuju, a pak přece přijdu. Tak se to má dělat, víte? " +
         "<br><br><b>Bébul:</b> <img src='img/players/bukowskic.png' class='img100 right'> Účet Bukowskice úplně přestal existovat! Podobně jako kdysi DJ-Pesec si svůj účet sám smazal. " +
         "Okolnosti, detaily, pikantnosti natož záznam tohoto okamžiku nejsou známy. Na šachy sice nezanevřel, neb hraje pod účtem <a href='https://lichess.org/@/Daniel_Cervenka'>Daniel_Cervenka</a>. " +
-        "Nicméně na Monday Fights se už hoóóóóóódně dlouho neukázal! Až až se ukáže, dostane navíc černý puntík, za to smazání původního účtu  😌"
+        "Nicméně na Monday Fights se už hoóóóóóódně dlouho neukázal! Až se ukáže, dostane navíc černý puntík, za to smazání původního účtu  😌"
   },{
     id: "jSMDWGTP",
     html: "<b>bebul</b>: Kunc byl dneska k nezastavení! Ani tomzr, ani Jouzolean, ho nedokázali zastavit. Ještě štěstí, že jsem s ním nehrál! Teda, co to plácám, chci říct, že měl štěstí, že se mnou nehrál! 😁 " +
