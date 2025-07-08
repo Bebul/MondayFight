@@ -1289,6 +1289,46 @@ export var tournamentSpec = [
     achievements: [{achievement: "blackXX", player: "Kamikazeee", id: "DPUAJuPy", desc: "Kritický NoStart"}],
     html: "<img src='img/achievements/blackDot.png' class='img100 pixelate5 right'><b>Bébul</b>: Kamikazeee asi musí dostat černý puntík, ne? Chápu, že se to může stát každýmu, ale <b>NoStart</b> úplně na konci turnaje, který rozhodne o vítězi, to se nedá nic dělat. Souhlasíte? " +
         "<img src='img/halloween/houpacka.webp' class='img100 outline1 right'><br><br><b>Alexandra Botez:</b> A můj Bébulek se dneska přehoupl přes Mozkomora! Gratuluju! Et bisou ! 💋"
+  },{
+    id: "NV92LWgc",
+    html: "<b>bebul</b>: Tomzr dneska k nezastavení! Ani HGlockk ho nedokázala zastavit. Gratulujeme! " +
+        "<tooltip json='{\"id\":\"tomzr\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
+        "<br><br><b>Bébul:</b> <img src='img/players/peinsamacze.png' class='img100 right'>A PeinSamovi gratulace ke krásnému osobáčku! Mrázek ho pak sice z rekordu okamžitě svlíknul 😁, ale i tak, paráda!"
+  },{
+    id: "M41qygl5",
+    html: "<b>bebul</b>: <img src='img/players/rychlylenochod.png' class='img100 right'>RychlyLenochod v senzaci turnaje vzácně ztrestal <b>Jouzolean's signature move</b>, a to v berserku! Gratululeme! " +
+        "<board json='{\"id\":\"wMiWA0yC\", \"startPlay\":11, \"orientation\":\"black\"}'/>"
+  },{
+    id: "dgcqvMa0",
+    html: "<b>bebul</b>: <img src='img/players/tekele.png' class='img100 right'> Nějak nám hromada hráčů stávkuje. Na HGlockk se jeden porád těší... <b>Tekeleho vítáme zpět!</b> Po dnešku 80 partií. Já se k Monday Fights taky dostanu jen zřídka, LastScout " +
+        "se taky nakrknul, že mu to prej nejde, nebo co, a že dokud se nezlepší, nepřijde. Jako bych slyšel sám sebe! 😁 Já ale vždycky jenom hromuju, a pak přece přijdu. Tak se to má dělat, víte? " +
+        "<br><br><b>Bébul:</b> <img src='img/players/bukowskic.png' class='img100 right'> Účet Bukowskice úplně přestal existovat! Podobně jako kdysi DJ-Pesec si svůj účet sám smazal. " +
+        "Okolnosti, detaily, pikantnosti natož záznam tohoto okamžiku nejsou známy. Na šachy sice nezanevřel, neb hraje pod účtem <a href='https://lichess.org/@/Daniel_Cervenka'>Daniel_Cervenka</a>. " +
+        "Nicméně na Monday Fights se už hoóóóóóódně dlouho neukázal! Až až se ukáže, dostane navíc černý puntík, za to smazání původního účtu  😌"
+  },{
+    id: "jSMDWGTP",
+    html: "<b>bebul</b>: Kunc byl dneska k nezastavení! Ani tomzr, ani Jouzolean, ho nedokázali zastavit. Ještě štěstí, že jsem s ním nehrál! Teda, co to plácám, chci říct, že měl štěstí, že se mnou nehrál! 😁 " +
+        "<tooltip json='{\"id\":\"kunc99\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> "
+  },{
+    id: "5Na3Gooi",
+    html: "<b>bebul</b>: Polgu dneska neskutečně čaroval! Gratulujeme! " +
+        "<tooltip json='{\"id\":\"polgu\", \"size\":0.8}' align='center' style='margin:42px 0 0px 0'/> "
+  },{
+    id: "3TaZ9wkS",
+    html: "<b>bebul</b>:  <img src='img/players/mozkomor.png' class='img100 right'>Jen hrstka statečných dovolí bráškům Mozkomorovi a Bébulovi hrát Královský gambit. DJ-Strelec je jedním z nich. Stejně jako Mrázek volí jako protiúder tah d5... " +
+        "Protože Mozkomor hraje v pátém tahu c4, Bébul hraje zásadně Bc4 - a tak musí být černí připraveni na obě dvě varianty, zatímco bráškům stačí každýmu jen jedna. " +
+        "Díky tomu je jejich mysl stále svěží a máme tady senzaci turnaje!" +
+        "<br><br><b>Bebul:</b> Statistika mozkomor vs dj-strelec v této <a href='search.html?q=%22e4%20e5%20f4%20d5%20exd5%20exf4%20Nf3%20Nf6%20c4%20c6%20d4%20cxd5%20c5%22%20dj%20mozk'>variantě</a> je 3-6."
+  },{
+    id: "gwjZm8YL",
+    achievements: [{achievement: "blackGM", player: "kunc99", id: "yGH3ErDu"}],
+    html: "<b>kunc99</b>: Ahoj, dneska si osobně zahraju s Robertem Cvekem - bude hrát rapid turnaj v kavárně Gambit v Praze a jsem tam přihlášený. 😊 Sorry, že dávám vědět takhle na poslední chvíli, ale pokud třeba jste někdo teď v Praze, rád vás tam uvidím. " +
+        "<img src='img/cvek-kunc.jpg'>" +
+        "<br><b>kunc99:</b> Chytl jsem ho až v posledním kole. Bohužel 0:1, ale měl jsem ho na lopatě, kdybych to nepokazil 😅 Cvek udělal 7/7 👌 " +
+        "<br><br><b>Bebul:</b> Jouzo, co mám dneska proti tobě hrát? " +
+        "<br><br><b>Jouzolean:</b> Tohle jsme řešili nedávno, přece: <b>e4 e5 Nf3 Nc6 Bc4 Nf6 Ng5 d5 exd5 Nxd5</b> 😀 " +
+        "Problémem je, že já tady hraju Jouzoleanův tah Dh5 a neberu koněm pěšce. Ale to bys mě hravě po přípravě přehrál. Všichni padaj jak Hrušky. Taky je to  až 8. nejčastější tah. S DJ-Pescem jsme ho nazvali <b>jouzoelanovým tahem</b>." +
+        "<br><br><b>Alexandra Botez:</b>  Ty můj milý Bébulku, máš odvahu! Škoda, že Jouzolean ten svůj signature move nezahrál, viď? Gratuluju! Et bisou ! 💋 " +
+        "<board json='{\"id\":\"WmFcVCZU\", \"startPlay\":10, \"orientation\":\"black\"}'/>"
   }
-
 ];
