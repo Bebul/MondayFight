@@ -132,6 +132,16 @@ export function searchStringToTokens(searchStr) {
   //
   // const regex = /(?<=\")[^\"]*(?=\")|[^\" ]+/g;
 
+  if (searchStr.toLowerCase().includes("glock")) {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', "#FFD7DE");
+  } else if (searchStr.toLowerCase().includes("jouzo")) {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', "#ffffcc");
+  } else if (searchStr.toLowerCase().includes("bebul")) {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', "#ccff99");
+  } else if (searchStr.toLowerCase().includes("mraz")) {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', "#99ccff");
+  }
+
   const regex = /(\"[^\"]*\")|[^\" ]+/g;
   const tokens = searchStr.match(regex).map(token => {
     let insideQ = token.match(/\"([^\"]*)\"/)
