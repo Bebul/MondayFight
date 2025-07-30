@@ -1330,5 +1330,34 @@ export var tournamentSpec = [
         "Problémem je, že já tady hraju Jouzoleanův tah Dh5 a neberu koněm pěšce. Ale to bys mě hravě po přípravě přehrál. Všichni padaj jak Hrušky. Taky je to  až 8. nejčastější tah. S DJ-Pescem jsme ho nazvali <b>jouzoelanovým tahem</b>." +
         "<br><br><b>Alexandra Botez:</b>  Ty můj milý Bébulku, máš odvahu! Škoda, že Jouzolean ten svůj signature move nezahrál, viď? Gratuluju! Et bisou ! 💋 " +
         "<board json='{\"id\":\"WmFcVCZU\", \"startPlay\":10, \"orientation\":\"black\"}'/>"
+  }, {
+    id: "MhVSrIfb",
+    achievements: [{achievement: "pink", player: "jouzolean", id: "0oALuR6u", desc: "Svatebně opojen"},{achievement: "pink", player: "pajk013", id: "F0zjqkfz", desc: "Hlídal kocoura"}],
+    playOFF: `
+      <h2>Jouzoleán se ženil!</h2>
+      <p>
+      O senzaci týdne se postaral Jouzoleán, když to dokázal zařídit tak, že se ženil ve čtvrtek a nikoli v pondělí. 
+      Tím pádem se nemusel z turnaje trapně omlouvat, za což mu náleží růžová plaketka! 
+      <p>
+      <img src='img/players/tekele.png' class='img100 left'><img src='img/players/rychlylenochod.png' class='img100 right'>
+      Na svatbě byl i Tekele a Rychlý Lenochod. Pajk hlídal kocoura. Nó, a když tam měli Tekeleho takhle na lopatě, 
+      jistě mu do duše promluvili a stopro se na něj můžeme na Monday Fights zase brzy těšit! Jáááááááách!
+      <p>
+      Tekele se vymlouval, že už ani Buk nehraje. <i>Tákže, milý Buku, šampióne dávnověku, kvůli tvému laxnímu přístupu i takoví držáci, 
+      jako je Tekele, propadli démonu lenivosti! Jak tohle jednou u nebeských bran pánu Bohu vysvětlíš, to nevím...</i>  
+      <p>
+      Jak byl Jouzoleán naměkko, hrál proti Bébulkům a Mozkomorům jen a pouze Královský gambit. Jáááááách!
+      <p>
+      Nechť řady královských gambiterů houstnou!
+      <img src='img/jouzoleanSvatba.jpg' style='width:100%;margin-top: 5px'><div align='center' style='margin-bottom:10px'><i>Jouzoleán + Bára = VLPPPPMPK</i></div>      
+    `,
+    html:
+        "<b>Garry Kasparov</b>: Se svatbami mých velkých <img src='img/achievements/pinkDot.png' class='img100 right'> pokračovatelů se teď trhá pytel. Nejdřív Magnus a teď i Jouzoleán! Tak veliká gratulace " +
+        "a ať se v šachu i nadále daří! " +
+        "<br><br><b>Bébul</b>: A řady královských gambiterů houstnou! <img src='img/players/pajk013.png' class='img100 right'>" +
+        "Především velká radost z pajka, který, zdá se, přichází královskému gambitu na chuť! " +
+        "<img src='img/players/jouzolean.png' class='img100 left'><p> Krom toho se dneska, ještě ve svatebním opojení, do gambitu pustil i Jouzoleán. A hrál ho i za bílé! " +
+        "<br><br><b>Jouzolean:</b> S Pajkem teď hodně hrajeme. A hrajeme teď královský gambit. Wau! Wau! " +
+        "<br><br><iframe src=\"https://lichess.org/embed/game/tbaa8ev8#38?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>"
   }
 ];
