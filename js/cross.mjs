@@ -12,7 +12,7 @@ import {
 } from "./mondayFight.mjs"
 import {positionAfter} from "./analyze.mjs"
 import {collectTrophies, joinTrophies, setOpeningTable, setOpeningTableDataAndRedraw, openingsHistogram} from "./podium.mjs";
-import noUiSlider from '../node_modules/nouislider/dist/nouislider.mjs';
+import noUiSlider from './nouislider.min.mjs';
 
 export function createCrossTable(data, theFights, tableId, criterion = "score") {
   let players = getPlayers(theFights).sort(function(a, b){
