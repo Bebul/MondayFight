@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/lichess-analyze-lite.css">
     <link rel="stylesheet" href="css/mf.css">
+    <link rel="stylesheet" href="css/time-slider.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
@@ -70,23 +71,9 @@
         <input type="radio" name="criterion"  value="rating" />
         <label>Pohyb ratingu</label>
     </form>
-    <form name="selectSeason">
-        <b>Vyber období:</b>
-        <input type="radio" name="season"  value="2020" />
-        <label>2020</label>
-        <input type="radio" name="season"  value="2021" />
-        <label>2021</label>
-        <input type="radio" name="season"  value="2022" />
-        <label>2022</label>
-        <input type="radio" name="season"  value="2023" />
-        <label>2023</label>
-        <input type="radio" name="season"  value="2024" checked="true" />
-        <label>2024</label>
-        <input type="radio" name="season"  value="year" />
-        <label>Plovoucí rok</label>
-        <input type="radio" name="season"  value="all" />
-        <label>Za celou dobu</label>
-    </form>
+    <div><b>Vyber období:</b></div>
+    <div id="seasons"></div>
+    <div id="slider" class="time-slider" style="margin-bottom:30px"></div>
 
     <br>
 
@@ -96,15 +83,9 @@
 
 <script type="module">
   import {MF, LoadMFData} from "./js/tournamentsData.mjs"
-  import {createOpeningsTable, criterionChanged} from "./js/cross.mjs"
+  import {createOpeningsTable, criterionChanged, initDateSlider} from "./js/cross.mjs"
 
   function mainPage(data) {
-    let seasons = document.selectSeason.season
-    for (let i = 0; i < seasons.length; i++) {
-      seasons[i].addEventListener('click', function() {
-        criterionChanged(data, "#openingsTable", createOpeningsTable)
-      });
-    }
     let criterion = document.selectDataType.criterion
     for (let i = 0; i < criterion.length; i++) {
       criterion[i].addEventListener('click', function() {
@@ -112,8 +93,9 @@
       });
     }
 
-    let theFights = MF.filterYear(data.mondayFights(), 2024)
-    createOpeningsTable(data, theFights, "#openingsTable", null, 2024)
+    initDateSlider(data, (data) => criterionChanged(data, "#openingsTable", createOpeningsTable))
+
+    criterionChanged(data, "#openingsTable", createOpeningsTable)
   }
 
   LoadMFData(mainPage)
