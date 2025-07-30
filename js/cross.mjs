@@ -90,16 +90,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
   loadOpeningsTable()
 
   let dateFilter = ""
-  switch (season) {
-    case undefined:
-    case "all":
-    case "year":
-      dateFilter = ""
-      break
-    default:
-      dateFilter = ` date:${season}`
-      break
-  }
+  if (season.text && typeof season.text === 'number' && season.text >= 2020) dateFilter = ` date:${season.text}`
 
   let trophiesCol = {title: "Trophies", field: "tr", resizable:false, align: "center", headerSort: false, formatter: trophiesSet}
   if (verbose) trophiesCol.width = "180"
@@ -113,7 +104,7 @@ export function createOpeningsTable(data, theFights, tableId, criterion, season,
       }
     },
     {title: "Count", field: "count", resizable:false, align: "center"},
-    {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false},
+    {title: "Score", field: "score", resizable:false, align: "center", formatter: scoreFormatter, headerSort: false, width: 160},
     trophiesCol
   ]
 
@@ -837,11 +828,7 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
   updateMostOftenPositions(games.games, player1, player2)
 }
 
-export function initCardsUI(data) {
-  document.getElementById("createCard").onclick = function() {
-    criterionChanged(data, "epicCard", createEpicCard)
-  }
-
+export function initDateSlider(data, dateChangedFunc) {
   let startDate = new Date(2020, 0, 1)
   let today = new Date() // current date
   let initial = new Date(new Date().setDate(today.getDate() - 365))
@@ -865,7 +852,7 @@ export function initCardsUI(data) {
     button.innerText = s.text
     if (s.hidden) button.style.visibility = "hidden"
     button.mfSeason = s
-    if (s.text == today.getFullYear()) button.classList.add("active")
+    if (s.text == "ROK") button.classList.add("active")
     button.addEventListener("click", function() {
       let seasonsEl = document.getElementById('seasons')
       let buttons= seasonsEl.getElementsByClassName('active')
@@ -873,7 +860,7 @@ export function initCardsUI(data) {
       button.classList.add('active')
       console.log(`clicked: ${s.text} classList: ${button.classList} slider:${slider.noUiSlider.get()}`)
       slider.noUiSlider.set([s.from.getTime(), s.to.getTime()]);
-      criterionChanged(data, "players", updatePlayerList)
+      dateChangedFunc(data)
     })
     seasonsEl.appendChild(button)
   })
@@ -921,10 +908,17 @@ export function initCardsUI(data) {
       last.innerText = `${formatDate(parseInt(values[0]))}-${formatDate(parseInt(values[1]))}`
       sliderSeason.from = new Date(parseInt(values[0]))
       sliderSeason.to = new Date(parseInt(values[1]))
-      criterionChanged(data, "players", updatePlayerList)
+      dateChangedFunc(data)
     }
   })
+}
 
+export function initCardsUI(data) {
+  document.getElementById("createCard").onclick = function() {
+    criterionChanged(data, "epicCard", createEpicCard)
+  }
+
+  initDateSlider(data, (data)=> criterionChanged(data, "players", updatePlayerList))
 }
 
 export function updatePlayerList(data, theFights, selectId, criterion, season, verbose = true) {
