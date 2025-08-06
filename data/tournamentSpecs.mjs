@@ -1372,6 +1372,8 @@ export var tournamentSpec = [
         "<p> Předtím se varianta hrála na hodně zajímavém turnaji, kde se bil Bukowskic s DJ-Strelcem a Neznama-00 porazila LastScouta! " +
         "K vidění <a href='index.html?mf=omFEO2Vz'>tady</a>. " +
         "<br><br><b>Bébul:</b> Tekele mi po turnaji prozradil, že nejsem jediný, kdo dostal přesně stejnou léčkou za vyučenou. Jouzolean, v rapidu <a href='https://lichess.org/Ri9dh6Fr#29'>taky</a>." +
-        "<br><br><b>Mrázek:</b> tyjo, jsem přehlíd dvojtažku, chjo, nedáš-dostaneš... a ještě jsem tím dal Bébulovi výhru v poslední sekundě a nechal ho, aby mě přelezl..."
+        "<br><br><b>Mrázek:</b> tyjo, jsem přehlíd dvojtažku, chjo, nedáš-dostaneš... a ještě jsem tím dal Bébulovi výhru v poslední sekundě a nechal ho, aby mě přelezl..." +
+        "<br><br><b>Tomzr:</b> <img src='img/players/tomzr.png' class='img100 right'> Tomzrovy plaketky, to nejsou partie, to jsou skutečná koncertní díla! Ta dáma za mat, to je překrásně provedenej <a href='https://lichess.org/6JRhCDlJ#62'>dušenej mat</a>," +
+        " akorát namísto udušení za vlastním pěšcešm, je pole kryto střelcem. Je vidět, že tomzr kouká nejmíň o tah dál než my, obyčejní smrtelníci!"
   },
 ];
