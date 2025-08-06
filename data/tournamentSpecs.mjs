@@ -1364,7 +1364,7 @@ export var tournamentSpec = [
     id: "VoCVxr3s",
     html: "<b>Bébul:</b> Dneska si s námi, po dlouhé pauze 😭, zahrál maestro Tekele. <img src='img/players/tekele.png' class='img100 right'> " +
         "A byla to jízda! První partii krásně přehrál Mrázka, ale ve vyhrané koncovce, se střelcem navíc, neudržel nervy na uzdě a nechal to jenom za remízu. " +
-        "Pak mu ale přišel pod ruce slovutný Jouzoleán. Ten nakonec nenechal diváky dlouho na pochybách, jak se z obtížné situace vylže" +
+        "Pak mu ale přišel pod ruce slovutný Jouzoleán. Ten nakonec nenechal diváky dlouho na pochybách, jak se z obtížné situace vylže " +
         "a v prohrané pozici raději padl na čas. Osud tomu chtěl, abych přišel pod kudlu jako třetí... " +
         "Hrála se Frankenstein Dracula varianta Vídeňské hry, kde byla na MF teprve podruhé příšera vypuštěna. <img src='img/alster-drakula.jpg'>" +
         "Dodnes neutichly spory teoretiků o to, zda materiální výhoda bílého je víc, než masivní útok černého a ani četné partie sehrané mezi " +
