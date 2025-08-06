@@ -1359,5 +1359,19 @@ export var tournamentSpec = [
         "<img src='img/players/jouzolean.png' class='img100 left'><p> Krom toho se dneska, ještě ve svatebním opojení, do gambitu pustil i Jouzoleán. A hrál ho i za bílé! " +
         "<br><br><b>Jouzolean:</b> S Pajkem teď hodně hrajeme. A hrajeme teď královský gambit. Wau! Wau! " +
         "<br><br><iframe src=\"https://lichess.org/embed/game/tbaa8ev8#38?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>"
-  }
+  },
+  {
+    id: "VoCVxr3s",
+    html: "<b>Bébul:</b> Dneska si s námi, po dlouhé pauze 😭, zahrál maestro Tekele. <img src='img/players/tekele.png' class='img100 right'> " +
+        "A byla to jízda! První partii krásně přehrál Mrázka, ale ve vyhrané koncovce, se střelcem navíc, neudržel nervy na uzdě a nechal to jenom za remízu. " +
+        "Pak mu ale přišel pod ruce slovutný Jouzoleán. Ten nakonec nenechal diváky dlouho na pochybách, jak se z obtížné situace vylže" +
+        "a v prohrané pozici raději padl na čas. Osud tomu chtěl, abych přišel pod kudlu jako třetí... " +
+        "Hrála se Frankenstein Dracula varianta Vídeňské hry, kde byla na MF teprve podruhé příšera vypuštěna. <img src='img/alster-drakula.jpg'>" +
+        "Dodnes neutichly spory teoretiků o to, zda materiální výhoda bílého je víc, než masivní útok černého a ani četné partie sehrané mezi " +
+        "Jouzoleanem a Tekelem na toto téma situaci nevyjasnily. " +
+        "<p> Předtím se varianta hrála na hodně zajímavém turnaji, kde se bil Bukowskic s DJ-Strelcem a Neznama-00 porazila LastScouta! " +
+        "K vidění <a href='index.html?mf=omFEO2Vz'>tady</a>. " +
+        "<br><br><b>Bébul:</b> Tekele mi po turnaji prozradil, že nejsem jediný, kdo dostal přesně stejnou léčkou za vyučenou. Jouzolean, v rapidu <a href='https://lichess.org/Ri9dh6Fr#29'>taky</a>." +
+        "<br><br><b>Mrázek:</b> tyjo, jsem přehlíd dvojtažku, chjo, nedáš-dostaneš... a ještě jsem tím dal Bébulovi výhru v poslední sekundě a nechal ho, aby mě přelezl..."
+  },
 ];
