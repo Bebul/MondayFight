@@ -1359,8 +1359,7 @@ export var tournamentSpec = [
         "<img src='img/players/jouzolean.png' class='img100 left'><p> Krom toho se dneska, ještě ve svatebním opojení, do gambitu pustil i Jouzoleán. A hrál ho i za bílé! " +
         "<br><br><b>Jouzolean:</b> S Pajkem teď hodně hrajeme. A hrajeme teď královský gambit. Wau! Wau! " +
         "<br><br><iframe src=\"https://lichess.org/embed/game/tbaa8ev8#38?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>"
-  },
-  {
+  }, {
     id: "VoCVxr3s",
     html: "<b>Bébul:</b> Dneska si s námi, po dlouhé pauze 😭, zahrál maestro Tekele. <img src='img/players/tekele.png' class='img100 right'> " +
         "A byla to jízda! První partii krásně přehrál Mrázka, ale ve vyhrané koncovce, se střelcem navíc, neudržel nervy na uzdě a nechal to jenom za remízu. " +
@@ -1375,5 +1374,11 @@ export var tournamentSpec = [
         "<br><br><b>Mrázek:</b> tyjo, jsem přehlíd dvojtažku, chjo, nedáš-dostaneš... a ještě jsem tím dal Bébulovi výhru v poslední sekundě a nechal ho, aby mě přelezl..." +
         "<br><br><b>Tomzr:</b> <img src='img/players/tomzr.png' class='img100 right'> Tomzrovy plaketky, to nejsou partie, to jsou skutečná koncertní díla! Ta dáma za mat, to je překrásně provedenej <a href='https://lichess.org/6JRhCDlJ#62'>dušenej mat</a>," +
         " akorát namísto udušení za vlastním pěšcešm, je pole kryto střelcem. Je vidět, že tomzr kouká nejmíň o tah dál než my, obyčejní smrtelníci!"
+  }, {
+    id: "NQXmhfdq",
+    html: "<b>Bébul:</b> Polgu nás teď všechny krutě stíhá, pronásleduje a týrá. Čelí nejtěžším soupeřům - a když dostane na oddych Bébulka, střihne si ševce sedmým tahem. A nasbírá pět plaketek! Minule brečel Mrázek a Mozkomor, dneska Jouzolean a já. " +
+        "Já teda brečím ještě teď :-D Gratuluju! " +
+        "<tooltip json='{\"id\":\"polgu\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>" +
+        "<br><br><b>Bébul:</b> A Mrázek třetí vítězství v posledních deseti turnajích! Veliká gratulace! "
   },
 ];
