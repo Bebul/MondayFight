@@ -1380,5 +1380,11 @@ export var tournamentSpec = [
         "Já teda brečím ještě teď :-D Gratuluju! " +
         "<tooltip json='{\"id\":\"polgu\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>" +
         "<br><br><b>Bébul:</b> A Mrázek třetí vítězství v posledních deseti turnajích! Veliká gratulace! "
-  },
+  }, {
+    id: "9tGeBOOg",
+    html: "<b>Bébul:</b> Letos padl šustřáček jenom čtyřikrát. <img src='img/players/polgu.png' class='img100 right'> A pokaždé se u toho radoval Polgu. Dva z nich jsou navíc nejrychlejší maty letošního roku! " +
+          "A dneska se to Polguovi podařilo proti nikomu menšímu, než MichaeluChmielovi! Čtvrtým tahem ztrestaná Anglická hra. " +
+          "A tomzra zblajznul 12. tahem! Nejrychlejší dva maty dneška! Veliká gratulace! <br><br>" +
+          "<img src='img/mf-og-polgu-nd.jpg'><br><div align='center'><i>Polgu řádí i jako vodník</i></div>"
+    }
 ];
