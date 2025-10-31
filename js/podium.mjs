@@ -1267,7 +1267,7 @@ export var Avatars = function() {
     else if (defaultAvatar) return defaultAvatar
     else fileName = defaults[playerName.length % defaults.length]
 
-    let halloween = false
+    let halloween = true
     if (halloween) {
       let prepared = (useGif.map(v => v.split(".")).find(v => v[0] === playerLow))
       if (prepared) {
