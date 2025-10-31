@@ -1243,6 +1243,8 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
+var halloween = true
+
 export var Avatars = function() {
   let players = ["bebul", "bukowskic", "dj-strelec", "hrobotron", "jouzolean",
     "mauricedodo", "mozkomor", "mrazek", "neznama-00", "rychlylenochod", "tekele",
@@ -1267,7 +1269,6 @@ export var Avatars = function() {
     else if (defaultAvatar) return defaultAvatar
     else fileName = defaults[playerName.length % defaults.length]
 
-    let halloween = true
     if (halloween) {
       let prepared = (useGif.map(v => v.split(".")).find(v => v[0] === playerLow))
       if (prepared) {
@@ -1329,7 +1330,6 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
   }
 
   let avatar = Avatars.getAvatar(player)
-  let halloween = false
   if (avatar) {
     html = htmlPre + html + `<img src="${avatar}" style="position:absolute; bottom: 100%; right: 3%; width: ${size*100}px">`
     if (player === "bebul" && size==0.8) {
@@ -1512,16 +1512,14 @@ export function setOpeningTableDataAndRedraw(openingData) {
 
 function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
-  else document.body.style.backgroundColor = "#e9ecef";
-  //else document.body.style.backgroundColor = "#ffebcc";
-/*
-  else {
+  else if (halloween) {
     document.body.style.backgroundImage = "url(img/halloween/halloweenTap.jpg)";
     document.body.style.backgroundRepeat = "repeat";
     document.body.style.backgroundSize = "520px";
     document.body.style.backgroundBlendMode = "screen";
   }
-*/
+  else document.body.style.backgroundColor = "#e9ecef";
+  //else document.body.style.backgroundColor = "#ffebcc";
 }
 
 function nextTournament(data, diff=1) {
