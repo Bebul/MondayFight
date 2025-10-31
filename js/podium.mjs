@@ -1344,6 +1344,8 @@ Win:&nbsp;${percent(wins/games)}&nbsp;Games:&nbsp;${games}&nbsp;Bersk:&nbsp;${pe
       html += `<img src="img/halloween/spiderLeft.webp" style="width: 180px; position:absolute; top: 24px; left: -93px">`
     } else if (halloween && player === "HonzaHonzaHonza" && size==0.8) {
       html += `<img src="img/halloween/skeleton3.webp" style="width: 200px; position:absolute; top: 24px; left: -86px">`
+    } else if (halloween && player === "Mrazek" && size==0.8) {
+      html += `<img src="img/halloween/snowman.gif" style="width: 180px; position:absolute; top: 0px; left: -100px">`
     }
   }
 
