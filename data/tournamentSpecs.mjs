@@ -1383,8 +1383,23 @@ export var tournamentSpec = [
   }, {
     id: "9tGeBOOg",
     html: "<b>Bébul:</b> Letos padl šustřáček jenom čtyřikrát. <img src='img/players/polgu.png' class='img100 right'> A pokaždé se u toho radoval Polgu. Dva z nich jsou navíc nejrychlejší maty letošního roku! " +
-          "A dneska se to Polguovi podařilo proti nikomu menšímu, než MichaeluChmielovi! Čtvrtým tahem ztrestaná Anglická hra. " +
-          "A tomzra zblajznul 12. tahem! Nejrychlejší dva maty dneška! Veliká gratulace! <br><br>" +
-          "<img src='img/mf-og-polgu-nd.jpg'><br><div align='center'><i>Polgu řádí i jako vodník</i></div>"
-    }
+        "A dneska se to Polguovi podařilo proti nikomu menšímu, než MichaeluChmielovi! Čtvrtým tahem ztrestaná Anglická hra. " +
+        "A tomzra zblajznul 12. tahem! Nejrychlejší dva maty dneška! Veliká gratulace! <br><br>" +
+        "<img src='img/mf-og-polgu-nd.jpg'><br><div align='center'><i>Polgu řádí i jako vodník</i></div>"
+  }, {
+    id: "anhyga7D",
+    achievements: [{achievement: "blackXX", player: "bebul", id: "JB5gDpQr", desc: "Nevyhrál co vyhrát měl"},
+      {achievement: "pink", player: "pajk013", id: "ZdRlgkrL", desc: "Hraje čím dál líp"},
+      {achievement: "pink", player: "Tekele", id: "yHUsHMWD", desc: "Vyhrál Levenfishe"},
+      {achievement: "blackXX", player: "kasparov", id: "QKcc2NWB", desc: "Královské Gambity!"},
+      {achievement: "pink", player: "kunc99", id: "QKcc2NWB", desc: "Ať žije Ibalgin"},
+    ],
+    html: "<b>Kunc99:</b> <img src='img/halloween/skeleton10.webp' class='img100 right'> Gratulace @Jouzolean 👍 včera jsem přemýšlel, že si taky zahraju, ale večer mě bolela hlava a nebylo mi dobře, tak jsem se na to vykašlal. Plánoval jsem se připojit teda primárně hlavně proto, protože mě zajímalo, co bude můj Halloween avatar 😁😅" +
+        "<br><br><b>bebul:</b> Jouzoleanovi se podařilo chytit Tomzra do pasti, kterou nám s Mozkomorem dopředu prozradil: <b><i>Skandinávská obrana, Icelandic Palme Gambit</i></b>. " +
+        "Máme privátní studii na Lichess, která má 27 kapitol a souhrnně se jmenuje <b><i>Jouzoleánovy pijavice na ELO</i></b>. " +
+        "Většinu těch pastí na Monday Fights už uplatnil, často proti bukowskicovi. Na něj spousta nevyšla, ale pasti, například mat rošádou, sklaply v jiných Jouzových partiích. Velká paráda." +
+        "<board json='{\"id\":\"fObDdyXZ\", \"startPlay\":10, \"orientation\":\"black\"}'/>" +
+        "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
+        "<br><br><b>bebul:</b> Grats Tekelemu. Hráli jsme spolu našeho jedenáctého Levenfishe. A Tekele poprvé vyhrál. Uděluju plaketku. "
+  }
 ];
