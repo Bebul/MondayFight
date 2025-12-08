@@ -1252,12 +1252,12 @@ export var Avatars = function() {
     "dzin69", "janshorny", "arytmik", "tykev123", "pirat77", "puklejchleba", "margarita_vlasenko", "felcar", "droider66",
     "sachycvek", "lastscout", "sumaspandy", "honzahonzahonza", "tomas_1989", "polgu",
     "barongorc", "michaelchmiel", "tomzr", "tomasklimecky2024", "kamikazeee", "kasparpalov", "dj-strelec",
-    "royalchessyoutube", "peinsamacze", "pajk013", "lukas_vlasak", "kunc99", "hglockk", "peinsamacz", "koblizekwiz"]
+    "royalchessyoutube", "peinsamacze", "pajk013", "lukas_vlasak", "kunc99", "hglockk", "peinsamacz", "koblizekwiz", "daniel_cervenka"]
   let useGif = ["bebul.gif", "mrazek.gif", "mozkomor.gif", "jouzolean.webp", "bukowskic.gif", "margarita_vlasenko.gif",
     "dj-strelec.gif", "neznama-00.gif", "janshorny.gif", "dzin69.gif", "pirat77.gif", "lastscout.gif", "tekele.gif", "vikjav.gif",
     "mauricedodo.gif", "rychlylenochod.gif", "hrobotron.gif", "felcar.gif", "tomasklimecky.gif", "arytmik.gif", "sachycvek.gif",
     "travinho.gif", "mates78.gif", "mates7824.gif", "dj-strelec.gif",
-    "lukas_vlasak.webp", "honzahonzahonza.webp", "kamikazeee.webp", "michaelchmiel.webp", "pajk013.webp", "tomzr.webp", "peinsamacze.webp"]
+    "lukas_vlasak.webp", "honzahonzahonza.webp", "kamikazeee.webp", "michaelchmiel.webp", "pajk013.webp", "tomzr.webp", "peinsamacze.webp", "daniel_cervenka.gif"]
   let halloweens = ["witch.webp", "trainer.webp", "ghost2.webp", "ghost3.webp", "grave.webp",
     "pumpkin.webp", "skeleton10.webp", "skeleton12.webp", "skeleton13.webp", "skeleton5.webp", "skeleton6.webp", "skeleton7.webp", "skeleton8.webp"]
   let defaults = ["default2", "default3"]

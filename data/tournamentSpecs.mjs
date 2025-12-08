@@ -1401,5 +1401,9 @@ export var tournamentSpec = [
         "<board json='{\"id\":\"fObDdyXZ\", \"startPlay\":10, \"orientation\":\"black\"}'/>" +
         "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.9}' align='center' style='margin:42px 0 0px 0'/> " +
         "<br><br><b>bebul:</b> Grats Tekelemu. Hráli jsme spolu našeho jedenáctého Levenfishe. A Tekele poprvé vyhrál. Uděluju plaketku. "
+  }, {
+    id: "JENXgrLE",
+    html: "<b>Bébul:</b> Vítáme zpátky <b>Bukowskice!</b> <img src='img/players/daniel_cervenka.png' class='img100 right'> Nyní hraje pod přezdívkou <a href='https://lichess.org/@/Daniel_Cervenka'>Daniel_Cervenka</a>. " +
+        "Jak se ukázalo, návrat to byl tuze těžký a nedostal nic lacino. Zvlášť Tekele zazářil se svým Barmen defense! Gratulace všem!"
   }
 ];
