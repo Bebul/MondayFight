@@ -1243,7 +1243,7 @@ function fixPlayerName(name) {
   return name.replace("-", "&#8209;")
 }
 
-var halloween = true
+var halloween = false
 
 export var Avatars = function() {
   let players = ["bebul", "bukowskic", "dj-strelec", "hrobotron", "jouzolean",
@@ -1516,6 +1516,11 @@ function updateBackground(id) {
   if (id.match(/^playOFF/)) document.body.style.backgroundColor = "#def";
   else if (halloween) {
     document.body.style.backgroundImage = "url(img/halloween/halloweenTap.jpg)";
+    document.body.style.backgroundRepeat = "repeat";
+    document.body.style.backgroundSize = "520px";
+    document.body.style.backgroundBlendMode = "screen";
+  } else if (false) {
+    document.body.style.backgroundImage = "url(img/templatePohary.png)";
     document.body.style.backgroundRepeat = "repeat";
     document.body.style.backgroundSize = "520px";
     document.body.style.backgroundBlendMode = "screen";
