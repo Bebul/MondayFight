@@ -1423,7 +1423,7 @@ function spiderConfigByCurrentMonth() {
   }
 }
 
-let withdrawals = ['mrazek'] // ['lastscout', 'bebul','mozkomor']
+let withdrawals = ['mrazek', 'lastscout'] // ['bebul','mozkomor']
 async function drawSpider(dataOfPlayers, spiderId, year, config = sketchyOutline()) {
   // filter withdrawals
   let playerList = dataOfPlayers.map(p => p.name).filter(p =>
