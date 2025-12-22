@@ -51,6 +51,15 @@ let loadedTounaments = parse(ndjson2array(loadData("../data/tournaments.ndjson")
 let loadedGames = parse(ndjson2array(loadData("../data/tournamentGames.ndjson")))
 let loadedStreaks = parse(loadData("../data/streaks.json"))
 
+function fixBadlyNamedTournaments(tournaments) {
+  let badlyNamed = ['GbJ6hYbC']
+  tournaments.forEach(t => {
+    if (badlyNamed.includes(t.id)) {
+      t.fullName = "Monday Fight Fixed"
+    }
+  })
+}
+
 function process(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
   let count = 0
@@ -60,6 +69,7 @@ function process(data) {
   LAPI.lichessTournamentsAPI(allFights, ["bebul","Jouzolean"]).downloadMissing(console.log)
     .then(function(downloadedTournaments) {
       if (downloadedTournaments.length) {
+        fixBadlyNamedTournaments(downloadedTournaments)
         data.addTournaments(downloadedTournaments) // updates mondayFights and everything
         LAPI.lichessAPI().downloadMissingTournamentGames(data, console.log)
           .then(function(games) {
