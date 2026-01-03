@@ -1405,7 +1405,13 @@ export var tournamentSpec = [
     id: "JENXgrLE",
     html: "<b>Bébul:</b> Vítáme zpátky <b>Bukowskice!</b> <img src='img/players/daniel_cervenka.png' class='img100 right'> Nyní hraje pod přezdívkou <a href='https://lichess.org/@/Daniel_Cervenka'>Daniel_Cervenka</a>. " +
         "Jak se ukázalo, návrat to byl tuze těžký a nedostal nic lacino. Zvlášť Tekele zazářil se svým Barmen defense! Gratulace všem!"
-  },{
+  }, {
+    id: "sJfEfav7",
+    html: "<b>Bébul:</b> Sláva slovutnému Jouzoleánovi ke třetímu zisku šampiona Monday Fights! " +
+        "<video width='100%' controls>\n" +
+        "  <source src=\"img/jouza.mp4\" type=\"video/mp4\">\n" +
+        "</video>"
+  }, {
     id: "playOFF2025",
     achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "pink", player: "Daniel_Cervenka", id: "iQ6JNYFw", desc: "Hraje aspoň tipovačku!"}],
     playOFF: "<img src='img/turnajPavouk2025.jpg' style='width:100%;margin-top: 5px'>",
