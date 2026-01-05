@@ -1414,7 +1414,7 @@ export var tournamentSpec = [
   }, {
     id: "playOFF2025",
     achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "pink", player: "Daniel_Cervenka", id: "iQ6JNYFw", desc: "Hraje aspoň tipovačku!"}],
-    playOFF: "<img src='img/turnajPavouk2025.jpg' style='width:100%;margin-top: 5px'>",
+    playOFF: "<img src='img/playOFF-2025.jpg' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2025</h1>" +
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>, " +
         "<a href='index.html?mf=playOFF2024'>2024</a>." +
