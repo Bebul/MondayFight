@@ -1420,5 +1420,18 @@ export var tournamentSpec = [
         "<a href='index.html?mf=playOFF2024'>2024</a>." +
         "<br><br><b>DJ-Strelec:</b> Nezapomeňte na Tipovačku play off, z níž se na základě získaných bodů za přesné tipy ze všech sérií po skončení turnaje vybere nejlepší tipér, který bude oceněn plaketkou. Zúčastnit se jí mohou úplně všichni, tedy i ti, kteří play off nehrají. Pravidla jsou jednoduchá: v anketě se tipuje vítěz (za jeden bod) a počet bodů získaných poraženým (za druhý bod). Tipovat lze až do zahájení první partie, na pozdější tipy již nebude brán zřetel. " +
         "<img src='img/pf2026.jpg' style='margin-top:5px'>"
+  }, {
+    id: "AMOO6nWL",
+    achievements: [{achievement: "blackXX", player: "bebul", id: "ypCB8SM7", desc: "Zbabělá remíza"}],
+    html: "<b>bebul</b>: První letošní turnaj měl konečně obstojnou účast. <img src='img/players/rychlylenochod.png' class='img100 right'> Vítáme zpátky RychlehoLenochoda a gratulujeme k nejrychlejšímu matu!" +
+        "<img src='img/players/janshorny.png' class='img100 left'><p>Vítáme zpátky taky JanaShorny, známého jako BaronaGorce a gratulujeme k senzaci turnaje! " +
+        "<br><br><b>bebul</b>: <img src='img/players/kamikazeee.png' class='img100 right'> Po dlouhé době si zahrál taky Kamikazeee, který stihl odehrát jenom šest partií, přesto mu to stačilo na bednu! Gratulujeme! " +
+        "<br><br><b>bebul</b>: černý puntík dostává Bebul, že zbaběle vynutil remízu opakováním tahů v pozici, kterou by měl vyhrát i poslepu... " +
+        "<board json='{\"id\":\"ypCB8SM7\", \"startPlay\":54, \"orientation\":\"white\"}'/>" +
+        "<br><br><b>bebul</b>: v turnaji neuvěřitelných osmnáct plaketek! Jen tak dál! " +
+        "<br><br><b>bebul</b>: Tomzr krom první partie všechno berserkoval. Odehrál neuvěřitelných sedmnáct partií a i přes brutální krvácení " +
+        "<b style='color: red'>-110 ratingu</b> skončil druhý." +
+        "<tooltip json='{\"id\":\"tomzr\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/> " +
+        "<br><br><b>DJ-Strelec</b>: Osmifinále <a href='index.html?mf=playOFF2025'>PlayOFF</a> je dohrané. Kompletní složení čtvrtfinále (klikněte si pro větší obrázek): <a href='img/playOFF-2025.jpg'><img src='img/playOFF-2025.jpg'></a>"
   }
 ];
