@@ -1433,5 +1433,13 @@ export var tournamentSpec = [
         "<b style='color: red'>-110 ratingu</b> skončil druhý." +
         "<tooltip json='{\"id\":\"tomzr\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/> " +
         "<br><br><b>DJ-Strelec</b>: Osmifinále <a href='index.html?mf=playOFF2025'>PlayOFF</a> je dohrané. Kompletní složení čtvrtfinále (klikněte si pro větší obrázek): <a href='img/playOFF-2025.jpg'><img src='img/playOFF-2025.jpg'></a>"
+  }, {
+    id: "RWdLw5ws",
+    html: "<b>DJ-Strelec</b>: Měl jsi to vyhrané, Lenochode. Toho střelce jsi mohl brát. Byla tam vazba na dámu <img src='img/players/dj-strelec.png' class='img100 right'> " +
+        "<br><br><b>RychlyLenochod</b>: <img src='img/players/rychlylenochod.png' class='img100 left'>  já si to uvědomil až bylo pozdě samozřejmě v tom čase 😂 " +
+        "<br><br><b>DJ-Strelec</b>: mně v tom momentu úplně zatrnulo 😂 " +
+        "<board json='{\"id\":\"MJ3UvCIT\", \"startPlay\":25, \"orientation\":\"white\"}'/>" +
+        "<br><br><b>bebul</b>: Mně by teda nezatrnulo, protože bych to neviděl. 😂 RychlyLenochod taky zázračně věčným šachem vynutil remízu s Bukowskicem! A aby toho nebylo málo, přidal první letošní PAT s mozkomorem! Je to jeho jubilejní <b>třicátý</b> pat v Monday Fights turnaji! Náááádhera, jen tak dál! " +
+        "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>"
   }
 ];
