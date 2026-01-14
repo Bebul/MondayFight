@@ -1419,7 +1419,9 @@ export var tournamentSpec = [
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>, " +
         "<a href='index.html?mf=playOFF2024'>2024</a>." +
         "<br><br><b>DJ-Strelec:</b> Nezapomeňte na Tipovačku play off, z níž se na základě získaných bodů za přesné tipy ze všech sérií po skončení turnaje vybere nejlepší tipér, který bude oceněn plaketkou. Zúčastnit se jí mohou úplně všichni, tedy i ti, kteří play off nehrají. Pravidla jsou jednoduchá: v anketě se tipuje vítěz (za jeden bod) a počet bodů získaných poraženým (za druhý bod). Tipovat lze až do zahájení první partie, na pozdější tipy již nebude brán zřetel. " +
-        "<img src='img/pf2026.jpg' style='margin-top:5px'>"
+        "<img src='img/pf2026.jpg' style='margin-top:5px'>" +
+        "<br><b>Kamikazeee</b>: Na přípravu s HonzouHonzou kašlu, radši jsem se šel pomodlit... <br>" +
+        "<video controls='controls' style='max-width: 100%'><source src='img/kamikazeee-playOFF2025.mp4' type='video/mp4'/></video> "
   }, {
     id: "AMOO6nWL",
     achievements: [{achievement: "blackXX", player: "bebul", id: "ypCB8SM7", desc: "Zbabělá remíza"}],
