@@ -61,27 +61,30 @@
         <a href="search.html">Search Engine</a>
         <a href="archiv2020.html">Archiv 2020</a>
         <a href="archiv2021.html">Archiv 2021</a>
+        <a href="archiv2022.html">Archiv 2022</a>
         <a href="archiv2023.html">Archiv 2023</a>
         <a href="archiv2024.html">Archiv 2024</a>
+        <a href="archiv2025.html">Archiv 2025</a>
         <a href="players.html">Players</a>
       </div>
     </div>
   </div>
 
-  <div class="article first">
-    <h1>LeaderBoard roku 2022</h1>
-    <ul>
-      <li><b>Points</b> je součet uhraných bodů, bez ohledu na berserk a zdvojnásobování při streaku.
-      <li><b>Score</b> je součet uhraného skóre.
-      <li><b>Games</b> počet odehraných her.
-      <li><b>Performance</b> průměrná performance hráče (váženo počtem her) v turnaji.
-      <li><b>Presence</b> je počet turnajů, které daný hráč odehrál.
-      <li><b>R,M,S,F</b> je změna ratingu během turnaje, počet nejrychlejších matů, senzací a nejrychlejších her
-    </ul>
+  <div class="leaderboard" style="float: left;clear: both">
+    <h2>Monday Fight Liga 2022 <span id="leagueNo"></span></h2>
+    <div id="leagueTable">
+           <pre>
+ 1. bebul     450
+ 2. mozkomor  400
+ 3. bukowskic 350
+ 4. hrobotron 300
+ 5. Tekele    250
+ 6. Jouzolean 200
+           </pre>
+    </div>
   </div>
 
-  <h1>Kompletní rok 2022</h1>
-  <div id="myChart"></div>
+  <div id="myChart" style="float: left;clear: both"></div>
   <div id="mondayFightsLeaderboard"></div>
 
   <div class="article">
@@ -136,12 +139,17 @@
 
 <script type="module">
   import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-  import {createPlayersTable, createLeagueHistoryChart} from "./js/mondayFight.mjs"
+  import {createPlayersTable, createLeagueHistoryChart, createLeagueTable} from "./js/mondayFight.mjs"
 
   function mainPage(data) {
-    let the2022 = MF.filterYear(data.mondayFights(), 2022)
-    createPlayersTable(the2022, "#mondayFightsLeaderboard", false) //no Jouzocoins
-    createLeagueHistoryChart(data, "myChart", new Date(2022,11,31))
+    let year = 2022
+    let curYear = MF.filterYear(data.mondayFights(), year)
+    let mfId = curYear[curYear.length - 1].id
+    let ix = data.findTournamentIx(mfId)
+    if (ix >= 0) data.currentGameListTableIx = ix
+    createLeagueTable(data, "#leagueTable", "leagueNo")
+    createPlayersTable(curYear, "#mondayFightsLeaderboard", false) //no Jouzocoins
+    createLeagueHistoryChart(data, "myChart", new Date(year,11,31))
   }
 
   LoadMFData(mainPage)

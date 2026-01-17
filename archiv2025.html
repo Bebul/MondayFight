@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0, target-densitydpi=device-dpi"/>
+  <meta http-equiv="Cache-Control" content="max-age=3600" />
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <meta charset="UTF-8">
+  <title>"Monday Fight 2025"</title>
+  <link href="dist/css/tabulator.min.css" rel="stylesheet">
+
+  <meta property="og:locale" content="cs_CZ" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Archiv a Turnaj šampionů roku" />
+  <meta property="og:description" content="Nově grafy vývoje leaderboardů..." />
+  <meta property="og:site_name" content="github" />
+
+  <meta property="og:image" content="https://bebul.github.io/MondayFight/img/chart-2022.png" />
+  <meta property="og:image:type" content="image/png" />
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script type="text/javascript" src="dist/js/tabulator.min.js"></script>
+  <script type="text/javascript" src="pgn/pgn-bundle.js"></script>
+
+  <script type="text/javascript" src="js/minimal.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/mf.css">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CX3WGLDEW7');
+  </script>
+</head>
+
+<body>
+
+<div class="body">
+
+  <div class="mondayFightCaption">
+    <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+    <span class="icon"><a href="javascript:void(0);" onclick="showMondayFightMenu()" style="color:#00b5ad">
+            <i class="fa fa-bars hamburger"></i>
+              </a>
+        </span>
+    <span class="captionText">Monday Fights 2025</span>
+    <div class="topnav">
+      <div id="myLinks">
+        <a href="index.html">Main page</a>
+        <a href="cards.html">Duel Cards</a>
+        <a href="actualities.html">Hot News</a>
+        <a href="tables.html">Leaderboards</a>
+        <a href="openings.html">Openings table</a>
+        <a href="cross.html">Cross table</a>
+        <a href="search.html">Search Engine</a>
+        <a href="archiv2020.html">Archiv 2020</a>
+        <a href="archiv2021.html">Archiv 2021</a>
+        <a href="archiv2022.html">Archiv 2022</a>
+        <a href="archiv2023.html">Archiv 2023</a>
+        <a href="archiv2024.html">Archiv 2024</a>
+        <a href="archiv2025.html">Archiv 2025</a>
+        <a href="players.html">Players</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="leaderboard" style="float: left;clear: both">
+    <h2>Monday Fight Liga 2025 <span id="leagueNo"></span></h2>
+    <div id="leagueTable">
+           <pre>
+ 1. bebul     450
+ 2. mozkomor  400
+ 3. bukowskic 350
+ 4. hrobotron 300
+ 5. Tekele    250
+ 6. Jouzolean 200
+           </pre>
+    </div>
+  </div>
+
+  <div id="myChart" style="float: left;clear: both"></div>
+  <div id="mondayFightsLeaderboard"></div>
+
+  <!--
+          <div class="article">
+              <h1>Turnaj šampionů</h1>
+              <p>Letošního <a href="index.html?mf=playOFF2023">play off</a> se mělo účastnit 12 nejlepších hráčů z tabulky.
+                  První čtveřice měla jistou účast ve čtvrtfinále a ostatní se o postup do něj měli teprve utkat
+                  v kvalifikaci/osmifinále. Ze závěrečného turnaje odstoupili hráči Bebul a Mozkokor,
+                  na poslední chvíli taky Rychlý Lenochod kvůli nemoci.
+                  Do bojů se tak dostali šanci zapojit i 3 hráči pod čarou - Tomas_1989, Dj-Pěšec a Polgu.
+              <p>
+              <div>
+                  <img src="img/bukowskic-margarita2023.jpg" class="flow33">
+                  <img src="img/tomzr-djpesec2023.jpg" class="flow33">
+                  <img src="img/tomzr-bukowskic2023.jpg" class="flow33">
+              </div>
+              <div align="center" style="margin-bottom:5px"><i>Vyzyvatelské kartičky z dilny DJ-Pesce</i></div>
+              <p>
+                  <b>Gratulace vítězům a čest poraženým.</b>
+              <p>
+                  Přeji hodně zdaru do další sezóny.
+                  <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
+                  <br><br><hr>
+              <p>
+                  <a href="index.html?mf=playOFF2023"><img src="img/pavouk2023-finale.jpg" style="max-width:1900px; width:1500px"></a>
+          </div>
+      -->
+</div>
+
+<script type="module">
+  import {LoadMFData, MF} from "./js/tournamentsData.mjs"
+  import {createPlayersTable, createLeagueHistoryChart, createLeagueTable} from "./js/mondayFight.mjs"
+
+  function mainPage(data) {
+    let the2025 = MF.filterYear(data.mondayFights(), 2025)
+    let mfId = the2025[the2025.length - 1].id
+    let ix = data.findTournamentIx(mfId)
+    if (ix >= 0) data.currentGameListTableIx = ix
+    createLeagueTable(data, "#leagueTable", "leagueNo")
+    createPlayersTable(the2025, "#mondayFightsLeaderboard", false) //no Jouzocoins
+    createLeagueHistoryChart(data, "myChart", new Date(2025,11,31))
+  }
+
+  LoadMFData(mainPage)
+</script>
+
+</br>
+
+</body>
+</html>
