@@ -2,7 +2,7 @@
 import {MF} from "./tournamentsData.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
-import {Avatars, getTrophies, getTipHtml, MFPodium} from "./podium.mjs"
+import {Avatars, getTrophies, getTipHtml, MFPodium, collectAchievements} from "./podium.mjs"
 import {tournamentSpec} from "../data/tournamentSpecs.mjs";
 
 function playerRank(fight, playerName) {
@@ -683,6 +683,62 @@ export function getLeagueData(data) {
   }
 }
 
+export function collectHallOfFameAchievements(data) {
+  let mfId = data.tournamentGames()[data.currentGameListTableIx].id
+  let date = new Date(data.findTournament(mfId).startsAt)
+  let fights = MF.filterUpTo(data.mondayFights(), date)
+
+  let achievements = []
+  fights.forEach(fight => {
+    let id = fight.id
+    let ix = data.findTournamentIx(id)
+    let games = data.tournamentGames()[ix]
+    let newAchievements = collectAchievements(data, id, games, achievements)
+    newAchievements.forEach(a => {
+      a.ix = ix
+      a.t = id
+    })
+    achievements = achievements.concat(newAchievements)
+  })
+
+  // group achievements by ...
+  let grouped = Object.groupBy(achievements, (a) => a.constructor.name);
+
+  function plId(a) {
+    if (a.player && a.player.user && a.player.user.name) return a.player.user.name
+    else return a.player
+  }
+
+  let stats = []
+  for (const a in grouped) {
+    let items = grouped[a]
+    let pl = Object.groupBy(items, (a) => plId(a))
+    let players = []
+    Object.entries(pl).map(([id, a]) => {
+      let count = a.length
+      let maxIx = -Infinity;
+      let tournament = ""
+      for (const item of a) {
+        if (item.ix > maxIx) {
+          maxIx = item.ix;
+          tournament = item.t
+        }
+      }
+      players.push({id: id, count: count, last: maxIx, tournament: tournament})
+    })
+    players.sort((a,b) => b.count - a.count - 1e-3 * (b.last - a.last))
+    let s = {
+      name: a,
+      data: items[0],
+      players: players
+    }
+    stats.push(s)
+  }
+  stats.sort((a,b) => b.data.sortVal - a.data.sortVal)
+
+  return stats
+}
+
 export async function downloadUserDataIntoLeague(league) {
   let ids = league.map(p => p.name).join(',')
   return await LAPI.lichessAPI().users(ids).then( users => {
@@ -804,6 +860,33 @@ export function createHallOfFamePlyerList(data, id) {
   dataOfPlayers.forEach(player => players += playerSection(player))
 
   playersEl.innerHTML = players
+}
+
+export function createHallOfFameAchievements(data, id) {
+  let achievementsEl = document.getElementById(id.substring(1))
+
+  let achievements = collectHallOfFameAchievements(data)
+
+  function achievementsSection(a) {
+    let lines = ""
+    for (let i=0; i<10; i++) {
+      let color = (i<1) ? "gold" : (i < 3 ? "online" : "offline");
+      let p = a.players[i]
+      if (p) {
+        lines += `<li><a class="${color} user-link ulpt" href="index.html?mf=${p.tournament}"><i class="line"></i>${p.id}</a>${p.count}</li>`
+      } else {
+        //lines += `<li><a class="offline user-link ulpt" href=""><i class="line"></i></a></li>`
+      }
+    }
+    let desc = (a.data.hof || a.data.desc).toLowerCase().replaceAll("<br>", " ")
+    return `<section class="user-top"><h2 class="text" data-icon=""><a href="">${desc}</a></h2><ol>` +
+      lines + `</ol></section>`
+  }
+
+  let achievementsHtml = ""
+  achievements.forEach(a => achievementsHtml += achievementsSection(a))
+
+  achievementsEl.innerHTML = achievementsHtml
 }
 
 let myChart

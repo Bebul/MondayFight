@@ -425,7 +425,7 @@
                     </section>
                     <div class="community__leaders">
                         <h2>Síň slávy</h2>
-                        <div class="leaderboards">
+                        <div id="achievements" class="leaderboards">
                             <section class="user-top">
                                 <h2 class="text" data-icon="">
                                     <a href="/player/top/200/bullet">Bullet</a>
@@ -1669,7 +1669,7 @@
 
         <script type="module">
             import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-            import {createHallOfFamePlyerList} from "./js/mondayFight.mjs"
+            import {createHallOfFamePlyerList, createHallOfFameAchievements} from "./js/mondayFight.mjs"
 
             function mainPage(data) {
                 let the2025 = MF.filterYear(data.mondayFights(), 2025)
@@ -1677,6 +1677,7 @@
                 let ix = data.findTournamentIx(mfId)
                 if (ix >= 0) data.currentGameListTableIx = ix
                 createHallOfFamePlyerList(data, "#player-list")
+                createHallOfFameAchievements(data, "#achievements")
             }
 
             LoadMFData(mainPage)

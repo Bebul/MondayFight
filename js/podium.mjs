@@ -313,6 +313,7 @@ class AchievementPawns {
     this.sortVal = n * 25
     this.img = "pawns.png"
     this.desc = `${n} pěšci ve sloupci`
+    this.hof = "pěšci ve sloupci"
     // this.frame = "stribrna.png"
     // this.left = 34
     // this.char = "&#x1F6A6;"
@@ -412,6 +413,7 @@ class AchievementBrokenChain {
     // this.left = 38
     this.img = "broken-chain.png"
     this.desc = `Přetrhl šňůru ${n} proher`
+    this.hof = "Přetrhl šnůru proher"
     this.game = id
   }
 }
@@ -422,6 +424,7 @@ class AchievementLackOfSpirit {
     this.sortVal = 60
     this.img = "question.png"
     this.desc = desc || "Málo bojovnosti"
+    this.hof = "Málo bojovnosti"
     this.game = id
   }
 }
@@ -432,6 +435,7 @@ class AchievementPersonalBest {
     this.sortVal = 100 + Number.parseInt(desc) / 100
     this.img = "personal-best.png"
     this.desc = "Osobáček " + desc
+    this.hof = "Osobáček"
     this.game = id
   }
 }
@@ -468,6 +472,7 @@ class AchievementBlackDot {
     //this.char = "⚫"
     this.img = "blackDot.png"
     this.desc = desc || "Černý puntík"
+    this.hof = "Černý puntík"
     this.game = id
   }
 }
@@ -478,6 +483,7 @@ class AchievementPinkDot {
     this.sortVal = 52
     this.img = "pinkDot.png"
     this.desc = desc || "Růžový puntík"
+    this.hof = "Růžový puntík"
     this.game = id
   }
 }
@@ -490,6 +496,7 @@ class AchievementBlackDotGM {
     //this.char = "⚫"
     this.img = "blackDot.png"
     this.desc = "Třídní důtka prohrál s GM"
+    this.desc = "Prohrál s GM"
     this.game = id
   }
 }
@@ -502,6 +509,7 @@ class AchievementRedDotIM {
     //this.char = "⚫"
     this.img = "redDot.png"
     this.desc = "Napomenutí prohrál s IM"
+    this.hof = "prohrál s IM"
     this.game = id
   }
 }
@@ -514,6 +522,7 @@ class AchievementBlackDotXX {
     //this.char = "⚫"
     this.img = "blackDot.png"
     this.desc = desc || "Ňákej blunder"
+    this.hof = "Černý puntík"
     this.game = id
   }
 }
@@ -677,7 +686,7 @@ function collectSpecAchievementDecorations(player, tournamentID, gameID) {
   return decorations
 }
 
-function collectAchievements(data, tournamentID, games) {
+export function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
   let s = tournamentSpec.find(s => s.id === tournamentID)
