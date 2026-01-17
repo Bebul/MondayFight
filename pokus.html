@@ -13,7 +13,7 @@
             @font-face {
                 font-family: 'lichess';
                 font-display: block;
-                src: url('fonts/lichess.woff2') format('woff2')
+                src: url('fonts/lichess-hof.woff2') format('woff2')
             }
         </style>
     </head>
@@ -22,127 +22,22 @@
             <div class="site-title-nav">
                 <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" autocomplete="off">
                 <label for="tn-tg" class="fullscreen-mask"></label>
-                <label for="tn-tg" class="hbg">
-                    <span class="hbg__in"></span>
-                </label>
-                <a class="site-title" href="/">
-                    <div class="site-icon" data-icon=""></div>
+                <a class="site-title" href="index.html">
                     <div class="site-name">
-                        lichess<span>.org</span>
+                        Monday Fights
                     </div>
                 </a>
-                <nav id="topnav" class="hover">
-                    <section>
-                        <a href="/">
-                            <span class="play">Hrát</span>
-                            <span class="home">lichess.org</span>
-                        </a>
-                        <div role="group">
-                            <a href="/?any#hook">Vytvořit hru</a>
-                            <a href="/tournament">Otevřené turnaje</a>
-                            <a href="/swiss">Švýcarské turnaje</a>
-                            <a href="/simul">Simultánky</a>
-                            <a class="community-patron mobile-only" href="/patron">Přispět</a>
-                        </div>
-                    </section>
-                    <section>
-                        <a href="/training">Puzzle</a>
-                        <div role="group">
-                            <a href="/training">Puzzle</a>
-                            <a href="/training/themes">Motivy úloh</a>
-                            <a href="/training/dashboard/30">Shrnutí Vašeho řešení úloh</a>
-                            <a href="/streak">Puzzle Streak</a>
-                            <a href="/storm">Puzzle Storm</a>
-                            <a href="/racer">Puzzle Racer</a>
-                        </div>
-                    </section>
-                    <section>
-                        <a href="/learn">Učit se</a>
-                        <div role="group">
-                            <a href="/learn">Základy šachu</a>
-                            <a href="/practice">Procvičujte</a>
-                            <a href="/training/coordinate">Souřadnice</a>
-                            <a href="/study">Studie</a>
-                            <a href="/coach">Trenéři</a>
-                        </div>
-                    </section>
-                    <section>
-                        <a href="/broadcast">Sledujte</a>
-                        <div role="group">
-                            <a href="/broadcast">Vysílání</a>
-                            <a href="/tv">Lichess TV</a>
-                            <a href="/games">Právě probíhající partie</a>
-                            <a href="/streamer">Streameři</a>
-                            <a href="/video">Video knihovna</a>
-                        </div>
-                    </section>
-                    <section>
-                        <a href="/player">Komunita</a>
-                        <div role="group">
-                            <a href="/player">Hráči</a>
-                            <a href="/@/LordBebul/following">Přátelé</a>
-                            <a href="/team">Týmy</a>
-                            <a href="/forum">Fórum</a>
-                            <a href="/blog/community">Blog</a>
-                        </div>
-                    </section>
-                    <section>
-                        <a href="/analysis">Nástroje</a>
-                        <div role="group">
-                            <a href="/analysis">Analýza</a>
-                            <a href="/opening">Zahájení</a>
-                            <a href="/editor">Editor šachovnice</a>
-                            <a href="/paste">Importuj hru</a>
-                            <a href="/games/search">Pokročilé vyhledávání</a>
-                        </div>
-                    </section>
-                </nav>
-                <a class="site-title-nav__donate" href="/patron">Přispět</a>
-            </div>
-            <div class="site-buttons">
-                <div id="warn-no-autoplay">
-                    <a data-icon="" target="_blank" href="/faq#autoplay"></a>
-                </div>
-                <div id="clinput">
-                    <a class="link" data-icon=""></a>
-                    <input spellcheck="false" autocomplete="false" aria-label="Hledat" placeholder="Hledat" enterkeyhint="search"/>
-                </div>
-                <div>
-                    <button id="challenge-toggle" class="toggle link" type="button">
-                        <span title="Výzvy: 0" role="status" aria-label="Výzvy: 0" class="data-count" data-count="0" data-icon=""></span>
-                    </button>
-                    <div id="challenge-app" class="dropdown"></div>
-                </div>
-                <div>
-                    <button id="notify-toggle" class="toggle link" type="button">
-                        <span title="Oznámení: 0" role="status" aria-label="Oznámení: 0" class="data-count" data-count="0" data-icon=""></span>
-                    </button>
-                    <div id="notify-app" class="dropdown"></div>
-                </div>
-                <div class="dasher">
-                    <a id="user_tag" class="toggle link" href="/logout">LordBebul</a>
-                    <div id="dasher_app" class="dropdown"></div>
-                </div>
             </div>
         </header>
         <div id="main-wrap" class="full-screen-force is2d">
             <main class="page-menu">
-                <aside class="subnav">
-                    <nav class="subnav__inner page-menu__menu">
-                        <a class="active" href="/player">Žebříček</a>
-                        <a class="" href="/stat/rating/distribution/blitz">Statistiky hodnocení</a>
-                        <a class="" href="/tournament/leaderboard">Turnajoví vítězové</a>
-                        <a class="" href="/tournament/shields">Turnajové štíty</a>
-                        <a class="" href="/player/bots">Online roboti</a>
-                    </nav>
-                </aside>
                 <div class="community page-menu__content box box-pad">
                     <section class="community__online">
-                        <h2>Hráči online</h2>
-                        <ol class="user-top">
+                        <h2>Hráči 2025</h2>
+                        <ol id="player-list" class="user-top">
                             <li>
                                 <a class="online user-link ulpt" href="/@/Mishka_The_Great">
-                                    <i class="line"></i>
+                                       <i class="line"></i>
                                     <span class="utitle" title="International Master">IM</span>
                                     &nbsp;Mishka_The_Great<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.bear.webp"/>
                                 </a>
@@ -529,7 +424,7 @@
                         </ol>
                     </section>
                     <div class="community__leaders">
-                        <h2>Žebříček</h2>
+                        <h2>Síň slávy</h2>
                         <div class="leaderboards">
                             <section class="user-top">
                                 <h2 class="text" data-icon="">

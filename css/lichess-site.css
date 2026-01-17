@@ -1706,19 +1706,13 @@ coords.squares.rank8 {
     }
 }
 
-@media(max-width: 499.3px) {
-    .site-title {
-        display:none
-    }
-}
-
 @media(min-width: 499.3px) {
     .site-title .site-icon {
         display:block
     }
 }
 
-@media(min-width: 1179.3px) {
+@media(min-width: 100.3px) {
     .site-title .site-name {
         display:block
     }
