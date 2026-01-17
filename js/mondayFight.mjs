@@ -775,6 +775,37 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, challenge
   }
 }
 
+export function createHallOfFamePlyerList(data, id) {
+  let playersEl = document.getElementById(id.substring(1))
+
+  const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
+
+  function playerSection(pl) {
+    let color = (pl.rank < 5) ? "gold" : ((pl.rank < 13) ? "online" : "offline");
+    let icon = ""
+    if (pl.rank == 1) icon = "&#xe021;"
+    else if (pl.rank == 2) icon = "&#xe016;"
+    else if (pl.rank == 3) icon = "&#xe01e;"
+    else if (pl.rank < 13) icon = "&#xe013;"
+    let dataIcon = (icon) ? `data-icon="${icon}"` : ""
+
+    return `
+      <li>
+        <a class="${color} user-link ulpt" href="${pl.nameUrl}">
+          <i class="line"></i>
+          ${pl.name}
+        </a>
+        <span ${dataIcon} class="text">${Math.floor(2 * pl.totalPts) / 2}</span>
+      </li>
+    `
+  }
+
+  let players = ""
+  dataOfPlayers.forEach(player => players += playerSection(player))
+
+  playersEl.innerHTML = players
+}
+
 let myChart
 export function createLeagueHistoryChart(data, chartId, date) {
   if (chartId) {
