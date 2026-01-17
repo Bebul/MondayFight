@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="cs-CZ" class="dark">
+    <!-- Lichess is open source! See https://lichess.org/source -->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+        <meta name="theme-color" content="#2e2a24">
+        <title>Hráči • lichess.org</title>
+        <link data-css-key="lib.theme.all" href="css/lichess-theme-all.css" rel="stylesheet"/>
+        <link data-css-key="site" href="css/lichess-site.css" rel="stylesheet"/>
+        <link data-css-key="user.list" href="css/lichess-user-list.css" rel="stylesheet"/>
+        <style>
+            @font-face {
+                font-family: 'lichess';
+                font-display: block;
+                src: url('fonts/lichess.woff2') format('woff2')
+            }
+        </style>
+    </head>
+    <body class="dark coords-in simple-board">
+        <header id="top">
+            <div class="site-title-nav">
+                <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" autocomplete="off">
+                <label for="tn-tg" class="fullscreen-mask"></label>
+                <label for="tn-tg" class="hbg">
+                    <span class="hbg__in"></span>
+                </label>
+                <a class="site-title" href="/">
+                    <div class="site-icon" data-icon=""></div>
+                    <div class="site-name">
+                        lichess<span>.org</span>
+                    </div>
+                </a>
+                <nav id="topnav" class="hover">
+                    <section>
+                        <a href="/">
+                            <span class="play">Hrát</span>
+                            <span class="home">lichess.org</span>
+                        </a>
+                        <div role="group">
+                            <a href="/?any#hook">Vytvořit hru</a>
+                            <a href="/tournament">Otevřené turnaje</a>
+                            <a href="/swiss">Švýcarské turnaje</a>
+                            <a href="/simul">Simultánky</a>
+                            <a class="community-patron mobile-only" href="/patron">Přispět</a>
+                        </div>
+                    </section>
+                    <section>
+                        <a href="/training">Puzzle</a>
+                        <div role="group">
+                            <a href="/training">Puzzle</a>
+                            <a href="/training/themes">Motivy úloh</a>
+                            <a href="/training/dashboard/30">Shrnutí Vašeho řešení úloh</a>
+                            <a href="/streak">Puzzle Streak</a>
+                            <a href="/storm">Puzzle Storm</a>
+                            <a href="/racer">Puzzle Racer</a>
+                        </div>
+                    </section>
+                    <section>
+                        <a href="/learn">Učit se</a>
+                        <div role="group">
+                            <a href="/learn">Základy šachu</a>
+                            <a href="/practice">Procvičujte</a>
+                            <a href="/training/coordinate">Souřadnice</a>
+                            <a href="/study">Studie</a>
+                            <a href="/coach">Trenéři</a>
+                        </div>
+                    </section>
+                    <section>
+                        <a href="/broadcast">Sledujte</a>
+                        <div role="group">
+                            <a href="/broadcast">Vysílání</a>
+                            <a href="/tv">Lichess TV</a>
+                            <a href="/games">Právě probíhající partie</a>
+                            <a href="/streamer">Streameři</a>
+                            <a href="/video">Video knihovna</a>
+                        </div>
+                    </section>
+                    <section>
+                        <a href="/player">Komunita</a>
+                        <div role="group">
+                            <a href="/player">Hráči</a>
+                            <a href="/@/LordBebul/following">Přátelé</a>
+                            <a href="/team">Týmy</a>
+                            <a href="/forum">Fórum</a>
+                            <a href="/blog/community">Blog</a>
+                        </div>
+                    </section>
+                    <section>
+                        <a href="/analysis">Nástroje</a>
+                        <div role="group">
+                            <a href="/analysis">Analýza</a>
+                            <a href="/opening">Zahájení</a>
+                            <a href="/editor">Editor šachovnice</a>
+                            <a href="/paste">Importuj hru</a>
+                            <a href="/games/search">Pokročilé vyhledávání</a>
+                        </div>
+                    </section>
+                </nav>
+                <a class="site-title-nav__donate" href="/patron">Přispět</a>
+            </div>
+            <div class="site-buttons">
+                <div id="warn-no-autoplay">
+                    <a data-icon="" target="_blank" href="/faq#autoplay"></a>
+                </div>
+                <div id="clinput">
+                    <a class="link" data-icon=""></a>
+                    <input spellcheck="false" autocomplete="false" aria-label="Hledat" placeholder="Hledat" enterkeyhint="search"/>
+                </div>
+                <div>
+                    <button id="challenge-toggle" class="toggle link" type="button">
+                        <span title="Výzvy: 0" role="status" aria-label="Výzvy: 0" class="data-count" data-count="0" data-icon=""></span>
+                    </button>
+                    <div id="challenge-app" class="dropdown"></div>
+                </div>
+                <div>
+                    <button id="notify-toggle" class="toggle link" type="button">
+                        <span title="Oznámení: 0" role="status" aria-label="Oznámení: 0" class="data-count" data-count="0" data-icon=""></span>
+                    </button>
+                    <div id="notify-app" class="dropdown"></div>
+                </div>
+                <div class="dasher">
+                    <a id="user_tag" class="toggle link" href="/logout">LordBebul</a>
+                    <div id="dasher_app" class="dropdown"></div>
+                </div>
+            </div>
+        </header>
+        <div id="main-wrap" class="full-screen-force is2d">
+            <main class="page-menu">
+                <aside class="subnav">
+                    <nav class="subnav__inner page-menu__menu">
+                        <a class="active" href="/player">Žebříček</a>
+                        <a class="" href="/stat/rating/distribution/blitz">Statistiky hodnocení</a>
+                        <a class="" href="/tournament/leaderboard">Turnajoví vítězové</a>
+                        <a class="" href="/tournament/shields">Turnajové štíty</a>
+                        <a class="" href="/player/bots">Online roboti</a>
+                    </nav>
+                </aside>
+                <div class="community page-menu__content box box-pad">
+                    <section class="community__online">
+                        <h2>Hráči online</h2>
+                        <ol class="user-top">
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Mishka_The_Great">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;Mishka_The_Great<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.bear.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 83 674 partiích" data-icon="" class="text">3232</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Jaggust01">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;Jaggust01<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.rabbit-face.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 3 629 partiích" data-icon="" class="text">3216</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/LegacyOfBob">
+                                    <i class="line"></i>
+                                    LegacyOfBob
+                                </a>
+                                <span title="Bullet hodnocení po 2 140 partiích" data-icon="" class="text">3215</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/nihalsarin2004">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;nihalsarin2004
+                                </a>
+                                <span title="Bullet hodnocení po 17 153 partiích" data-icon="" class="text">3224</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/woshigeshagua">
+                                    <i class="line"></i>
+                                    woshigeshagua
+                                </a>
+                                <span title="Bullet hodnocení po 2 549 partiích" data-icon="" class="text">3201</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/LiamPutnam2008">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;LiamPutnam2008<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 11 342 partiích" data-icon="" class="text">3223</span>
+                            </li>
+                            <li>
+                                <a class="offline user-link ulpt" href="/@/Blazinq">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;Blazinq
+                                </a>
+                                <span title="Bullet hodnocení po 17 484 partiích" data-icon="" class="text">3135</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Night-King96">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Night-King96
+                                </a>
+                                <span title="Bullet hodnocení po 14 921 partiích" data-icon="" class="text">3205</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/HomayooonT">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;HomayooonT
+                                </a>
+                                <span title="Bullet hodnocení po 5 484 partiích" data-icon="" class="text">3125</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/delta_horsey">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;delta_horsey<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-blitz.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 1 731 partiích" data-icon="" class="text">3162</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Grebnev_Aleksey">
+                                    <i class="line"></i>
+                                    Grebnev_Aleksey<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.call-me-hand-dark-skin-tone.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 788 partiích" data-icon="" class="text">3114</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Yazet_Mazalbloom">
+                                    <i class="line"></i>
+                                    Yazet_Mazalbloom
+                                </a>
+                                <span title="Bullet hodnocení po 686 partiích" data-icon="" class="text">3107</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/SGchess01">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;SGchess01
+                                </a>
+                                <span title="Bullet hodnocení po 11 717 partiích" data-icon="" class="text">3139</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/fanfanfan">
+                                    <i class="line"></i>
+                                    fanfanfan<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.basketball.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 3 371 partiích" data-icon="" class="text">3102</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/OlegPro1">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Candidate Master">CM</span>
+                                    &nbsp;OlegPro1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.cold-face.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 17 259 partiích" data-icon="" class="text">3126</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/BrightFalcon">
+                                    <i class="line"></i>
+                                    BrightFalcon<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.eagle.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 7 689 partiích" data-icon="" class="text">3091</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/wateenellende">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;wateenellende<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.turtle.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 78 698 partiích" data-icon="" class="text">3071</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/drop_stone">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;drop_stone
+                                </a>
+                                <span title="Bullet hodnocení po 15 775 partiích" data-icon="" class="text">3095</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Gordima">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Gordima<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/food-drink.hot-beverage.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 2 388 partiích" data-icon="" class="text">3114</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/chessisinmyblood">
+                                    <i class="line"></i>
+                                    chessisinmyblood
+                                </a>
+                                <span title="Bullet hodnocení po 15 516 partiích" data-icon="" class="text">3033</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Secret_Magnus">
+                                    <i class="line"></i>
+                                    Secret_Magnus
+                                </a>
+                                <span title="Bullet hodnocení po 927 partiích" data-icon="" class="text">3028</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Chesstoday">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Chesstoday
+                                </a>
+                                <span title="Bullet hodnocení po 3 883 partiích" data-icon="" class="text">3166</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/PeshkaCh">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="FIDE Master">FM</span>
+                                    &nbsp;PeshkaCh
+                                </a>
+                                <span title="Bullet hodnocení po 16 003 partiích" data-icon="" class="text">3020</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Polyclinical">
+                                    <i class="line"></i>
+                                    Polyclinical
+                                </a>
+                                <span title="Bullet hodnocení po 10 244 partiích" data-icon="" class="text">3089</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/SHREKDAVID">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;SHREKDAVID
+                                </a>
+                                <span title="Bullet hodnocení po 7 860 partiích" data-icon="" class="text">3072</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/JohnVenyAkkarakaran">
+                                    <i class="line"></i>
+                                    JohnVenyAkkarakaran
+                                </a>
+                                <span title="Bullet hodnocení po 925 partiích" data-icon="" class="text">3011</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Trojanhorse2009">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;Trojanhorse2009<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.face-with-hand-over-mouth.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 344 partiích" data-icon="" class="text">3100</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/gsvc">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;gsvc<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.question-mark.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 5 190 partiích" data-icon="" class="text">3127</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/LATESTEMPIRE">
+                                    <i class="line"></i>
+                                    LATESTEMPIRE
+                                </a>
+                                <span title="Bullet hodnocení po 1 378 partiích" data-icon="" class="text">3005</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Drthebigboss">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Drthebigboss
+                                </a>
+                                <span title="Bullet hodnocení po 12 507 partiích" data-icon="" class="text">3089</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/FaustiOro">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;FaustiOro
+                                </a>
+                                <span title="Bullet hodnocení po 5 482 partiích" data-icon="" class="text">3131</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Ronen338">
+                                    <i class="line"></i>
+                                    Ronen338
+                                </a>
+                                <span title="Bullet hodnocení po 4 543 partiích" data-icon="" class="text">3000</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/ABachmann">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;ABachmann
+                                </a>
+                                <span title="Bullet hodnocení po 11 882 partiích" data-icon="" class="text">3067</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Ali_rastbod">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="FIDE Master">FM</span>
+                                    &nbsp;Ali_rastbod<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.call-me-hand.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 24 485 partiích" data-icon="" class="text">3048</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Elda64">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Elda64<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-horsey.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 36 551 partiích" data-icon="" class="text">3100</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Rat_variant">
+                                    <i class="line"></i>
+                                    Rat_variant
+                                </a>
+                                <span title="Bullet hodnocení po 2 944 partiích" data-icon="" class="text">2994</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/CosmicVision">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="National Master">NM</span>
+                                    &nbsp;CosmicVision<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.shooting-star.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 4 499 partiích" data-icon="" class="text">3046</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/AdvantagePlayer">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;AdvantagePlayer
+                                </a>
+                                <span title="Bullet hodnocení po 1 273 partiích" data-icon="" class="text">2991</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Rakhmanov_Aleksandr">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Rakhmanov_Aleksandr
+                                </a>
+                                <span title="Bullet hodnocení po 6 419 partiích" data-icon="" class="text">3113</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/GutovAndrey">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;GutovAndrey<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.1st-place-medal.webp"/>
+                                </a>
+                                <span title="Rapid hodnocení po 583 partiích" data-icon="" class="text">3013?</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/kaumandur01">
+                                    <i class="line patron" title="Lichess Patron"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;kaumandur01<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.hundred-points.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 7 322 partiích" data-icon="" class="text">3024</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Vostanin">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="FIDE Master">FM</span>
+                                    &nbsp;Vostanin<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.flexed-biceps.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 33 562 partiích" data-icon="" class="text">3000</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Esssquire">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Esssquire
+                                </a>
+                                <span title="Bullet hodnocení po 8 530 partiích" data-icon="" class="text">3060</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/cutemouse83">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;cutemouse83
+                                </a>
+                                <span title="Bleskové šachy hodnocení po 12 565 partiích" data-icon="" class="text">2974</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Ernur2008">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="FIDE Master">FM</span>
+                                    &nbsp;Ernur2008<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.triangular-flag.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 8 221 partiích" data-icon="" class="text">2990</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/The_Great_Evil">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="International Master">IM</span>
+                                    &nbsp;The_Great_Evil<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/objects.coin.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 3 021 partiích" data-icon="" class="text">3044</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Saviy_Pyshchkins">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Candidate Master">CM</span>
+                                    &nbsp;Saviy_Pyshchkins<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.cat.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 1 543 partiích" data-icon="" class="text">3001</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/gmalvaralonso">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;gmalvaralonso
+                                </a>
+                                <span title="Bullet hodnocení po 248 partiích" data-icon="" class="text">3054?</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/Bardiya___Daneshvar">
+                                    <i class="line"></i>
+                                    <span class="utitle" title="Grandmaster">GM</span>
+                                    &nbsp;Bardiya___Daneshvar<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.grinning-face-with-sweat.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 6 389 partiích" data-icon="" class="text">3059</span>
+                            </li>
+                            <li>
+                                <a class="online user-link ulpt" href="/@/XUEYAO1233">
+                                    <i class="line"></i>
+                                    XUEYAO1233<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/objects.chart-increasing-with-yen.webp"/>
+                                </a>
+                                <span title="Bullet hodnocení po 1 368 partiích" data-icon="" class="text">3083</span>
+                            </li>
+                        </ol>
+                    </section>
+                    <div class="community__leaders">
+                        <h2>Žebříček</h2>
+                        <div class="leaderboards">
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/bullet">Bullet</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Arkadiy_Khromaev">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Arkadiy_Khromaev
+                                        </a>
+                                        3324
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/penguingim1">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;penguingim1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.penguin.webp"/>
+                                        </a>
+                                        3295
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/chess-art-us">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;chess-art-us<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.deaf-man-light-skin-tone.webp"/>
+                                        </a>
+                                        3273
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Ediz_Gurel">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Ediz_Gurel<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.alien.webp"/>
+                                        </a>
+                                        3266
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/VincentKeymer2004">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;VincentKeymer2004
+                                        </a>
+                                        3258
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Heisenberg01">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Heisenberg01
+                                        </a>
+                                        3251
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/SindarovGM">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;SindarovGM
+                                        </a>
+                                        3241
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/FirstRuleOfFightClub">
+                                            <i class="line"></i>
+                                            FirstRuleOfFightClub
+                                        </a>
+                                        3237
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Mishka_The_Great">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Mishka_The_Great<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.bear.webp"/>
+                                        </a>
+                                        3232
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/nihalsarin2004">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;nihalsarin2004
+                                        </a>
+                                        3224
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/blitz">Bleskové šachy</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Sportik_Shark">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Sportik_Shark<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.alien.webp"/>
+                                        </a>
+                                        3002
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Yarebore">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Yarebore<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.full-moon-face.webp"/>
+                                        </a>
+                                        2975
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/cutemouse83">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;cutemouse83
+                                        </a>
+                                        2974
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/athena-pallada">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;athena-pallada<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2960
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/teem1">
+                                            <i class="line"></i>
+                                            teem1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.disguised-face.webp"/>
+                                        </a>
+                                        2956
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Fran4477">
+                                            <i class="line"></i>
+                                            Fran4477
+                                        </a>
+                                        2950
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/FeelingLiberated">
+                                            <i class="line"></i>
+                                            FeelingLiberated
+                                        </a>
+                                        2940
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/delta_horsey">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;delta_horsey<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-blitz.webp"/>
+                                        </a>
+                                        2921
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Schachmachine">
+                                            <i class="line"></i>
+                                            Schachmachine
+                                        </a>
+                                        2912
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/InvisibleGuest2023">
+                                            <i class="line"></i>
+                                            InvisibleGuest2023
+                                        </a>
+                                        2903
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/rapid">Rapid</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Pap-G">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Pap-G
+                                        </a>
+                                        2947
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/ilqar_7474">
+                                            <i class="line"></i>
+                                            ilqar_7474<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.dog-face.webp"/>
+                                        </a>
+                                        2911
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Rakhmanov_Aleksandr">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Rakhmanov_Aleksandr
+                                        </a>
+                                        2856
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/yuuki-asuna">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;yuuki-asuna<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.broken-heart.webp"/>
+                                        </a>
+                                        2803
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Kurald_Galain">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Kurald_Galain<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.troll.webp"/>
+                                        </a>
+                                        2785
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Tuzakli_Egitim">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Tuzakli_Egitim<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.cat-face.webp"/>
+                                        </a>
+                                        2752
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Sharkfang">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Sharkfang<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2749
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/chessmem">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;chessmem
+                                        </a>
+                                        2741
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/MatthewG-p4p">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;MatthewG-p4p<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.man-student.webp"/>
+                                        </a>
+                                        2740
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Cf3paraCg1">
+                                            <i class="line"></i>
+                                            Cf3paraCg1
+                                        </a>
+                                        2731
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/classical">Klasické</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/yuuki-asuna">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;yuuki-asuna<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.broken-heart.webp"/>
+                                        </a>
+                                        2596
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/XII_MARSHAL">
+                                            <i class="line"></i>
+                                            XII_MARSHAL
+                                        </a>
+                                        2555
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Vlad_Lazarev79">
+                                            <i class="line"></i>
+                                            Vlad_Lazarev79<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.face-with-medical-mask.webp"/>
+                                        </a>
+                                        2555
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Lucon2000">
+                                            <i class="line"></i>
+                                            Lucon2000<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.cat-with-wry-smile.webp"/>
+                                        </a>
+                                        2545
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Truemasterme">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Truemasterme
+                                        </a>
+                                        2534
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/platinumcrown">
+                                            <i class="line"></i>
+                                            platinumcrown<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.heart-with-arrow.webp"/>
+                                        </a>
+                                        2511
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/matteorf2b">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;matteorf2b<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/food-drink.kitchen-knife.webp"/>
+                                        </a>
+                                        2501
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/CoD_Dragon">
+                                            <i class="line"></i>
+                                            CoD_Dragon<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.dragon.webp"/>
+                                        </a>
+                                        2486
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/sabke">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;sabke<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.shamrock.webp"/>
+                                        </a>
+                                        2470
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Oakley666">
+                                            <i class="line"></i>
+                                            Oakley666
+                                        </a>
+                                        2467
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/ultraBullet">UltraBullet</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Arkadiy_Khromaev">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Arkadiy_Khromaev
+                                        </a>
+                                        2706
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/AmeThyst27">
+                                            <i class="line"></i>
+                                            AmeThyst27<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                        </a>
+                                        2704
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/OlegPro1">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;OlegPro1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.cold-face.webp"/>
+                                        </a>
+                                        2625
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/shkityaro4ka">
+                                            <i class="line"></i>
+                                            shkityaro4ka<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.eyes.webp"/>
+                                        </a>
+                                        2601
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Trojanhorse2009">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Trojanhorse2009<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.face-with-hand-over-mouth.webp"/>
+                                        </a>
+                                        2593
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/NazarVoronChess">
+                                            <i class="line"></i>
+                                            NazarVoronChess<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.clown-face.webp"/>
+                                        </a>
+                                        2581
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/WillZeitnot">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="National Master">NM</span>
+                                            &nbsp;WillZeitnot<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                        </a>
+                                        2565
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/chess-art-us">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;chess-art-us<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.deaf-man-light-skin-tone.webp"/>
+                                        </a>
+                                        2563
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Bardyk01">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Bardyk01
+                                        </a>
+                                        2557
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/LegacyOfBob">
+                                            <i class="line"></i>
+                                            LegacyOfBob
+                                        </a>
+                                        2550
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">Aktivní hráči</h2>
+                                <ol>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/german11">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            german11
+                                        </a>
+                                        <span title="Odehraných partií">#701 465</span>
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/QueenMaster77">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            QueenMaster77<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.wheelchair-symbol.webp"/>
+                                        </a>
+                                        <span title="Odehraných partií">#538 423</span>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/decidement">
+                                            <i class="line"></i>
+                                            decidement
+                                        </a>
+                                        <span title="Odehraných partií">#507 995</span>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/rkido">
+                                            <i class="line"></i>
+                                            rkido
+                                        </a>
+                                        <span title="Odehraných partií">#389 151</span>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/SUTHEY2">
+                                            <i class="line"></i>
+                                            SUTHEY2
+                                        </a>
+                                        <span title="Odehraných partií">#385 324</span>
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Hoegi">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Hoegi
+                                        </a>
+                                        <span title="Odehraných partií">#374 302</span>
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Thobisch">
+                                            <i class="line"></i>
+                                            Thobisch
+                                        </a>
+                                        <span title="Odehraných partií">#364 676</span>
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/RubbleChess">
+                                            <i class="line"></i>
+                                            RubbleChess<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.camel.webp"/>
+                                        </a>
+                                        <span title="Odehraných partií">#362 909</span>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Blackpony">
+                                            <i class="line"></i>
+                                            Blackpony<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/objects.crown.webp"/>
+                                        </a>
+                                        <span title="Odehraných partií">#333 355</span>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/rockus">
+                                            <i class="line"></i>
+                                            rockus
+                                        </a>
+                                        <span title="Odehraných partií">#325 211</span>
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/tournament/leaderboard">Turnaj</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/BrightFalcon">
+                                            <i class="line"></i>
+                                            BrightFalcon<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.eagle.webp"/>
+                                        </a>
+                                        <a title="Yearly HyperBullet" href="/tournament/Kw7glxId">
+                                            Yearly H<span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/MatthewG-p4p">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;MatthewG-p4p<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.man-student.webp"/>
+                                        </a>
+                                        <a title="Yearly Bullet" href="/tournament/8q64suvt">Yearly Bullet</a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Guary1">
+                                            <i class="line"></i>
+                                            Guary1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.ninja-light-skin-tone.webp"/>
+                                        </a>
+                                        <a title="Yearly SuperBlitz" href="/tournament/C6e2F0VO">
+                                            Yearly S<span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Funo09">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Funo09
+                                        </a>
+                                        <a title="Monthly Blitz" href="/tournament/jCLU4l1h">Monthly Blitz</a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/ChessMagic1980">
+                                            <i class="line"></i>
+                                            ChessMagic1980
+                                        </a>
+                                        <a title="Monthly Rapid" href="/tournament/OR9pU96x">Monthly Rapid</a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Tictoocchess">
+                                            <i class="line"></i>
+                                            Tictoocchess<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.dolphin.webp"/>
+                                        </a>
+                                        <a title="Elite Bullet" href="/tournament/duutZzTr">Elite Bullet</a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Ragehunter">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Ragehunter
+                                        </a>
+                                        <a title="2025 Spring Marathon" href="/tournament/spring25">
+                                            2025 Spring <span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/terra87">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            terra87
+                                        </a>
+                                        <a title="Yearly Crazyhouse" href="/tournament/AEQlgAKV">
+                                            Yearly <span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/cbev378">
+                                            <i class="line"></i>
+                                            cbev378<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                        </a>
+                                        <a title="Yearly Chess960" href="/tournament/EAMCvUGm">
+                                            Yearly <span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Just-give-up">
+                                            <i class="line"></i>
+                                            Just-give-up<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.wilted-flower.webp"/>
+                                        </a>
+                                        <a title="Monthly King of the Hill" href="/tournament/eb3VasUB">
+                                            Monthly <span data-icon=""></span>
+                                        </a>
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/crazyhouse">Crazyhouse</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/GRXbullet">
+                                            <i class="line"></i>
+                                            GRXbullet<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.multiply.webp"/>
+                                        </a>
+                                        2831
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/tobyrizzo">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="National Master">NM</span>
+                                            &nbsp;tobyrizzo
+                                        </a>
+                                        2676
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/HanzoTheRazor">
+                                            <i class="line"></i>
+                                            HanzoTheRazor
+                                        </a>
+                                        2632
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Neutralizerr">
+                                            <i class="line"></i>
+                                            Neutralizerr
+                                        </a>
+                                        2601
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Accidental_defeat">
+                                            <i class="line"></i>
+                                            Accidental_defeat<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.soccer-ball.webp"/>
+                                        </a>
+                                        2588
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Samuraitonto">
+                                            <i class="line"></i>
+                                            Samuraitonto
+                                        </a>
+                                        2587
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/turkeysniper">
+                                            <i class="line"></i>
+                                            turkeysniper<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.turkey.webp"/>
+                                        </a>
+                                        2583
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/sonogoneli">
+                                            <i class="line"></i>
+                                            sonogoneli
+                                        </a>
+                                        2578
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/RodrigoDiazdeVivar1">
+                                            <i class="line"></i>
+                                            RodrigoDiazdeVivar1
+                                        </a>
+                                        2575
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Zhigalko_Sergei">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Zhigalko_Sergei
+                                        </a>
+                                        2564
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/chess960">Chess960</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Zhigalko_Sergei">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Zhigalko_Sergei
+                                        </a>
+                                        2868
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Arkadiy_Khromaev">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Arkadiy_Khromaev
+                                        </a>
+                                        2730
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/chess-art-us">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;chess-art-us<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.deaf-man-light-skin-tone.webp"/>
+                                        </a>
+                                        2665
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/bubeliang">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;bubeliang
+                                        </a>
+                                        2640
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Fritzi_2003">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Fritzi_2003<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                        </a>
+                                        2635
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/TheSalesMan456">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            TheSalesMan456<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/objects.sewing-needle.webp"/>
+                                        </a>
+                                        2632
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/VladimirIlyich917">
+                                            <i class="line"></i>
+                                            VladimirIlyich917<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.construction-worker-light-skin-tone.webp"/>
+                                        </a>
+                                        2629
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Pap-G">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Pap-G
+                                        </a>
+                                        2612
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Suleyman_Chess06">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Suleyman_Chess06<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.eagle.webp"/>
+                                        </a>
+                                        2609
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Thunderbolt1909">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Thunderbolt1909<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.panda.webp"/>
+                                        </a>
+                                        2606
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/antichess">Antichess</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Antichess_Valentino">
+                                            <i class="line"></i>
+                                            Antichess_Valentino
+                                        </a>
+                                        2511
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/tolius">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            tolius<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.frog.webp"/>
+                                        </a>
+                                        2422
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/pf2000">
+                                            <i class="line"></i>
+                                            pf2000
+                                        </a>
+                                        2413
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/devansh2008">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            devansh2008<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.zombie.webp"/>
+                                        </a>
+                                        2406
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/cFlour">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            cFlour<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/travel-places.high-speed-train.webp"/>
+                                        </a>
+                                        2404
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/llIVIll">
+                                            <i class="line"></i>
+                                            llIVIll<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.dragon.webp"/>
+                                        </a>
+                                        2400
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/TheUnknownGuyReborn">
+                                            <i class="line"></i>
+                                            TheUnknownGuyReborn
+                                        </a>
+                                        2398
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Peeyush_Sonkar">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Peeyush_Sonkar<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.puzzle-storm.webp"/>
+                                        </a>
+                                        2394
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/bciswraps">
+                                            <i class="line"></i>
+                                            bciswraps<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.pinched-fingers-medium-dark-skin-tone.webp"/>
+                                        </a>
+                                        2393
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/mysterio_rey619">
+                                            <i class="line"></i>
+                                            mysterio_rey619
+                                        </a>
+                                        2384
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/atomic">Atomic</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/NeverOFzero">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            NeverOFzero<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/food-drink.clinking-beer-mugs.webp"/>
+                                        </a>
+                                        2525
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/JakeStateFarm">
+                                            <i class="line"></i>
+                                            JakeStateFarm<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.penguin.webp"/>
+                                        </a>
+                                        2390
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Wolfram_EP">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Wolfram_EP<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.wolf.webp"/>
+                                        </a>
+                                        2384
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/chrisrapid">
+                                            <i class="line"></i>
+                                            chrisrapid<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-rapid.webp"/>
+                                        </a>
+                                        2382
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/sutcunuri">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;sutcunuri
+                                        </a>
+                                        2377
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/RKROUNIT">
+                                            <i class="line"></i>
+                                            RKROUNIT<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.eight-pointed-star.webp"/>
+                                        </a>
+                                        2373
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/GRX_BULLET">
+                                            <i class="line"></i>
+                                            GRX_BULLET<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/objects.graduation-cap.webp"/>
+                                        </a>
+                                        2350
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/N7PRO">
+                                            <i class="line"></i>
+                                            N7PRO<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.smiling-face-with-horns-blob.webp"/>
+                                        </a>
+                                        2345
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Natso">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Natso<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.cherry-blossom.webp"/>
+                                        </a>
+                                        2333
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/MaxwellsSilvrHammer">
+                                            <i class="line"></i>
+                                            MaxwellsSilvrHammer<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.lizard.webp"/>
+                                        </a>
+                                        2320
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/threeCheck">Three-check</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Mirakel05">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Mirakel05<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.santa-claus.webp"/>
+                                        </a>
+                                        2550
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/SuperbAmir">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;SuperbAmir<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/food-drink.clinking-beer-mugs.webp"/>
+                                        </a>
+                                        2538
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/UnholyCrusade">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;UnholyCrusade<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.passport-control.webp"/>
+                                        </a>
+                                        2533
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Zhigalko_Sergei">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Zhigalko_Sergei
+                                        </a>
+                                        2501
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/bciswraps">
+                                            <i class="line"></i>
+                                            bciswraps<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.pinched-fingers-medium-dark-skin-tone.webp"/>
+                                        </a>
+                                        2476
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Aryan_Rahimpour_2004">
+                                            <i class="line"></i>
+                                            Aryan_Rahimpour_2004<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.man-mage-light-skin-tone.webp"/>
+                                        </a>
+                                        2456
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/HomayooonT">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;HomayooonT
+                                        </a>
+                                        2432
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Niccless">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Niccless
+                                        </a>
+                                        2430
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/lion2006-45">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            lion2006-45<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2411
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/TheFinnisher">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            TheFinnisher
+                                        </a>
+                                        2408
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/kingOfTheHill">King of the Hill</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Mirakel05">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="International Master">IM</span>
+                                            &nbsp;Mirakel05<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.santa-claus.webp"/>
+                                        </a>
+                                        2701
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Zhigalko_Sergei">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Zhigalko_Sergei
+                                        </a>
+                                        2637
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/HomayooonT">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;HomayooonT
+                                        </a>
+                                        2599
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/SkodaKylaq">
+                                            <i class="line"></i>
+                                            SkodaKylaq<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/travel-places.oncoming-police-car.webp"/>
+                                        </a>
+                                        2566
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/lion2006-45">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            lion2006-45<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2504
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/yuuki-asuna">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;yuuki-asuna<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.broken-heart.webp"/>
+                                        </a>
+                                        2502
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/CK-king-2024">
+                                            <i class="line"></i>
+                                            CK-king-2024
+                                        </a>
+                                        2500
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Pap-G">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="Grandmaster">GM</span>
+                                            &nbsp;Pap-G
+                                        </a>
+                                        2485
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Aqua_Blazing">
+                                            <i class="line"></i>
+                                            Aqua_Blazing
+                                        </a>
+                                        2483
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Bgah">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;Bgah<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.xmas-lichess-horsey.webp"/>
+                                        </a>
+                                        2479
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/horde">Horde</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Boburjon007">
+                                            <i class="line"></i>
+                                            Boburjon007<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.cyclone.webp"/>
+                                        </a>
+                                        2808
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Matvei-e2e4">
+                                            <i class="line"></i>
+                                            Matvei-e2e4
+                                        </a>
+                                        2781
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/MarkusWebster">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            MarkusWebster
+                                        </a>
+                                        2733
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Horus_88">
+                                            <i class="line"></i>
+                                            Horus_88<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.peace-symbol.webp"/>
+                                        </a>
+                                        2717
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Bozkurtlaruluyacak">
+                                            <i class="line"></i>
+                                            Bozkurtlaruluyacak
+                                        </a>
+                                        2708
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Stubenfisch">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Stubenfisch
+                                        </a>
+                                        2669
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/matteorf2b">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="Candidate Master">CM</span>
+                                            &nbsp;matteorf2b<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/food-drink.kitchen-knife.webp"/>
+                                        </a>
+                                        2601
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/bagera9">
+                                            <i class="line"></i>
+                                            bagera9
+                                        </a>
+                                        2579
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/lion2006-45">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            lion2006-45<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2573
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/Aar_77on">
+                                            <i class="line"></i>
+                                            Aar_77on<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/travel-places.airplane.webp"/>
+                                        </a>
+                                        2564
+                                    </li>
+                                </ol>
+                            </section>
+                            <section class="user-top">
+                                <h2 class="text" data-icon="">
+                                    <a href="/player/top/200/racingKings">Racing Kings</a>
+                                </h2>
+                                <ol>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/R2300">
+                                            <i class="line"></i>
+                                            R2300<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-berserk.webp"/>
+                                        </a>
+                                        2495
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/seth_777">
+                                            <i class="line"></i>
+                                            seth_777<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.baseball.webp"/>
+                                        </a>
+                                        2483
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/QueenEatingDragon">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="National Master">NM</span>
+                                            &nbsp;QueenEatingDragon<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.dragon.webp"/>
+                                        </a>
+                                        2456
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/bijiy">
+                                            <i class="line"></i>
+                                            <span class="utitle" title="FIDE Master">FM</span>
+                                            &nbsp;bijiy<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/people.ninja-dark-skin-tone.webp"/>
+                                        </a>
+                                        2436
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/CyberShredder">
+                                            <i class="line"></i>
+                                            CyberShredder<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/symbols.linux-tux-penguin.webp"/>
+                                        </a>
+                                        2429
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/Natso">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            Natso<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.cherry-blossom.webp"/>
+                                        </a>
+                                        2382
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/YB_1">
+                                            <i class="line"></i>
+                                            YB_1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.2nd-place-medal.webp"/>
+                                        </a>
+                                        2354
+                                    </li>
+                                    <li>
+                                        <a class="offline user-link ulpt" href="/@/james126">
+                                            <i class="line"></i>
+                                            james126<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.t-rex.webp"/>
+                                        </a>
+                                        2352
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/lion2006-45">
+                                            <i class="line patron" title="Lichess Patron"></i>
+                                            lion2006-45<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
+                                        </a>
+                                        2350
+                                    </li>
+                                    <li>
+                                        <a class="online user-link ulpt" href="/@/NilSeWon">
+                                            <i class="line"></i>
+                                            NilSeWon<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.tiger-face.webp"/>
+                                        </a>
+                                        2347
+                                    </li>
+                                </ol>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <div id="friend_box">
+            <div class="friend_box_title">
+                <i data-icon=""></i>
+                kamarádů online
+            </div>
+            <div class="content_wrap none">
+                <div class="content list"></div>
+            </div>
+        </div>
+        <a id="network-status" class="link text" data-icon=""></a>
+        <svg width="0" height="0">
+            <mask id="mask">
+                <path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/>
+            </mask>
+        </svg>
+    </body>
+</html>

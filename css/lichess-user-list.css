@@ -1,0 +1,110 @@
+html[dir=rtl] .force-ltr {
+    direction: ltr;
+    text-align: left
+}
+
+.community__leaders .leaderboards h2 {
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.community .user-top .user-link {
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.community__leaders .leaderboards h2 {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center
+}
+
+.community__leaders .leaderboards {
+    border-radius: 6px
+}
+
+body ::-webkit-scrollbar,body ::-webkit-scrollbar-corner {
+    width: .5rem;
+    background: var(--c-bg-box)
+}
+
+body ::-webkit-scrollbar-thumb {
+    background: var(--c-shade)
+}
+
+body ::-webkit-scrollbar-thumb:hover,body ::-webkit-scrollbar-thumb:active {
+    background: var(--c-font-dimmer)
+}
+
+.community {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-areas: "online" "leaders"
+}
+
+@media(min-width: 499.3px) {
+    .community {
+        grid-template-columns:min-content 1fr;
+        grid-template-rows: min-content;
+        grid-template-areas: "online leaders" "online ."
+    }
+}
+
+.community h2 {
+    font-size: 1.7em;
+    margin-bottom: 2rem
+}
+
+.community .user-top li {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.community__online {
+    grid-area: online
+}
+
+.community__online li {
+    padding: .6rem 0
+}
+
+.community__online .user-link {
+    margin-inline-end:1em}
+
+.community__leaders {
+    grid-area: leaders
+}
+
+.community__leaders .leaderboards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30ch, 1fr))
+}
+
+.community__leaders .leaderboards .user-top {
+    border: 1px solid var(--m-brag--fade-50)
+}
+
+.community__leaders .leaderboards h2 {
+    font-size: 1.45em;
+    line-height: 2.5em;
+    letter-spacing: -1px;
+    padding-inline-start:.8rem;text-transform: uppercase;
+    margin: 0;
+    background: var(--c-brag);
+    color: #fff
+}
+
+.community__leaders .leaderboards h2 a {
+    color: #fff
+}
+
+.community__leaders .leaderboards li {
+    padding-inline-start:.5rem;padding-inline-end:1.2rem;padding-top: .7rem;
+    padding-bottom: .7rem
+}
+
+.community__leaders .leaderboards li:nth-child(even) {
+    background: var(--c-bg-zebra);
+}
