@@ -34,7 +34,7 @@
                 <div class="community page-menu__content box box-pad">
                     <section class="community__online">
                         <h2>Vyber rok</h2>
-                        <ol class="user-top" style = "margin: -20px 0 -20px 0">
+                        <ol class="user-top">
                             <li><a class="offline user-link ulpt" href="?year=2020"><i class="line"></i>2020</a></li>
                             <li><a class="offline user-link ulpt" href="?year=2021"><i class="line"></i>2021</a></li>
                             <li><a class="offline user-link ulpt" href="?year=2022"><i class="line"></i>2022</a></li>
@@ -44,7 +44,7 @@
                             <li><a class="online user-link ulpt" href="?year=2026"><i class="line"></i>2026</a></li>
                         </ol>
                         <img src="img/templatePohary.png" style="width: 100%; height: auto">
-                        <h2>Hráči 2025</h2>
+                        <h2>Hráči</h2>
                         <ol id="player-list" class="user-top">
                             <li>
                                 <a class="online user-link ulpt" href="/@/Mishka_The_Great">
@@ -80,7 +80,7 @@
                         </ol>
                     </section>
                     <div class="community__leaders">
-                        <h2>Síň slávy</h2>
+                        <h2>Síň slávy <span id="year"></span></h2>
                         <div id="achievements" class="leaderboards">
                             <section class="user-top">
                                 <h2 class="text" data-icon="">
@@ -254,21 +254,6 @@
                 </div>
             </main>
         </div>
-        <div id="friend_box">
-            <div class="friend_box_title">
-                <i data-icon=""></i>
-                kamarádů online
-            </div>
-            <div class="content_wrap none">
-                <div class="content list"></div>
-            </div>
-        </div>
-        <a id="network-status" class="link text" data-icon=""></a>
-        <svg width="0" height="0">
-            <mask id="mask">
-                <path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M38.956.5c-3.53.418-6.452.902-9.286 2.984C5.534 1.786-.692 18.533.68 29.364 3.493 50.214 31.918 55.785 41.329 41.7c-7.444 7.696-19.276 8.752-28.323 3.084C3.959 39.116-.506 27.392 4.683 17.567 9.873 7.742 18.996 4.535 29.03 6.405c2.43-1.418 5.225-3.22 7.655-3.187l-1.694 4.86 12.752 21.37c-.439 5.654-5.459 6.112-5.459 6.112-.574-1.47-1.634-2.942-4.842-6.036-3.207-3.094-17.465-10.177-15.788-16.207-2.001 6.967 10.311 14.152 14.04 17.663 3.73 3.51 5.426 6.04 5.795 6.756 0 0 9.392-2.504 7.838-8.927L37.4 7.171z"/>
-            </mask>
-        </svg>
 
         <script type="module">
             import {LoadMFData, MF} from "./js/tournamentsData.mjs"
@@ -276,6 +261,7 @@
 
             let url = new URL(window.location.href)
             let year = url.searchParams.get("year") || 2026
+            document.getElementById("year").innerText = year
 
             function mainPage(data) {
                 let curYear = MF.filterYear(data.mondayFights(), year)
