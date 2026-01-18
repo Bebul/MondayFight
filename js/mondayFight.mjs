@@ -734,7 +734,7 @@ export function collectHallOfFameAchievements(data) {
     }
     stats.push(s)
   }
-  stats.sort((a,b) => b.data.sortVal - a.data.sortVal)
+  stats.sort((a,b) => (b.data.points || 1) - (a.data.points || 1))
 
   return stats
 }
@@ -831,10 +831,18 @@ export function createLeagueTable(data, tableId, leagueNoId, spiderId, challenge
   }
 }
 
-export function createHallOfFamePlyerList(data, id) {
+export function createHallOfFamePlyerList(achievements, id) {
   let playersEl = document.getElementById(id.substring(1))
 
-  const {league: dataOfPlayers, count: fightsCount} = getLeagueData(data)
+  let pl = new Map()
+  achievements.forEach(a => {
+    a.players.forEach(p => {
+      let player = pl.get(p.id) || {id:p.id, points:0}
+      player.points += p.count * Math.floor(a.data.points || 1)
+      pl.set(p.id, player)
+    })
+  })
+  let dataOfPlayers = Array.from(pl.values()).sort((a,b) => b.points - a.points)
 
   function playerSection(pl) {
     let color = (pl.rank < 5) ? "gold" : ((pl.rank < 13) ? "online" : "offline");
@@ -847,25 +855,31 @@ export function createHallOfFamePlyerList(data, id) {
 
     return `
       <li>
-        <a class="${color} user-link ulpt" href="${pl.nameUrl}">
+        <a class="${color} user-link ulpt" href="https://lichess.org/@/${pl.id}">
           <i class="line"></i>
-          ${pl.name}
+          ${pl.id}
         </a>
-        <span ${dataIcon} class="text">${Math.floor(2 * pl.totalPts) / 2}</span>
+        <span ${dataIcon} class="text">${pl.points}</span>
       </li>
     `
   }
 
   let players = ""
-  dataOfPlayers.forEach(player => players += playerSection(player))
+  for (let i=0; i<dataOfPlayers.length; i++) {
+    let player = dataOfPlayers[i]
+    player.rank = i + 1
+    players += playerSection(player)
+  }
 
   playersEl.innerHTML = players
 }
 
-export function createHallOfFameAchievements(data, id) {
-  let achievementsEl = document.getElementById(id.substring(1))
+export function createHallOfFame(data, achievementsId, playerListId) {
+  let achievementsEl = document.getElementById(achievementsId.substring(1))
 
   let achievements = collectHallOfFameAchievements(data)
+
+  createHallOfFamePlyerList(achievements, playerListId)
 
   function achievementsSection(a) {
     let lines = ""

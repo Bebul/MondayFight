@@ -277,7 +277,7 @@
 
         <script type="module">
             import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-            import {createHallOfFamePlyerList, createHallOfFameAchievements} from "./js/mondayFight.mjs"
+            import {createHallOfFame} from "./js/mondayFight.mjs"
 
             let url = new URL(window.location.href)
             let year = url.searchParams.get("year") || 2026
@@ -288,8 +288,7 @@
                 let mfId = curYear[curYear.length - 1].id
                 let ix = data.findTournamentIx(mfId)
                 if (ix >= 0) data.currentGameListTableIx = ix
-                createHallOfFamePlyerList(data, "#player-list")
-                createHallOfFameAchievements(data, "#achievements")
+                createHallOfFame(data, "#achievements", "#player-list")
             }
 
             LoadMFData(mainPage)

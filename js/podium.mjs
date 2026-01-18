@@ -153,6 +153,7 @@ class AchievementFastGame {
     //this.char = "&#128640;"
     this.desc = "Raketově rychle"
     this.game = id
+    this.points = 1
   }
 }
 
@@ -166,6 +167,7 @@ class AchievementMonkey {
     //this.char = "&#128053;"
     this.desc = "Opičí se po bílém"
     this.game = id
+    this.points = 1.1
   }
 }
 class AchievementQueens {
@@ -178,6 +180,7 @@ class AchievementQueens {
     this.left = 21
     this.desc = "Postavil tři dámy"
     this.game = id
+    this.points = 2.01
   }
 }
 
@@ -188,6 +191,7 @@ class AchievementSmothered {
     this.img = "smothered.png"
     this.desc = "Dušený mat"
     this.game = id
+    this.points = 2.02
   }
 }
 
@@ -200,6 +204,7 @@ class AchievementPawnKiller {
     this.left = 38
     this.desc = "Vražedný pěšec"
     this.game = id
+    this.points = 1.01
   }
 }
 
@@ -212,6 +217,7 @@ class AchievementCenterMate {
     this.img = "center-mate.png"
     this.desc = "Mat v centru"
     this.game = id
+    this.points = 1.5
   }
 }
 
@@ -222,6 +228,7 @@ class AchievementScholar {
     this.img = "scholar-mate.png"
     this.desc = "Ševcovský mat"
     this.game = id
+    this.points = 1.51
   }
 }
 
@@ -232,6 +239,7 @@ class AchievementLegal {
     this.img = "legal.png"
     this.desc = "Námořní kadet"
     this.game = id
+    this.points = 3.05
   }
 }
 
@@ -244,6 +252,7 @@ class AchievementArabian {
     //this.char = "&#128115;"
     this.desc = "Arabský<br>mat"
     this.game = id
+    this.points = 2.5
   }
 }
 
@@ -256,6 +265,7 @@ class AchievementKingKong {
     //this.char = "&#129421;"
     this.desc = "King<br>Kong"
     this.game = id
+    this.points = 2.03
   }
 }
 
@@ -268,6 +278,7 @@ class AchievementFullMaterial {
     //this.char = "&#129421;"
     this.desc = "Plnej<br>materiál"
     this.game = id
+    this.points = 2.04
   }
 }
 
@@ -280,6 +291,7 @@ class AchievementAnastasia {
     //this.char = "&#128014;"
     this.desc = "Anastasia<br>mat"
     this.game = id
+    this.points = 3.02
   }
 }
 
@@ -291,6 +303,7 @@ class AchievementBlackburne {
     //this.frame = "stribrna.png"
     this.desc = "Blackburne<br>mat"
     this.game = id
+    this.points = 3.01
   }
 }
 
@@ -304,6 +317,7 @@ class AchievementMateGarde {
     //this.left = 17
     //this.char = "&#x1F4AB;"
     this.game = id
+    this.points = 1.02
   }
 }
 
@@ -318,6 +332,7 @@ class AchievementPawns {
     // this.left = 34
     // this.char = "&#x1F6A6;"
     this.game = id
+    this.points = 1.03
   }
 }
 
@@ -329,6 +344,7 @@ class AchievementHalfburne {
     //this.frame = "stribrna.png"
     this.desc = "Blackburne<br>v centru"
     this.game = id
+    this.points = 1.04
   }
 }
 
@@ -341,6 +357,7 @@ class AchievementKnightKiller {
     this.left = 38
     this.desc = "Vražedný jezdec"
     this.game = id
+    this.points = 1.05
   }
 }
 
@@ -353,6 +370,7 @@ class AchievementBishopKiller {
     this.left = 24
     this.desc = "Vražedný střelec"
     this.game = id
+    this.points = 1.06
   }
 }
 
@@ -365,6 +383,7 @@ class AchievementKingKiller {
     this.left = 23
     this.desc = "Odtažný mat králem"
     this.game = id
+    this.points = 2.51
   }
 }
 
@@ -377,6 +396,7 @@ class AchievementQueenSacrifice {
     this.left = 21
     this.desc = "Dáma<br>za mat"
     this.game = id
+    this.points = 1.52
   }
 }
 
@@ -389,6 +409,7 @@ class AchievementCastlingKiller {
     this.img = "castling-mate.png"
     this.desc = "Mat rošádou"
     this.game = id
+    this.points = 3.05
   }
 }
 
@@ -401,6 +422,7 @@ class AchievementEnPassantKiller {
     this.img = "en-passant-mate.png"
     this.desc = "En-passant mat"
     this.game = id
+    this.points = 3.06
   }
 }
 
@@ -415,6 +437,7 @@ class AchievementBrokenChain {
     this.desc = `Přetrhl šňůru ${n} proher`
     this.hof = "Přetrhl šnůru proher"
     this.game = id
+    this.points = 1.07
   }
 }
 
@@ -426,6 +449,7 @@ class AchievementLackOfSpirit {
     this.desc = desc || "Málo bojovnosti"
     this.hof = "Málo bojovnosti"
     this.game = id
+    this.points = -0.5
   }
 }
 
@@ -437,6 +461,7 @@ class AchievementPersonalBest {
     this.desc = "Osobáček " + desc
     this.hof = "Osobáček"
     this.game = id
+    this.points = 1.08
   }
 }
 
@@ -449,6 +474,7 @@ class AchievementBest {
     this.img = "best.png"
     this.desc = "Nejlepší výhra"
     this.game = id
+    this.points = 1.09
   }
 }
 
@@ -461,6 +487,7 @@ class AchievementWorst {
     this.img = "worst.png"
     this.desc = "Nejhorší prohra"
     this.game = id
+    this.points = 0.2
   }
 }
 
@@ -474,6 +501,7 @@ class AchievementBlackDot {
     this.desc = desc || "Černý puntík"
     this.hof = "Černý puntík"
     this.game = id
+    this.points = -0.6
   }
 }
 
@@ -485,6 +513,7 @@ class AchievementPinkDot {
     this.desc = desc || "Růžový puntík"
     this.hof = "Růžový puntík"
     this.game = id
+    this.points = 0.1
   }
 }
 
@@ -498,6 +527,7 @@ class AchievementBlackDotGM {
     this.desc = "Třídní důtka prohrál s GM"
     this.desc = "Prohrál s GM"
     this.game = id
+    this.points = 0.5
   }
 }
 
@@ -511,6 +541,7 @@ class AchievementRedDotIM {
     this.desc = "Napomenutí prohrál s IM"
     this.hof = "prohrál s IM"
     this.game = id
+    this.points = 0.51
   }
 }
 
@@ -524,6 +555,7 @@ class AchievementBlackDotXX {
     this.desc = desc || "Ňákej blunder"
     this.hof = "Černý puntík"
     this.game = id
+    this.points = -0.61
   }
 }
 
@@ -534,6 +566,7 @@ class AchievementBeatGM {
     this.img = "beatGM.png"
     this.desc = "Porazil Velmistra"
     this.game = id
+    this.points = 3.1
   }
 }
 
@@ -546,6 +579,7 @@ class AchievementReporter {
     this.img = "reporter.png"
     this.desc = "Reportér<br>MF"
     this.game = id
+    this.points = 2.6
   }
 }
 
@@ -558,6 +592,7 @@ class AchievementSensation {
     this.img = "sensation.png"
     this.desc = "Senzace turnaje"
     this.game = id
+    this.points = 1.091
   }
 }
 
@@ -571,6 +606,7 @@ class AchievementBerserker {
     this.img = "berserker.png"
     this.desc = "Maestro<br>Berserker"  // tournament LgtuuhiJ for instance
     this.game = "v3S715AO/black"  // DrNykterstein improved bong cloud
+    this.points = 1.11
   }
 }
 
@@ -583,6 +619,7 @@ class AchievementQuestion {
     this.img = "question.png"
     this.desc = "Rychlé<br>body"
     this.game = id
+    this.points = -0.09
   }
 }
 
@@ -594,7 +631,9 @@ class AchievementBishopSac {
     this.pic = "strelec.png"
     this.left = 24
     this.desc = "Oběť<br>střelce"
-    this.game = id  }
+    this.game = id
+    this.points = 2.09
+  }
 }
 
 class AchievementLastTimeMate {
@@ -607,6 +646,7 @@ class AchievementLastTimeMate {
     this.img = "lucky.png"
     this.desc = "Na poslední chvíli"
     this.game = id
+    this.points = 1.092
   }
 }
 
@@ -620,6 +660,7 @@ class AchievementMarathonWinner {
     this.img = "maraton.png"
     this.desc = "Vítězný maraton"
     this.game = id
+    this.points = 1.092
   }
 }
 
@@ -632,6 +673,7 @@ class Achievement100PercentWinner {
     this.left = 31
     this.desc = "100% vítězství"  // tournament LgtuuhiJ for instance
     this.game = "P1WydaUq"  // Kasparov - Karpov
+    this.points = 1.093
   }
 }
 
@@ -642,6 +684,7 @@ class AchievementNothing {
     this.img = "stribrna.png"
     this.desc = "Nikdo ani prd!"
     this.game = "P1WydaUq"  // Kasparov - Karpov
+    this.points = -0.1
   }
 }
 
@@ -652,6 +695,7 @@ class AchievementUnratedDuel {
     this.img = "blackDot.png"
     this.desc = "Hrajte to příště rated!"
     this.game = id
+    this.points = -0.11
   }
 }
 
@@ -664,6 +708,7 @@ class AchievementFontPrototype {
     this.char = "&#129409;"
     this.desc = "Prototyp trofeje"
     this.game = id
+    this.points = 0.001
   }
 }
 
