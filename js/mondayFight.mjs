@@ -708,7 +708,7 @@ export function collectHallOfFameAchievements(data, fights) {
   let stats = []
   for (const a in grouped) {
     let items = grouped[a]
-    let pl = Object.groupBy(items, (a) => plId(a))
+    let pl = Object.groupBy(items, (a) => plId(a).toLowerCase())
     let players = []
     Object.entries(pl).map(([id, a]) => {
       let count = a.length
@@ -720,7 +720,7 @@ export function collectHallOfFameAchievements(data, fights) {
           tournament = item.t
         }
       }
-      players.push({id: id, count: count, last: maxIx, tournament: tournament})
+      players.push({id: plId(a[0]), count: count, last: maxIx, tournament: tournament})
     })
     players.sort((a,b) => b.count - a.count - 1e-3 * (b.last - a.last))
     let s = {
@@ -833,9 +833,9 @@ export function createHallOfFamePlyerList(achievements, id) {
   let pl = new Map()
   achievements.forEach(a => {
     a.players.forEach(p => {
-      let player = pl.get(p.id) || {id:p.id, points:0}
+      let player = pl.get(p.id.toLowerCase()) || {id:p.id, points:0}
       player.points += p.count * Math.floor(a.data.points || 1)
-      pl.set(p.id, player)
+      pl.set(p.id.toLowerCase(), player)
     })
   })
   let dataOfPlayers = Array.from(pl.values()).sort((a,b) => b.points - a.points)
@@ -889,7 +889,7 @@ export function createHallOfFame(data, fights, achievementsId, playerListId) {
           `<img src="img/achievements/${a.data.frame}" width="40px"/>` +
           `<img src="img/achievements/${a.data.pic}" class="achievementImg" style="max-height: 30px;text-align: center"/></div>`
     }
-    return `<section class="user-top"><h2 class="text">${img}<a href="">${desc}</a></h2><ol>` +
+    return `<section class="user-top"><h2 class="text">${img}<a href="" title="hodnota: ${a.data.points}">${desc}</a></h2><ol>` +
       lines + `</ol></section>`
   }
 

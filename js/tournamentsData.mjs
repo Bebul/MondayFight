@@ -140,12 +140,12 @@ export let MF = function() {
     if (year < 0) {
       let today = new Date()
       let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))
-      return Array.from(theFights).filter(fight => {
+      return theFights.filter(fight => {
         let date = new Date(fight.startsAt)
         return date >= dateFrom
       })
     } else {
-      return Array.from(theFights).filter(fight => {
+      return theFights.filter(fight => {
         let date = new Date(fight.startsAt)
         return date.getFullYear() == year
       })
@@ -243,6 +243,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
   let streaks = loadedStreaks ? loadedStreaks : await downloadJson("data/streaks.json")
 
   let mondayFights = filterFights()
+  let playOffs = jouzoleanAndBebulsTournaments.filter(t => t.id.toLowerCase().startsWith("playoff"))
 
   function dateComparator(a,b){
     let x = a.startsAt
@@ -442,6 +443,9 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
     },
     mondayFights: function() {
       return mondayFights
+    },
+    playOffs: function() {
+      return playOffs
     },
     addTournaments: function (downloadedTournaments) {
       let filtered = jouzoleanAndBebulsTournaments.filter(t => !downloadedTournaments.find(dt => dt.id === t.id))

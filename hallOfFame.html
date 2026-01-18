@@ -288,6 +288,10 @@
 
             function mainPage(data) {
                 let curYear = MF.filterYear(data.mondayFights(), year)
+                if (year === 'all') curYear = curYear.concat(data.playOffs())
+                else {
+                  curYear = curYear.concat(data.playOffs().filter(p => p.id.toLowerCase() === "playoff" + year))
+                }
                 let mfId = curYear[curYear.length - 1].id
                 let ix = data.findTournamentIx(mfId)
                 if (ix >= 0) data.currentGameListTableIx = ix

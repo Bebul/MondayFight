@@ -304,6 +304,7 @@ export var tournamentSpec = [
   {
     id: "playOFF2020",
     playOFF: "<img src='img/turnajPavouk.jpg' style='width:100%;margin-top: 5px'>",
+    achievements: [{achievement: "reporter", player: "DJ-Strelec", id: ""}],
     html: "<h1>PlayOFF 2020</h1>" +
       "<b>Bebul:</b> Turnaj začal epickou bitvou mezi RychlyLenochod a Travinho, který skončil až bulletovým rozstřelem, když o celkovém vítězi rozhodl kavalírský PAT dvou dam ve druhém tie-breaku." +
       "<iframe src=\"https://lichess.org/embed/sYE9rYFE#123?theme=brown&bg=light\" style=\"width: 300px; height: 420px;\" allowTransparency=\"true\" frameBorder=\"0\"></iframe>" +
@@ -313,6 +314,7 @@ export var tournamentSpec = [
   {
     id: "playOFF2021",
     playOFF: "<img src='img/turnajPavouk2021.jpg' style='width:100%;margin-top: 5px'>",
+    achievements: [{achievement: "reporter", player: "DJ-Strelec", id: ""}],
     html: "<h1>PlayOFF 2021</h1>" +
       "<b>Jouzolean:</b> Tak a je dobojováno! <a href='archiv2021.html'>Sezóna 2021</a> je s dnešním turnajem definitivně odpískána. Tato již legendární skupina hráčů se dokázala scházet v menším či větším počtu celý rok a ani jednou se nestalo, že by se nehrálo - a to ani tehdy, když jednou selhal lichess. To máme 52 kvalitních turnájů v roce. Náš seznam hráčů již čítá 26 jmen včetně jedné holky a všichni se známe." +
       "<br><br><b>DJ-Strelec:</b> A do tohoto vyžazovacího PlayOFF turnaje Vám představujeme epesní vyzyvatelské kartičky! <img src='img/epesni-karticka4.jpg' style='margin-top:5px'>" +
@@ -321,6 +323,7 @@ export var tournamentSpec = [
   {
     id: "playOFF2022",
     playOFF: "<img src='img/turnajPavouk2022.jpg' style='width:100%;margin-top: 5px'>",
+    achievements: [{achievement: "reporter", player: "DJ-Strelec", id: ""}],
     html: "<h1>PlayOFF 2022</h1>" +
       "<b>Jouzolean:</b> Nastoupili už známí borci z let minulých, pro 5 hráčů to bylo jejich poprvé - Pirat77, Margarita Vlasenko, <img src='img/players/margarita_vlasenko.png' class='img100 right'> Tomáš Klimecký, Dzin69 a Maurice Dodo. Všichni bojovali houževnatě a statečně, do dalších kol však postoupila pouze 12-letá Margarita, která došla až do semifinále, což je největší překvapení turnaje a Dzin69, který si poradil s <a href='index.html?mf=playOFF2021'>loňským</a> \"málem přemožitelem Bukowskice\" - Rychlým Lenochodem 4:0. Zkušení matadoři jinak nedávali nováčkům šanci, přesně podle statistik. " +
       "Opět jsme měli možnost nahlížet na duelové kartičky z grafické dílny Dj-Pěšce, které poté Bebul umístil na náš web, aby si tak každý mohl <a href='cards.html'>vygenerovat tu svou</a>." +
@@ -1207,6 +1210,7 @@ export var tournamentSpec = [
         "<br><br><div id='kunc-navara'></div>"
   },{
     id: "bq5NczDG",
+    achievements: [{achievement: "reporter", player: "bebul", id: "knl4Ooog"}, {achievement: "reporter", player: "jouzolean", id: "bVOh8fzU"}],
     html: "<b>Bébul</b>: Tomzrovi chybělo tento turnaj uhrát jeden ušmudlaný bod, aby dorovnal Bukowskičův rekord 371 bodů z roku 2021. A jeden a půl bodu k jeho překonání. Tomzr ale dneska nehrál, takže prémiový 53.turnaj nevyužil. " +
         "<br><br><b>Bébul:</b> <img src='img/players/tekele.png' class='img100 right'> Zato Tekele řádil jak pominutej. Z posledního místa tabulky se nejdřív přehoupl přes pisatele těchto řádků. A aby mu to nestačilo, zmlátil i Kamikazeeeho. Bébulka taková brutalita tuze polekala. Se Scoutem prohrává furt a pořád, " +
         "a tak se pokusil na poslední chvíli uhrát potřebnýho boda. Spárovalo ho to s Mrázkem, což vypadalo věru nesnadně. Bébulek ale postupně utahoval pozici, až Mrázka o ten bod picnul. Engine si myslí, že " +
@@ -1214,7 +1218,8 @@ export var tournamentSpec = [
         "<br><br><b>Bébul:</b> O pořadí na poslední a předposlední příčce pavouka tak rozhodla až vyšší performance. "
   },{
     id: "playOFF2024",
-    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "reporter", player: "Kamikazeee", id: "cBMQBydt"}],
+    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "reporter", player: "Kamikazeee", id: "cBMQBydt"},
+      {achievement: "reporter", player: "DJ-Strelec", id: ""}],
     playOFF: "<img src='img/turnajPavouk2024.jpg' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2024</h1>" +
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>." +
@@ -1407,13 +1412,15 @@ export var tournamentSpec = [
         "Jak se ukázalo, návrat to byl tuze těžký a nedostal nic lacino. Zvlášť Tekele zazářil se svým Barmen defense! Gratulace všem!"
   }, {
     id: "sJfEfav7",
+    achievements: [{achievement: "reporter", player: "bebul", id: "WYCkxWIg"}, {achievement: "reporter", player: "jouzolean", id: "LiAvxxf5"}],
     html: "<b>Bébul:</b> Sláva slovutnému Jouzoleánovi ke třetímu zisku šampiona Monday Fights! " +
         "<video width='100%' controls>\n" +
         "  <source src=\"img/jouza.mp4\" type=\"video/mp4\">\n" +
         "</video>"
   }, {
     id: "playOFF2025",
-    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "pink", player: "Daniel_Cervenka", id: "iQ6JNYFw", desc: "Hraje aspoň tipovačku!"}],
+    achievements: [{achievement: "pink", player: "HGlockk", id: "ABgcbU37", desc: "Hrozně to tu hrotíte!"},{achievement: "pink", player: "Daniel_Cervenka", id: "iQ6JNYFw", desc: "Hraje aspoň tipovačku!"},
+      {achievement: "reporter", player: "DJ-Strelec", id: "UwcPoxqy"}],
     playOFF: "<img src='img/playOFF-2025.jpg' style='width:100%;margin-top: 5px'>",
     html: "<h1>PlayOFF 2025</h1>" +
         "<b>Bebul:</b> Zde odkazy na minulé PlayOFF turnaje <a href='index.html?mf=playOFF2020'>2020</a>, <a href='index.html?mf=playOFF2021'>2021</a>, <a href='index.html?mf=playOFF2022'>2022</a>, <a href='index.html?mf=playOFF2023'>2023</a>, " +
@@ -1443,5 +1450,14 @@ export var tournamentSpec = [
         "<board json='{\"id\":\"MJ3UvCIT\", \"startPlay\":25, \"orientation\":\"white\"}'/>" +
         "<br><br><b>bebul</b>: Mně by teda nezatrnulo, protože bych to neviděl. 😂 RychlyLenochod taky zázračně věčným šachem vynutil remízu s Bukowskicem! A aby toho nebylo málo, přidal první letošní PAT s mozkomorem! Je to jeho jubilejní <b>třicátý</b> pat v Monday Fights turnaji! Náááádhera, jen tak dál! " +
         "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>"
+  }, {
+    id: "aBaidYvx",
+    achievements: [{achievement: "reporter", player: "bebul", id: "rQi0vT5K"}, {achievement: "reporter", player: "jouzolean", id: "QYqyYdJl"}]
+  }, {
+    id: "ss32E4ad",
+    achievements: [{achievement: "reporter", player: "bebul", id: "QvSbeC7O"}, {achievement: "reporter", player: "jouzolean", id: "bVjIzqR7"}]
+  }, {
+    id: "t2SNAshd",
+    achievements: [{achievement: "reporter", player: "bebul", id: "MDbHax1y"}, {achievement: "reporter", player: "jouzolean", id: "gLPC4iB3"}]
   }
 ];
