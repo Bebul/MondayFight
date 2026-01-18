@@ -1348,7 +1348,7 @@ export var tournamentSpec = [
         "<br><br><b>tomzr:</b> a kde je plaketka \"porazil velmistra\"? " +
         "<br><br><b>Bébul:</b> Nevím, jak namalovat štěstí, které se usmálo na otrhánka. " +
         "<br><br><b>tomzr:</b> jéé, já umím malovat :-D <img src='img/achievements/beatGM.png'> " +
-        "<br><br><b>Bébul:</b> No, ale tomzrovi ta sláva vstoupila do hlavy. Mozek mu dělal výkruty a tak se stalo, že senzací turnaje není jeho výhra nad Velmistrem, ale jeho porážka s Rychlým Lenochodem, kde byl ke všemu přetržen řetěz dvanácti předchozích proher! A takhle to v našem milém Monday Fights chodí! " +
+        "<br><br><b>Bébul:</b> No, ale tomzrovi ta sláva stoupla do hlavy. Mozek mu dělal výkruty a tak se stalo, že senzací turnaje není jeho výhra nad Velmistrem, ale jeho porážka s Rychlým Lenochodem, kde byl ke všemu přetržen řetěz dvanácti předchozích proher! A takhle to v našem milém Monday Fights chodí! " +
         "Štěstí se sice usmálo na Otrhánka, ale pak si řeklo, že to asi právěže kouda přehnalo, tak se to muselo nějak zaretušovat, právěže. " +
         "<br><br><b>Bébul:</b> Tomzře, víš? Nevíš, viď? Ty zas nic nevíš! 😁",
        hallOfFame: [96, `<section class="user-top">
