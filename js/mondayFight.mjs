@@ -874,12 +874,17 @@ export function createHallOfFameAchievements(data, id) {
       let p = a.players[i]
       if (p) {
         lines += `<li><a class="${color} user-link ulpt" href="index.html?mf=${p.tournament}"><i class="line"></i>${p.id}</a>${p.count}</li>`
-      } else {
-        //lines += `<li><a class="offline user-link ulpt" href=""><i class="line"></i></a></li>`
       }
     }
     let desc = (a.data.hof || a.data.desc).toLowerCase().replaceAll("<br>", " ")
-    return `<section class="user-top"><h2 class="text" data-icon=""><a href="">${desc}</a></h2><ol>` +
+    let img =""
+    if (a.data.img) img = `<img src="img/achievements/${a.data.img}" width="40px" style="margin:0 5px 0 -5px"/>`
+    else {
+      img = '<div style="position:relative;max-width:50px; max-height:40px;margin:0 5px 0 -5px">' +
+          `<img src="img/achievements/${a.data.frame}" width="40px"/>` +
+          `<img src="img/achievements/${a.data.pic}" class="achievementImg" style="max-height: 30px;text-align: center"/></div>`
+    }
+    return `<section class="user-top"><h2 class="text">${img}<a href="">${desc}</a></h2><ol>` +
       lines + `</ol></section>`
   }
 

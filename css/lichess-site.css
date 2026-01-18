@@ -451,6 +451,17 @@ html[dir=rtl] [data-icon=ÓÅ¨]:not(.no-mirror)::before,html[dir=rtl] [data-icon=Ó
     transform: scaleX(-1)
 }
 
+.achievementImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    display: block;
+    margin: auto;
+}
+
 .data-count {
     position: relative
 }
