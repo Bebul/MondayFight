@@ -282,8 +282,27 @@ p {
     unicode-bidi: plaintext
 }
 
-em,i {
-    font-style: normal
+img.img100 {
+    max-width: 100px;
+    width: 20vw;
+    float: right;
+    margin: 3px 3px 0 0;
+}
+
+.img100.left {
+    float: left;
+}
+
+.img100.right {
+    float: right;
+    margin: 3px 0 0 3px;
+}
+
+img.img75 {
+    max-width: 75px;
+    width: 15vw;
+    float: right;
+    margin: 3px 3px 0 0;
 }
 
 li {

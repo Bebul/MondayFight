@@ -893,7 +893,16 @@ export function createHallOfFame(data, fights, achievementsId, playerListId) {
       lines + `</ol></section>`
   }
 
+  // collect special Hall of Fame sections
+  let hallOfFameSections = []
+  fights.forEach(fight => {
+    let s = tournamentSpec.find(s => s.id === fight.id)
+    if (s && s.hallOfFame) hallOfFameSections.push(s.hallOfFame)
+  })
+  hallOfFameSections.sort((a,b) => b[0] - a[0])
+
   let achievementsHtml = ""
+  hallOfFameSections.forEach(s => achievementsHtml += s[1])
   achievements.forEach(a => achievementsHtml += achievementsSection(a))
 
   achievementsEl.innerHTML = achievementsHtml

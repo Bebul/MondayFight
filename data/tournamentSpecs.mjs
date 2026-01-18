@@ -167,7 +167,23 @@ export var tournamentSpec = [
       "<tooltip json='{\"id\":\"sachycvek\", \"size\":1.0}' align='center' style='margin:42px 0 5px 0'/> " +
       "<board json='{\"id\":\"oQFSXWiv\", \"startPlay\":47, \"orientation\":\"black\"}'/>" +
       "<div>&nbsp;</div>" + // need to scroll after to make the following margin-top work
-      "<div align='center' style='margin-top: -5px;'><i>Podle enginu stojí prý Jouzolean na výhru</i></div>"
+      "<div align='center' style='margin-top: -5px;'><i>Podle enginu stojí prý Jouzolean na výhru</i></div>",
+    hallOfFame: [100, `<section class="user-top">
+      <h2 class="text" data-icon="&#xe021;">
+        <a href="https://www.sachycvek.cz/">GM Robert Cvek</a>
+      </h2>
+      <div style="margin:5px">
+        <p> Dnešek, <a href="index.html?mf=fXU6tfJM">15.srpen 2022</a> byl pro Monday Fights svátek, neb nás poctil
+          <img src='img/players/sachycvek.png' style='margin:5px;width:33%;float:left'>
+            svou návštěvou Velmistr <a href='https://www.sachycvek.cz/'>Robert Cvek</a>.
+            Byl to fofr. Nikdo z nás ho nenachytal na švestkách. Za návštěvu moc děkujeme a k vítězství gratulujeme.
+            <p> K dnešním partiím Jouzoleanovi napsal, že to byly dobré partie a ze si konečně po dlouhé době s klidnou hlavou zahrál.
+              <p> Po turnaji Robert Cvek řekl: <i>"Vyhrát takový turnaj je pro mě obrovský úspěch, jednoznačně největší co se týče ..."</i>
+                <br>
+                  Tedy, řekl to po turnaji ke 100 let Salo Flohra a ne zrovna po Monday Fights, ale hrál dnes s námi a odehrál 14 partií, takže radost máme převelikou!
+      </div>
+    </section>
+    `]
   },
   {
     id: "fgEf7SDZ", html: "<img src='img/trenink-tekele.jpg'>" +
@@ -577,7 +593,24 @@ export var tournamentSpec = [
       "Pisatel těchto řádků, ne snad proto 😀, že si s velmistrem letos nezahrál 😭, uděluje <b>třídní důtku</b> každému, kdo nedokázal dnešnímu výprasku zabránit 😎😁. " +
       "Mezi pokáranými je i maestro Mrázek, který partii dokončil až po skončení turnaje. I tak měl vyhrát! Partii si můžete prohlédnout <a href='https://lichess.org/g4jzy7kX'>zde.</a>" +
       "<br><br>Na závěr nezbývá, než ještě jednou Robertu Cvekovi poděkovat, že si na náš skrovný turnaj udělal čas. Moc děkujeme! ❤️" +
-      "<br><span style='float:right'><i>-beb-</i></span>"
+      "<br><span style='float:right'><i>-beb-</i></span>",
+    hallOfFame: [99, `<section class="user-top">
+      <h2 class="text" data-icon="&#xe021;">
+        <a href="https://www.sachycvek.cz/">GM Robert Cvek</a>
+      </h2>
+      <div style="margin:5px">
+        <p> Že byly ty <a href="index.html?mf=PJnn9LQi">Vánoce</a>, tak nás znovu po roce navštívil velmistr  
+            <a href='https://www.sachycvek.cz/'>Robert Cvek</a>.
+            <p>Neuvěřitelně pětkrát došlo na duel s DJ&#x2011;Pescem. O to více se čekalo, že uhrajeme aspoň ten půlbodík!   
+            <img src='img/players/sachycvek.png' style='margin:5px;width:33%;float:right'>
+            Jenže naděje nenaplnil ani slovutný Bukowskic, ani šampión Jouzolean, takže k zemětřesení v Monday Fights nedošlo.
+            <p>Pisatel těchto řádků, ne snad proto, že si s velmistrem letos nezahrál 😀, 
+            <img src='img/achievements/blackDot.png' style='margin:5px;width:20%;float:left'>
+            uděluje <b>třídní důtku</b> každému, kdo nedokázal dnešnímu výprasku zabránit 😁.
+            <p>Na závěr nezbývá, než ještě jednou Robertu Cvekovi poděkovat, že si na náš skrovný turnaj udělal čas. Moc děkujeme! ❤️
+      </div>
+    </section>
+    `]
   },
   {
     id: "DskSljmO",
@@ -851,7 +884,25 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: <a href='https://www.rpsachy.cz/'><img src='img/rp-sachy.png' class='img100 right'></a>Dnes nás poctil svou návštěvou CM Petr Koutný, známý z portálu Robert a Petr Šachy a turnaj streamoval na <a href='https://www.youtube.com/c/RobertaPetr%C5%A1achy'>Robert a Petr Šachy</a>. Gratulujeme k vítězství a moc děkujeme!" +
       "<br><br><b>Jouzolean</b>: Tomzr byl ve streamu označen za bombarďáka. 😁 \"Jen si klidně utíkej, nakonec ti ho tam stejně šoupnu<br>jako za mlada.\"" +
       "<br><br><b>Jouzolean</b>: A DJ-Pěšec je<br>panáček couváček 😁 " +
-      "<tooltip json='{\"id\":\"RoyalChessyoutube\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/>"
+      "<tooltip json='{\"id\":\"RoyalChessyoutube\", \"size\":0.8}' align='center' style='margin:42px 0 5px 0'/>",
+    hallOfFame: [98, `<section class="user-top">
+      <h2 class="text" data-icon="&#xe016;">
+        <a href="https://www.youtube.com/@petrkoutnysachy">CM Petr Koutný</a>
+      </h2>
+      <div style="margin:5px">
+        <div style="text-align:center">  
+        <img src='img/rp-sachy-zive.png' style="width:95%">
+        </div>
+        <p> 
+            Dnes, <a href="index.html?mf=ITRyIxHh">13.května 2024</a> jsme se měli! Přišel si totiž s námi zahrát <b>CM Petr Koutný</b>, 
+            <a href='https://www.rpsachy.cz/'><img src='img/rp-sachy.png' class='img100 right'></a>
+            známý z portálu Robert a Petr Šachy a turnaj streamoval na 
+            <a href='https://www.youtube.com/c/RobertaPetr%C5%A1achy'>Robert a Petr Šachy</a>.
+            <p> Stihl odehrát parádních patnáct partií, v nichž ztratil pouze jeden a půl bodu. 
+            <p> Gratulujeme k vítězství a moc děkujeme!
+      </div>
+    </section>
+    `]
   },
   {
     id: "v5q4R2Fw",
@@ -1044,7 +1095,21 @@ export var tournamentSpec = [
       "<br><br><b>Mrázek:</b>: koukám, že Bebul dostal protekčního půlboda 😃" +
       "<br><br><b>Lukáš Vlasák:</b>: Já jsem o žádném slibu nevěděl, to zase něco opomněl říct 😊. Díky za pozvání." +
       "<br><br><b>DJ Střelec:</b>: Děkujeme za poučné partie 😊" +
-      "<br><br><b>Bebul:</b>: Díky Lukáši Vlasákovi, že nám věnoval svůj čas a Kamikazeeemu, že ho k nám dovedl, byť dal tajný tip a teď to prasklo a bude bit. 😅❤️❤️"
+      "<br><br><b>Bebul:</b>: Díky Lukáši Vlasákovi, že nám věnoval svůj čas a Kamikazeeemu, že ho k nám dovedl, byť dal tajný tip a teď to prasklo a bude bit. 😅❤️❤️",
+    hallOfFame: [97, `<section class="user-top">
+      <h2 class="text" data-icon="&#xe016;">
+        <a href="https://www.sachycvek.cz/">IM Lukáš Vlasák</a>
+      </h2>
+      <div style="margin:5px">
+        <div style="text-align:center;margin-bottom:5px">  
+        <img src='img/mf-og-im-lukas-vlasak.jpg' style="width:80%">
+        </div>
+        <p> IM Lukáš Vlasák trénuje jako jeden z trenérů talentovaného Vaška Fiňka, bývalé světové jedničky do 12 let.
+        Hraje extraligu, je to IM a byl uveden do síně slávy vedle Navary za práci s mládeží. Je to též jeden z televiznich expertů pro Českou televizi na šachy.
+        <p> Zahrál si s námi na turnaji <a href="index.html?mf=eZy8bwEn">28.října 2024</a>. Gratulujeme k vítězství a moc děkujeme! ❤️
+      </div>
+    </section>
+    `]
   },
   {
     id: "6j5HZTUw",
@@ -1285,7 +1350,22 @@ export var tournamentSpec = [
         "<br><br><b>tomzr:</b> jéé, já umím malovat :-D <img src='img/achievements/beatGM.png'> " +
         "<br><br><b>Bébul:</b> No, ale tomzrovi ta sláva vstoupila do hlavy. Mozek mu dělal výkruty a tak se stalo, že senzací turnaje není jeho výhra nad Velmistrem, ale jeho porážka s Rychlým Lenochodem, kde byl ke všemu přetržen řetěz dvanácti předchozích proher! A takhle to v našem milém Monday Fights chodí! " +
         "Štěstí se sice usmálo na Otrhánka, ale pak si řeklo, že to asi právěže kouda přehnalo, tak se to muselo nějak zaretušovat, právěže. " +
-        "<br><br><b>Bébul:</b> Tomzře, víš? Nevíš, viď? Ty zas nic nevíš! 😁"
+        "<br><br><b>Bébul:</b> Tomzře, víš? Nevíš, viď? Ty zas nic nevíš! 😁",
+       hallOfFame: [96, `<section class="user-top">
+         <h2 class="text" data-icon="&#xe021;">
+           <a href="https://www.sachycvek.cz/">GM Robert Cvek</a>
+         </h2>
+         <div style="margin:5px">
+           <div style="text-align:center;margin-bottom:5px">  
+             <img src='img/speku-kus.png' style="width:80%">
+           </div>
+           <p> Na začátku roku, <a href="index.html?mf=6M8W1ueJ">10.února 2025</a> jsme se na turnaji pěkně zapotili, neb nás přišel vyškolit Velmistr Robert Cvek, a to již potřetí! 
+             Turnaj dokonce streamoval na youtube, takže jsme si pak mohli
+             zkontrolovat 😁, komu byla uštědřena chvála, komu hana. 
+           <p> Moc, moc děkujeme! ❤️
+         </div>
+      </section>
+    `]
   },{
     id: "siz0zGXl",
     html: "<b>Bébul</b>: Asi nejnižší účast nejmíň od pádu Tunguzského meteoritu! KUDOS všem, kdo se turnaje zúčastnili. Nezhyne Monday Fights, když hrát nepřestanem."
@@ -1449,7 +1529,20 @@ export var tournamentSpec = [
         "<br><br><b>DJ-Strelec</b>: mně v tom momentu úplně zatrnulo 😂 " +
         "<board json='{\"id\":\"MJ3UvCIT\", \"startPlay\":25, \"orientation\":\"white\"}'/>" +
         "<br><br><b>bebul</b>: Mně by teda nezatrnulo, protože bych to neviděl. 😂 RychlyLenochod taky zázračně věčným šachem vynutil remízu s Bukowskicem! A aby toho nebylo málo, přidal první letošní PAT s mozkomorem! Je to jeho jubilejní <b>třicátý</b> pat v Monday Fights turnaji! Náááádhera, jen tak dál! " +
-        "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>"
+        "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>",
+    hallOfFame: [95, `<section class="user-top">
+      <h2 class="text" data-icon="&#xe016;">
+        <a href="http://index.html?mf=RWdLw5ws">Miss Klárka</a>
+      </h2>
+      <div style="margin:5px">
+        <p> Vítej ❤️ Klárko ❤️ v síni slávy! 
+        <div style="text-align:center">  
+        <img src='img/klarka.jpg' style="width:80%">
+        </div>
+        <p> Jouzoleánovi Gratulujeme a sobě přejeme, aby dcerka rostla do maminčiny krásy! ❤️ 
+      </div>
+    </section>
+    `]
   }, {
     id: "aBaidYvx",
     achievements: [{achievement: "reporter", player: "bebul", id: "rQi0vT5K"}, {achievement: "reporter", player: "jouzolean", id: "QYqyYdJl"}]
