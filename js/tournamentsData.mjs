@@ -136,6 +136,7 @@ export let MF = function() {
   }
 
   function filterYear(theFights, year) {
+    if (year === "all") return theFights
     if (year < 0) {
       let today = new Date()
       let dateFrom = new Date(new Date().setDate(today.getDate() + 365 * year))

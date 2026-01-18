@@ -683,11 +683,7 @@ export function getLeagueData(data) {
   }
 }
 
-export function collectHallOfFameAchievements(data) {
-  let mfId = data.tournamentGames()[data.currentGameListTableIx].id
-  let date = new Date(data.findTournament(mfId).startsAt)
-  let fights = MF.filterUpTo(data.mondayFights(), date)
-
+export function collectHallOfFameAchievements(data, fights) {
   let achievements = []
   fights.forEach(fight => {
     let id = fight.id
@@ -845,13 +841,8 @@ export function createHallOfFamePlyerList(achievements, id) {
   let dataOfPlayers = Array.from(pl.values()).sort((a,b) => b.points - a.points)
 
   function playerSection(pl) {
-    let color = (pl.rank < 5) ? "gold" : ((pl.rank < 13) ? "online" : "offline");
-    let icon = ""
-    if (pl.rank == 1) icon = "&#xe021;"
-    else if (pl.rank == 2) icon = "&#xe016;"
-    else if (pl.rank == 3) icon = "&#xe01e;"
-    else if (pl.rank < 13) icon = "&#xe013;"
-    let dataIcon = (icon) ? `data-icon="${icon}"` : ""
+    let color = (pl.rank < 2) ? "crown" : (pl.rank < 3 ? "silver" : (pl.rank < 4 ? "bronze" : "offline"));
+    let dataIcon = ""
 
     return `
       <li>
@@ -874,17 +865,17 @@ export function createHallOfFamePlyerList(achievements, id) {
   playersEl.innerHTML = players
 }
 
-export function createHallOfFame(data, achievementsId, playerListId) {
+export function createHallOfFame(data, fights, achievementsId, playerListId) {
   let achievementsEl = document.getElementById(achievementsId.substring(1))
 
-  let achievements = collectHallOfFameAchievements(data)
+  let achievements = collectHallOfFameAchievements(data, fights)
 
   createHallOfFamePlyerList(achievements, playerListId)
 
   function achievementsSection(a) {
     let lines = ""
     for (let i=0; i<10; i++) {
-      let color = (i<1) ? "gold" : (i < 3 ? "online" : "offline");
+      let color = (i<1) ? "crown" : (i < 2 ? "silver" : (i < 3 ? "bronze" : "offline"));
       let p = a.players[i]
       if (p) {
         lines += `<li><a class="${color} user-link ulpt" href="index.html?mf=${p.tournament}"><i class="line"></i>${p.id}</a>${p.count}</li>`

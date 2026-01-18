@@ -55,6 +55,7 @@
                     <section class="community__online">
                         <h2>Vyber rok</h2>
                         <ol class="user-top">
+                            <li><a class="crown user-link ulpt" href="?year=all"><i class="line"></i>Všechno</a></li>
                             <li><a class="offline user-link ulpt" href="?year=2020"><i class="line"></i>2020</a></li>
                             <li><a class="offline user-link ulpt" href="?year=2021"><i class="line"></i>2021</a></li>
                             <li><a class="offline user-link ulpt" href="?year=2022"><i class="line"></i>2022</a></li>
@@ -281,14 +282,16 @@
 
             let url = new URL(window.location.href)
             let year = url.searchParams.get("year") || 2026
-            document.getElementById("year").innerText = year
+            let txt = year
+            if (year === "all") txt = "za celé období"
+            document.getElementById("year").innerText = txt
 
             function mainPage(data) {
                 let curYear = MF.filterYear(data.mondayFights(), year)
                 let mfId = curYear[curYear.length - 1].id
                 let ix = data.findTournamentIx(mfId)
                 if (ix >= 0) data.currentGameListTableIx = ix
-                createHallOfFame(data, "#achievements", "#player-list")
+                createHallOfFame(data, curYear, "#achievements", "#player-list")
             }
 
             LoadMFData(mainPage)

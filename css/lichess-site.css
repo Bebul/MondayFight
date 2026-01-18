@@ -2262,6 +2262,33 @@ body.clinput #clinput input {
     content: ""
 }
 
+.user-link.crown .line {
+    color: Gold;
+    opacity: .9
+}
+
+.user-link.crown .line::before {
+    content: "\e021"
+}
+
+.user-link.silver .line {
+    color: LightGrey;
+    opacity: .9
+}
+
+.user-link.silver .line::before {
+    content: "\e016"
+}
+
+.user-link.bronze .line {
+    color: #d59020;
+    opacity: .9
+}
+
+.user-link.bronze .line::before {
+    content: "\e01e"
+}
+
 .user-link .line {
     color: var(--c-font);
     opacity: .5;
