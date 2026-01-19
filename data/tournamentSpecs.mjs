@@ -1529,7 +1529,25 @@ export var tournamentSpec = [
         "<br><br><b>DJ-Strelec</b>: mně v tom momentu úplně zatrnulo 😂 " +
         "<board json='{\"id\":\"MJ3UvCIT\", \"startPlay\":25, \"orientation\":\"white\"}'/>" +
         "<br><br><b>bebul</b>: Mně by teda nezatrnulo, protože bych to neviděl. 😂 RychlyLenochod taky zázračně věčným šachem vynutil remízu s Bukowskicem! A aby toho nebylo málo, přidal první letošní PAT s mozkomorem! Je to jeho jubilejní <b>třicátý</b> pat v Monday Fights turnaji! Náááádhera, jen tak dál! " +
-        "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>",
+        "<board json='{\"id\":\"B4Rc6Sc0\", \"startPlay\":109, \"orientation\":\"black\"}'/>"
+  }, {
+    id: "aBaidYvx",
+    achievements: [{achievement: "reporter", player: "bebul", id: "rQi0vT5K"}, {achievement: "reporter", player: "jouzolean", id: "QYqyYdJl"}]
+  }, {
+    id: "ss32E4ad",
+    achievements: [{achievement: "reporter", player: "bebul", id: "QvSbeC7O"}, {achievement: "reporter", player: "jouzolean", id: "bVjIzqR7"}]
+  }, {
+    id: "t2SNAshd",
+    achievements: [{achievement: "reporter", player: "bebul", id: "MDbHax1y"}, {achievement: "reporter", player: "jouzolean", id: "gLPC4iB3"}]
+  }, {
+    id: "RhH4IhZY",
+    achievements: [{achievement: "reporter", player: "bebul", id: "kNp4NjEx"}],
+    html: "<b>Bebul</b>: Povídal jeden bývalý držák, že MF už sice nehraje, ale na web se pořád rád podívá. A do toho se nám Jouzoleán stal tatínkem ❤️, <img src='img/players/jouzolean.png' class='img100 right'> ten Jouzoleán, co už léta brečí, " +
+        "kdy se něco hne na té Síni slávy , po které touží, že ani spát nemůže. Tak tady je první nástřel... <a href='hallOfFame.html?year=all'><img src='img/hallOfFame2.jpg'/></a>" +
+        "<br><br><b>bebul</b>: Velká gratulace RychlyLenochod , že v souhrnném bodování Plaketek zatím vede. Možná to po dalším dolaďování přestane být pravda, ale i kdyby, někde navrchu bude. " +
+        "<br><br><b>RychlyLenochod</b>: Ste me včerejšíma tabulkama nahecovali" +
+        "<br><br><b>bebul</b>: Tááákže: velká gratulace Jouzoleánovi! Ať jim to doma klape, moc nezpychne a chvíli hraje trochu opile, abychom na něm získali nějaké ty bodíky, jo?  " +
+        "",
     hallOfFame: [95, `<section class="user-top">
       <h2 class="text" data-icon="&#xe016;">
         <a href="http://index.html?mf=RWdLw5ws">Miss Klárka</a>
@@ -1543,14 +1561,5 @@ export var tournamentSpec = [
       </div>
     </section>
     `]
-  }, {
-    id: "aBaidYvx",
-    achievements: [{achievement: "reporter", player: "bebul", id: "rQi0vT5K"}, {achievement: "reporter", player: "jouzolean", id: "QYqyYdJl"}]
-  }, {
-    id: "ss32E4ad",
-    achievements: [{achievement: "reporter", player: "bebul", id: "QvSbeC7O"}, {achievement: "reporter", player: "jouzolean", id: "bVjIzqR7"}]
-  }, {
-    id: "t2SNAshd",
-    achievements: [{achievement: "reporter", player: "bebul", id: "MDbHax1y"}, {achievement: "reporter", player: "jouzolean", id: "gLPC4iB3"}]
   }
 ];
