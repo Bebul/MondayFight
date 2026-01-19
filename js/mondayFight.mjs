@@ -202,6 +202,38 @@ function getTotalGames(player, theFights) {
   return total
 }
 
+function getTotalStalemates(data, theFights, stalemates) {
+  theFights.forEach(fight => {
+    let id = fight.id
+    let ix = data.findTournamentIx(id)
+    let games = data.tournamentGames()[ix]
+    games.games.forEach(g => {
+      if (g.status === 'stalemate') {
+        [g.players.white, g.players.black].forEach(p => {
+          let stat = stalemates.get(p.user.name) || 0
+          stalemates.set(p.user.name, stat + 1)
+        })
+      }
+    })
+  })
+}
+
+function getTotalBerserks(data, theFights, berserks) {
+  theFights.forEach(fight => {
+    let id = fight.id
+    let ix = data.findTournamentIx(id)
+    let games = data.tournamentGames()[ix]
+    games.games.forEach(g => {
+      [g.players.white, g.players.black].forEach(p => {
+        if (p.berserk === true) {
+          let stat = berserks.get(p.user.name) || 0
+          berserks.set(p.user.name, stat + 1)
+        }
+      })
+    })
+  })
+}
+
 function getTotalPoints(playerName, theFights) {
   let total = 0
   theFights.forEach( fight => total += playerPoints(fight, playerName)[0] )
@@ -546,12 +578,15 @@ function rankFormatter(cell, formatterParams) {
   return `<span style="color:lightgray"><b>${cellValue}</b></span>`
 }
 
-export function getLeagueDataOfPlayers(theFights, mfId) {
+export function getLeagueDataOfPlayers(data, theFights, mfId, getStalemates) {
   let lastFight = theFights.find(fight =>
     fight.id === mfId
   )
   let players = getPlayers(theFights)
   let tableData = []
+  let stalemates = new Map()
+  if (getStalemates) getTotalStalemates(data, theFights, stalemates)
+
   players.forEach( player => {
       let averagePerformance = getAvgPerformance(player, theFights)
       let totalPoints = getTotalPoints(player, theFights) + averagePerformance / 10000
@@ -561,7 +596,8 @@ export function getLeagueDataOfPlayers(theFights, mfId) {
         totalPts: totalPoints,
         prevPts: totalPoints - playerPoints(lastFight, player)[0],
         games: getTotalGames(player, theFights),
-        ratingDiff: getTotalRatingDiff(player, theFights)
+        ratingDiff: getTotalRatingDiff(player, theFights),
+        stalemates: stalemates.get(player) || 0
       }
       tableData.push(thePlayer)
     }
@@ -672,15 +708,19 @@ export function changeChartDataType(type) {
   myChart.update()
 }
 
+export function leagueDataFromFights(data, fights, stalemates) {
+  let mfId = fights.at(-1).id
+  return {
+    league: getLeagueDataOfPlayers(data, fights, mfId, stalemates),
+    count: fights.length
+  }
+}
+
 export function getLeagueData(data) {
   let mfId = data.tournamentGames()[data.currentGameListTableIx].id
   let date = new Date(data.findTournament(mfId).startsAt)
-
   let fights = MF.filterUpTo(data.mondayFights(), date)
-  return {
-    league: getLeagueDataOfPlayers(fights, mfId),
-    count: fights.length
-  }
+  return leagueDataFromFights(data, fights)
 }
 
 export function collectHallOfFameAchievements(data, fights) {
@@ -865,12 +905,85 @@ export function createHallOfFamePlyerList(achievements, id) {
   playersEl.innerHTML = players
 }
 
+function createSection(plData, dName, img, desc) {
+  let lines = ""
+  for (let i=0; i<10; i++) {
+    let color = (i<1) ? "crown" : (i < 2 ? "silver" : (i < 3 ? "bronze" : "offline"));
+    let p = plData[i]
+    if (p && p[dName] > 0) {
+      lines += `<li><span class="${color} user-link ulpt"><i class="line"></i>${p.name}</span>${p[dName]}</li>`
+    }
+  }
+  return `<section class="user-top"><h2 class="text">${img}<span>${desc}</span></h2><ol>` +
+      lines + `</ol></section>`
+}
+
+function createFastMaters(fights, players) {
+  let fMates = players.league.map(p => {
+    p.fMates = getTotalMates(p.name, fights)
+    return p
+  })
+  fMates.sort((a,b) => b.fMates - a.fMates)
+
+  let imgName = "strelec.png"
+  let img = `<img src="img/achievements/${imgName}" width="40px" style="margin:0 5px 0 -5px"/>`
+
+  return createSection(fMates, "fMates", img, "Nejrychlejší maty")
+}
+
+function createStalemates(players) {
+  let imgName = "kun.png"
+  let img = `<img src="img/achievements/${imgName}" style="margin:0 5px 0 -5px;max-height: 40px"/>`
+
+  return createSection(players.league.sort((a,b) => b.stalemates - a.stalemates), "stalemates", img, "Největší Patař")
+}
+
+function createGamesCounts(players) {
+  let imgName = "kralovna.png"
+  let img = `<img src="img/achievements/${imgName}" style="margin:0 5px 0 -5px;max-height: 40px"/>`
+
+  return createSection(players.league.sort((a,b) => b.games - a.games), "games", img, "Odehrané partie")
+}
+
+function createGambiters(fights, players) {
+  let gambits = players.league.map(p => {
+    p.gambits = getTotalGambits(p.name, fights)
+    return p
+  })
+  gambits.sort((a,b) => b.gambits - a.gambits)
+  let imgName = "kral.png"
+  let img = `<img src="img/achievements/${imgName}" style="margin:0 5px 0 -5px;max-height: 40px"/>`
+
+  return createSection(gambits, "gambits", img, "Gambitáři")
+}
+
+function createBerserkers(data, fights, players) {
+  let bMap = new Map()
+  getTotalBerserks(data, fights, bMap)
+  let berserks = players.league.map(p => {
+    p.berserk = bMap.get(p.name) || 0
+    return p
+  })
+  berserks.sort((a,b) => b.berserk - a.berserk)
+  let imgName = "berserker.png"
+  let img = `<img src="img/achievements/${imgName}" style="margin:0 5px 0 -5px;max-height: 40px"/>`
+
+  return createSection(berserks, "berserk", img, "Berserkáři")
+}
+
 export function createHallOfFame(data, fights, achievementsId, playerListId) {
   let achievementsEl = document.getElementById(achievementsId.substring(1))
 
   let achievements = collectHallOfFameAchievements(data, fights)
 
   createHallOfFamePlyerList(achievements, playerListId)
+
+  let players = leagueDataFromFights(data, fights, true)
+  let fastMaters = createFastMaters(fights, players)
+  let stalematers = createStalemates(players)
+  let gambitters = createGambiters(fights, players)
+  let berserkers = createBerserkers(data, fights, players)
+  let gamesCounts = createGamesCounts(players)
 
   function achievementsSection(a) {
     let lines = ""
@@ -903,6 +1016,13 @@ export function createHallOfFame(data, fights, achievementsId, playerListId) {
 
   let achievementsHtml = ""
   hallOfFameSections.forEach(s => achievementsHtml += s[1])
+
+  achievementsHtml += fastMaters
+  achievementsHtml += stalematers
+  achievementsHtml += gambitters
+  achievementsHtml += berserkers
+  achievementsHtml += gamesCounts
+
   achievements.forEach(a => achievementsHtml += achievementsSection(a))
 
   achievementsEl.innerHTML = achievementsHtml

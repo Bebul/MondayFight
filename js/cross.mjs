@@ -796,7 +796,7 @@ function createEpicCard(data, theFights, selectId, criterion, season, verbose = 
     return e.options[e.selectedIndex].text;
   }
   // theFights contain only relevant games selected by season
-  let league = getLeagueDataOfPlayers(theFights)
+  let league = getLeagueDataOfPlayers(data, theFights)
   let player1 = getValue("players1")
   let player2 = getValue("players2")
   let title = getValue("title")

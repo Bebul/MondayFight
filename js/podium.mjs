@@ -343,6 +343,7 @@ class AchievementHalfburne {
     this.img = "blackburne.png"
     //this.frame = "stribrna.png"
     this.desc = "Blackburne<br>v centru"
+    this.hof = "Black v centru"
     this.game = id
     this.points = 1.04
   }
@@ -382,6 +383,7 @@ class AchievementKingKiller {
     this.pic = "kral.png"
     this.left = 23
     this.desc = "Odtažný mat králem"
+    this.hof = "Mat králem"
     this.game = id
     this.points = 2.51
   }
@@ -435,7 +437,7 @@ class AchievementBrokenChain {
     // this.left = 38
     this.img = "broken-chain.png"
     this.desc = `Přetrhl šňůru ${n} proher`
-    this.hof = "Přetrhl šnůru proher"
+    this.hof = "Přetrhl řetěz"
     this.game = id
     this.points = 1.07
   }
