@@ -1546,8 +1546,9 @@ export var tournamentSpec = [
         "kdy se něco hne na té Síni slávy , po které touží, že ani spát nemůže. Tak tady je první nástřel... <a href='hallOfFame.html?year=all'><img src='img/hallOfFame2.jpg'/></a>" +
         "<br><br><b>bebul</b>: Velká gratulace RychlyLenochod , že v souhrnném bodování Plaketek zatím vede. Možná to po dalším dolaďování přestane být pravda, ale i kdyby, někde navrchu bude. " +
         "<br><br><b>RychlyLenochod</b>: Ste me včerejšíma tabulkama nahecovali" +
-        "<br><br><b>bebul</b>: Tááákže: velká gratulace Jouzoleánovi! Ať jim to doma klape, moc nezpychne a chvíli hraje trochu opile, abychom na něm získali nějaké ty bodíky, jo?  " +
-        "",
+        "<br><br><b>bebul</b>: Tááákže: velká gratulace Jouzoleánovi! Ať jim to doma klape, moc nezpychne a chvíli hraje trochu opile, abychom na něm získali nějaké ty bodíky, jo? " +
+        "<br><br><b>kunc99</b>: <b>Finále Play-Off</b> proběhne v pátek od 10:00.  S MichaelChmiel jsme už domluvení. Jsem výš nasazený, takže první partii budu mít bílé." +
+        "<br><br><a href='index.html?mf=playOFF2025'><img src='img/finale2025.jpg'/></a>",
     hallOfFame: [95, `<section class="user-top">
       <h2 class="text" data-icon="&#xe016;">
         <a href="http://index.html?mf=RWdLw5ws">Miss Klárka</a>
