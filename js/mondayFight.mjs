@@ -1038,9 +1038,29 @@ function collectChessboardStats(data, fights) {
     
     games.forEach(game => {
       if (game.status === "mate" && game.winner) {
-        let lastMove = game.moves.split(" ").pop()
-        // Odstraníme # nebo + na konci (f7# -> f7)
-        let square = lastMove.replace(/[#+]/g, '').slice(-2)
+        let square = ""
+        try {
+          const chess = new Chess()
+          chess.load_pgn(game.moves)
+          const board = chess.board()
+          const losingColor = game.winner === "white" ? "b" : "w"
+          
+          for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+              const piece = board[r][c]
+              if (piece && piece.type === "k" && piece.color === losingColor) {
+                square = String.fromCharCode(97 + c) + (8 - r)
+                break
+              }
+            }
+            if (square) break
+          }
+        } catch (e) {
+          console.error("Error parsing game for king position:", e, game.moves)
+          // Fallback na původní logiku extrakce pole z posledního tahu
+          let lastMove = game.moves.split(" ").pop()
+          square = lastMove.replace(/[#+]/g, '').slice(-2)
+        }
         
         // Ověříme, že square vypadá jako pole (např. f7)
         if (/^[a-h][1-8]$/.test(square)) {
@@ -1110,6 +1130,8 @@ function createChessboard(container, type, title, stats, dataSelector) {
   const board = document.createElement("div");
   board.className = "chessboard";
 
+  const ownedSquares = new Map(); // name -> { count: number, lastDate: number }
+
   wrapper.appendChild(board);
   container.appendChild(wrapper);
 
@@ -1142,6 +1164,14 @@ function createChessboard(container, type, title, stats, dataSelector) {
           const maxCount = topPlayerData?.count;
 
           if (topPlayer) {
+            // Sledujeme statistiky pro tabulku pod šachovnicí
+            let pStats = ownedSquares.get(topPlayer) || { count: 0, lastDate: 0 };
+            pStats.count++;
+            if (topPlayerData.lastDate > pStats.lastDate) {
+              pStats.lastDate = topPlayerData.lastDate;
+            }
+            ownedSquares.set(topPlayer, pStats);
+
             const content = document.createElement("div");
             content.className = "content";
             
@@ -1171,6 +1201,50 @@ function createChessboard(container, type, title, stats, dataSelector) {
       board.appendChild(square);
     }
   }
+
+  if (ownedSquares.size > 0) {
+    renderPlayerControlTable(container, ownedSquares);
+  }
+}
+
+function renderPlayerControlTable(container, ownedSquares) {
+  const tableWrapper = document.createElement("div");
+  tableWrapper.className = "player-control-table-wrapper";
+
+  const sorted = Array.from(ownedSquares.entries())
+    .map(([name, stats]) => ({ name, ...stats }))
+    .sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return a.lastDate - b.lastDate; // Dřívější datum (menší timestamp) má přednost
+    });
+
+  let html = `<table class="player-control-table">
+    <thead>
+      <tr>
+        <th>Hráč</th>
+        <th>Ovládnutá pole</th>
+        <th>Poslední výskyt</th>
+      </tr>
+    </thead>
+    <tbody>`;
+
+  sorted.forEach(p => {
+    const dateStr = p.lastDate ? new Date(p.lastDate).toLocaleDateString("cs-CZ") : "-";
+    html += `<tr>
+      <td>
+        <a class="user-link" href="https://lichess.org/@/${p.name}" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #d5d5d5;">
+          <img class="uflair" src="${Avatars.getAvatar(p.name)}" style="height: 1.2em; margin-right: 8px;" />
+          ${p.name}
+        </a>
+      </td>
+      <td style="text-align: center;">${p.count}</td>
+      <td style="text-align: right; font-variant-numeric: tabular-nums;">${dateStr}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table>`;
+  tableWrapper.innerHTML = html;
+  container.appendChild(tableWrapper);
 }
 
 function showChessboardTooltip(event, square, playersMap, titlePrefix) {
