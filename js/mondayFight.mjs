@@ -1028,6 +1028,48 @@ export function createHallOfFame(data, fights, achievementsId, playerListId) {
   achievementsEl.innerHTML = achievementsHtml
 }
 
+export function createChessboards(data, fights, id) {
+  const container = id.startsWith("#") ? document.getElementById(id.substring(1)) : document.getElementById(id);
+  if (container) {
+    container.innerHTML = "";
+    // Příklad vytvoření dvou různých šachovnic
+    createChessboard(container, "standard", "Standardní šachovnice");
+    createChessboard(container, "green", "Zelená šachovnice");
+  }
+}
+
+function createChessboard(container, type, title) {
+  const wrapper = document.createElement("div");
+  wrapper.className = `chessboard-wrapper ${type}`;
+
+  if (title) {
+    const titleEl = document.createElement("h2");
+    titleEl.className = "chessboard-title";
+    titleEl.innerText = title;
+    wrapper.appendChild(titleEl);
+  }
+
+  const board = document.createElement("div");
+  board.className = "chessboard";
+
+  wrapper.appendChild(board);
+  container.appendChild(wrapper);
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const square = document.createElement("div");
+      const isLight = (row + col) % 2 === 0;
+      // Čtverce mají nyní třídy 'light'/'dark' a také specifické podle typu šachovnice
+      square.className = `square ${isLight ? 'light' : 'dark'}`;
+      const file = String.fromCharCode(97 + col);
+      const rank = 8 - row;
+      // ID políčka by v případě více šachovnic na stránce mělo být unikátní (např. s prefixem typu)
+      square.id = `${type}-${file}${rank}`;
+      board.appendChild(square);
+    }
+  }
+}
+
 let myChart
 export function createLeagueHistoryChart(data, chartId, date) {
   if (chartId) {

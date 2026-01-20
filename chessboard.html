@@ -6,134 +6,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
     <meta name="theme-color" content="#2e2a24">
     <link rel="icon" type="image/png" href="favicon.png"/>
-    <title>"Monday Fight Chessboard"</title>
+    <title>"Monday Fight Chessboards"</title>
     <link data-css-key="lib.theme.all" href="css/lichess-theme-all.css" rel="stylesheet"/>
     <link data-css-key="site" href="css/lichess-site.css" rel="stylesheet"/>
     <link data-css-key="user.list" href="css/lichess-user-list.css" rel="stylesheet"/>
+    <link href="css/chessboard.css" rel="stylesheet"/>
     <style>
         @font-face {
             font-family: 'lichess';
             font-display: block;
             src: url('fonts/lichess-hof.woff2') format('woff2')
-        }
-
-        #chessboard-wrapper {
-            padding: 20px;
-            background-color: #3c3934;
-            border-radius: 4px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            width: 100%;
-            max-width: 840px;
-            margin: 20px auto;
-            box-sizing: border-box;
-        }
-
-        #chessboard {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: repeat(8, 1fr);
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border: 2px solid #262421;
-        }
-
-        .square {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .square.light {
-            background-color: #dee3e6;
-        }
-
-        .square.dark {
-            background-color: #8ca2ad;
-        }
-
-        .square img {
-            max-width: 80%;
-            max-height: 70%;
-            display: block;
-        }
-
-        .square .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            font-size: 0.8em;
-            color: #333;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Tooltip styly */
-        #chessboard {
-            position: relative;
-        }
-
-        .chess-tooltip {
-            position: absolute;
-            z-index: 1000;
-            background: #262421;
-            color: #bababa;
-            border: 1px solid #3c3934;
-            border-radius: 3px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            padding: 10px;
-            width: 250px;
-            pointer-events: auto;
-            display: none;
-        }
-
-        .chess-tooltip.visible {
-            display: block;
-        }
-
-        .chess-tooltip section.user-top {
-            margin: 0;
-        }
-
-        .chess-tooltip h2 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #3c3934;
-            padding-bottom: 5px;
-        }
-
-        .chess-tooltip ol {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .chess-tooltip li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-            font-size: 0.9em;
-        }
-
-        .chess-tooltip a {
-            color: #d5d5d5;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .chess-tooltip a:hover {
-            color: #fff;
-        }
-
-        .chess-tooltip .uflair {
-            height: 1.2em;
-            margin-left: 4px;
         }
     </style>
 
@@ -221,8 +103,7 @@
                     </li>
                 </ol>
             </section>
-            <div id="chessboard-wrapper">
-                <div id="chessboard"></div>
+            <div id="chessboards">
             </div>
         </div>
     </main>
@@ -230,23 +111,10 @@
 
 <script type="module">
     import {LoadMFData, MF} from "./js/tournamentsData.mjs"
-    import {createHallOfFame} from "./js/mondayFight.mjs"
+    import {createChessboards} from "./js/mondayFight.mjs"
 
     let url = new URL(window.location.href)
     let year = url.searchParams.get("year") || 2026
-
-    const board = document.getElementById("chessboard");
-    for (let row = 0; row < 8; row++) {
-        for (let col = 0; col < 8; col++) {
-            const square = document.createElement("div");
-            const isLight = (row + col) % 2 === 0;
-            square.className = `square ${isLight ? 'light' : 'dark'}`;
-            const file = String.fromCharCode(97 + col);
-            const rank = 8 - row;
-            square.id = file + rank;
-            board.appendChild(square);
-        }
-    }
 
     function mainPage(data) {
         let curYear = MF.filterYear(data.mondayFights(), year)
@@ -257,134 +125,10 @@
         let mfId = curYear[curYear.length - 1].id
         let ix = data.findTournamentIx(mfId)
         if (ix >= 0) data.currentGameListTableIx = ix
-        createHallOfFame(data, curYear, "#achievements", "#player-list")
+        createChessboards(data, curYear, "#chessboards")
     }
 
-    const f3 = document.getElementById("f3");
-    if (f3) {
-        f3.innerHTML = `
-            <div class="content">
-                <img src="img/players/bebul.png" alt="Bebul">
-                <span>Bebul 13</span>
-            </div>
-        `;
-
-        // Vytvoření tooltipu
-        const tooltip = document.createElement("div");
-        tooltip.className = "chess-tooltip";
-        tooltip.innerHTML = `
-            <section class="user-top">
-                <h2 class="text" data-icon="">
-                    <a href="/player/top/200/blitz">Bleskové šachy</a>
-                </h2>
-                <ol>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/Sportik_Shark">
-                            <i class="line"></i>
-                            <span class="utitle" title="International Master">IM</span>
-                            &nbsp;Sportik_Shark<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.alien.webp"/>
-                        </a>
-                        3002
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/Yarebore">
-                            <i class="line"></i>
-                            <span class="utitle" title="Grandmaster">GM</span>
-                            &nbsp;Yarebore<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.full-moon-face.webp"/>
-                        </a>
-                        2975
-                    </li>
-                    <li>
-                        <a class="online user-link ulpt" href="/@/cutemouse83">
-                            <i class="line"></i>
-                            <span class="utitle" title="Grandmaster">GM</span>
-                            &nbsp;cutemouse83
-                        </a>
-                        2974
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/athena-pallada">
-                            <i class="line"></i>
-                            <span class="utitle" title="Grandmaster">GM</span>
-                            &nbsp;athena-pallada<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.fire.webp"/>
-                        </a>
-                        2960
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/teem1">
-                            <i class="line"></i>
-                            teem1<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/smileys.disguised-face.webp"/>
-                        </a>
-                        2956
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/Fran4477">
-                            <i class="line"></i>
-                            Fran4477
-                        </a>
-                        2950
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/FeelingLiberated">
-                            <i class="line"></i>
-                            FeelingLiberated
-                        </a>
-                        2940
-                    </li>
-                    <li>
-                        <a class="online user-link ulpt" href="/@/delta_horsey">
-                            <i class="line"></i>
-                            <span class="utitle" title="Grandmaster">GM</span>
-                            &nbsp;delta_horsey<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/activity.lichess-blitz.webp"/>
-                        </a>
-                        2921
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/Schachmachine">
-                            <i class="line"></i>
-                            Schachmachine
-                        </a>
-                        2912
-                    </li>
-                    <li>
-                        <a class="offline user-link ulpt" href="/@/InvisibleGuest2023">
-                            <i class="line"></i>
-                            InvisibleGuest2023
-                        </a>
-                        2903
-                    </li>
-                </ol>
-            </section>
-        `;
-        board.appendChild(tooltip);
-
-        f3.querySelector('.content').addEventListener('click', (e) => {
-            e.stopPropagation();
-            const rect = f3.getBoundingClientRect();
-            const boardRect = board.getBoundingClientRect();
-
-            // Pozicování tooltipu nad políčkem
-            const top = rect.top - boardRect.top - tooltip.offsetHeight - 10;
-            const left = rect.left - boardRect.left + (rect.width / 2) - (tooltip.offsetWidth / 2);
-
-            tooltip.style.top = `${top}px`;
-            tooltip.style.left = `${left}px`;
-            tooltip.classList.toggle('visible');
-        });
-
-        // Zavření při kliknutí mimo
-        document.addEventListener('click', () => {
-            tooltip.classList.remove('visible');
-        });
-
-        tooltip.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-    }
-
-    console.log("Chessboard initialized with 64 squares");
-
-    // LoadMFData(mainPage)
+    LoadMFData(mainPage)
 </script>
 
 </body>
