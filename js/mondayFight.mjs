@@ -1039,27 +1039,31 @@ function collectChessboardStats(data, fights) {
     games.forEach(game => {
       if (game.status === "mate" && game.winner) {
         let square = ""
-        try {
-          const chess = new Chess()
-          chess.load_pgn(game.moves)
-          const board = chess.board()
-          const losingColor = game.winner === "white" ? "b" : "w"
-          
-          for (let r = 0; r < 8; r++) {
-            for (let c = 0; c < 8; c++) {
-              const piece = board[r][c]
-              if (piece && piece.type === "k" && piece.color === losingColor) {
-                square = String.fromCharCode(97 + c) + (8 - r)
-                break
+        if (game.players[game.winner].stats?.mate?.square) {
+          square = game.players[game.winner].stats.mate.square
+        } else {
+          try {
+            const chess = new Chess()
+            chess.load_pgn(game.moves)
+            const board = chess.board()
+            const losingColor = game.winner === "white" ? "b" : "w"
+            
+            for (let r = 0; r < 8; r++) {
+              for (let c = 0; c < 8; c++) {
+                const piece = board[r][c]
+                if (piece && piece.type === "k" && piece.color === losingColor) {
+                  square = String.fromCharCode(97 + c) + (8 - r)
+                  break
+                }
               }
+              if (square) break
             }
-            if (square) break
+          } catch (e) {
+            console.error("Error parsing game for king position:", e, game.moves)
+            // Fallback na původní logiku extrakce pole z posledního tahu
+            let lastMove = game.moves.split(" ").pop()
+            square = lastMove.replace(/[#+]/g, '').slice(-2)
           }
-        } catch (e) {
-          console.error("Error parsing game for king position:", e, game.moves)
-          // Fallback na původní logiku extrakce pole z posledního tahu
-          let lastMove = game.moves.split(" ").pop()
-          square = lastMove.replace(/[#+]/g, '').slice(-2)
         }
         
         // Ověříme, že square vypadá jako pole (např. f7)
@@ -1111,12 +1115,12 @@ export function createChessboards(data, fights, id) {
     console.log("Chessboard Stats:", stats);
 
     // Příklad vytvoření dvou různých šachovnic
-    createChessboard(container, "standard", "Nejvíce matů (Vítězové)", stats, s => s?.winners);
-    createChessboard(container, "green", "Nejvíce matů (Poražení)", stats, s => s?.losers);
+    createChessboard(container, "standard", "Nejvíce matů (Vítězové)", "Dal mat králi", stats, s => s?.winners);
+    createChessboard(container, "green", "Nejvíce matů (Poražení)", "Král dostal mat", stats, s => s?.losers);
   }
 }
 
-function createChessboard(container, type, title, stats, dataSelector) {
+function createChessboard(container, type, title, tooltipTitle, stats, dataSelector) {
   const wrapper = document.createElement("div");
   wrapper.className = `chessboard-wrapper ${type}`;
 
@@ -1190,7 +1194,7 @@ function createChessboard(container, type, title, stats, dataSelector) {
             content.style.cursor = "pointer";
             content.addEventListener("click", (e) => {
               e.stopPropagation();
-              showChessboardTooltip(e, squareCoords, playersMap, title);
+              showChessboardTooltip(e, squareCoords, playersMap, tooltipTitle);
             });
 
             square.appendChild(content);
