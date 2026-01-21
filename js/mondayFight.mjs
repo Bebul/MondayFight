@@ -1254,7 +1254,7 @@ function renderGlobalMatingTable(data, fights) {
   const thead = document.createElement("thead");
   thead.innerHTML = `<tr>
     <th>Hráč</th>
-    <th style="text-align: center">Pole</th>
+    <th style="text-align: center">Polí</th>
   </tr>`;
   table.appendChild(thead);
 
@@ -1280,15 +1280,19 @@ function renderGlobalMatingTable(data, fights) {
 function setupPlayerSelector(data, fights, stats, select, personalContainer) {
   if (!select || !personalContainer) return;
 
-  // Najdeme všechny hráče, kteří v tomto období hráli
-  const playersSet = new Set();
-  fights.forEach(fight => {
-    if (fight.standing && fight.standing.players) {
-      fight.standing.players.forEach(p => playersSet.add(p.name));
-    }
-  });
+  // Najdeme všechny hráče, kteří v tomto období dali aspoň jeden mat
+  const matingPlayersSet = new Set();
+  if (stats) {
+    stats.forEach(squareStats => {
+      if (squareStats.winners) {
+        squareStats.winners.forEach((playerStat, playerName) => {
+          matingPlayersSet.add(playerName);
+        });
+      }
+    });
+  }
 
-  const players = Array.from(playersSet).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  const players = Array.from(matingPlayersSet).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
   
   // Vyčistíme select (kromě první option)
   while (select.options.length > 1) {
