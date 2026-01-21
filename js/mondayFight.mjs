@@ -1106,17 +1106,24 @@ function collectChessboardStats(data, fights) {
   return squaresMap
 }
 
-export function createChessboards(data, fights, id) {
+export function createChessboards(data, fights, id, year) {
   const container = id.startsWith("#") ? document.getElementById(id.substring(1)) : document.getElementById(id);
   if (container) {
     container.innerHTML = "";
+
+    if (year) {
+      const mainTitle = document.createElement("h1");
+      mainTitle.className = "chessboard-main-title";
+      mainTitle.innerText = `Krotitelé šachovnic ${year}`;
+      container.appendChild(mainTitle);
+    }
     
     const stats = collectChessboardStats(data, fights);
     console.log("Chessboard Stats:", stats);
 
-    // Příklad vytvoření dvou různých šachovnic
-    createChessboard(container, "standard", "Nejvíce matů (Vítězové)", "Dal mat králi", stats, s => s?.winners);
-    createChessboard(container, "green", "Nejvíce matů (Poražení)", "Král dostal mat", stats, s => s?.losers);
+    // Vytvoření šachovnic s novými barvami
+    createChessboard(container, "winners", "Nejvíce matů (Vítězové)", "Dal mat králi", stats, s => s?.winners);
+    createChessboard(container, "losers", "Nejvíce matů (Poražení)", "Král dostal mat", stats, s => s?.losers);
   }
 }
 
