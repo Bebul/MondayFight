@@ -58,7 +58,7 @@
     <main class="page-menu">
         <div class="community page-menu__content box box-pad">
             <section class="community__online">
-                <h2>Vyber rok</h2>
+                <h2 style="white-space: nowrap">Vyber rok</h2>
                 <ol class="user-top">
                     <li><a class="crown user-link ulpt" href="?year=all"><i class="line"></i>Všechno</a></li>
                     <li><a class="offline user-link ulpt" href="?year=2020"><i class="line"></i>2020</a></li>
@@ -71,40 +71,6 @@
                 </ol>
                 <img src="img/templatePohary.png" style="width: 100%; height: auto">
                 <div id="achievements"></div>
-                <h2>Pořadí</h2>
-                <ol id="player-list" class="user-top">
-                    <li>
-                        <a class="online user-link ulpt" href="/@/Mishka_The_Great">
-                            <i class="line"></i>
-                            <span class="utitle" title="International Master">IM</span>
-                            &nbsp;Mishka_The_Great<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.bear.webp"/>
-                        </a>
-                        <span title="Bullet hodnocení po 83 674 partiích" data-icon="" class="text">3232</span>
-                    </li>
-                    <li>
-                        <a class="online user-link ulpt" href="/@/Jaggust01">
-                            <i class="line"></i>
-                            <span class="utitle" title="International Master">IM</span>
-                            &nbsp;Jaggust01<img class="uflair" src="https://lichess1.org/assets/______3/flair/img/nature.rabbit-face.webp"/>
-                        </a>
-                        <span title="Bullet hodnocení po 3 629 partiích" data-icon="" class="text">3216</span>
-                    </li>
-                    <li>
-                        <a class="online user-link ulpt" href="/@/LegacyOfBob">
-                            <i class="line"></i>
-                            LegacyOfBob
-                        </a>
-                        <span title="Bullet hodnocení po 2 140 partiích" data-icon="" class="text">3215</span>
-                    </li>
-                    <li>
-                        <a class="online user-link ulpt" href="/@/nihalsarin2004">
-                            <i class="line patron" title="Lichess Patron"></i>
-                            <span class="utitle" title="Grandmaster">GM</span>
-                            &nbsp;nihalsarin2004
-                        </a>
-                        <span title="Bullet hodnocení po 17 153 partiích" data-icon="" class="text">3224</span>
-                    </li>
-                </ol>
             </section>
             <div id="chessboards">
             </div>
@@ -128,7 +94,7 @@
         let mfId = curYear[curYear.length - 1].id
         let ix = data.findTournamentIx(mfId)
         if (ix >= 0) data.currentGameListTableIx = ix
-        createChessboards(data, curYear, "#chessboards")
+        createChessboards(data, curYear, "#chessboards", year)
     }
 
     LoadMFData(mainPage)
