@@ -1124,7 +1124,219 @@ export function createChessboards(data, fights, id, year) {
     // Vytvoření šachovnic s novými barvami
     createChessboard(container, "winners", "Nejvíce matů (Vítězové)", "Dal mat králi", stats, s => s?.winners);
     createChessboard(container, "losers", "Nejvíce matů (Poražení)", "Král dostal mat", stats, s => s?.losers);
+
+    // Vytvoření selektoru hráčů a kontejneru pro osobní šachovnici
+    const selectorContainer = document.createElement("div");
+    selectorContainer.id = "player-selector-container";
+    selectorContainer.style.margin = "30px auto";
+    selectorContainer.style.textAlign = "center";
+    selectorContainer.style.maxWidth = "840px";
+
+    const label = document.createElement("label");
+    label.htmlFor = "player-select";
+    label.style.color = "#bababa";
+    label.style.fontSize = "1.2em";
+    label.style.marginRight = "10px";
+    label.innerText = "Statistiky pro hráče:";
+
+    const select = document.createElement("select");
+    select.id = "player-select";
+    select.style.background = "#3c3934";
+    select.style.color = "#fff";
+    select.style.border = "1px solid #262421";
+    select.style.padding = "5px 10px";
+    select.style.borderRadius = "4px";
+    select.style.fontSize = "1.1em";
+
+    const defaultOpt = document.createElement("option");
+    defaultOpt.value = "";
+    defaultOpt.text = "-- Vyber hráče --";
+    select.appendChild(defaultOpt);
+
+    selectorContainer.appendChild(label);
+    selectorContainer.appendChild(select);
+    container.appendChild(selectorContainer);
+
+    const personalContainer = document.createElement("div");
+    personalContainer.id = "personal-chessboard";
+    container.appendChild(personalContainer);
+
+    setupPlayerSelector(data, fights, stats, select, personalContainer);
   }
+}
+
+function setupPlayerSelector(data, fights, stats, select, personalContainer) {
+  if (!select || !personalContainer) return;
+
+  // Najdeme všechny hráče, kteří v tomto období hráli
+  const playersSet = new Set();
+  fights.forEach(fight => {
+    if (fight.standing && fight.standing.players) {
+      fight.standing.players.forEach(p => playersSet.add(p.name));
+    }
+  });
+
+  const players = Array.from(playersSet).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+  
+  // Vyčistíme select (kromě první option)
+  while (select.options.length > 1) {
+    select.remove(1);
+  }
+
+  players.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.text = name;
+    select.add(opt);
+  });
+
+  select.onchange = () => {
+    const playerName = select.value;
+    personalContainer.innerHTML = "";
+    if (playerName) {
+      createPersonalChessboard(personalContainer, playerName, fights, data);
+    }
+  };
+}
+
+function createPersonalChessboard(container, playerName, fights, data) {
+  // Posbíráme statistiky matů pro konkrétního hráče
+  // Klíč: square, Hodnota: { count: number, firstDate: number, opponent: string }
+  const personalStats = new Map();
+
+  fights.forEach(fight => {
+    let id = fight.id;
+    let ix = data.findTournamentIx(id);
+    if (ix < 0) return;
+    let games = data.tournamentGames()[ix].games;
+
+    games.forEach(game => {
+      if (game.status === "mate" && game.winner) {
+        let winnerName = "";
+        let loserName = "";
+        if (game.winner === "white") {
+          winnerName = game.players.white.user.name;
+          loserName = game.players.black.user.name;
+        } else {
+          winnerName = game.players.black.user.name;
+          loserName = game.players.white.user.name;
+        }
+
+        if (winnerName === playerName) {
+          // Hráč dal mat
+          let square = "";
+          if (game.players[game.winner].stats?.mate?.square) {
+            square = game.players[game.winner].stats.mate.square;
+          } else {
+            // Fallback (zjednodušený pro rychlost, v collectChessboardStats je to kompletní)
+            // Ale raději použijeme stejnou logiku jako v collectChessboardStats pokud není square v datech
+            try {
+              const chess = new Chess();
+              chess.load_pgn(game.moves);
+              const board = chess.board();
+              const losingColor = game.winner === "white" ? "b" : "w";
+              for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                  const piece = board[r][c];
+                  if (piece && piece.type === "k" && piece.color === losingColor) {
+                    square = String.fromCharCode(97 + c) + (8 - r);
+                    break;
+                  }
+                }
+                if (square) break;
+              }
+            } catch (e) {
+              let lastMove = game.moves.split(" ").pop();
+              square = lastMove.replace(/[#+]/g, '').slice(-2);
+            }
+          }
+
+          if (/^[a-h][1-8]$/.test(square)) {
+            let stat = personalStats.get(square);
+            if (!stat) {
+              stat = { count: 0, firstDate: game.createdAt, opponent: loserName };
+              personalStats.set(square, stat);
+            }
+            stat.count++;
+            if (game.createdAt < stat.firstDate) {
+              stat.firstDate = game.createdAt;
+              stat.opponent = loserName;
+            }
+          }
+        }
+      }
+    });
+  });
+
+  const wrapper = document.createElement("div");
+  wrapper.className = `chessboard-wrapper personal`;
+
+  const titleEl = document.createElement("h2");
+  titleEl.className = "chessboard-title";
+  titleEl.innerText = `Kde ${playerName} dává maty`;
+  wrapper.appendChild(titleEl);
+
+  const board = document.createElement("div");
+  board.className = "chessboard";
+  wrapper.appendChild(board);
+  container.appendChild(wrapper);
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const square = document.createElement("div");
+      const isLight = (row + col) % 2 === 0;
+      square.className = `square ${isLight ? 'light' : 'dark'}`;
+      const squareCoords = `${String.fromCharCode(97 + col)}${8 - row}`;
+
+      const stat = personalStats.get(squareCoords);
+      if (stat) {
+        const content = document.createElement("div");
+        content.className = "content";
+        content.style.cursor = "pointer";
+
+        const img = document.createElement("img");
+        img.src = Avatars.getAvatar(playerName);
+        img.title = playerName;
+
+        const countLabel = document.createElement("div");
+        countLabel.innerText = stat.count;
+        countLabel.style.marginTop = "2px";
+
+        content.appendChild(img);
+        content.appendChild(countLabel);
+
+        content.addEventListener("click", (e) => {
+          e.stopPropagation();
+          showPersonalTooltip(e, squareCoords, stat);
+        });
+
+        square.appendChild(content);
+      }
+      board.appendChild(square);
+    }
+  }
+}
+
+function showPersonalTooltip(event, square, stat) {
+  let tooltip = document.getElementById("chessboard-tooltip");
+  if (!tooltip) {
+    tooltip = document.createElement("div");
+    tooltip.id = "chessboard-tooltip";
+    tooltip.className = "chess-tooltip";
+    document.body.appendChild(tooltip);
+    document.addEventListener("click", () => tooltip.classList.remove("visible"));
+  }
+
+  const dateStr = new Date(stat.firstDate).toLocaleDateString("cs-CZ");
+  tooltip.innerHTML = `<h2>Mat na ${square}</h2>
+    <div style="font-size: 0.9em; color: #d5d5d5;">
+      První mat: <b>${dateStr}</b><br>
+      Soupeř: <b>${stat.opponent}</b>
+    </div>`;
+
+  tooltip.style.left = `${event.pageX + 10}px`;
+  tooltip.style.top = `${event.pageY + 10}px`;
+  tooltip.classList.add("visible");
 }
 
 function createChessboard(container, type, title, tooltipTitle, stats, dataSelector) {
