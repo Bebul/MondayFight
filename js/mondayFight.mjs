@@ -1162,7 +1162,119 @@ export function createChessboards(data, fights, id, year) {
     container.appendChild(personalContainer);
 
     setupPlayerSelector(data, fights, stats, select, personalContainer);
+    renderGlobalMatingTable(data, fights);
   }
+}
+
+function renderGlobalMatingTable(data, fights) {
+  const container = document.getElementById("global-mating-stats-container");
+  if (!container) return;
+  container.innerHTML = "";
+
+  // Mapa: playerName -> { squares: Set, lastDate: number }
+  const playerStats = new Map();
+
+  fights.forEach(fight => {
+    let id = fight.id;
+    let ix = data.findTournamentIx(id);
+    if (ix < 0) return;
+    let games = data.tournamentGames()[ix].games;
+
+    games.forEach(game => {
+      if (game.status === "mate" && game.winner) {
+        let winnerName = "";
+        if (game.winner === "white") {
+          winnerName = game.players.white.user.name;
+        } else {
+          winnerName = game.players.black.user.name;
+        }
+
+        let square = "";
+        if (game.players[game.winner].stats?.mate?.square) {
+          square = game.players[game.winner].stats.mate.square;
+        } else {
+          try {
+            const chess = new Chess();
+            chess.load_pgn(game.moves);
+            const board = chess.board();
+            const losingColor = game.winner === "white" ? "b" : "w";
+            for (let r = 0; r < 8; r++) {
+              for (let c = 0; c < 8; c++) {
+                const piece = board[r][c];
+                if (piece && piece.type === "k" && piece.color === losingColor) {
+                  square = String.fromCharCode(97 + c) + (8 - r);
+                  break;
+                }
+              }
+              if (square) break;
+            }
+          } catch (e) {
+            let lastMove = game.moves.split(" ").pop();
+            square = lastMove.replace(/[#+]/g, '').slice(-2);
+          }
+        }
+
+        if (/^[a-h][1-8]$/.test(square)) {
+          let stat = playerStats.get(winnerName);
+          if (!stat) {
+            stat = { squares: new Set(), lastDate: 0 };
+            playerStats.set(winnerName, stat);
+          }
+          if (!stat.squares.has(square)) {
+            stat.squares.add(square);
+            if (game.createdAt > stat.lastDate) {
+              stat.lastDate = game.createdAt;
+            }
+          }
+        }
+      }
+    });
+  });
+
+  const sortedPlayers = Array.from(playerStats.entries())
+    .map(([name, stat]) => ({
+      name,
+      count: stat.squares.size,
+      lastDate: stat.lastDate
+    }))
+    .sort((a, b) => {
+      if (b.count !== a.count) return b.count - a.count;
+      return a.lastDate - b.lastDate; // Dříve dosaženo = výš
+    });
+
+  if (sortedPlayers.length === 0) return;
+
+  const tableWrapper = document.createElement("div");
+  tableWrapper.className = "player-control-table-wrapper";
+  tableWrapper.style.marginTop = "20px";
+
+  const table = document.createElement("table");
+  table.className = "player-control-table";
+  
+  const thead = document.createElement("thead");
+  thead.innerHTML = `<tr>
+    <th>Hráč</th>
+    <th style="text-align: center">Pole</th>
+  </tr>`;
+  table.appendChild(thead);
+
+  const tbody = document.createElement("tbody");
+  sortedPlayers.forEach(p => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>
+        <a class="user-link ulpt" href="https://lichess.org/@/${p.name}" target="_blank">
+          <img class="uflair" src="${Avatars.getAvatar(p.name)}" style="height: 1.2em; vertical-align: middle; margin-right: 5px;">
+          ${p.name}
+        </a>
+      </td>
+      <td style="text-align: center; font-weight: bold;">${p.count}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  tableWrapper.appendChild(table);
+  container.appendChild(tableWrapper);
 }
 
 function setupPlayerSelector(data, fights, stats, select, personalContainer) {
