@@ -63,6 +63,14 @@
 .losers .square.light { background-color: #aaaaaa; }
 .losers .square.dark { background-color: #777777; }
 
+/* Varianta: Personal (modrá) */
+.chessboard-wrapper.personal {
+    background-color: #1a2a3a;
+    border: 4px solid #0d1a26;
+}
+.personal .square.light { background-color: #97b2c7; }
+.personal .square.dark { background-color: #546f82; }
+
 .square {
     overflow: hidden;
 }
