@@ -1135,7 +1135,7 @@ export function createChessboards(data, fights, id, year) {
     const label = document.createElement("label");
     label.htmlFor = "player-select";
     label.style.color = "#bababa";
-    label.style.fontSize = "1.2em";
+    label.style.fontSize = "1.3em";
     label.style.marginRight = "10px";
     label.innerText = "Statistiky pro hráče:";
 
@@ -1146,7 +1146,7 @@ export function createChessboards(data, fights, id, year) {
     select.style.border = "1px solid #262421";
     select.style.padding = "5px 10px";
     select.style.borderRadius = "4px";
-    select.style.fontSize = "1.1em";
+    select.style.fontSize = "1.2em";
 
     const defaultOpt = document.createElement("option");
     defaultOpt.value = "";
@@ -1441,7 +1441,7 @@ function showPersonalTooltip(event, square, stat) {
 
   const dateStr = new Date(stat.firstDate).toLocaleDateString("cs-CZ");
   tooltip.innerHTML = `<h2>Mat na ${square}</h2>
-    <div style="font-size: 0.9em; color: #d5d5d5;">
+    <div style="font-size: 1em; color: #d5d5d5;">
       První mat: <b>${dateStr}</b><br>
       Soupeř: <b>${stat.opponent}</b>
     </div>`;
