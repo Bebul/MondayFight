@@ -232,6 +232,30 @@ class AchievementScholar {
   }
 }
 
+class AchievementPlayOffGold {
+  constructor(player, id, year) {
+    this.player = player
+    this.sortVal = 201
+    this.img = "gold-cup-2.png"
+    this.desc = "Play OFF<br>" + year
+    this.hof = "Vítěz play-off"
+    this.game = id
+    this.points = 0.111 // because it is worthy on its own  
+  }
+}
+
+class AchievementPlayOffSilver {
+  constructor(player, id, year) {
+    this.player = player
+    this.sortVal = 200
+    this.img = "silver-cup-2.png"
+    this.desc = "Play OFF<br>" + year
+    this.hof = "Stříbro v play-off"
+    this.game = id
+    this.points = 0.110 // because it is worthy on its own  
+  }
+}
+
 class AchievementLegal {
   constructor(player, id) {
     this.player = player
@@ -737,6 +761,13 @@ export function collectAchievements(data, tournamentID, games) {
   let tournament = data.findTournament(tournamentID)
   let achievements = []
   let s = tournamentSpec.find(s => s.id === tournamentID)
+
+  if (tournament.id.match(/^playOFF/) && tournament.isFinished === true) {
+    let year = tournament.id.replace('playOFF', '')
+    achievements.push(new AchievementPlayOffGold(tournament.podium[0].name, tournament.podium[0].name, year))
+    achievements.push(new AchievementPlayOffSilver(tournament.podium[1].name, tournament.podium[1].name, year))
+  }
+  
   if (s && s.achievements) s.achievements.forEach(a => {
     switch (a.achievement) {
       case "reporter": achievements.push(new AchievementReporter(a.player, a.id)); break;
