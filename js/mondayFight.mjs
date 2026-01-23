@@ -1087,17 +1087,18 @@ function collectChessboardStats(data, fights) {
             }
             let stats = squaresMap.get(square)
             
-            const updatePlayerStats = (map, name, date) => {
-              let playerStat = map.get(name) || { count: 0, lastDate: 0 }
+            const updatePlayerStats = (map, name, date, gameId) => {
+              let playerStat = map.get(name) || { count: 0, lastDate: 0, lastGameId: "" }
               playerStat.count++
               if (date > playerStat.lastDate) {
                 playerStat.lastDate = date
+                playerStat.lastGameId = gameId
               }
               map.set(name, playerStat)
             }
 
-            updatePlayerStats(stats.winners, winnerName, game.createdAt)
-            updatePlayerStats(stats.losers, loserName, game.createdAt)
+            updatePlayerStats(stats.winners, winnerName, game.createdAt, game.id)
+            updatePlayerStats(stats.losers, loserName, game.createdAt, game.id)
           }
         }
       }
@@ -1370,13 +1371,14 @@ function createPersonalChessboard(container, playerName, fights, data) {
           if (/^[a-h][1-8]$/.test(square)) {
             let stat = personalStats.get(square);
             if (!stat) {
-              stat = { count: 0, firstDate: game.createdAt, opponent: loserName };
+              stat = { count: 0, firstDate: game.createdAt, opponent: loserName, gameId: game.id };
               personalStats.set(square, stat);
             }
             stat.count++;
             if (game.createdAt < stat.firstDate) {
               stat.firstDate = game.createdAt;
               stat.opponent = loserName;
+              stat.gameId = game.id;
             }
           }
         }
@@ -1440,15 +1442,29 @@ function showPersonalTooltip(event, square, stat) {
     tooltip.id = "chessboard-tooltip";
     tooltip.className = "chess-tooltip";
     document.body.appendChild(tooltip);
+    
+    // Zastavíme propagaci kliknutí uvnitř tooltipu, aby se nezavřel při kliku na odkaz
+    tooltip.addEventListener("click", (e) => e.stopPropagation());
+    
     document.addEventListener("click", () => tooltip.classList.remove("visible"));
   }
 
   const dateStr = new Date(stat.firstDate).toLocaleDateString("cs-CZ");
-  tooltip.innerHTML = `<h2>Mat na ${square}</h2>
+  const gameLink = stat.gameId ? `https://lichess.org/${stat.gameId}` : null;
+  
+  let html = `<h2>Mat na ${square}</h2>
     <div style="font-size: 1em; color: #d5d5d5;">
       První mat: <b>${dateStr}</b><br>
       Soupeř: <b>${stat.opponent}</b>
     </div>`;
+
+  if (gameLink) {
+    html += `<div style="margin-top: 10px;">
+      <a href="${gameLink}" target="_blank" style="color: #3692e7; text-decoration: none; font-weight: bold;">Zobrazit partii</a>
+    </div>`;
+  }
+
+  tooltip.innerHTML = html;
 
   tooltip.style.left = `${event.pageX + 10}px`;
   tooltip.style.top = `${event.pageY + 10}px`;
@@ -1594,6 +1610,9 @@ function showChessboardTooltip(event, square, playersMap, titlePrefix) {
     tooltip.className = "chess-tooltip";
     document.body.appendChild(tooltip);
     
+    // Zastavíme propagaci kliknutí uvnitř tooltipu, aby se nezavřel při kliku na odkaz
+    tooltip.addEventListener("click", (e) => e.stopPropagation());
+    
     document.addEventListener("click", () => {
       tooltip.classList.remove("visible");
     });
@@ -1610,8 +1629,9 @@ function showChessboardTooltip(event, square, playersMap, titlePrefix) {
   let html = `<h2>${titlePrefix.split(" (")[0]} na ${square}</h2>`;
   html += `<ol class="user-top" style="pointer-events: auto">`;
   players.forEach(p => {
+    const gameLink = p.lastGameId ? `https://lichess.org/${p.lastGameId}` : `https://lichess.org/@/${p.name}`;
     html += `<li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-      <a class="user-link" href="https://lichess.org/@/${p.name}" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #d5d5d5;">
+      <a class="user-link" href="${gameLink}" target="_blank" style="display: flex; align-items: center; text-decoration: none; color: #d5d5d5;">
         <img class="uflair" src="${Avatars.getAvatar(p.name)}" style="height: 1.2em; margin-right: 4px;" />
         &nbsp;${p.name}
       </a>
