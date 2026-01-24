@@ -301,6 +301,39 @@ class AchievementDoubleBishopMate {
   }
 }
 
+class AchievementDovetailMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 113
+    this.img = "dovetailMate.png"
+    this.desc = "Vlaštovčí<br>mat"
+    this.game = id
+    this.points = 1.69
+  }
+}
+
+class AchievementTriangleMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 82
+    this.img = "triangleMate.png"
+    this.desc = "Trojúhelníkový<br>mat"
+    this.game = id
+    this.points = 1.68
+  }
+}
+
+class AchievementBlindSwineMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 62
+    this.img = "blindSwineMate.png"
+    this.desc = "Mat slepých<br>sviní"
+    this.game = id
+    this.points = 1.01
+  }
+}
+
 class AchievementArabian {
   constructor(player, id) {
     this.player = player
@@ -856,8 +889,11 @@ export function collectAchievements(data, tournamentID, games) {
           if (stats.mate.arabian) achievements.push(new AchievementArabian(player, g.id))
           if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
           if (stats.mate.hook) achievements.push(new AchievementHookMate(player, g.id))
+          if (stats.mate.blindSwineMate) achievements.push(new AchievementBlindSwineMate(player, g.id))
+          if (stats.mate.triangleMate) achievements.push(new AchievementTriangleMate(player, g.id))
+          if (stats.mate.dovetailMate) achievements.push(new AchievementDovetailMate(player, g.id))
           if (stats.mate.bodenMate) achievements.push(new AchievementBodenMate(player, g.id))
-          if (stats.mate.doubleBishop) achievements.push(new AchievementDoubleBishopMate(player, g.id))
+          if (stats.mate.doubleBishopMate) achievements.push(new AchievementDoubleBishopMate(player, g.id))
           if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
           if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
           if (stats.mate.garde) achievements.push(new AchievementMateGarde(player, g.id))
@@ -1008,7 +1044,14 @@ function testAchievementsInfo(id="achievements") {
     new AchievementPersonalBest(next()),
     new AchievementBest(next()),
     new AchievementWorst(next()),
-    new AchievementBeatGM(next())
+    new AchievementPlayOffGold(next()),
+    new AchievementPlayOffSilver(next()),
+    new AchievementHookMate(next()),
+    new AchievementBodenMate(next()),
+    new AchievementDoubleBishopMate(next()),
+    new AchievementTriangleMate(next()),
+    new AchievementBlindSwineMate(next()),
+    new AchievementDovetailMate(next())
   ]
 
   let el = document.getElementById(id)
@@ -1291,8 +1334,11 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.arabian) decorations.push("&#128115;")
       if (stats.mate.anastasia) decorations.push("&#128096;")
       if (stats.mate.hook) decorations.push("&#129693;")
+      if (stats.mate.blindSwineMate) decorations.push("&#128055;")
+      if (stats.mate.triangleMate) decorations.push("&#9651;")
+      if (stats.mate.dovetailMate) decorations.push("&#128038;")
       if (stats.mate.bodenMate) decorations.push("&#9876;")
-      else if (stats.mate.doubleBishop) decorations.push("&#9891;")
+      else if (stats.mate.doubleBishopMate) decorations.push("&#9891;")
       if (stats.mate.halfburne) decorations.push("&#129492;")
       if (stats.mate.blackburneMate) decorations.push("&#129492;")
       if (stats.mate.kingkong && !stats.mate.scholar) decorations.push("<b>&#129421;</b>") //different achievement == different symbol
