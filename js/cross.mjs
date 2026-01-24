@@ -1,5 +1,6 @@
 /* jshint -W033, esversion: 6 */
 import {MF} from "./tournamentsData.mjs"
+import {Chess} from "../chess.js/esm-1.4.0/chess.mjs"
 import {
   getPlayers,
   allMyTables,

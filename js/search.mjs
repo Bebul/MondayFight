@@ -1,5 +1,6 @@
 import {gameListData, updateMostActivePlayer, updateGoogleBar, gameListTable} from "./mondayFight.mjs"
 import {playsGambit} from "./podium.mjs";
+import {Chess} from "../chess.js/esm-1.4.0/chess.mjs"
 
 function movesToArrayOfFen(initialPosition, moves) {
   let chess = new Chess(initialPosition)

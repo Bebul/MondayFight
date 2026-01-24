@@ -2,6 +2,7 @@
 import {MFPodium} from "./podium.mjs"
 import {toNDJson, download, getPlayers} from "./mondayFight.mjs"
 import {getStreaks} from "./cross.mjs"
+import {Chess, SQUARES} from "../chess.js/esm-1.4.0/chess.mjs"
 
 export function processAnalyze(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
@@ -39,7 +40,7 @@ export function processAnalyze(data) {
 
 export let AnalyzeKeyList =   [
   "sensation", "smothered", "centerMate", "castling", "promotion", "enPassant", "sacrifice",
-  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac", "kingkong", "garde", "overtime", "highest", "best", "worst"
+  "queens", "epCheck", "monkey", "fastest", "scholar", "legal", "arabian", "anastasia", "blackburneMate", "halfburne", "fullmaterial", "bishopSac", "kingkong", "garde", "overtime", "highest", "best", "worst", "hook", "bodenMate", "doubleBishopMate", "dovetailMate", "triangleMate", "blindSwineMate"
 ]
 
 function reporter() {
@@ -104,10 +105,10 @@ function findQueens(board, color) {
 }
 
 function isMateAfterRemove(chess, r, f) {
-  let squares = chess.SQUARES
+  let squares = SQUARES
   let square = squares[8*r+f]
   let sq = chess.remove(square)
-  let isMate = chess.in_checkmate()
+  let isMate = chess.isCheckmate()
   chess.put(sq, square)
   return isMate
 }
@@ -118,6 +119,28 @@ function isLastRankOrFile(square) {
   return (file==='a' || file==='h' || rank==='1' || rank==='8')
 }
 
+const SquaresMap = {
+  a8: 0, b8: 1, c8: 2, d8: 3, e8: 4, f8: 5, g8: 6, h8: 7,
+  a7: 16, b7: 17, c7: 18, d7: 19, e7: 20, f7: 21, g7: 22, h7: 23,
+  a6: 32, b6: 33, c6: 34, d6: 35, e6: 36, f6: 37, g6: 38, h6: 39,
+  a5: 48, b5: 49, c5: 50, d5: 51, e5: 52, f5: 53, g5: 54, h5: 55,
+  a4: 64, b4: 65, c4: 66, d4: 67, e4: 68, f4: 69, g4: 70, h4: 71,
+  a3: 80, b3: 81, c3: 82, d3: 83, e3: 84, f3: 85, g3: 86, h3: 87,
+  a2: 96, b2: 97, c2: 98, d2: 99, e2: 100, f2: 101, g2: 102, h2: 103,
+  a1: 112, b1: 113, c1: 114, d1: 115, e1: 116, f1: 117, g1: 118, h1: 119
+};
+
+const FLAGS = {
+  NORMAL: 'n',
+  CAPTURE: 'c',
+  BIG_PAWN: 'b',
+  EP_CAPTURE: 'e',
+  PROMOTION: 'p',
+  KSIDE_CASTLE: 'k',
+  QSIDE_CASTLE: 'q',
+  NULL_MOVE: '-',
+};
+
 function blackburneMate(chess, loseColor, mate) {
   if (mate.piece !== 'b') return false // must be bishop mate
 
@@ -125,14 +148,14 @@ function blackburneMate(chess, loseColor, mate) {
   let board = chess.board()
   let knights = findPieces('n', color, board)
   let knightIsImportant = knights.find(square => {
-    let sq = chess.SquaresMap[square]
+    let sq = SquaresMap[square]
     return !isMateAfterRemove(chess, sq >> 4, sq & 15)
   })
   if (!knightIsImportant) return false
 
   let bishops = findPieces('b', color, board)
   let uselessBishop = bishops.length < 2 || bishops.find(square => {
-    let sq = chess.SquaresMap[square]
+    let sq = SquaresMap[square]
     return isMateAfterRemove(chess, sq >> 4, sq & 15)
   })
 
@@ -190,6 +213,226 @@ function anastasiaMate(chess, loseColor, mate) {
   return false
 }
 
+function hookMate(chess, loseColor, mate) {
+  if (mate.piece !== 'r') return false // Hook mate končí věží
+
+  let board = chess.board()
+  let winColor = loseColor === 'w' ? 'b' : 'w'
+
+  // 1. Věž dává mat a je v sousedství krále (vzdálenost 1)
+  let kingSq88 = SquaresMap[mate.square]
+  let rookSq88 = SquaresMap[mate.to]
+
+  if (squareDistance(kingSq88, rookSq88) !== 1) return false
+
+  // 2. Věž musí být kryta jezdcem, který je také v sousedství krále
+  let rookAttackers = chess.attackers(mate.to, winColor)
+  for (let knightPos of rookAttackers) {
+    let knightSq88 = SquaresMap[knightPos]
+    let piece = board[knightSq88 >> 4][knightSq88 & 15]
+
+    if (piece && piece.type === 'n' && squareDistance(knightSq88, kingSq88) === 1) {
+      // 3. Jezdec musí být kryt pěšcem
+      let knightAttackers = chess.attackers(knightPos, winColor)
+      for (let pawnPos of knightAttackers) {
+        let pawnSq88 = SquaresMap[pawnPos]
+        let pawnPiece = board[pawnSq88 >> 4][pawnSq88 & 15]
+        if (pawnPiece && pawnPiece.type === 'p') {
+          return true
+        }
+      }
+    }
+  }
+  return false
+}
+
+function bodenOrDoubleBishopMate(chess, loseColor, mate) {
+  let board = chess.board()
+  let winColor = loseColor === 'w' ? 'b' : 'w'
+  let kingSq88 = SquaresMap[mate.square]
+  
+  let bishops = findPieces('b', winColor, board)
+  if (bishops.length < 2) return null
+
+  // Check all squares adjacent to the king
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      let targetSq88 = (i << 4) | j
+      if (squareDistance(targetSq88, kingSq88) < 2) {
+        // If the square is attacked, it must be ONLY by bishops (from the winning side)
+        let attackers = chess.attackers(algebraic(i,j), winColor)
+        if (attackers.length > 0) {
+          for (let attackerPos of attackers) {
+            let attackerSq88 = SquaresMap[attackerPos]
+            let piece = board[attackerSq88 >> 4][attackerSq88 & 15]
+            if (piece && piece.type !== 'b') {
+              return null
+            }
+          }
+        }
+      }
+    }
+  }
+
+  let b1 = SquaresMap[bishops[0]]
+  let b2 = SquaresMap[bishops[1]]
+  let k = kingSq88
+
+  if ((file88(b1) < file88(k)) === (file88(b2) > file88(k))) {
+    return "bodenMate"
+  } else {
+    return "doubleBishopMate"
+  }
+}
+
+function dovetailMate(chess, loseColor, mate) {
+  let board = chess.board()
+  let winColor = loseColor === 'w' ? 'b' : 'w'
+  let kingSq88 = SquaresMap[mate.square]
+
+  // King must not be on the edge
+  let kf = file88(kingSq88)
+  let kr = rank88(kingSq88)
+  if (kf === 0 || kf === 7 || kr === 0 || kr === 7) return false
+
+  let queenSq88 = SquaresMap[mate.to]
+  let qf = file88(queenSq88)
+  let qr = rank88(queenSq88)
+
+  if (
+    mate.piece !== 'q' ||
+    qf === kf ||
+    qr === kr ||
+    squareDistance(queenSq88, kingSq88) !== 1
+  ) {
+    return false
+  }
+
+  // Check all squares adjacent to the king
+  for (let r = 0; r < 8; r++) {
+    for (let f = 0; f < 8; f++) {
+      let targetSq88 = (r << 4) | f
+      if (squareDistance(targetSq88, kingSq88) === 1) {
+        if (targetSq88 === queenSq88) continue
+
+        let targetAlg = algebraic(r, f)
+        let attackers = chess.attackers(targetAlg, winColor)
+        
+        if (attackers.length === 1 && attackers[0] === mate.to) {
+          if (board[r][f]) return false
+        } else if (attackers.length > 0) {
+          return false
+        }
+      }
+    }
+  }
+  return true
+}
+
+function triangleMate(chess, loseColor, mate) {
+  let board = chess.board()
+  let winColor = loseColor === 'w' ? 'b' : 'w'
+  let kingSq88 = SquaresMap[mate.square]
+  let kf = file88(kingSq88)
+  let kr = rank88(kingSq88)
+
+  let winPieces = []
+  for (let r = 0; r < 8; r++) {
+    for (let f = 0; f < 8; f++) {
+      let piece = board[r][f]
+      if (piece && piece.color === winColor) {
+        winPieces.push({ type: piece.type, sq88: (r << 4) | f })
+      }
+    }
+  }
+
+  let queens = winPieces.filter(p => p.type === 'q')
+  let rooks = winPieces.filter(p => p.type === 'r')
+
+  for (let q of queens) {
+    for (let r of rooks) {
+      let qSq = q.sq88
+      let rSq = r.sq88
+
+      // Both one square away from king (distance 1)
+      if (squareDistance(qSq, kingSq88) === 1 && squareDistance(rSq, kingSq88) === 1) {
+        let qf = file88(qSq), qr = rank88(qSq)
+        let rf = file88(rSq), rr = rank88(rSq)
+
+        // Same rank, separated by one square
+        if (qr === rr && Math.abs(qf - rf) === 2) {
+          // king must be on the rank above or below, at the middle file.
+          if (kr !== qr && Math.abs(qf - kf) === 1 && Math.abs(rf - kf) === 1) {
+            // all three other squares must be empty
+            if (board[kr][qf] || board[kr][rf] || board[qr][kf]) return false
+            else return true
+          }
+        }
+        // Same file, separated by one square
+        if (qf === rf && Math.abs(qr - rr) === 2) {
+          if (kf !== qf && Math.abs(qr - kr) === 1 && Math.abs(rr - kr) === 1) {
+            // all three other squares must be empty
+            if (board[qr][kf] || board[rr][kf] || board[kr][qf]) return false
+            else return true
+          }
+        }
+      }
+    }
+  }
+  return false
+}
+
+function blindSwineMate(chess, loseColor, mate) {
+  let board = chess.board()
+  let winColor = loseColor === 'w' ? 'b' : 'w'
+  let kingSq88 = SquaresMap[mate.square]
+  let kf = file88(kingSq88)
+  let kr = rank88(kingSq88)
+
+  let winRooks = []
+  for (let r = 0; r < 8; r++) {
+    for (let f = 0; f < 8; f++) {
+      let piece = board[r][f]
+      if (piece && piece.color === winColor && piece.type === 'r') {
+        winRooks.push({ sq88: (r << 4) | f })
+      }
+    }
+  }
+
+  if (winRooks.length < 2) return false
+
+  // Blind Swine mate involves two rooks on the 7th rank (relative to opponent)
+  // or generally in a 2x2 area with the king.
+  // Lichess/Python doesn't seem to have a specific blind_swine_mate in the shared snippet,
+  // but the description says "Two rooks team up to mate the king in an area of 2 by 2 squares."
+
+  for (let i = 0; i < winRooks.length; i++) {
+    for (let j = i + 1; j < winRooks.length; j++) {
+      let r1 = winRooks[i].sq88
+      let r2 = winRooks[j].sq88
+
+      // Check if both rooks and king are within a 2x2 area.
+      let maxFile = Math.max(kf, file88(r1), file88(r2))
+      let minFile = Math.min(kf, file88(r1), file88(r2))
+      let maxRank = Math.max(kr, rank88(r1), rank88(r2))
+      let minRank = Math.min(kr, rank88(r1), rank88(r2))
+
+      if (maxFile - minFile <= 1 && maxRank - minRank <= 1) {
+        // They are in a 2x2 area.
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
+function squareDistance(sq1, sq2) {
+  let file1 = sq1 & 15, rank1 = sq1 >> 4
+  let file2 = sq2 & 15, rank2 = sq2 >> 4
+  return Math.max(Math.abs(file1 - file2), Math.abs(rank1 - rank2))
+}
+
 function countPieces(board, color) {
   let count = 0
   for (let i = 0; i < board.length; i++) {
@@ -221,7 +464,7 @@ function isGarde(color, chess) {
   let opoColor = "w"
   if (color === "w") opoColor = "b"
   let atq = queens.find(queen =>
-    chess.attacked(opoColor, chess.SquaresMap[queen])
+      chess.isAttacked(queen, opoColor)
   )
   return atq !== undefined
 }
@@ -239,17 +482,6 @@ function findPieces(type, color, board) {
   return ret
 }
 
-var CHESS_SQUARES = {
-  a8:   0, b8:   1, c8:   2, d8:   3, e8:   4, f8:   5, g8:   6, h8:   7,
-  a7:  16, b7:  17, c7:  18, d7:  19, e7:  20, f7:  21, g7:  22, h7:  23,
-  a6:  32, b6:  33, c6:  34, d6:  35, e6:  36, f6:  37, g6:  38, h6:  39,
-  a5:  48, b5:  49, c5:  50, d5:  51, e5:  52, f5:  53, g5:  54, h5:  55,
-  a4:  64, b4:  65, c4:  66, d4:  67, e4:  68, f4:  69, g4:  70, h4:  71,
-  a3:  80, b3:  81, c3:  82, d3:  83, e3:  84, f3:  85, g3:  86, h3:  87,
-  a2:  96, b2:  97, c2:  98, d2:  99, e2: 100, f2: 101, g2: 102, h2: 103,
-  a1: 112, b1: 113, c1: 114, d1: 115, e1: 116, f1: 117, g1: 118, h1: 119
-}
-
 function file88(i) {
   return i & 15
 }
@@ -259,8 +491,8 @@ function rank88(i) {
 }
 
 function squaresAreSymmetric(a, b) {
-  let sqa = CHESS_SQUARES[a]
-  let sqb = CHESS_SQUARES[b]
+  let sqa = SquaresMap[a]
+  let sqb = SquaresMap[b]
   return rank88(sqa) === 7-rank88(sqb) && file88(sqa) === file88(sqb)
 }
 
@@ -353,7 +585,7 @@ export function positionAfter(g, ply) {
   if (g.initialFen || g.ply < ply) return null
   let gStripped = stripToPly(g, ply)
   let pgn = MFPodium.toPGN(gStripped, true)
-  chess.load_pgn(pgn)
+  chess.loadPgn(pgn)
   return chess.fen()
 }
 
@@ -397,9 +629,10 @@ function countPawns(board, color, column) {
   return pawns
 }
 
-function analyzeHistory(chess, history) {
+function analyzeHistory(chess, history, initialFen) {
   //let chess = new Chess() // cannot use new Chess(), it fails when run in node.js
-  chess.reset()
+  if (initialFen) chess.load(initialFen)
+  else chess.reset()
   let pawnsMax = {w: 0, b: 0}
   for (let i = 0; i < history.length; i++) {
     let m = history[i]
@@ -408,7 +641,7 @@ function analyzeHistory(chess, history) {
       (i === history.length-1 || history[i+1].to !== m.to)
     ) {
       let board = chess.board()
-      let column = chess.SquaresMap[m.to] & 0x0f
+      let column = SquaresMap[m.to] & 0x0f
       let pawns = countPawns(board, m.color, column)
       if (pawns > pawnsMax[m.color]) pawnsMax[m.color] = pawns
     }
@@ -429,14 +662,14 @@ async function analyzeMoves(g, t, report, chessP) {
   let moves = g.moves.split(" ")
   let chess = chessP || new Chess()
   let pgn = MFPodium.toPGN(g, true)
-  chess.load_pgn(pgn)
+  chess.loadPgn(pgn)
 
   let history = chess.history({verbose: true})
 
-  stats.pawns = analyzeHistory(chess, history) // record is LmtgAYf0 with 4 pawns in one column by bukowskic
+  stats.pawns = analyzeHistory(chess, history, g.initialFen) // record is LmtgAYf0 with 4 pawns in one column by bukowskic
 
-  for(let prop in chess.FLAGS) {
-    stats[chess.FLAGS[prop]] = {w:0, b:0}
+  for(let prop in FLAGS) {
+    stats[FLAGS[prop]] = {w:0, b:0}
   }
   stats.epCheck = {w:0, b:0}
 
@@ -482,6 +715,13 @@ async function analyzeMoves(g, t, report, chessP) {
     if (g.moves.match(/Ne5 [^\s]+ Bxf7\+ Ke7 Nd5#|Ne4  [^\s]+ Bxf2\+ Ke2 Nd4#/)) mate.legal = true
     if (arabianMate(chess, loseColor, mate)) mate.arabian = true
     if (anastasiaMate(chess, loseColor, mate)) mate.anastasia = true
+    if (blindSwineMate(chess, loseColor, mate)) mate.blindSwineMate = true
+    if (hookMate(chess, loseColor, mate)) mate.hook = true
+    if (triangleMate(chess, loseColor, mate)) mate.triangleMate = true
+    if (dovetailMate(chess, loseColor, mate)) mate.dovetailMate = true
+    let bbm = bodenOrDoubleBishopMate(chess, loseColor, mate)
+    if (bbm === "bodenMate") mate.bodenMate = true
+    else if (bbm === "doubleBishopMate") mate.doubleBishopMate = true
     if (blackburneMate(chess, loseColor, mate)) {
       if (!isLastRankOrFile(mate.square)) mate.halfburne = true
       else mate.blackburneMate = true // mated king must not be in the center
@@ -558,6 +798,9 @@ export async function addStats(g, t, report, chess) {
             if (stats.mate && stats.mate.legal) console.log(`${g.id} legal mate`)
             if (stats.mate && stats.mate.arabian) console.log(`${g.id} arabian mate`)
             if (stats.mate && stats.mate.anastasia) console.log(`${g.id} anastasia's mate`)
+            if (stats.mate && stats.mate.bodenMate) console.log(`${g.id} bodens's mate`)
+            if (stats.mate && stats.mate.hook) console.log(`${g.id} hook's mate`)
+            if (stats.mate && stats.mate.doubleBishop) console.log(`${g.id} double bishop mate`)
             if (stats.mate && stats.mate.blackburneMate) console.log(`${g.id} Blackburne's mate`)
             if (stats.mate && stats.mate.halfburne) console.log(`${g.id} semi Blackburne's mate`)
             if (stats.mate && stats.mate.fullmaterial) console.log(`${g.id} Full material mate`)
