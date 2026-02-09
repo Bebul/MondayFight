@@ -1,5 +1,6 @@
 /* jshint -W033, esversion: 6 */
 import {MF} from "./tournamentsData.mjs"
+import {Chess} from "../chess.js/esm-1.4.0/chess.mjs"
 import {
   defaultBoardConfig,
   gameListData,
@@ -264,6 +265,72 @@ class AchievementLegal {
     this.desc = "Námořní kadet"
     this.game = id
     this.points = 3.05
+  }
+}
+
+class AchievementHookMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 105
+    this.img = "hookMate.png"
+    this.desc = "Hákový<br>mat"
+    this.game = id
+    this.points = 1.62
+  }
+}
+
+class AchievementBodenMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 114
+    this.img = "bodenMate.png"
+    this.desc = "Bodenův<br>mat"
+    this.game = id
+    this.points = 1.63
+  }
+}
+
+class AchievementDoubleBishopMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 115
+    this.img = "doubleBishopMate.png"
+    this.desc = "Mat dvěma<br>střelci"
+    this.game = id
+    this.points = 1.64
+  }
+}
+
+class AchievementDovetailMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 113
+    this.img = "dovetailMate.png"
+    this.desc = "Vlaštovčí<br>mat"
+    this.game = id
+    this.points = 1.69
+  }
+}
+
+class AchievementTriangleMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 82
+    this.img = "triangleMate.png"
+    this.desc = "Trojúhelníkový<br>mat"
+    this.game = id
+    this.points = 1.68
+  }
+}
+
+class AchievementBlindSwineMate {
+  constructor(player, id) {
+    this.player = player
+    this.sortVal = 62
+    this.img = "blindSwineMate.png"
+    this.desc = "Mat slepých<br>sviní"
+    this.game = id
+    this.points = 1.01
   }
 }
 
@@ -821,6 +888,12 @@ export function collectAchievements(data, tournamentID, games) {
           if (stats.mate.legal) achievements.push(new AchievementLegal(player, g.id))
           if (stats.mate.arabian) achievements.push(new AchievementArabian(player, g.id))
           if (stats.mate.anastasia) achievements.push(new AchievementAnastasia(player, g.id))
+          if (stats.mate.hook) achievements.push(new AchievementHookMate(player, g.id))
+          if (stats.mate.blindSwineMate) achievements.push(new AchievementBlindSwineMate(player, g.id))
+          if (stats.mate.triangleMate) achievements.push(new AchievementTriangleMate(player, g.id))
+          if (stats.mate.dovetailMate) achievements.push(new AchievementDovetailMate(player, g.id))
+          if (stats.mate.bodenMate) achievements.push(new AchievementBodenMate(player, g.id))
+          if (stats.mate.doubleBishopMate) achievements.push(new AchievementDoubleBishopMate(player, g.id))
           if (stats.mate.halfburne) achievements.push(new AchievementHalfburne(player, g.id))
           if (stats.mate.blackburneMate) achievements.push(new AchievementBlackburne(player, g.id))
           if (stats.mate.garde) achievements.push(new AchievementMateGarde(player, g.id))
@@ -971,7 +1044,14 @@ function testAchievementsInfo(id="achievements") {
     new AchievementPersonalBest(next()),
     new AchievementBest(next()),
     new AchievementWorst(next()),
-    new AchievementBeatGM(next())
+    new AchievementPlayOffGold(next()),
+    new AchievementPlayOffSilver(next()),
+    new AchievementHookMate(next()),
+    new AchievementBodenMate(next()),
+    new AchievementDoubleBishopMate(next()),
+    new AchievementTriangleMate(next()),
+    new AchievementBlindSwineMate(next()),
+    new AchievementDovetailMate(next())
   ]
 
   let el = document.getElementById(id)
@@ -1253,6 +1333,12 @@ function getDecorationTrophies(game, player, wins) {
       if (stats.mate.legal) decorations.push("&#9875;")
       if (stats.mate.arabian) decorations.push("&#128115;")
       if (stats.mate.anastasia) decorations.push("&#128096;")
+      if (stats.mate.hook) decorations.push("&#129693;")
+      if (stats.mate.blindSwineMate) decorations.push("&#128055;")
+      if (stats.mate.triangleMate) decorations.push("&#9651;")
+      if (stats.mate.dovetailMate) decorations.push("&#128038;")
+      if (stats.mate.bodenMate) decorations.push("&#9876;")
+      else if (stats.mate.doubleBishopMate) decorations.push("&#9891;")
       if (stats.mate.halfburne) decorations.push("&#129492;")
       if (stats.mate.blackburneMate) decorations.push("&#129492;")
       if (stats.mate.kingkong && !stats.mate.scholar) decorations.push("<b>&#129421;</b>") //different achievement == different symbol

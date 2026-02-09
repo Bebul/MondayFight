@@ -1,7 +1,7 @@
 /* jshint -W033, esversion: 8 */
 import {LoadMFData} from "../js/tournamentsData.mjs"
 import {LAPI} from "../js/lichessAPIdownloader.mjs"
-import {Chess} from '../chess.js/chess.js'
+import {Chess} from '../chess.js/esm-1.4.0/chess.mjs'
 import {addNewGamesStats} from "../js/analyze.mjs"
 import {download, toNDJson} from "../js/mondayFight.mjs"
 
