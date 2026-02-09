@@ -1562,5 +1562,24 @@ export var tournamentSpec = [
       </div>
     </section>
     `]
+  }, {
+    id: "Z8t1r4eX",
+    html: "<b>bebul</b>: Představujeme novou plaketku za <b>Mat slepých sviní</b>. <img src='img/achievements/blindSwineMate.png' class='img100 right'> Teminologie je převzata z <a href='https://lichess.org/training/themes'>Lichess puzzle témat</a>. " +
+        " Jedná se o mat dvěma věžemi spolu s králem na čtverci 2x2."
+  }, {
+    id: "xLfzeFEn",
+    html: "<b>bebul</b>: Představujeme další plaketky za roztodivné maty. Teminologie je převzata z <a href='https://lichess.org/training/themes'>Lichess puzzle témat</a>. " +
+        "<img src='img/achievements/hookMate.png' class='img100 right'> <b>Hákový mat</b> Mat věží, jezdcem a pěšcem spolu s jedním nepřátelským pěšcem, který omezuje únikovou cestu nepřátelského krále." +
+        "<p> Všechny plaketky jsou přidány i zpětně, takže je najdete i v předchozích turnajích... " +
+        "<p> <img src='img/achievements/triangleMate.png' class='img100 left'> <b>Trojuhelníkový mat</b> Dáma a věž, vzdálené jedno pole od nepřátelského krále, se nacházejí na stejné řadě nebo sloupci, oddělené jedním polem, čímž (společně s králem) tvoří trojúhelník."
+  }, {
+    id: "JnrhB76U",
+    html: "<b>Jouzolean</b>: Dneska to byl Jouzoelanuv sen! " +
+        "<br><br><b>bebul</b>: Velká gratulace Jouzoleánovi za fantastický výkon v nabušenom turnaji! Je vidět, že nové rodičovské povinnosti hravě zvládá, nebo ho naopak dcerka nenechá vyspat " +
+        "a on do noci studuje šachy... Ať tak či onak, funguje to, takže početí dalších dětí lze všem určitě doporučit. 😀 " +
+        "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>"
   }
+
+
+
 ];
