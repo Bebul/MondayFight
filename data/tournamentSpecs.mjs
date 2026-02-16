@@ -1578,8 +1578,13 @@ export var tournamentSpec = [
         "<br><br><b>bebul</b>: Velká gratulace Jouzoleánovi za fantastický výkon v nabušenom turnaji! Je vidět, že nové rodičovské povinnosti hravě zvládá, nebo ho naopak dcerka nenechá vyspat " +
         "a on do noci studuje šachy... Ať tak či onak, funguje to, takže početí dalších dětí lze všem určitě doporučit. 😀 " +
         "<tooltip json='{\"id\":\"Jouzolean\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>"
+  }, {
+    id: "JCkewdKS",
+    html: "<b>RychlyLenochod</b>: No moje nervy! Sem v práci a tahle hra mě dost vysílila " +
+        "<br><br><b>DJ-Strelec</b>: já se při ní málem rozbrečel... strašný. Tep 200" +
+        "<br><br><b>RychlyLenochod</b>: To stejne... se mi u čepování piva třepou ruce z toho 😀" +
+        "<br><br><b>bebul</b>: Velká gratulace Tekelemu za fantastický výkon. Nejen, že v závěrečnom tahu na bránu urval bednu, ale třikrát porazit siláka Chmiela a k tomu si připnout skalpy DJ-Strelce a Bukowskice, to se mohlo stát naposledy tak za vlády Jagellovců... Paráda, gratulace! " +
+        "<tooltip json='{\"id\":\"Tekele\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>"
   }
-
-
 
 ];
