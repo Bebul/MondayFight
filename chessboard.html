@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs-CZ" class="dark">
+<!-- Lichess is open source! See https://lichess.org/source -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="#2e2a24">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <title>"Monday Fight Chessboards"</title>
+    <link data-css-key="lib.theme.all" href="css/lichess-theme-all.css" rel="stylesheet"/>
+    <link data-css-key="site" href="css/lichess-site.css" rel="stylesheet"/>
+    <link data-css-key="user.list" href="css/lichess-user-list.css" rel="stylesheet"/>
+    <link href="css/chessboard.css" rel="stylesheet"/>
+
+    <script src="chess.js/chess.js"></script>
+
+    <style>
+        @font-face {
+            font-family: 'lichess';
+            font-display: block;
+            src: url('fonts/lichess-hof.woff2') format('woff2')
+        }
+    </style>
+
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Vítáme Klárku do Síně slávy" />
+    <meta property="og:description" content="Tak teď už můžeme pomalu bojovat i o ty plaketky..." />
+    <meta property="og:site_name" content="github" />
+
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/hallOfFame.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="Web aktualizován" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-CX3WGLDEW7');
+    </script>
+</head>
+<body class="dark coords-in simple-board">
+<header id="top">
+    <div class="site-title-nav">
+        <input type="checkbox" id="tn-tg" class="topnav-toggle fullscreen-toggle" autocomplete="off">
+        <label for="tn-tg" class="fullscreen-mask"></label>
+        <a class="site-title" href="index.html">
+            <div class="site-name">
+                Monday Fights
+            </div>
+        </a>
+    </div>
+</header>
+<div id="main-wrap" class="full-screen-force is2d">
+    <main class="page-menu">
+        <div class="community page-menu__content box box-pad">
+            <section class="community__online">
+                <h2 style="white-space: nowrap">Vyber rok</h2>
+                <ol class="user-top">
+                    <li><a class="crown user-link ulpt" href="?year=all"><i class="line"></i>Všechno</a></li>
+                    <li><a class="offline user-link ulpt" href="?year=2020"><i class="line"></i>2020</a></li>
+                    <li><a class="offline user-link ulpt" href="?year=2021"><i class="line"></i>2021</a></li>
+                    <li><a class="offline user-link ulpt" href="?year=2022"><i class="line"></i>2022</a></li>
+                    <li><a class="offline user-link ulpt" href="?year=2023"><i class="line"></i>2023</a></li>
+                    <li><a class="offline user-link ulpt" href="?year=2024"><i class="line"></i>2024</a></li>
+                    <li><a class="gold user-link ulpt" href="?year=2025"><i class="line"></i>2025</a></li>
+                    <li><a class="online user-link ulpt" href="?year=2026"><i class="line"></i>2026</a></li>
+                </ol>
+                <img src="img/templatePohary.png" style="width: 100%; height: auto">
+                <div id="global-mating-stats-container"></div>
+            </section>
+            <div id="chessboards">
+            </div>
+        </div>
+    </main>
+</div>
+
+<script type="module">
+    import {LoadMFData, MF} from "./js/tournamentsData.mjs"
+    import {createChessboards} from "./js/mondayFight.mjs"
+
+    let url = new URL(window.location.href)
+    let year = url.searchParams.get("year") || 2026
+
+    function mainPage(data) {
+        let curYear = MF.filterYear(data.mondayFights(), year)
+        if (year === 'all') curYear = curYear.concat(data.playOffs())
+        else {
+            curYear = curYear.concat(data.playOffs().filter(p => p.id.toLowerCase() === "playoff" + year))
+        }
+        let mfId = curYear[curYear.length - 1].id
+        let ix = data.findTournamentIx(mfId)
+        if (ix >= 0) data.currentGameListTableIx = ix
+        createChessboards(data, curYear, "#chessboards", year)
+    }
+
+    LoadMFData(mainPage)
+</script>
+
+</body>
+</html>
