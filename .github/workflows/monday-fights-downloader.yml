@@ -3,7 +3,7 @@ name: Monday Fights Downloader
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 20 * * MON' # UTC time ten minutes after Monday Fight (summer time is UTC+2 and should contain 40 19 * * MON while winter 40 20 * * MON)
+    - cron: '40 19 * * MON' # UTC time ten minutes after Monday Fight (summer time is UTC+2 and should contain 40 19 * * MON while winter 40 20 * * MON)
 
 jobs:
   echo-input:
