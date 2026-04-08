@@ -906,16 +906,25 @@ export function collectAchievements(data, tournamentID, games) {
   })
 
   let winner = tournament.podium[0]
+  let winnerWinsAll = games.games.every(function(g) {
+    if (g.players.white.user && (g.players.white.user.id === winner.name || g.players.white.user.name === winner.name)) {
+      return g.winner === 'white'
+    }
+    if (g.players.black.user && (g.players.black.user.id === winner.name || g.players.black.user.name === winner.name)) {
+      return g.winner === 'black'
+    }
+    return true
+  })
   let winRate = winner.nb.win / winner.nb.game
-  if (winRate >= 1) {
+  if (winRate >= 1 && winnerWinsAll) {
     // if the winner is the Grand Master we should give all his Monday Fights losers Black Mark for bad representation :-D
     let gm = ["sachycvek"]
     let masters = gm + ["Lukas_Vlasak"]
     if (masters.includes(winner.name)) {
       let losers = new Map()
       games.games.forEach(function(g) {
-        if (masters.includes(g.players.white.user.name)) losers.set(g.players.black.user.id, [g.id, g.players.black.rating])
-        else if (masters.includes(g.players.black.user.name)) losers.set(g.players.white.user.id, [g.id, g.players.white.rating])
+        if (g.players.white.user && masters.includes(g.players.white.user.name)) losers.set(g.players.black.user.id, [g.id, g.players.black.rating])
+        else if (g.players.black.user && masters.includes(g.players.black.user.name)) losers.set(g.players.white.user.id, [g.id, g.players.white.rating])
       })
       let sorted = Array.from(losers).sort(function(a,b) {
         return a[1][1] - b[1][1]
