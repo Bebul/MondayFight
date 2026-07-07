@@ -843,7 +843,7 @@ async function addGamesStats(data, games, report, chessP) {
     if (g) {
       if (report) report.status(getStatus(g))
       let t = data.findTournament(g.tournament)
-      await addStats(g, t, report, chessP)
+      if (t) await addStats(g, t, report, chessP)
         .then(promiseTimeout(timeout))
         .then(result => nextStat(data, games, report))
     }

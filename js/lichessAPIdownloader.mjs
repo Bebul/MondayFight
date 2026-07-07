@@ -239,6 +239,10 @@ function lichessAPI() {
       .then(status)
       .then(text)
       .then(parse)
+      .catch(err => {
+        console.error(`Error fetching users: ${err}`)
+        return []
+      })
     return userList
   }
 
@@ -277,6 +281,10 @@ function lichessAPI() {
       .then(text)
       .then(ndjson2array)
       .then(parse)
+      .catch(err => {
+        console.error(`Error fetching games list: ${err}`)
+        return []
+      })
     return gamesList
   }
 
@@ -300,6 +308,10 @@ function lichessAPI() {
         .then(text)
         .then(ndjson2array)
         .then(parse)
+        .catch(err => {
+          console.error(`Error fetching games for ${player.name}: ${err}`)
+          return []
+        })
 
       console.log(`${player.name} found ${gamesList.length} games in given interval`)
       console.log(`       ${url}`)
