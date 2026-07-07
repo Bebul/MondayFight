@@ -60,7 +60,7 @@ function fixBadlyNamedTournaments(tournaments) {
   })
 }
 
-function process(data) {
+function runDownload(data) {
   let allFights = data.jouzoleanAndBebulsTournaments()
   let count = 0
 
@@ -87,8 +87,8 @@ function process(data) {
                 fs.writeFileSync('../data/tournaments.ndjson', toNDJson(data.jouzoleanAndBebulsTournaments()))
                 fs.writeFileSync('../data/tournamentGames.ndjson', toNDJson(data.tournamentGames()))
                 fs.writeFileSync('../data/streaks.json', JSON.stringify(data.streaks(), replacer))
-              })
-          })
+              }).catch(err => { console.error('perfs error:', err); process.exit(1) })
+        }).catch(err => { console.error('games/stats error:', err); process.exit(1) })
       }/* else {
         addNewGamesStats(data, [])
           .then(function(result) {
@@ -97,7 +97,7 @@ function process(data) {
             fs.writeFileSync('../data/streaks.json', JSON.stringify(data.streaks(), replacer))
           })
       }*/
-    })
+    }).catch(err => { console.error('tournaments error:', err); process.exit(1) })
 }
 
-LoadMFData(process, loadedTounaments, loadedGames, loadedStreaks)
+LoadMFData(runDownload, loadedTounaments, loadedGames, loadedStreaks)
