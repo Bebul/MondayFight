@@ -316,7 +316,8 @@ function lichessAPI() {
       console.log(`${player.name} found ${gamesList.length} games in given interval`)
       console.log(`       ${url}`)
       gamesList.forEach(pg => {
-          if (pg.tournament === t.id && !games.find(g => g.id === pg.id)) {
+        let isMF = (pg.tournament && pg.tournament === t.id) || (pg.arenaTour && pg.arenaTour.id === t.id)
+        if (isMF && !games.find(g => g.id === pg.id)) {
             pg.overtime = true
             games.unshift(pg)
             console.log(`${pg.id} ${pg.players.white.user.name} - ${pg.players.black.user.name}`)
