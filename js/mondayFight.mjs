@@ -1,5 +1,5 @@
 /* jshint -W033, esversion: 9 */
-import {MF} from "./tournamentsData.mjs"
+import {MF, getTournamentId} from "./tournamentsData.mjs"
 import {Chess} from "../chess.js/esm-1.4.0/chess.mjs"
 import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
@@ -483,7 +483,7 @@ export function gameListData(games) {
 
     let row = {
       "id": g.id,
-      "date": {date: date, html: `<a href="${mainMFURL}/?mf=${g.tournament}" class="result-url">${date}</a>`},
+      "date": {date: date, html: `<a href="${mainMFURL}/?mf=${getTournamentId(g)}" class="result-url">${date}</a>`},
       "speed": g.speed,
       "white": g.players.white.user.name,
       "black": g.players.black.user.name,

@@ -1,6 +1,7 @@
 /* jshint -W033, esversion: 8 */
 import {addNewGamesStats} from "./analyze.mjs"
 import {toNDJson, download} from "./mondayFight.mjs"
+import {getTournamentId} from "./tournamentsData.mjs"
 
 let urlRequestsList = []
 
@@ -316,7 +317,7 @@ function lichessAPI() {
       console.log(`${player.name} found ${gamesList.length} games in given interval`)
       console.log(`       ${url}`)
       gamesList.forEach(pg => {
-        let isMF = (pg.tournament && pg.tournament === t.id) || (pg.arenaTour && pg.arenaTour.id === t.id)
+        let isMF = (getTournamentId(pg) === t.id)
         if (isMF && !games.find(g => g.id === pg.id)) {
             pg.overtime = true
             games.unshift(pg)

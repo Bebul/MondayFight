@@ -1,6 +1,12 @@
 /* jshint -W033, esversion: 6 */
 import {involvedInGambit, playsGambit} from "./podium.mjs";
 
+export function getTournamentId(game) {
+  if (game.tournament) return game.tournament
+  if (game.arenaTour) return game.arenaTour.id
+  return undefined
+}
+
 export let MF = function() {
   function playedAGame(player) {
     if (player.performance === undefined && Array.isArray(player.points)) {
@@ -510,6 +516,7 @@ export async function LoadMFData(callback, loadedTournaments, loadedGames, loade
       }
       return ret
     },
+    getTournamentId: getTournamentId,
     currentGameListTableIx: tournamentGames.length - 1,
     addExtraTournamentStats: addExtraTournamentStats
   }

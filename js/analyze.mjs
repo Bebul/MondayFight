@@ -2,6 +2,7 @@
 import {MFPodium} from "./podium.mjs"
 import {toNDJson, download, getPlayers} from "./mondayFight.mjs"
 import {getStreaks} from "./cross.mjs"
+import {getTournamentId} from "./tournamentsData.mjs"
 import {Chess, SQUARES} from "../chess.js/esm-1.4.0/chess.mjs"
 
 export function processAnalyze(data) {
@@ -743,7 +744,7 @@ async function analyzeMoves(g, t, report, chessP) {
 async function analyzeGame(data, gameId, report) {
   let g = data.findGame(gameId)
   if (g) {
-    let t = data.findTournament(g.tournament)
+    let t = data.findTournament(getTournamentId(g))
     await Promise.resolve()
       .then(result => reportHeadline(g, report))
       .then(result => addStats(g, t, report))
@@ -842,7 +843,7 @@ async function addGamesStats(data, games, report, chessP) {
     let g = games.shift()
     if (g) {
       if (report) report.status(getStatus(g))
-      let t = data.findTournament(g.tournament)
+      let t = data.findTournament(getTournamentId(g))
       if (t) await addStats(g, t, report, chessP)
         .then(promiseTimeout(timeout))
         .then(result => nextStat(data, games, report))
