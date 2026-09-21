@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="max-age=3600" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <title>Monday Fight Hot News</title>
+
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monday Fight Hot News" />
+    <meta property="og:description" content="Žhavé novinky Monday Fight" />
+    <meta property="og:site_name" content="github" />
+
+    <!-- for WhatsApp -->
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/mf-league.png" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:alt" content="Monday Fight Hot News" />
+
+    <script type="text/javascript" src="js/minimal.js"></script>
+    <script defer src="js/menu.js"></script>
+    <script src="./lib/pgnv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/rotor.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+
+    <style>
+        #board > .moves {height: 300px}
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CX3WGLDEW7');
+    </script>
+</head>
+
+<body onload="rotate('rotor', 25)">
+
+<div class="body">
+
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon">
+            <button class="menu-toggle" type="button" data-mf-menu-toggle aria-controls="myLinks" aria-expanded="false" aria-label="Otevřít navigační menu">
+                <i class="fa fa-bars hamburger" aria-hidden="true"></i>
+            </button>
+        </span>
+        <span class="captionText">Žhavé novinky</span>
+        <div class="topnav">
+            <div id="myLinks" data-mf-menu hidden></div>
+        </div>
+    </div>
+
+    <div class="article">
+        <h2>Dummy nadpis</h2>
+        <p>Dummy obsah.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

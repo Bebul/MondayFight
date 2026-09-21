@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="max-age=3600" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <title>Monday Fight News 2022</title>
+
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monday Fight News 2022" />
+    <meta property="og:description" content="Aktuality Monday Fight za rok 2022" />
+    <meta property="og:site_name" content="github" />
+
+    <!-- for WhatsApp -->
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/mf-league.png" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:alt" content="Monday Fight News 2022" />
+
+    <script type="text/javascript" src="js/minimal.js"></script>
+    <script defer src="js/menu.js"></script>
+    <script src="./lib/pgnv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/rotor.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+
+    <style>
+        #board > .moves {height: 300px}
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CX3WGLDEW7');
+    </script>
+</head>
+
+<body onload="rotate('rotor', 25)">
+
+<div class="body">
+
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon">
+            <button class="menu-toggle" type="button" data-mf-menu-toggle aria-controls="myLinks" aria-expanded="false" aria-label="Otevřít navigační menu">
+                <i class="fa fa-bars hamburger" aria-hidden="true"></i>
+            </button>
+        </span>
+        <span class="captionText">Novinky 2022</span>
+        <div class="topnav">
+            <div id="myLinks" data-mf-menu hidden></div>
+        </div>
+    </div>
+
+    <div class="article" style="clear: both">
+        <h2>Loňský Monday Fihgts PlayOFF naskladněn</h2>
+        <p>
+          Web nyní umí na základě seznamu partií odehraných v playOFF vygenerovat stránku PlayOFF turnaje a ten zobrazuje
+        v časové ose mezi ostatními Monday Fights turnaji. Partie odehrané v turnaji lze vyhledávat v search apod.
+        <p>
+            Pořadí v turnaji nutno brát s rezervou. Stran toho, jak počítat pořadí těch, co skončili ve stejné fázy playOFF,
+        došlo mezi námi k mírné rozepři. Můj původní výpočet preferoval v případě tie-breaku použití uhrané <i>performance</i>.
+        DJ-Strelec s Jouzoleánem se však přiklání k použití nasazení, tedy pořadí v ligové tabulce na konci roku.
+        Oboje má svou logiku. Byl jsem přehlasován.
+        <p>
+        Tato drobnost mění pořadí na třetím a čtvrtém místě
+        a podobně výrazně promíchává borce, kteří skončili v osmifinále, např. mě to posouvá o dvě místa nahoru a RychlyLenochod
+        končí až osmý, zatímco podle performance by byl na pátém místě! Připomeňmě při této příležitosti, že RychlyLenochod hned
+        na úvod turnaje dvakrát nabančil našemu dvojnásobnému šampionovi Bukowskicovi. Nasazen však byl až sedmý...
+
+        <div style="text-align: center;">
+            <a href="index.html?mf=playOFF2021"><img src="img/playOFF2021-scr.png" style="max-width: 511px; width:100%;"></a><br>
+        <i>Klikněte si na obrázek. PlayOFF má schválně pozadí trochu do modra.</i>
+        </div>
+
+        <p>
+        Doporučuji si turnaj otevřít a kliknout si na první řádek s Bukowskicem. Je opravdu pozoruhodné, jak vstoupil do
+        turnaje hned dvojnásobnou prohrou!
+
+        <p>
+        <b>Během PlayOFF turnaje 2022</b>, prosím, posílejte vždy do WhatsApp skupiny seznam odehraných partií.
+        Z url partie na lichess stačí vzít ten poslední identifikátor na konci. Nebo prostě zkopírujte odkazy na všechny hry,
+        které jste v duelu odehráli.
+        <p>
+            Podobně by bylo super, kdo jste hráli první PlayOFF 2020, kdybyste poslali takový seznam odehraných partií z roku 2020.
+        <br>Díky,<br>
+        <span><i> -beb- </i></span>
+    </div>
+
+    <div class="article" id="zlataPraha">
+        <h2>17. Zlatá Praha Rapid Open 2022</h2>
+        <p>
+            Léto je již za námi, ale šachisté nelení, poctivě svá zahájení pilují a proto je potřeba ověřit teorii
+            v praxi. Jouzoleán i Tekele se během léta zúčastnili turnaje „Zlatá Praha Rapid Open“.
+            Turnaj se konal v centru Prahy na Karlínském náměstí v prostorách volnočasového zařízení
+            Karlínské spektrum. Zúčastnit se mohli registrovaní i neregistrovaní hráči.
+            Účast byla vskutku pestrá, od nezkušených amatérů jako paní Vávrová, přes Tekeleho až po GM,
+            jmenovitě Jírovský Miloš, FIDE ELO 2501 (aktuálně 28. nejsilnější český hráč!).
+        <p>
+            Pravidla turnaje: rapid 12 minut + 3 sekundy „inkríment“ na 7 kol švýcarským systémem.
+
+        <img src="img/zlataPraha4.jpg" style="width:100%;margin-top: 10px"/>
+        <div align="center" style="margin-top: -15px"><i>Startovní listina</i></div>
+        </p>
+        <p>
+            Přes veškerou neznalost profesionálního zázemí šachových turnajů musím říct, že turnaj byl skvěle organizován.
+            Registraci jsme provedli předem přes internet i se zaplacením a po příchodu jsme už jenom čekali na rozlosování
+            prvního kola. Rozpis prvního kola byl vyvěšen na více místech a tak se všichni soutěžící mohli vklidu a bez
+            čekání zorientovat v tabulce, najít si svůj stůl a zjistit svého soupeře.
+            Po krátkém úvodním slovu organizátorů jsme zasedli k vylosovanému stolu a partie prvního kola se mohly rozehrát.
+        </p>
+        <p>
+            Očekávání byla veliká, nervozita také. Ostře jsme se pustili do našich soupeřů od prvního kola.
+            Vzhledem k příhodnému losu bylo první kolo úspěšné pro oba hráče MF a odnesli jsme si zasloužený první bod!
+        </p>
+
+        <p>
+            Druhé kolo Tekelemu nalosovalo soupeře s ELEM takřka 1900, který vytasil Francouzskou obranu.
+            Leč znalý základů tohoto zahajení, nemohl se jinak než poroučet s prohrou a respektem k soupeři.
+            Jouzolean dostal ke stolu hráče s ELEM 1986. No, odešel s nepořízenou, ale hlavou vztyčenou vzhůru!
+        </p>
+
+        <p>
+            Po krátké pauze následovalo kolo třetí. Italská hra přinesla další bod pro Jouzoleana a mohl tedy zamířit
+            v pořadí výše. Tekele nyní zápasil při Caro Kahnu. Zuby nehty držel vyrovnaný stav,
+            bohužel v koncovce pohořel a poroučel se s prohrou.
+            <img src="img/zlataPraha5.jpg" style="width:100%;margin-top: 10px"/>
+        <div align="center" style="margin-top: -15px"><i>Jouzolean hledá, vymýšlí...</i></div>
+        </p>
+
+        <p>
+            Turnaj se přehoupnul do své druhé poloviny a byla již znát únava části zúčastněných, odhodlání ale zůstalo.
+            Čtvrté kolo si Tekele namazal soupeře na chleba, jak jinak než svým Sicilským drakem!
+            Opět velmi silný soupeř vstoupil Jouzoleanovi do jeho snah ovládnout místní zápolení.
+            Svou antisicilskou hrou útočil, bránil, útočil, uhýbal, klamal tělem i blafoval,
+            ale k bodům to bohužel nevedlo.
+        </p>
+
+        <p>
+            Na několik nejlepších stolech zápolili ti nejlepší z nejlepších.
+            Elektronické šachovnice umožňovaly sledoval tyhle zápasy online!
+        </p>
+
+
+        <div style="text-align: center">
+            <div class="flow50">
+                <img src="img/zlataPraha3.jpg" style="width:100%"/>
+                <div align="center"><i>Elektronické šachovnice</i></div>
+            </div>
+            <div class="flow50">
+                <img src="img/zlataPraha2.jpg" style="width:100%"/>
+                <div align="center"><i>Kostel sv. Cyrila a Metoděje</i></div>
+            </div>
+        </div>
+
+
+        <p>
+            Turnaj pokračoval pátým kolem. Pro třetí turnajový bod si došel Tekele zavřenou sicilkou.
+            Nimzowitschovou hrou se snažil urvat další výhru Jouzolean, bohužel neuspěl.
+        </p>
+
+        <p>
+            Šesté kolo vyšla Jouzoleanovi Anglická hra a třetí turnajový bod byl jeho!
+            Tekele zvyklý dát každé pondělí dva nebo tři maty bebulovi a jít spát už mlel z posledního.
+            Přece jen Rapid turnaj je na soustředění dost náročný, obzvláště po noční!
+            Zkusil tedy sicilku proti hráči s elem 1852, ale narazil.
+        </p>
+
+        <img src="img/bud_block_hit.gif" style="max-width:33%; float:left"/>
+
+        <p>
+            Před sedmým závěrečným kolem jsem už pomalu bilancovali a věřili v poslední bod.
+            Přes silnou účast i hráčů ze zahraničí a průměrným FIDE elem turnaje 1582 jsme byli víceméně spokojení
+            s průběhem. Ovšem že, když se člověk ohlédne, vidí chyby a mrzí ho ztracené body.
+            Nicméně jsme se nevzdávali, občerstvili se a vstoupili do posledního kola.
+        </p>
+
+        <p>
+            Tekele vypustil Sicilského draka. Lepší trailer na Hry o Trůny si diváci nemohli přát.
+            Útok střídal útok, soupeř byl nervózní, ošíval se, potil se. Jak už to ale v tomhle zahájení bývá,
+            malá nepozornost může stát hráče celou hru a tak se i stalo, kýžený čtvrtý bod nepřišel.
+        </p>
+
+        <p>
+            Jouzolean čelil za bílé Philidorovi. Utkání se vyvíjelo dobře. Soupeř byl zaskočen.
+            I přes dostatek času a „inkríment“ se hra dostala do složité koncovky s minimem času pro oba hráče.
+            V časovém presu došlo ke zmatečné situaci, najednou nikdo nevěděl, jestli se táhnulo dobře.
+            Velmi nervózní závěr, oba hráči se přeli a nebýt přihlížejících, došlo by na krev!
+            V nepřehledné pozici se nakonec oba hráči dohodli na remíze a zisku tedy alespoň ½ bodu.
+        </p>
+
+        <img src="img/zlataPraha1.jpg" style="width:100%"/>
+
+        <p>
+            Turnaj byl tedy po zhruba 6 hodinách zápolení ukončen. Vítězem turnaje s 86 účastníky se stal hráč
+            z Lotyšska se ziskem 6 bodů. Gratulace. Jouzolean vybojoval krásných 3,5 bodu a obsadil 44. místo.
+            Na 55. místě skončil Tekel se ziskem 3 bodů. Oba jsme odcházeli plní dojmů domů a spřádali plány
+            na další turnaje. Jistě se brzy nějakého zúčastníme! <span><i> -tekele- </i></span>
+        </p>
+
+    </div>
+
+    <div class="article">
+        <h2>Nové achievementy na skladě</h2>
+        <p>Web nyní detekuje hromadu nových věcí. Projděme si je popořadě:
+        <div style="text-align: center;">
+            <img src="img/bishopSac.png" style="max-width: 511px; width:100%;"><br>
+        </div>
+            Útok s obětí střelce na rochovaného krále umí ze všech hráčů Monday Fights pouze mozkomor a RychlyLenochod.
+                Na celém turnaji uspěl takový útok z aktuálních 5031 her 11x, pouze jednou na dámském křídle.
+                Z toho <b>5x vyhrál mozkomor, 4x RychlyLenochod</b> a pak už jen jednou Jouzolean a Arytmik.
+                Z hráčů, kteří tomuto útoku podlehli jasně vévodí <b>bukowskic</b>, který tomuto útoku podlehl <b>6x</b>.
+                Obětujte s bukim střelce na h6 a máte ho!
+
+        <div style="text-align: center;">
+            <img src="img/arabian.png" style="max-width: 510px; width:100%;"><br>
+        </div>
+        Při této příležitosti, bych rád zavzpomínal na naši milovanou <b>Neznámá-00</b>,
+        která v oné naprosto unikátní partii s naším věhlasným šampionem našla v prohrané pozici Arabský mat -
+        partie k nalezení v tomto <a href="https://bebul.github.io/MondayFight/?mf=dUzolxyZ">turnaji</a>.
+
+        <div style="text-align: center;">
+            <img src="img/anastasia.png" style="max-width: 510px; width:100%;"><br>
+            <i>U tohoto známého matu věží kontroluji, že po odstranění jezdce už mat není.</i>
+        </div>
+
+        <div style="text-align: center;">
+            <img src="img/blackburne.png" style="max-width: 510px; width:100%;"><br>
+            <i>U tohoto vzácného matu musí matovat střelec a druhý střelec i jeden z jezdců být pro mat nepostradatelní!</i>
+        </div>
+
+        <div style="text-align: center;">
+            <img src="img/fullMaterial.png" style="max-width: 510px; width:100%;"><br>
+            <i>Zahrnuje všechny maty, v nichž vítěz neztratil ani pěšce, natož figuru.<br>Nesmí se ale jednat o ševcovský mat.</i>
+        </div>
+
+        <div style="text-align: center;">
+            <img src="img/legal.png" style="max-width: 510px; width:100%;"><br>
+            <i>Légalův mat, neboli Námořní kadet. Dosud v jediném, mozkomorově, provedení.<br>
+            Obrázek ještě ukazuje, že ikonka pro útok s obětí dámy má novou podobu.</i>
+        </div>
+
+<p> No tak co co coóóóóóó? Už jste porazili bukowskice obětí střelce na h6? Že né? No to je škoda. Tak hurá do toho!
+        <span><i> -beb- </i></span>
+    </div>
+
+    <div class="article" id="fairplay">
+        <h2>Slovo k Fair Play</h2>
+        <p> Nedávno jsem se jen tak mezi řečí dozvěděl, že kdysi dávno si potřeboval jeden z Monday Fighterů nutně odskočit a předal v hospodě
+            svou šachovnici jinému hráči, aby za něj pár tahů odtahal. Jednalo se o partii, kde se všichni tři znali a protihráči to pak hned řekli,
+            zasmáli se atakdál. Legrace.
+        <p> <b>Prosím Vás</b>, né všichni hráči v tomto turnaji jsou takovýmto legráckám nakloněni a chtěl bych říci:
+            <b>v žádném případě nepodvádějme!</b> Ani když protihráč udělá brutální blunder a "zaslouží si" už prohrát!
+                Neberme radu od nikoho, vyžeňme i manželku, kdyby nám chtěla radit přes rameno, nebo synek varoval, že máme napadenou dámu.
+        <div align="center" style="display: table; width:70%; border:1px solid black; background-color:lightgoldenrodyellow; margin:10px auto; padding:5px">
+            <img src="img/havel-evangelista.jpg" class="img100 left">
+            <div style="display: table-cell; vertical-align: middle;">
+                <b>Literatura:</b> žádná šachová literatura ani vlastní výpisky<br>
+                <b>Engine:</b> během hry never ever<br>
+                <b>Kámoš:</b> nesmí ceknout ani naznačovat, nejlépe ať nesleduje!<br>
+                <b>Káva:</b> povolena v jakémkoli množství
+            </div>
+        </div>
+        Turnaj Monday Fight je specifický v tom, že se navzájem herně dobře známe a je možné se na soupeře připravit. V takovém případě se může stát, že
+        naše hra odpovídá prvních, třeba 14 tahů, hře velmistra. Zvlášť od slabších hráčů to může být velmi bolestivé, ale stává se to.
+        Příkladem budiž několik mých výher v Barmen defense proti Tekelovi, kde mi variantu a prvotní fígl poradil Jouzolean a já Tekelovi několikrát chytil dámu.
+        <div align="center" style="display: table; width:70%; border:1px solid black; background-color:lightgoldenrodyellow; margin:10px auto; padding:5px">
+            <img src="img/dasa-havlova.jpg" class="img100 left">
+            <div style="display: table-cell; vertical-align: middle;">
+                <b>Manželka:</b> "pozor, stojí ti tam pěšec!"<br>
+                <b>Milenka:</b> "bacha, tvá dáma je v ohrožení!"<br>
+                <b>Dcera:</b> "smí tvůj střelec přepadnout dámu?"<br>
+                <b>Kámoš:</b> "měl bys tu svou dámu vyměnit"<br>
+            </div>
+        </div>
+        Kdysi si reportéři na chess24 dobírali tuším Giri Anishe, co říká tomu, že mohl vyhrát, kdyby zahrál jistou variantu.
+        Giri se krátce zamyslel, zakroutil hlavou a řekl, že měl teda velikou kliku, protože kdyby to náhodou zahrál, všichni by ho
+        museli podezřívat z použití enginu.
+        <p>
+        Jenže engine v přípravě používat můžeme, nenakukujeme-li do něj během vlastní hry. Jak pak takovou mistrovskou hru odlišit od podvádění?
+        <p>
+        Já svou přípravu částečně konzultuju s Jouzoleanem a mozkomorem, takže ti vědí často dopředu, co se chystá, případně - mozkomor - má k mé
+        přípravě přístup. Takže přípravu na případně podezřelou partii mohu prokázat. Nelze to samozřejmě vyžadovat, ale přijde mi to ideální.
+
+        <div align="center" style="display: table; width:50%; border:1px solid black; background-color:#F2C037; margin:10px auto; padding:5px">
+            <div style="display: table-cell; vertical-align: middle;">
+                <img src="img/achievements/tlama-animate2.gif" class="left">
+                <h1>Fair play nade vše!</h1>
+            </div>
+        </div>
+
+        Podobně Jouzolean mi furt a pořád bombarduje WhatsApp, když dopředu prozrazuje, co chystá na někoho z Vás.
+        O to má pak větší radost, když to klapne! Škoda jen, že když mi poradil údajnou tutovku na Mrázka v zahájení, které jsem nikdy předtím nehrál,
+        rozhodl se Mrázek hned zkraje zahrát něco jiného a přede mnou stála pozice, se kterou jsem si vůbec nevěděl rady.
+
+        <p>
+            Díky Vám všem, že jsou klání na Monday Fight tak zábavná a plná překvapení.<br>
+            Zaplať Pán Bůh, že všichni hrajeme poctivě.<br>
+            Přeji mnoho úspěchů a cenných skalpů v dalších hrách!
+        <span><i> -beb- </i></span>
+
+        <h2>Jouzoleanův dovětek</h2>
+        <p>Když jsem moralizování o Fair Play napsal, přišlo mi to takový divný a dal jsem to radši posvětit na Monday Fights
+        velení k Jouzoleanovi a DJ-Pescovi, aby za tím stál celý triumvirát. Jouzolean pak naléhal, že ještě musím přidat strýčka Sama,
+        aby bylo jasný, že partie průběžně sledujeme :-)
+        <p>Jak známo sám Jouzolean zná každou novinku, která se na šachovnicích v MF udála, jak si
+        nedávno trefně všimnul maestro Mrázek.
+        <p>Tak tímto děláme za onou, doufejme zbytečnou, malou pololetní Fair Play upomínkou konečně tečku.
+        <i> -jouz-&-beb- </i>
+        <div align="center" style="margin-top:10px">
+            <img src="img/strycek-sam.jpg" class="flow33">
+            <div><i>#jouzolean #anticheatcontrol #fritz #analyzis</i></div>
+        </div>
+    </div>
+
+    <div class="article">
+        <h2>Šampióni dostávají zabrat</h2>
+        <p>V poslední době se nám na turnaji stává takovým dobrým zvykem, že jindy neohrožení titáni, koryfejové turnaje,
+        dostávají zabrat od hráčů, které si dříve mazali na chleba. A k našim uším pak dolehnou slova dříve neslýchaná:
+        <div align="center" style="display: table; width:70%; border:1px solid black; background-color:lightgoldenrodyellow; margin:10px auto; padding:5px">
+        <img src="img/players/dj-strelec.png" class="img100 left">
+        <div style="display: table-cell; vertical-align: middle;">
+        <b>DJ-Strelec:</b> "já si říkal, že na Mrázka to bude stačit... Navíc nedělal velkou rošádu, takže to mělo být v pohodě...
+        Šel nahoru... Podobně jako všichni... Je na čase si připustit, že na MFA to už nejde jen tak odtahat a v suchém triku vyhrát 😄"
+        </div>
+    </div>
+        Dodejme, že šlo nejspíše o <a href="https://lichess.org/hZ3BnnVE">tuto partii</a>.
+        <p> A že nadpis hovoří v množném čísle. Poslechněme si, co uchu našemu lahodí ještě více:
+    <div align="center" style="display: table; width:70%; border:1px solid black; background-color:lightgoldenrodyellow; margin:10px auto; padding:5px">
+        <img src="img/players/bukowskic.png" class="img100 left">
+        <div style="display: table-cell; vertical-align: middle;">
+        <b>Bukowskic:</b> "Soustředění 0 a vyklepneš mě v berserku,<br> což mě stálo 2. flek, bezva."
+        </div>
+    </div>
+        Dodejme zde, že šlo zcela jistě o <a href="https://lichess.org/DtIB6Qhh">tuto partii</a>, kterou Bébul odehrál v berserku podstatně lépe, než bývá jeho standardem v normální hrací době.
+        <p>
+        <div style="text-align: center;">
+            <img src="img/scholar513.png" style="max-width: 513px; width:100%;"><br>
+            <i>To bude teprv bžunda, až někdo z vrchnosti koupí ševcovský mat!<br>
+                RychlyLenochod nikdy nespí!</i>
+        </div>
+        <p>
+        Táááákže, když našinec vzhlíží z hlubin ligové tabulky k mazákům svádějícím boj o první místo, pocítí při pohledu na třetí sloupec drobnou satisfakci.<br>
+        Jste na čele, ale že to stálo bodíků, coóóóóóó? <span><i> -beb- </i></span>
+    </div>
+
+    <div class="article">
+              <img src="img/mf-league.png" class="flow33" style="float:left; margin-right: 10px">
+        <div class="flow66">
+        <h2>Zdravím Vás, Monday fighťáci,</h2>
+        <p>
+         nová sezóna je rozjetá ve velkém stylu, na čele tabulky se to mele jako ještě nikdy, přibylo pár nových perspektivních hráčů,
+         Neznámá už je taky zpět, ta mimojiné přivábila i Hrobotrona, který to letos bude mít k obhajobě loňského postupu do pavouka obzvláště náročné.
+        <p>
+         No a jak vlastně bude ten letošní pavouk vypadat? Po dlouhé kmenové debatě jsme se rozhodli pravidla definovat již teď a dále je neměnit.
+        Postupovat do pavouka bude nově 12 hráčů. Ti budou následovně dle POŘADÍ v tabulce rozřazeni do pavouka.
+        Bude to podobné jako v hokeji.
+        <p>
+         První čtveřice hráčů v tabulce se automaticky kvalifikují do čtvrtfinále.
+         V osmifinále pak na sebe narazí hráči
+            <div  style="padding-left: 20px">
+                <ul>
+                    <li> 5.vs 12.</li>
+                    <li> 6.vs 11.</li>
+                    <li> 7.vs 10.</li>
+                    <li> 8.vs 9.</li>
+                </ul>
+            </div>
+         Ve čtvrtfinále pak
+            <div  style="padding-left: 20px">
+                <ul>
+                    <li> 1.vs 8./9.</li>
+                    <li> 2.vs 7./10</li>
+                    <li> 3.vs 6./11</li>
+                    <li> 4.vs 5./12.</li>
+                </ul>
+            </div>
+         Aktuální podoba pavouka bude po každém turnaji k nahlédnutí na našem webu.
+         <p>
+         Dále chystáme:
+            <div  style="padding-left: 20px">
+                <ol>
+                    <li>Ocenění Vašich slovutných výkonů v podobě plaketek (již brzy na webu)</li>
+                    <li>Turnaj proti jiným týmům</li>
+                    <li>Vábení českých velmitrů do našich řad :D</li>
+                </ol>
+            </div>
+         Za celý tým MF přeji mnoho šachových i nešachových úspěchů.
+    <br>
+        <span><i> -jouz- </i></span>
+            </div>
+        </div>
+
+    <div class="article">
+        <h2>Hraješ pod psa!</h2>
+        <h3>...nebo nad očekávání?</h3>
+        <p>
+            V leaderboardové tabulce je k vidění sloupec <b>R</b>, který po vybrání dodá přehled o pohybu
+            ratingu každého hráče během jednotlivých turnajů. To ještě ale mnoho neříká o tom, s kým hraju
+            hůř než by odpovídalo ratingovému rozdílu nebo naopak lépe. Rýžuju, nebo krvácím? Hraju pod psa
+            nebo nad poměry? A právě toto si lze nyní prohlédnout v naší <a href="cross.html" target="_blank">Cross Table</a>, pokud zaškrtnete volbu pro
+            zobrazení Ratingu.
+            <br><b>Důrazné varování: pokud zrovna nejste Tekele, nejspíš vám pohled na tabulku
+            přikreslí vrásky na čelo!</b>
+        <p>
+            <img src="img/vikJavMeme.jpg" style="width:100%"/>
+        <div align="center" style="margin-top: -15px"><i>VikJav nadělal <a href="index.html?mf=20AI0ybI" target="_blank">průvan</a> v ratingových peněženkách</i></div>
+        </p>
+        <p>
+            Tak kupříkladu již zmíněný stále silnější Tekele nehorázně rýžuje skoro na všech. Pohleďme na
+            tabulku zobrazující celé období našich slavných Monday Fight turnajů. Autor těchto řádků
+            na měm shodil 103 ratingových bodů, kteroužto vrásku maličko vyvažuje fakt, že maestro Mrázek
+            klopýtnul ještě o bod hůř. Jouzolean s Tekelem vykrvácel jen 84 bodů, je to darebák, ale kam se hrabe
+            na berserkující šelmu, Rychlýho Lenochoda, který Tekeleho dokonce o 16 bodíků obral!
+        </p>
+        <p>
+            Připomenutí: V cross tabulce nikdy nezobrazujeme noStart hry, které ovšem figurují
+            v leaderboardové tabulce, kde tedy můžete vidět maličko odlišná souhrnná data.
+        </p>
+        <p>
+            Co vzkázat panu Tekelovi do budoucích zítřků? <b>MENE TEKEL!</b><br>
+            <span><i> -beb- </i></span>
+        </p>
+    </div>
+
+    <div class="article final-report">
+        <h2>Výroční zpráva páně Jouzoleána</h2>
+        <p>
+            Tak a je dobojováno! <a href="archiv2021.html">Sezóna 2021</a> je s dnešním turnajem definitivně odpískána. Tato již legendární skupina hráčů se dokázala scházet v menším či větším počtu
+            celý rok a ani jednou se nestalo, že by se nehrálo - a to ani tehdy, když jednou selhal lichess. To máme 52 kvalitních turnájů v roce. Náš seznam hráčů již čítá 26 jmen včetně jedné holky
+            a všichni se známe, dokonce na platformě lichess vznikl náš nový klub, na který jsme náležitě hrdí ! A JAK TO VLASTNĚ CELÉ DOPADLO?
+        <p>
+        <br><b>1. Kategorie - Bukowskic</b> - opět první, nedosažitelný, bez covidu nepřemožitelný. Letos se mu podařilo pilně nasbírat 373 bodů, což stanovujeme jako nový dosavadní rekord a zlatá plaketa bude vystavena v síni slávy. Tento rok se jen zlepšoval, přesáhl hranici 2000 elo a jeho pronásledovatelé nedokázali rozbít jeho systém výstavby Philidorovy obrany, nepochodili ani se Sicilskou obranou a dokonce ani s hrami dámským pěšcem. Tím akorát v jejich táboře vyvolal další vlnu nerovozity a odporu - my budeme bojovat dál a příští rok ti to spočítáme, mocný Bukowskici.
+        <p>
+            <img src="img/epesni-karticka4.jpg" class="flow33">
+            <img src="img/epesni-karticka5.jpg" class="flow33">
+            <img src="img/epesni-karticka6.jpg" class="flow33">
+        <br><br><b>2. Kategorie - všichni ostatní:</b>
+        <br><br><b>Na 2.místě se umístil Jouzolean</b> - ani on nelenivil a zvedal své elo, potrápil nejednoho mondayfightistu a obhájil své 2.místo z minulého roku. Našel konečně recept na kings gambit a možná taky na kings indian, čímž znejistil hlavně bratry mozkomory. 324,5 bodu je výsledkem nejen jeho zarputilého a ostrého stylu, ale taky hlavně díky téměř 100 % účasti. Více než 300 bodů se už nepodařilo nikomu nasbírat. Udělujeme mu tedy stříbrnou plaketu a bude vystavena v síní slávy. Tuto plaketu získá každý další hráč, který pokoří v příštích letech tuto mez.
+        <br><br><b>Na 3. místě se umístil Mrázek</b> - minulý rok byl osmý, letos zabojoval a zaslouženě bere BRONZ se ziskem 264 bodů. Jeho rozvážné, čas vyžadující tahy znervózňovaly snad každého. Tento závodně hrající player se také zlepšil, překročil hranici 1800 elo a v dalším roce bude horkým kandidátem na vítězství. Bude muset překonat svou paniku s blitze, uklidnit svého horkého ducha a pak dokáže všechno.
+        <br><br>4. bramborový flek uhájil <b>s velkou pohodou Bebul</b>, který nasbíral 209 bodů. Nevíme, zda je spokojený, ale myslíme si, že ne. Jeho kvality tento rok šly nahoru, pak dolů a pak zase nahoru až na konci roku zase dolů. Hráč takové kvality ale rozhodně potřebuje kov ! Tak snad příští rok. Jeho rivalita s tekelem graduje, noví hráči jsou také kvalitní, bude to mít zase trochu těžší - ale já mu věřím - příští prosinec - 2000 elo.
+        <br><br><b>5. místo bere nakonec Mozkomor</b>, stejně jako minulý rok, tentokrát se 190 body.  Všichni dobře ví, že by si taky zasloužil bednu, ale jeho tak trochu horší účast mu to kazí. Ale mu to nevadí, on se usmívá, on ví, že nás porazí jak maliny - je to skromný jinoch.
+        <br><br><b>6. místo patří maestru Tekelému</b> - svým urputným zlepšením mu náleží bronzová plaketa SKOKAN ROKU - hráč ji může získat jen jednou a bude vystavena v síni slávy. Nejprve byl na úrovni mloka - minulou sezonu devátý, těžkopádně hrající, nevýrazný hráč. Pak ale začal trénovat, zlepšovat se a dřít na sobě, až se z něj nakonec stal postrach pro celý turnaj. Elo kolem 1700, nasbíral skvělých 180,5 bodů a o píď nestačil na svého soka Mozkomora. Bojme se všichni !
+        <br><br>7. místo bere se ziskem <b>130. bodů Rychlý Lenochod</b> - tolik bodů nasbíral i přes jeho cesty po Francii a i přesto, že vůbec netrénoval. Je to prostě haluzák. Ale spoustu hráčů k němu chová tajný respekt. Jeho nepravidelná zahájení dokážou naštvat každého profíka a oběti lehkých a někdy i těžkých figur mu také nejsou cizí. Když to zkombinuje s berserkem, no potěš.
+        <br><br><b>8. místo obsadil Dj-Pěšec</b> s 96,5 body. To je absolutně nejhorší propad v dějinách Monday fights. Na tak kvalitního hráče jistě připadají přední příčky, svou hroznou účastí je až osmý. Jistě toho bude ve svém šachovém důchodu litovat. Snad bude mít více štěstí v pavouku, což je jeho poslední eso v rukávu.
+        <br><br><b>9.místo je Travinhovo</b>. První půlrok hrál jako o život a druhou půli neměl čas. Také adept na vyšší pozice, jen hrát, jen hrát. 45,5 bodu jistě není špatné. Posun o jednu pozici z loňska nelze také opominout.
+        <br><br>Konečně poslední postupová pozice do pavouka - <b>10.místo, náleží Hrobotronovi</b>, který se přes úvodní neshody s hráčí vlastních řad nakonec umoudřil, zabjoval a se ziskem 40,5 bodu se zařadil jako poslední postupující do pavouka. Připomínám, že minulý rok byl až 11-tý a nepostoupil. Takže grats Hrobotrone a užij si pavouka, doufáme že dojdeš co nejdále !
+        <p>
+            Všem děkujeme za účast, i těm nepostupujícím, mezi které patří hráči málo aktivní, nebo hráči nedávno přidaní. Věříme, že v další sezóně ukážete, co ve vás opravdu je:)
+        <p>
+        <img src="img/turnajPavouk2021.jpg" width="100%">
+        <p>
+            Nyní k pavouku :
+            Minulý rok vznikaly celkem zbytečné rozepře ohledně nasazení jednotlivých hráčů do pavouka. Tentokrát, po mohutné debatě kmenové rady jsme se konečně shodli a rozhodli takto:
+            První nasazený do turnaje bude Bukowskic, jakožto Bůh a vítěz minulého ročníku, pak za něj budou zařazení ostatní hráči finálové desítky a to podle PERFORMANCE (tzn. průměrné výkonostní elo z jednotlivých turnajů). Dále pak budou hráči dosazení do pavouka podle stejněho klíče jako byl minulý rok. Pravidla zůstávají stejná a jsou k dispozici k nahlédnutí v grafickém znázornění pavouka pod textem. Jednotliví hráči se mezi sebou můžou kdykoliv začít domlouvat, poté oznámí ve whats app s dostatečným předstihem datum a hodinu boje. Ostatní pak můžou zápas sledovat. Souběžně s pavoukem se pak hned další pondělí rozjíždí nová sezóna.
+            Tak good luck a děkujeme za přízeň. (Zde k vidětní odehrané <a href="index.html?mf=playOFF2021">PlayOFF</a>.)
+        <p>
+            Za tým Monday Fights
+            <span><i> -jouz- </i></span>
+    </div>
+
+</div>
+
+</body>
+</html>

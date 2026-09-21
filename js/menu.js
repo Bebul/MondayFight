@@ -1,6 +1,17 @@
 const mondayFightMenuItems = [
   { href: "index.html", label: "Main page" },
-  { href: "actualities.html", label: "Hot News" },
+  { href: "hotnews.html", label: "Hot News" },
+  {
+    label: "News",
+    children: [
+      { href: "news2020.html", label: "2020" },
+      { href: "news2021.html", label: "2021" },
+      { href: "news2022.html", label: "2022" },
+      { href: "news2023.html", label: "2023" },
+      { href: "news2024.html", label: "2024" },
+      { href: "news2025.html", label: "2025" },
+    ],
+  },
   { href: "hallOfFame.html", label: "Síň slávy ♕" },
   { href: "chessboard.html", label: "Krotitelé šachovnic" },
   { href: "tables.html", label: "Leaderboards" },

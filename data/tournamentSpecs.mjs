@@ -109,7 +109,7 @@ export var tournamentSpec = [
       "<img src='img/iron-maden.jpg'><br><b>Jouzolean:</b> Iron maiden<br><br>" +
       "<b>Bébul:</b> Jouzoleanovou absencí se stalo, že <b>bukowskic</b> znovu opanoval čelo tabulky a nedosti na tom, <b>RychlyLenochod</b> se vyhoupl v počtu 270 odehraných partií na čelo nejaktivnějšího hráče turnaje! Gratulujeme!<br><br>" +
       "<b>Bébul:</b> přečtěte si nové články v aktualitách. Například kliknutím na následující obrázek..." +
-      "<a href='actualities.html#fairplay'><img src='img/havel-evangelista.jpg' style='margin-top:5px'></a>" +
+      "<a href='news2022.html#fairplay'><img src='img/havel-evangelista.jpg' style='margin-top:5px'></a>" +
       "<div align='center'><i>Bacha Vašku, máš napadenou dámu!</i></div>"
   },
   {
@@ -202,7 +202,7 @@ export var tournamentSpec = [
     id: "3WyIj25r",
     achievements: [{achievement: "reporter", player: "tekele", id: "jiIALs4e"}],
     html: "<img src='img/mf-og-x.jpg'><b>Bébul:</b> Jouzolean se téměř dotáhl na pauzírujícího Bukowskice. Škoda, že šampión nehrál, s <b>Neznámou-00</b> tradičně prohrává, to už je taková naše milá tradice. Tak příště!<br><br>" +
-      "<a href='actualities.html#zlataPraha/'><img src='img/zlataPraha5.jpg'></a><br><b>Bébul:</b> Přečtěte si tekeleho reportáž z turnaje Zlatá Praha v rapid šachu.<br><br>"
+      "<a href='news2022.html#zlataPraha'><img src='img/zlataPraha5.jpg'></a><br><b>Bébul:</b> Přečtěte si tekeleho reportáž z turnaje Zlatá Praha v rapid šachu.<br><br>"
   },
   {
     id: "r18jTyCu",
@@ -382,7 +382,7 @@ export var tournamentSpec = [
       "<br><br><b>Bébul:</b> Jouzolean chtěl Bébulka chytit do pasti končící dušeným matem. Našeho Bébulka!<img src='img/achievements/smothered.png' class='img100 right'> " +
       "Ale to se nešmí, takhle zkoušet, když tam má Bébulek <a href='https://lichess.org/fiuvtdBX#26'>toho koně</a>, sice asi omylem, ale má, svého bílého jezdce, jezdce statečnýho. Je to kabrňák!" +
       "<br><br><b>Jouzolean:</b> Touha po plaketce byla silnější" +
-      "<br><br><b>Bebul:</b> Klikněte si na obrázek televizní reportáže a prohlédněte si sabotážní reportážCNN Prima News o Monday Fights. 😀<a href='actualities.html'><img src='img/cnn-prima-news.jpg'></a>"
+      "<br><br><b>Bebul:</b> Klikněte si na obrázek televizní reportáže a prohlédněte si sabotážní reportážCNN Prima News o Monday Fights. 😀<a href='news2023.html'><img src='img/cnn-prima-news.jpg'></a>"
   },
   {
     id: "xoUVJkiS",
@@ -1002,7 +1002,7 @@ export var tournamentSpec = [
       "<br><br><b>Bebul</b>: Někteří se flákají na dovolených, jiní statečně hrajou a honí plaketky 🎖😃 " +
       "<br><br><img src='img/egypt.jpg'>" +
       "<img src='img/heart.png'>" +
-      "<br><br><b>Bebul</b>: Turnaj Století konečně reportován v <a href='actualities.html#turnajStoleti'>aktualitách</a>... " +
+      "<br><br><b>Bebul</b>: Turnaj Století konečně reportován v <a href='news2024.html#turnajStoleti'>aktualitách</a>... " +
       "<br><br><img src='img/ts-rapid.jpg'>"
   },
   {
@@ -1180,9 +1180,9 @@ export var tournamentSpec = [
   {
     id: "3uZkHPK9", achievements: [{achievement: "reporter", player: "kunc99", id: "5jZZthcP"}],
     html: "<b>Bebul</b>: Pánové PeinSamaCZE s Jouzoleánem <img src='img/achievements/reporter.png' class='img100 right'> pro nás znovu uspořádali turnaj v Holešovicích. Po turnaji se k nám do " +
-        "Monday Fights turnajů připojil silák Honza Kunc a rovnou sepsal o holešovickém maratonu <a href='actualities.html#turnajStoleti2'>reportáž!</a>" +
+        "Monday Fights turnajů připojil silák Honza Kunc a rovnou sepsal o holešovickém maratonu <a href='news2024.html#turnajStoleti2'>reportáž!</a>" +
         "<br> Děkujeme a gratulujeme k pódiu v Holešovicích i na prvním MF. Buď vítán!" +
-        "<a href='actualities.html#turnajStoleti2'><img src='img/mf-og-turnaj2.jpg' style='margin-top:10px'></a>" +
+        "<a href='news2024.html#turnajStoleti2'><img src='img/mf-og-turnaj2.jpg' style='margin-top:10px'></a>" +
         "<br><br><b>Bebul</b>: <img src='img/players/polgu.png' class='img100 right'> V Holešovicích mě Polgu vymlask matem asi devátým tahem. Jak vidno, zůstal při chuti a dneska stejným zahájením " +
         "překvapil velikého Bukowskice! Gratulujeme k senzaci turnaje!"
   },
@@ -1217,9 +1217,9 @@ export var tournamentSpec = [
       PGNV.pgnView('kunc-tomzr', config);
     },
     html: "<b>Bebul</b>: Rychlý Lenochod <img src='img/achievements/reporter.png' class='img100 right'> napsal reportáž o tom slavném brněnském turnaji, " +
-        "kde si navzájem <a href='actualities.html#underground'>pomlouvali</a> svoje mámy a milenky, " +
+        "kde si navzájem <a href='news2024.html#underground'>pomlouvali</a> svoje mámy a milenky, " +
         "a kde za Monday Fights vybojoval krásné 11. místo! Gratulujeme!" +
-        "<a href='actualities.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>" +
+        "<a href='news2024.html#underground'><img src='img/undeground-dog.jpg' style='margin-top:10px'></a>" +
         "<br><b>Kamikazeee</b>:Dneska ty šachy pěkně bolely, ale budu mít zase pěknou vzpomínku v podobě tetování na to dnešní čtvrté místo ..." +
         "<img src='img/kami-tet.jpg' style='margin-top:10px'> " +
         "<div id='kunc-tomzr'></div>"
@@ -1292,7 +1292,7 @@ export var tournamentSpec = [
         "<img src='img/tipovacka2024.jpg' style='margin-top:5px'>" +
         "<br><b>Kamikazeee</b>: Ty vole a jdu slavit!<br> Kurva. Jo!<br>" +
         "<video controls='controls' style='max-width: 100%'><source src='img/tyVoleAJduKurvaSlavitJo.mp4' type='video/mp4'/></video> " +
-        "<br><br><b>Kamikazeee:</b> Reportáž z plaOFF jsem sepsal do <a href='actualities.html#kamikazeee2024'>aktualit</a>."
+        "<br><br><b>Kamikazeee:</b> Reportáž z plaOFF jsem sepsal do <a href='news2025.html#kamikazeee2024'>aktualit</a>."
   },{
     id: "c1tC3P7b",
     specClass: ["turbulence40", "turbulence30"],

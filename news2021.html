@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="Cache-Control" content="max-age=3600" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <title>Monday Fight News 2021</title>
+
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Monday Fight News 2021" />
+    <meta property="og:description" content="Aktuality Monday Fight za rok 2021" />
+    <meta property="og:site_name" content="github" />
+
+    <!-- for WhatsApp -->
+    <meta property="og:image" content="https://bebul.github.io/MondayFight/img/mf-league.png" />
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:alt" content="Monday Fight News 2021" />
+
+    <script type="text/javascript" src="js/minimal.js"></script>
+    <script defer src="js/menu.js"></script>
+    <script src="./lib/pgnv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/rotor.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/mf.css">
+
+    <style>
+        #board > .moves {height: 300px}
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CX3WGLDEW7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CX3WGLDEW7');
+    </script>
+</head>
+
+<body onload="rotate('rotor', 25)">
+
+<div class="body">
+
+    <div class="mondayFightCaption">
+        <img src="img/pohar.png" style="position: absolute; z-index: -1; height:80px; float:left; margin:-2px -20px 0 0px"/>
+        <span class="icon">
+            <button class="menu-toggle" type="button" data-mf-menu-toggle aria-controls="myLinks" aria-expanded="false" aria-label="Otevřít navigační menu">
+                <i class="fa fa-bars hamburger" aria-hidden="true"></i>
+            </button>
+        </span>
+        <span class="captionText">Novinky 2021</span>
+        <div class="topnav">
+            <div id="myLinks" data-mf-menu hidden></div>
+        </div>
+    </div>
+
+    <div class="article">
+        <h2>Nechoďte k Tekelemu na kafe!</h2>
+        <p>
+        Do naší redakce dorazila stížnost zhrzeného kafaře Jouzoleána, jehož hořekování publikujeme v nezměněném podání...
+
+        <p>
+            <img src="img/tekelehoSachy.jpg" style="width:90%"/>
+        <div align="center" style="margin-top: -15px"><i>Tekeleho šachový čurbes</i></div>
+        </p>
+        <p>
+            "Včera jsem byl u Tekeleho na kafe - všude šachové knihy, figurky po zemi, 3 šachovnice různé po bytě, ventilátor u PC řval
+            jak na lesy, protože procesor zrovna počítal nějakou strašně divnou pozici z Vídeňské hry. Tekele řek jen pojd hrát,
+            ani to kafe mi neuvařil a odcházel jsem nasranej s výsledkem 3:3!! <br>
+            A to jsem se potil a modlil abych poslední hru vyrovnal!!" <span><i> -jouz- </i></span>
+        </p>
+    </div>
+
+        <div class="article">
+        <h2>Máme vlastní klub!</h2>
+        <p>
+            Jednoho úterního večera napsal Jouzolean "zdravím", což normálně nedělá, takže bylo jasný, že je za tím nějaký hlubší důvod.
+            A za tou svou zdravicí dodal <i>"vytvořil jsem na lichess náš <a href="https://lichess.org/team/monday-fight-club" target="_blank">vlastní klub</a></i>."
+            Takhle stručně, takhle jasně, takhle úderně to napsal.
+            A potom v klubu co chvíli šup! - přibyl další Monday-Fightista! A že se do seznamu vy<b>klub</b>yla i Neznámá-00, dá se říct, že se můžeme
+            těšit na světlé zítřky.
+            <p>
+        Jouzolean pak v těšení pokračoval: <i>"Můžem si tak někdy zahrát nějaký týmový turnaj, je tam diskuzní fórum a je to cool."</i>
+        Tak hurá hurá! Střezte se nás cizí klubové, my bijem o mříž, ducha lvi, a my vás rozbijeme!
+        <span><i> -beb- </i></span>
+        </p>
+    </div>
+
+    <div class="article">
+        <h2>Monday Fight naříká i jásá</h2>
+        <p>
+            Když už hraju šachy čím dál hůř a sobotní počasí se zrovna nepřekonává, naprogramoval jsem aspoň jednu libůstku,
+            která jedněm přikreslí vrásky na čelo a posílí bolest v srdci, zatímco druhým rozpáře hubu pro smích.
+            Oč jde?
+        </p>
+        <p>
+            <img src="img/rating-diff.png" style="width:90%"/>
+        <div align="center" style="margin-top: -15px"><i>Tabulka pořadí v turnaji s naříkavou či jásavou změnou Ratingu</i></div>
+        </p>
+        <p>
+            Na <a href="index.html">Monday Fight</a> je nyní tabulka s konečným pořadím v turnaji.
+            Podobná tabulka je k vidění i na stránce turnaje v Lichess, ale jen u nás je u každého hráče zobrazen důvod k radosti či pláči.
+            Pokud jste někdo moc neklikal na ty střelce pod tabulkou, vřele doporučuji! Můžete si tak dohledat nějakou radost, pokud
+            máte zrovna slzy pro pláč, a nebo, pokud váš rating zrovna stoupá k nebi jako dým, nabrat pohledem na svou temnou historii též trochu pokory.
+        </p>
+            <img src="img/fastest-mate.png" style="width:300px"/>
+        <p>
+            A rychlé maty vždycky potěší.
+            <span><i> -beb- </i></span>
+        </p>
+    </div>
+
+    <div class="article" style="clear: both">
+        <h2>Jag já to hraju!</h2>
+        <p>
+            Pondělní <a href="https://lichess.org/tournament/swYxUVOY" target="_blank">Monday Fight</a> zastihl našeho Bébulka
+            v bojovné náladě. Všechny vás měl na lopatě! Ale ta lopata byla nějaká děravá, tak mu vítězství vždycky nějak
+            lopatou propadlo, a nejen vítězství, ale i případná remíza. Tím se náš Bébulek liší od takového Alireza Firouzji,
+            kterému se na turnaji <a href="https://chess24.com/en/watch/live-tournaments/fide-chess-com-grand-swiss-2021/6/1/1">Grand Swiss</a>
+            daří, ale v partii se Shirovem už stál <b>+2.75</b>, chtělo by se říci, měl ho na lopatě, ale asi si ji půjčil od Bébulka
+            a vítězství mu propadlo. Naštěstí, nepodoben Bébulkovi, remízu umlátí i holejma rukama.
+        </p>
+        <p>
+            <img src="img/shirov-firouzja.png" style="width:90%"/>
+        <div align="center" style="margin-top: -15px"><i>Firouzja měl Shirova na lopatě</i></div>
+        </p>
+        <p>
+            Daleko tvrdší remíza ovšem potkala našeho čím dál lepšího Tekeleho, když ve své parádní partii měl bukowskice na lopatě v bagru,
+            ale v koncovce král, věž a střelec proti králi si nechal vzít tu věž, <a href="https://lichess.org/spNZRUl1/black#217" target="_blank">což se nevidí každý den</a>.
+        </p>
+        <p>
+            A tak si Bébulek naordinoval studijní klid a opustil do konce týdne aspoň tu WhatsApp skupinu,
+            aby zacelil díry v té lopatě, na které vás všechny měl a aspoň trochu obrousil hrany své neschopnosti.
+            Toho bohdá nebude, aby Bébulek z boje utíkal. Podle mě za to může Neznámá-00, že nehrála. To se vůbec nedá hrát,
+            člověk pořád kouká, přihlásí se ještě, nebo nepřihlásí...
+            <span><i> -beb- </i></span>
+        </p>
+    </div>
+
+    <div class="article">
+        <h2>Jedna známá „NEZNÁMÁ“</h2>
+        <p>
+            Píše se rok 2021, přesně 13.09. Den, kdy se v Monday Fights objevila první ženská.
+            Jedna holka možná s podobným humorem jako Vy. Jedna holka možná s velkými ambicemi
+            jako Vy.
+
+        <p>
+            <img src="img/neznama.png" style="width:90%"/>
+        <div align="center" style="margin-top: -15px"><i>Neznámá-00, ilustrační foto</i></div>
+        </p>
+
+        Velké díky patří Jouzoleánovi, který ji přivedl na novou cestu. Cestu těžkou, trnitou.
+            Cestu ŠACHU. Díky za přijetí a promiňte mi mou troufalost za můj dnešní první POST. Říkala
+            jsem si, že tímto způsobem udělám první krok k našemu seznámení. Vše bylo samozřejmě
+            konzultováno s Jouzoleánem, takže případné námitky směřovat k němu :D.
+            Těším se na další pondělní setkávaní. <br>
+            P.S. Na tuto hru nikdy nezapomenu! <span><i> -nezn- </i></span>
+        <div id='boardNeznama'></div>
+        <script>
+            config = {
+                pgn: "[Event \"Monday Fight Arena\"]\n" +
+                    "[Site \"https://lichess.org/RPvzEBlS\"]\n" +
+                    "[Date \"2021.09.13\"]\n" +
+                    "[White \"bukowskic\"]\n" +
+                    "[Black \"Neznama-00\"]\n" +
+                    "[Result \"0-1\"]\n" +
+                    "[UTCDate \"2021.09.13\"]\n" +
+                    "[UTCTime \"18:36:32\"]\n" +
+                    "[WhiteElo \"2066\"]\n" +
+                    "[BlackElo \"844\"]\n" +
+                    "[WhiteRatingDiff \"-11\"]\n" +
+                    "[BlackRatingDiff \"+28\"]\n" +
+                    "[Variant \"Standard\"]\n" +
+                    "[TimeControl \"180+2\"]\n" +
+                    "[ECO \"B13\"]\n" +
+                    "[Opening \"Caro-Kann Defense: Exchange Variation\"]\n" +
+                    "[Termination \"Time forfeit\"]\n" +
+                    "[Annotator \"lichess.org\"]\n" +
+                    "\n" +
+                    "1. e4 c6 2. d4 d5 3. exd5 { B13 Caro-Kann Defense: Exchange Variation } cxd5 4. Nf3 Nf6 5. Bb5+ Bd7 6. Bxd7+ Qxd7 7. O-O Nc6 8. c3 Rc8 9. Bg5 Ne4 10. Nbd2 f6 11. Nxe4?? { (0.43 → -2.00) Blunder. Bf4 was best. } (11. Bf4 Qf5) 11... dxe4 12. Nd2 fxg5 13. Nxe4 Qf5?! { (-2.07 → -1.42) Inaccuracy. e6 was best. } (13... e6) 14. Nc5?? { (-1.42 → -3.81) Blunder. Qe2 was best. } (14. Qe2 Rd8) 14... e5 15. Re1?! { (-4.24 → -6.50) Inaccuracy. Nxb7 was best. } (15. Nxb7 Qf7 16. Nc5 Be7 17. Qe2 O-O 18. Nd7 Rfe8 19. Nxe5 Nxe5 20. Qxe5 Ba3 21. Qb5 Rb8) 15... Bxc5 16. dxc5 O-O 17. Qd5+ Rf7 18. f3 Rd8 19. Qc4 g4 20. Rad1 Rxd1 21. Rxd1 Kf8 22. b4 gxf3 23. g3?? { (-6.62 → Mate in 8) Checkmate is now unavoidable. gxf3 was best. } (23. gxf3 Qxf3 24. Qxf7+ Kxf7 25. Rf1 Qxf1+ 26. Kxf1 Ke7 27. Ke2 Ke6 28. Kd3 a6 29. a4 a5) 23... f2+ 24. Kf1 Qf3? { (Mate in 7 → -8.80) Lost forced checkmate sequence. Qh3+ was best. } (24... Qh3+ 25. Ke2 f1=Q+ 26. Rxf1 Qxf1+ 27. Ke3 Qxc4 28. b5 Qxc3+ 29. Ke2 Nd4+ 30. Kd1 Rf1#) 25. Qd3? { (-8.80 → Mate in 7) Checkmate is now unavoidable. Qxf7+ was best. } (25. Qxf7+ Kxf7 26. Rd7+ Ne7 27. b5 Qe4 28. Rxe7+ Kxe7 29. Kxf2 Qc2+ 30. Kf1 Qb1+ 31. Kf2 Qb2+) 25... Qh1+ 26. Ke2 Qxh2? { (Mate in 6 → -8.92) Lost forced checkmate sequence. f1=Q+ was best. } (26... f1=Q+ 27. Rxf1 Qxf1+ 28. Ke3 Rf3+ 29. Kd2 Rf2+ 30. Ke3 Qe1+ 31. Qe2 Qxe2#) 27. Rf1 Qg2 28. Qd6+ Ke8 29. Qe6+ Kd8?? { (-7.31 → 6.26) Blunder. Re7 was best. } (29... Re7) 30. Qxf7 Qxg3 31. Rxf2 Qh3?? { (6.54 → Mate in 4) Checkmate is now unavoidable. Ne7 was best. } (31... Ne7 32. Kd1) 32. Qf8+ Kd7 33. Rf7+? { (Mate in 3 → 7.08) Lost forced checkmate sequence. Qd6+ was best. } (33. Qd6+ Kc8 34. Rf8+ Nd8 35. Rxd8#) 33... Ke6 { Black wins on time. } 0-1",
+                startPlay: '66',
+            }
+            PGNV.pgnView('boardNeznama', config);
+        </script>
+        </p>
+    </div>
+
+
+    <div class="article">
+        <h2>Jak vypadá blunder aneb chvilková zástava krevního oběhu</h2>
+        <p>
+        Na pondělním klání (6.9.) jsem se vznášel na vlně neporazitelnosti. A když si už člověk o sobě začne myslet příliš, zasáhne prst Boží.
+        V <a href="https://lichess.org/kKsQ2Krl#125" target="_blank">utkání s panem hrobotronem</a> šlo s bílými figurkami vše hladce podle plánu, časem jsem si vypracoval pohodlnou převahu v podobě jedné věže a vše směřovalo k hladké výhře v průběhu několika tahů.
+        <div id='boardBuk01'></div>
+        Poslední tah směřující k MATU!? Hodiny běží dál, jak je to možné? Oči těkají po šachovnici a já si pomalu začínám uvědomovat, co se stalo. Krevní oběh se zastavuje…
+        Pan hrobotron váhá, také evidentně netuší, proč hodiny nestojí a hra nekončí. Nakonec dělá ten jediný možný tah v partii. Tohle nemůžu vzdát, i když bych si hned prohrát zasloužil. Začíná marná snaha vyprovokovat hrobotrona k chybě a napadnout mu věží krále i dámu současně. Začíná hra kočky s myší. Postupně likviduji pěšcovou převahu, ale v tuto chvíli mě může hrobotron už jasně dobít prostou proměnou pěšce h na dámu:
+        <div id='boardBuk02'></div>
+        Z nedostatku času však volí pouze uhybný manévr dámou na c4+ a situace se motá až k samotnému závěru, kdy partii zázračně zremizujeme. Poučení jsou dvě:
+        <ol>
+            <li> I když máš obrovskou převahu, partii vyhráváš až ve chvíli, kdy se ti zastaví hodiny</li>
+            <li> Bojovat musíš až do posledního pěcha 😊</li>
+        </ol>
+        <span><i> -buk- </i></span>
+        <script>
+          config = {pgn: '', position: '1R6/5Q1k/3p2pp/2p1p3/1P2P1P1/1q1P4/5PK1/8 b - - 1 34', showCoords: false, orientation: 'white', theme: 'brown', pieceStyle: 'wikipedia', figurine: '', locale: 'en', timerTime: '', layout: 'top', showFen: false, coordsInner: false, headers: false, coordsFactor: '1.0', coordsFontSize: '', colorMarker: '', startPlay: '', hideMovesBefore: true, notation: 'short', notationLayout: 'inline', };
+          PGNV.pgnBoard('boardBuk01', config);
+          config = {pgn: '', position: '8/8/2k3p1/8/6q1/6R1/5P1p/5K2 b - - 1 54', showCoords: false, orientation: 'white', theme: 'brown', pieceStyle: 'wikipedia', figurine: '', locale: 'en', timerTime: '', layout: 'top', showFen: false, coordsInner: false, headers: false, coordsFactor: '1.0', coordsFontSize: '', colorMarker: '', startPlay: '', hideMovesBefore: true, notation: 'short', notationLayout: 'inline', };
+          PGNV.pgnBoard('boardBuk02', config);
+        </script>
+    </div>
+
+    <div class="article">
+        <h2>Jak chutná výhra nad šampionem</h2>
+        Já bych chtěl nenápadně upozornit na to, ne že bych se nějak chvástal, ale že dnes bukowskic byl právě <a href="https://lichess.org/qkzcSoyZ" target="_blank">jednou poražen</a>, jedním hráčem,
+        kterého nebudu jmenovat, aby to nevypadalo moc nabubřele. Taková výhra pak dokáže přebít i zklamání z vyhraných partií nedotáhnutých kvůli času či již
+        tradičně prohraných remízových koncovek 🙂 nehledě pak na vyloženě jedovatý zármutek z čistě prohraných partií...
+        to všechno ta jedna výhra dokáže přebít, takovou kouzelnou moc má jedna jediná výhra s bukowskicem. Doporučuju fšem co nejdříve vyzkoušet.<br> Stojí to za to 🙂
+        <span><i> -mraz- </i></span>
+    </div>
+
+
+    <div class="article">
+        <h2>Horká odveta v Barmen Defense</h2>
+        <p>
+            Dnešní turnaj je specifický výzvou mezi hráči Bebul a Tekele. Chvástali se převelice v našem chatu,
+            jací jsou to odborníci na Sicilian defence. Vsadili se, že kdo prohraje dnešní duel v alapinovi,
+            napíše další článek do MF. Jsem opravdu velmi zvědav, jak to dopadne.
+            Využiji této příležitosti a pokusím se jejich hru okomentovat a zanechat <b>TU</b> tak alespoň nějaký výukový materiál.
+        </p>
+        <div align="center" style="width:70%; border:1px solid black; margin:auto">
+                <b><i>
+                    Bebule ani nevíš, jak se těším na dalšího alapina.<br>
+                    Dostaneš takovou čočku, že začneš hrát piškvorky</i></b> 😁<br>
+                    Cenění zubů páně Tekeleho, 10.8 na WhatsApp
+        </div>
+        <p>
+            <img src="img/boty.jpg" style="width:100%"/>
+        </p>
+        <p>
+            Tekele urputně trénoval, aby slovutného Bébula porazil a znemožnil, odborně konzultoval s Jouzoleánem
+            scénář možného vývoje partie, byl varován a důrazně poučen o nástrahách a úskalích tohoto zahájení.
+            Bébulova příprava je nejasná. Pojďme se tedy podívat, jak <a href="https://lichess.org/RVvk781M#21" target="_blank">partie dopadly</a>. Nakonec se odehrály dvě.
+            Okomentuji hry jen do fáze, kdy bylo rozhodnuto. <span><i> -jouz- </i></span>
+        </p>
+        <div id='boardBebulTekeleOdveta'></div>
+        <script>
+          config = {
+            pgn: "[Event \"Monday figts\"]\n" +
+              "[Site \"?\"]\n" +
+              "[Date \"2020.08.02\"]\n" +
+              "[Round \"?\"]\n" +
+              "[White \"Bebul\"]\n" +
+              "[Black \"Tekele\"]\n" +
+              "[Result \"1-0\"]\n" +
+              "[ECO \"B06\"]\n" +
+              "[WhiteElo \"1710\"]\n" +
+              "[BlackElo \"1485\"]\n" +
+              "[Annotator \"JIří,Kostka\"]\n" +
+              "[PlyCount \"21\"]\n" +
+              "[SourceVersionDate \"2020.08.02\"]\n" +
+              "\n" +
+              "{Komentuje Jouzolean} 1. e4 c5 2. c3 d5 3. exd5 Qxd5 4. d4 g6 5. Nf3 Bg7 6. Na3 $5 {Zde lze hrát\n" +
+              "spousty dobrých - v MF málo ozkoušených tahů, Bebul zde však hrává s\n" +
+              "úspěchem 6.Ja3!?} (6. dxc5) (6. c4) (6. Be3) (6. Nbd2) (6. Be2) 6... cxd4 {\n" +
+              "Zde se bílý může vybrat dvě závazné cesty, Bebul zde zahrál střelcem\n" +
+              "na c4.} 7. Bc4 (7. Nb5 {Tento alternativní tah s ambicemi se taky velmi\n" +
+              "často hraje...Kůň míří na vidle a zároveň na pěšce d4} Na6 8. Be3 $1\n" +
+              "{Zde moc pěkný vývinový tah. Nebo lze taky dobrat kterýmkoliv z koňů\n" +
+              "pěšce na d4} (8. Nbxd4) (8. Nfxd4)) 7... Qe4+ {Ano, to je správná reakce\n" +
+              "od Tekeleho, šach !} 8. Be3 $3 {Tento šokující tah již překvapil\n" +
+              "nejednoho nadšeného šachistu.} dxe3 $4 {A tekele do toho spadl. I s\n" +
+              "navijákem. :D} (8... Nh6 $1 {tohle by bylo mnohem lepší} 9. Nb5 Na6 10.\n" +
+              "Nbxd4 $16 {se slabou výhodou bílého}) (8... Nf6 $6 {toto zkoušel tekele v\n" +
+              "druhé partii, ale také dalek nedošel} 9. Bxf7+ Kf8 (9... Kxf7 $4 10. Ng5+ $1\n" +
+              ") 10. Ng5 $4 {zde už to bylo od bůbula překombinované, nejspíše ho\n" +
+              "zmátlo že tekele střelce nedobral} (10. cxd4 {tento tah by zajistil\n" +
+              "Bebulovi celkem slušnou pozici a malou výhodu}) 10... Qxg2 $1 {tady měl\n" +
+              "tekele cca +4, přesto partii nakonec prohrál}) 9. Bxf7+ {Bam, černý\n" +
+              "přichází o dámu ať veme střelce nebo ne.} Kf8 (9... Kxf7 10. Ng5+ $1) 10.\n" +
+              "Qd8+ $1 Kxf7 11. Ng5+ {A dále se partie jen dohrávala až nakonec bebul\n" +
+              "jasně zvítězil.} 1-0",
+            startPlay: '19',
+          }
+          PGNV.pgnView('boardBebulTekeleOdveta', config);
+        </script>
+    </div>
+
+    <div class="article">
+        <h2>Čtyři bytelný kola,...</h2>
+        <p>
+            Na druhém srpnovém turnaji hráli Bébul s Bukowskicem hezky od ohýnku, Bébulovy umaštěné prsty po displeji klouzaly,
+            nebo se naopak ne a ne odlepit, a tak není divu, že s Jouzoelenem padnul na čas i v naprosto vyhrané pozici.
+        </p>
+        <img src="img/bebulBukowskic.jpg" style="width:100%"/>
+        <div align="center">Bébulek a Bukowskic</div>
+        <p>
+            Nevím, jak to mají ostatní, ale Bébulkův WhatsApp se občas natěšeně rozbliká, poctěn nějakou Jouzoleanovou šachuchtivou notickou,
+            typu <i>"Bébule, znáš tuhle léčku v Alapinovi?"</i>. Nedávno si Bébulek na tuhle léčku vzpomněl a Jouzoelan ji mezitím zapomněl,
+            ale když došlo na lámání chleba, vzpomněl si <a href="https://lichess.org/dG1FZHi5#17" target="_blank">a o dámu nepřišel</a>. Táááákže pech hroznej, áááále, poslední turnaj si Bébulek spravil chuť, a to tak, že pořádně, víte?
+        </p>
+        <div id='boardBebulTekele'></div>
+        <script>
+          config = {
+            pgn: "[Event \"Monday fight Arena\"]\n" +
+              "[Site \"https://lichess.org/E4rtxXuR\"]\n" +
+              "[Date \"2021.08.09\"]\n" +
+              "[White \"bebul\"]\n" +
+              "[Black \"Tekele\"]\n" +
+              "[Result \"1-0\"]\n" +
+              "[UTCDate \"2021.08.09\"]\n" +
+              "[UTCTime \"18:24:57\"]\n" +
+              "[WhiteElo \"1705\"]\n" +
+              "[BlackElo \"1473\"]\n" +
+              "[WhiteRatingDiff \"+3\"]\n" +
+              "[BlackRatingDiff \"-2\"]\n" +
+              "[Variant \"Standard\"]\n" +
+              "[TimeControl \"180+2\"]\n" +
+              "[ECO \"B22\"]\n" +
+              "[Opening \"Sicilian Defense: Alapin Variation, Barmen Defense\"]\n" +
+              "[Termination \"Normal\"]\n" +
+              "[Annotator \"lichess.org\"]\n" +
+              "\n" +
+              "1. e4 c5 2. c3 d5 3. exd5 Qxd5 { B22 Sicilian Defense: Alapin Variation, Barmen Defense } 4. d4 Nc6 5. Nf3 Nf6 6. Na3 a6 7. Bc4 Qe4+ 8. Be3 Ng4 9. Bxf7+ Kxf7 10. Ng5+ Ke8 11. Nxe4 cxd4 12. Bxd4 e5 13. Bc5 Bf5 14. Bxf8 Rxf8 15. Nd6+ Ke7 16. Nxf5+ Ke8 17. Qxg4 Rd8 18. O-O g6 19. Ng7+ Kf7 20. Ne6 Rd6 21. Nxf8 { Black resigns. } 1-0" +
+              "\n",
+            startPlay: '19',
+          }
+          PGNV.pgnView('boardBebulTekele', config);
+        </script>
+        <p>
+            Při pohledu na partie odehrané na tomto turnaji si pozorný čtenář všimne, že první čtyři nejkratší partie, z nichž tři skončily matem,
+            vyhrál všechny náš Bébulek.
+            A to ve čtyřech různých zahájeních! Víte? Ta jeho variabilita! Ta jeho připravenost! Ta jeho nekompromisnost! Ta jeho nezlomná touha všechny porazit!
+            Nezbývá nám, než mu pogratulovat, mohutnými zdravicemi našimi.
+        </p>
+        <img src="img/ctyriBytelnyKola.png" style="width:100%"/>
+        <p>
+            Jináč to teď Bukowskic trochu fláká, zdá se mi, tááákže se na něj slovutný Jouzolean mohutnými kroky svými dotahuje a co nevidět
+            se můžeme těšit na změnu na špici. To je něco jako přešroubovat na vánočním stromečku Vánoční hvězdu na, já nevím, turbo nebo defibrilátor.
+            <span><i> -beb- </i></span>
+        </p>
+
+    </div>
+
+    <div class="article">
+        <h2>Tekeleho aprílové ohlédnutí za Monday Fight</h2>
+        <p>
+            Opět se nám sešel týden s týdnem a všichni amatéři i zapálení hráči bušící své strategie do 40. tahu, fanoušci offline soubojů trpící
+            alergií na vitamin D, divácí prahnoucí po nevyzpytatelných soubojích černých s bílými (ultrakorektní zde nepochodí), fotbaloví aj. hooligans,
+            již si pravidelné pražské derby dvou S vynahrazují při nynější covidové sezóně sázením na průběh a hlavně výsledky turnaje Monday Fight,
+            ale i nasrané manželky, zvědavé přítelkyně i zpruzelí kolegové v práci, se konečně dočkali.
+        </p>
+        <p>
+            Poslední dubnový turnaj proběhl v hojné účasti, celkový počet 11 zúčastněných hráčů nám může závidět ledajaký okresní šachový klub.
+            Ten ve Valašských Kloboukách určitě. A rozhodně tam nemají tak šílené plejery. Respektive kdyby je měli, hrají s námi Monday Fight,
+            to dá rozum. Však proto je Jouzoleán v Praze. Něco jako naší hokejisti. Kdo umí, hraje NHL, zbytek se nechá přeblafnout Jágrem v II. Lize.
+        </p>
+        <p>
+
+        <div id='boardLenochodBuk'></div>
+        <script>
+          config = {
+            pgn: "[Event \"Monday fights Arena\"]\n" +
+              "[Site \"https://lichess.org/RTvbyMeg\"]\n" +
+              "[Date \"2021.04.26\"]\n" +
+              "[White \"bukowskic\"]\n" +
+              "[Black \"RychlyLenochod\"]\n" +
+              "[Result \"0-1\"]\n" +
+              "[UTCDate \"2021.04.26\"]\n" +
+              "[UTCTime \"18:41:29\"]\n" +
+              "[WhiteElo \"2032\"]\n" +
+              "[BlackElo \"1423\"]\n" +
+              "[WhiteRatingDiff \"-12\"]\n" +
+              "[BlackRatingDiff \"+11\"]\n" +
+              "[Variant \"Standard\"]\n" +
+              "[TimeControl \"180+2\"]\n" +
+              "[ECO \"C42\"]\n" +
+              "[Opening \"Russian Game: Damiano Variation\"]\n" +
+              "[Termination \"Normal\"]\n" +
+              "\n" +
+              "1. e4 e5 2. Nf3 Nf6 3. Nxe5 Nxe4 4. Qe2 d5 5. d3 Qf6 6. dxe4 Qxe5 7. exd5 Qxe2+ 8. Bxe2 Na6 9. Bxa6 bxa6 10. O-O Bd6 11. Re1+ Kd7 12. b3 Bb7 13. c4 f5 14. Bb2 Rhg8 15. Na3 Rad8 16. Nc2 g5 17. Nd4 f4 18. Ne6 Rde8 19. Be5 Bb4 20. Re2 c6 21. a3 Ba5 22. Nc5+ Kc8 23. Nxb7 Kxb7 24. dxc6+ Kxc6 25. Rd1 Bc7 26. Bxc7 Rxe2 27. Bd8 Rxd8 28. Rb1 Rdd2 29. Rf1 Ra2 30. g3 fxg3 31. hxg3 Rxa3 32. b4 Rc3 33. c5 Rc4 34. Kg2 h5 35. Kf3 Ree4 36. Rd1 Rxb4 37. Rd6+ Kxc5 38. Rxa6 Red4 39. Ra5+ Kc4 40. Rxa7 g4+ 41. Kg2 Rd2 42. Rf7 Rbb2 43. Kf1 Rd1+ 44. Kg2 Rbb1 45. f3 Rg1+ 46. Kf2 Rbf1+ 47. Ke2 gxf3+ 48. Ke3 Rxg3 49. Rf4+ Kc3 50. Rf8 f2+ 51. Ke2 Rfg1 52. Rc8+ Kd4 53. Rd8+ Ke5 54. Re8+ Kd6 55. Rf8 h4 56. Rxf2 h3 57. Rf6+ Ke5 58. Rf2 R1g2 59. Kf1 Rxf2+ 60. Kxf2 Rg5 61. Kf3 Rh5 62. Kf2 Kf5 63. Kf3 Kg5 64. Kg3 h2 65. Kf3 h1=Q+ 66. Ke3 Rh4 67. Kf2 Qe4 68. Kg3 Qf4+ 69. Kg2 Qh2+ 70. Kf3 Rf4+ 71. Ke3 Qg3+ 72. Ke2 Rf2+ 73. Ke1 Qg1# 0-1\n" +
+              "\n" +
+              " ",
+            startPlay: '50',
+          }
+          PGNV.pgnView('boardLenochodBuk', config);
+        </script>
+
+            Při psaní těchto řádků si říkám, zda-li zmiňovat Bukowskice. Aktuální sezóna se nám přetáčí do druhé třetiny a nezdá se, že by zrovna on měl
+            zpomalovat ve sbírání bodů. Pomineme-li jednu neúčast, bere vždy nejhůře třetí místo. Což o to, rozhodují body. Těch má 144,5 a bude jistojistě
+            vstupovat do závěrečného turnaje z prvního místa. Zbytek sezóny zřejmě rozhodne jeho případná účast na šachovém soustředění v Bangladéši,
+            kam je srdečně zván a hráči Monday Fight se skládají na letenku. Btw půl roku bez internetu a pitné vody bude muset nějak vydržet.
+            Při téhle příležitosti nelze nezmínit pondělní senzační porážku Bukowskice s Rychlým Lenochodem, který se právě z onoho soustředění vrátil.
+            I když, při Ruské hře bych tipoval spíše účast na turnaji v KLDR, ale to se musí vyjádřit Rychlý Lenochod.
+
+        </p>
+        <p>
+            Při pondělním turnaji doplnil Bukowskice na pomyslném piedestalu Bebul. Hráč, jehož výsledky chronicky sráží špatné losování turnaje,
+            připravení soupeři, ignor přímo z vedení Lichess.org či globální oteplování, se nyní blýsknul druhým místem! Přes dvojitou porážku
+            s Bukowskicem za černé si s přehledem došel pro druhé místo.
+        </p>
+        <p>
+            Třetí dekorovaný Mozkomor se 17 body jistil třetí místo. Spousta ztracených her s papírově slabšími hráči ho stálo spoustu bodů.
+            Uvidíme, jak se to promítne v závěru sezóny. Aktuálně drží Mozkomor páté místo. Řekl bych TOP 5, ale v závěsu se nachází DJ-Pěšec
+            hřešící na své neúčasti. Vzdává už tuhle sezónu? Nemyslím si, naposledy postoval fotky z Ulambátáru.
+            Zřejmě nějaké soustředění, uvidíme, jak se promítne ve zbytku sezóny.
+        </p>
+        <p>
+            Závěrem bych rád přednesl nějaká pozitiva pro ostatní nezmíněné hráče. Znáte termín „Železná Sparta“? Jestli také tápete, uklidním vás.
+            Už to nic neznamená. Něco jako ICQ. Pouze nostalgie. Proč to zmiňuju? V následující tabulce uvidíte progres za poslední rok, zdroj Lichess.org.
+        </p>
+        <table style="width:100%">
+        <tr>
+            <th></th>
+            <th>April 2020</th>
+            <th>April 2021</th>
+        </tr>
+        <tr>
+            <td>Bukowskic</td>
+            <td>1950</td>
+            <td>2020</td>
+        </tr>
+        <tr>
+            <td>Jouzoleán</td>
+            <td>1700</td>
+            <td>1750</td>
+        </tr>
+        <tr>
+            <td>Mrázek</td>
+            <td>1500</td>
+            <td>1650</td>
+        </tr>
+        <tr>
+            <td>Bébul</td>
+            <td>1650</td>
+            <td>1700</td>
+        </tr>
+        <tr>
+            <td>Mozkomor</td>
+            <td>1650</td>
+            <td>1650</td>
+        </tr>
+        <tr>
+            <td>Tekele</td>
+            <td>800</td>
+            <td>1350</td>
+        </tr>
+        <tr>
+            <td>DJ-Pěšec</td>
+            <td>1850</td>
+            <td>2050</td>
+        </tr>
+        <tr>
+            <td>Travinho</td>
+            <td>1100</td>
+            <td>1350</td>
+        </tr>
+        <tr>
+            <td>Arytmik</td>
+            <td>1300</td>
+            <td>1350</td>
+        </tr>
+        <tr>
+            <td>Rychlý Lenochod</td>
+            <td>1350</td>
+            <td>1430</td>
+        </tr>
+        </table>
+        <p>
+            Pointu v tabule ať si hledá každý sám. Přeji Všem štastné tahy do dalšího turnaje!
+            <span style="position:absolute; margin:5px"><i> -tekele- </i></span>
+       </p>
+    </div>
+
+    <div class="article">
+        <h2>Horké aktuality Monday fights</h2>
+        <i>Disclaimer: Provozovatel tohoto webu nenese žádnou odpovědnost za správnost informací obsažených v následujícím článku napsaném horkým perem páně Jouzoleána. :-D</i>
+        <p>
+            <a href="https://lichess.org/@/RychlyLenochod" target="_blank">Rychlý Lenochod</a> před časem oznámil, že se do května nemůže účastnit <b><i>Monday fights</i></b> (dále jen MF) kvůli nové práci. Sdělil také, že bude ale pilně trénovat a od května nám začnou těžké časy. Co ale nečekal bylo, že když už lenochod nejde na MF, přijde MF za lenochodem v podobě <a href="https://lichess.org/tournament/1EFZH5XS" target="_blank">Bullet Wednesday fight</a> a přistihne ho opět nepřipraveného. Se ziskem pouhých 12 bodů se zařadil na před-předposlední místo a potvrdil tak svoji mizernou formu. Vzkaz pro něj - před námi neutečeš hochu - ani když jsi z Brna :D
+        </p>
+        <p>
+            Když zabrousíme do minulosti, vzpomínám si také, jak onehdy
+            <a href="https://lichess.org/@/Mrazek" target="_blank">Mrázek</a> přišel s tím, že dosáhl <b>1700 ELO</b>, a že začíná být spokojen se svou hrou.
+            Inu, hned následující dny, jako když utne, začal padat až se propadl do hluboké recese.
+            Navíc v posledních MF podává velmi znepokojující výsledky.
+            Po svižném startu sezony rychle vyčerpal štěstí začátečníka a podlehl tlaku silnějších hráčů tohoto proslulého celoročního turnaje.
+            Další zprávy o vývoji jeho potenciálu jsme od něj již neobdrželi, párkrát byl snad spatřen, jak nadává ostatním hráčům na chatu turnaje a vymlouvá se nepřízeň času a osudu.
+            Mrázku, vzkaz pro tebe – sledování Výměny manželek má vliv na tvé ELO - dej si na to pozor! :D
+        </p>
+        <div style="display: block; margin-left: auto;  margin-right: auto">
+            <img src="img/mfMrazekTekele.png" style="width:100%"/>
+            <div align="center">Kolísání formy hráčů <b>Mrázek</b> a <b>Tekele</b></div>
+        </div>
+        <p>
+            Zcela naopak si vede <a href="https://lichess.org/@/tekele" target="_blank">Tekele</a>- jeho <a href="https://en.wikipedia.org/wiki/London_System">Londýnský systém</a> a
+            <a href="https://en.wikipedia.org/wiki/Sicilian_Defence,_Accelerated_Dragon">hyper akcelerovaný drak</a>
+            začíná dělat problém stále více hráčům. Před nedávnem postoupil z úrovně mloka na úroveň
+            <a href="https://en.wikipedia.org/wiki/Ji%C5%99ina_Bohdalov%C3%A1">Jiřiny Bohdalové</a>
+            a míří stále výš. Taky porazil Mozkomora, Bebula a dokonce i Buka a DJ Pěšce. Rád bych vypíchl jeho rivalitu s Travinhem, kterého postupně předběhl. Uvidíme, co s tím <a href="https://lichess.org/@/travinho" target="_blank">Travinho</a> udělá, každopádně dle jeho aktivity na lichess a taky díky postupnému zlepšování to bude ještě zajímavý souboj.
+        </p>
+        <p>
+            Svou premiéru si zažil <a href="https://lichess.org/@/arytmik" target="_blank">Arytmik</a> – v prvním turnaji se rozehřál a v druhém již atakoval cenné kovy. Se 4. místem musí být řádně spokojen,
+            přesto když jsem ho potkal, říkal že chtěl víc. :D Úvodní blafák – dneska dám max 1 až 2 hry se ukázal jako účinný a zcela oslepil soupeře. Uvidíme další pondělky, jestli to nebylo také štěstí začátečníka jako u kolegy Mrázka, ústředna.
+        </p>
+        <p>
+        <div style="display: block; margin-left: auto;  margin-right: auto">
+            <img src="img/bebulovyPryKecy.png" style="width:100%"/>
+            <div align="center">Bébul opět nezklamal – ukázka jeho příspěvků do chatu při bullet fight :D</div>
+        </div>
+        </p>
+        <p>
+            Závěrem dnešních aktualit bych shrnul citátem. Nechal jsem se inspirovat webem lichess, zde ho máte po úpravě:
+            <div>
+            <img src="img/jouzoCitat.png" width="50%" style="min-width: 500px; max-width: 800px"/>
+            </div>
+        <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
+        </p>
+    </div>
+
+    <div class="article">
+        <h2>Porážkou Bukowskice Tekele rozhodl o vítězi turnaje</h2>
+        V závěrečné hře šlo bukowskicovi o hodně - vítězství by pro něj znamenalo stejný bodový zisk, jako měl DJ-Strelec,
+        ale protože by s Tekelem vyhrál a nikoli prohrál, nebyla by jeho turnajová performance zruinována a nejspíše by usedl na turnajový trůn.
+        Je to jedna z posledních partií turnaje, takže hráči již byli notně unaveni a o blundery zde nebyla nouze.
+        To jim ovšem rádi promineme, neboť mnoho pozic, které nám svou hrou připravili, vyhodnotily algoritmy lichess jako puzzle, což není zas tak běžná věc.
+        Většina partií, které hrajeme, totiž žádné vynucené, jednoznačné, taktické kombinace neobsahují.
+        A jiné, jako třeba partie  <a href="https://lichess.org/UYTv8Ha8" target="_blank">Tekele - Bukowskic</a>, jsou v tomto směru hotové pokladnice.
+        <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+
+        <div id='board-b'></div>
+        <script>
+          config = {
+            "pgn":"[Event \"Monday Fight Arena\"]\n" +
+              "[Site \"https://lichess.org/UYTv8Ha8\"]\n" +
+              "[Date \"2021.03.15\"]\n" +
+              "[White \"Tekele\"]\n" +
+              "[Black \"bukowskic\"]\n" +
+              "[Result \"1-0\"]\n" +
+              "[UTCDate \"2021.03.15\"]\n" +
+              "[UTCTime \"20:21:31\"]\n" +
+              "[WhiteElo \"1356\"]\n" +
+              "[BlackElo \"2035\"]\n" +
+              "[WhiteRatingDiff \"+12\"]\n" +
+              "[BlackRatingDiff \"-12\"]\n" +
+              "[Variant \"Standard\"]\n" +
+              "[TimeControl \"180+2\"]\n" +
+              "[ECO \"A40\"]\n" +
+              "[Opening \"Horwitz Defense\"]\n" +
+              "[Termination \"Normal\"]\n" +
+              "[Annotator \"lichess.org\"]\n" +
+              "\n" +
+              "1. d4 e6 { Vítám Vás u partie, která rozhodla Monday Fight 5.3.2021. Komentuje Bébul. Zahájení se jmenuje Horwitz Defense. Myslí si bukowskic, že na Tekeleho může zkoušet Hurvínka? } " +
+              "2. Nc3 d5 3. Bf4?! { Lichess označil tento tah za nepřesnost. Vývin střelce je však mezi hráči oblíbený. Kdo by taky chtěl hrát následující variantu? } (3. e4 Nf6 4. Bg5 dxe4 5. Nxe4 Be7 6. Bxf6 Bxf6 7. Nxf6+ Qxf6) \n" +
+              "3... Bd6?! 4. Bg3?! { Tekele zřejmě zná šachové moudro, že \"to take is a mistake\" a ustoupil. Jen ať se pozice zkomplikuje, bukowskic potřebuje vyhrát, aby vyhrál celý turnaj, takže je jen otázka času, kdy začne nervóznět. } 4... Nf6 5. e3 a6 6. Bd3 Nc6 7. b4?? { Uppps! Blunder! Odborníci se neshodnou, co přesně tímto tahem Tekele myslel. Nekrytý pěšec lze vzít jakkoli. } \n" +
+              "7... Nxb4 8. a3 Nxd3+ 9. Qxd3 O-O 10. Nge2 Bd7 11. h4?! { Chyba, nyní mohl Bukowskic vyměnit střelce. }   11... Bc6?! { to, že k výměně střelců nedošlo ukazuje, že bukowskicovi začal pomalu docházet dech. Je jen otázkou času, kdy se jeho pozice zhroutí. } 12. h5 Bxg3 13. fxg3? { Tekele si ještě není bukowskicova rozpadu vědom, tudíž přidává další blunder do sbírky, takhle oslabovat pěšcovou strukturu v blízkosti krále! } (13. Nxg3 h6 14. a4 b6 15. a5 b5 16. Nce2 Qe7 17. Nc1 Rfc8 18. Qd2 Be8 19. Nd3 Nd7) \n" +
+              "13... Ne4?? { Dámy a pánové, máme tu první Blunder z ruky jinak suverénního bukowskice. Nyní může pěšec h pokračovat v pohybu. } (13... h6 14. O-O Qe7 15. Rf3 Nxh5 16. Raf1 Qg5 17. a4 Rae8 18. Qd2 f5 19. Qd3 Re7 20. Qd2) \n" +
+              "14. h6 g6 15. Nf4?? { Sice Blunder, ale považte, že se jednalo o poslední partii turnaje. } (15. Nxe4 dxe4 16. Qb3 Qg5 17. c4 Rad8 18. Qc3 f6 19. a4 Rd7 20. O-O Qxh6 21. Nf4 Re8) \n" +
+              "15... Qf6?? { Blunder! } (15... Nxg3 16. Rh3) \n" +
+              "16. O-O-O?? { Blunderový hattrick! } (16. Nxe4 dxe4) \n" +
+              "16... e5?? { Tento zdánlivě nevinný tah je ve skutečnosti BLUNDER TURNAJE. Černý změnil hodnocení pozice o, jářku, 11 pěšců (-4.87 → 6.39). Jestliže předešlé blundery stále nechávaly černého ve výhodě, tenhle je pro černého zkázou! Bukowskicovi se muselo zatmět před očima, když místo vidličky Nf2 sáhnul na éčkovýho pěšce.  Výhra bílého se nyní musí hrát přesně a algoritmy lichess vyhodnotily pozici na diagramu jako puzzle. Proto necháváme správný tah na důmyslnosti čtenářově} " +
+              "17. Ncxd5?? { Auvajs! Nač vyhrát, když tímto tahem mohu srovnat? Nicméně najít obranu černého je v této pozici poměrně komplikované a musí se hrát přesně. Algoritmy lichess vyhodnotily tuto obranu jako puzzle. Obrannou variantu na tomto místě mažeme a necháváme čtenáři za domácí úkol.} " +
+              "17... Bxd5?? { Tady máš, Tekele, dárek +6, tak ukaž, co dokážeš! } 18. Nxd5 Qd6 19. Qxe4 exd4?! { nepřesnost, nicméně pozice černého je již ztracena } 20. Rxd4 Qxa3+ 21. Kd2 Qa5+ 22. c3 Qa2+ 23. Kd3 f6? { Nyní lze dát mat 6. tahem } 24. Qe6+ Kh8 25. c4?? { Mat se nyní vytratil, ale pozice je pro bílého stále vyhraná. } (25. Qe7 Rf7 26. Qxf7 Qc4+ 27. Rxc4 Rg8 28. Qxf6+ Rg7 29. Qxg7#) \n" +
+              "25... Qb3+ 26. Ke4?? { Pořádný Blunder, po kterém je pozice okamžitě vyrovnaná. Nyní má černý uspokojivou obranu, kterou algoritmy lichess vyhodnotily jako puzzle. Obrannou variantu na tomto místě mažeme a necháváme čtenáři za domácí úkol.} \n" +
+              "26... Rfe8?? { Bukowskic už ale hodil flintu do žita a hozenou rukavici nezdvihl. Namísto toho Tekele bravurně zatáhl matovou síť. } 27. Ne7 Qb6? 28. Qf7 Rxe7+ 29. Qxe7 Qc6+ 30. Kd3 Re8 31. Qg7# { Mat na šachovnici! A porážku neutrpěl nikdo menší, než bukowskic! } 1-0\n",
+            "position":"start",
+            "showCoords":false,
+            "orientation":"white",
+            "theme":"brown",
+            "pieceStyle":"wikipedia",
+            "locale":"cs",
+            "timerTime":"",
+            "layout":"top",
+            "movesWidth":"400px",
+            "movesHeight":"700px",
+            "showFen":false,
+            "coordsInner":true,
+            "headers":true,
+            "coordsFactor":"1.0",
+            "colorMarker":"",
+            "startPlay":"",
+            "hideMovesBefore":true,
+            "notation":"short",
+            "timerTime":2500
+          };
+          PGNV.pgnView('board-b', config);
+        </script>
+
+    </div>
+
+    <div class="article" style="clear: both; margin-top: 80px">
+        <h2>Monday Fight se ženckou</h2>
+        <p>
+          Jak známo, v Monday Fight turnajích nám zoufale chybí ženy. Bébulek kvůli tomu tuze smutní, lká a naříká, až jeho pláč dosáhl ucha Nejvyššího, jeho stín
+        jej zastínil a hle, objevila se žencká!
+        <p>
+        Zahrajte si! A až Beth porazíte, pošlete screenshot matové pozice do naší WhatsApp. Její krásná okatá hlavička běží <b>jen na 1024 znacích</b>,
+        což by nikomu z nás, ostřílených turnajových mazáků, nemělo činit problémy.
+        <p>
+          Možná by se mohl jeden hráč obětovat, vytvořit profil MondayFightBeth a hrát příští turnaj za ni, tj. všechny tahy dělat na této šachovnici.
+        To by mě vážně zajímalo, jak by si tato Beth vedla. Realizovatelné to však není, neboť Beth, jak se
+        ve slušné společnosti sluší a patří, dovoluje pěšce proměnit pouze v dámu!
+        <span style="position:absolute; margin:5px"><i> -&nbsp;beb- </i></span>
+
+        <div style="display: block; margin-left: auto;  margin-right: auto">
+          <iframe src="https://vole.wtf/kilobytes-gambit/" title="uhhh" width="100%" height="600px">
+          </iframe>
+        </div>
+    </div>
+
+    <div class="article">
+        <br>
+        <h2>Tvrdý předturnajový tréning</h2>
+        <div style="display: block; margin-left: auto;  margin-right: auto">
+            <a href="https://lichess.org/XfzaSc2K" target="_blank"><img src="img/lenochodTekele.jpg" style="width:100%"/></a>
+            <div align="center">RychlyLenochod : Tekele</div>
+        </div>
+
+        <p>
+            Tak takhle to vypadá, když pánové trénují, na Bébulka si žuby brouší a ten pak na MondayFight potí krev.
+        </p>
+        <img src="img/tekeleBebul.png"/>
+        <p>
+            Nenechte se, prosím, zmást těmi třemi dnešními (1.března) debakly. V první partii měl Tekele Bébula na lopatě už po pátém tahu <b>+2.8</b>.
+            V Sicilské obraně vedl černý Tekele po 10.tahu <b>-4.2</b>, ve 13.tahu prohrával <b>+6.0</b>,
+            aby pak ve 14. a 15. tahu sebral Bébulovi obě věže a vedl <b>-11.0</b>.
+            Má se za to, že ani jeden z aktérů zřejmě neměl <a href="https://lichess.org/n165tIRt" target="_blank">tuto partii</a> pod kontrolou a figurky si dělaly co chtěly!
+            Ve třetí partii vedl v zahájení <b>+1.6</b>.
+        </p>
+        <p>
+            To, že nakonec všechny tři partie prohrál, je toliko důsledkem toho, že Bébulka od dob, kdy do arény vstoupil maestro Mrázek,
+            provází neuvěřitelné štěstí. O čemž se vlastně vedou spory. Někdo má za to, že Bébulek má neuvěřitelné štěstí, jiní zas, že
+            Mrázek a Tekele mají neuvěřitelnou smůlu. Ať tak či onak, tiše, pánové! Abyste Bébulkovi to či ono nevyplašili!
+        </p>
+        <p>
+            Nezbývá, než pánům oplatit stejnou mincí a dát taky ňákej trenýrek!
+            <span style="position:absolute; margin:5px"><i> -&nbsp;beb- </i></span>
+        </p>
+    </div>
+
+    <div class="article">
+        <br>
+        <h2>Opět stoprocentní Bukowskic!</h2>
+        <p>
+        Po covidovém výpadku jsme se všichni těšili na pomalý nástup loňského šampijóna bukowskice.
+            Bébul se těšil, mozkomor se těšil a Jouzolean se tuze těšil, že si zase zahuláká svoje <b><i>"yeeeees::::!!!"</i></b>, neb se mu jistě podaří bukowskičův
+            skalp znovu ukořistit.
+        </p>
+        <p>
+        Proslýchá se, že Tekele si počítal, o kolik se mu za případné remízy a paty zvedne ELO, Bébul zas, o kolik se zvedne ELO jemu, když porazí všechny ostatní, kterým
+        se zvedne ELO a všichni měli dobrou, bojovnou náladu.
+        </p>
+        <div style="display: block; margin-left: auto;  margin-right: auto">
+            <a href="https://lichess.org/XfzaSc2K" target="_blank"><img src="img/bukowskicD.jpg" style="width:100%"/></a>
+            <div align="center"><b>bukowskic</b> : Zbytek světa <b>11-0</b></div>
+        </div>
+
+        <p>
+            Fyzikální zákony si ale daly šlofíka, když rychlost návratu bukowskicovy formy přejmenovala světlo na šneka
+            a šampion si z posledního únorového MondayFight odnesl skalpy všech účastníků.
+        </p>
+            <p>
+                Nezbývá, než mu pogratulovat!
+                <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+            </p>
+    </div>
+
+    <div class="article" style="clear: both">
+        <br>
+        <h2>Sars 2 – Covid 19 narušil Bukimu šachové vedení</h2>
+        <img src="img/sars1.png"/>
+        <div>
+            V pondělí 8.2.2021 bylo na Monday fights zase rušno. Tento sychravý zimní večer přinesl mnoho zajímavého. BEBUL odcestoval na hory a bylo to znát.
+            Jeho internet měl konečně signál a tak odehrál konečně 11 partií a skončil na krásném druhém místě.
+        <div class="lImg">
+            <a href="https://lichess.org/yPbgPkKM" target="_blank"><img src="img/sars2.png"/></a>
+            <div align="center"><i><b>Tekele</b>-Bebul: 1-0</i></div>
+        </div>
+        <div class="rImg">
+            <a href="https://lichess.org/XfzaSc2K" target="_blank"><img src="img/sars3.png"/></a>
+            <div align="center"><i>Travinho-Bukowskic: 1/2-1/2</i></div>
+        </div>
+            Neměl tedy důvod si stěžovat a taky to neudělal,
+            čemuž se divíme a zároveň mu za to tleskáme.
+
+            Přejeme mu mnoho dalších úspěchů a pevné nervy v dalších kláních. Sice prohrál s Tekelem,
+            ale zato porazil Bukiho, mrázka v královském gambitu (zase) a dokonce svého odvěkého rivala mozkomora ve dvou bratrovražedných utkáních.
+            Horský vzduch mu svědčí! Nebo ne?!
+        <p>
+        BUKOWSKIC dostal COVID! Podepsalo se to na jeho dnešním výkonu. Ze 14 ti partíí vyhrál pouze 7 a s performance 1576 se zařadil na třetí místo.
+        Tímto přejeme Bukimu brzké uzdravení a zároveň děkujeme, že se toho nebál a přišel rozdávat body. Zase bude nejspíš zvedat ruce k obloze
+        a hlasitě křičet o lenosti a vznešenosti šachu. Na ukázku krásná remíza, kterou vybojoval Travinho.
+        Bukowski zde hraje za černé a udělá poslední tah partie.
+        </p>
+        </div>
+
+        <div style="clear:both">
+            <h2>Další aktuality</h2>
+            Turnaj ovládl JOUZOLEAN, který má formu jako hrom!!! Text píše on, tak nebude machrovat.
+            Performance 1933 si vystaví doma na poličku a bude si myslet, že je to jeho ELO.
+            MRÁZEK dnes na bednu nedosáhl, možná proto, že neumí hrát královský gambit.
+            TEKELE potvrdil svou extratřídu a uhrál jeho maximum – 4,5 bodu.
+            Z MOZKOMORA šel strach jako vždycky. Po dlouhé odmlce se dnes přidal DZIN69 a uhrál 3 body-vítej zpět.
+            DJ PĚŠEC se dnes bál a nepřišel. ARYTMIK stále hlásí technické problémy a TRAVINHO dnes
+            neměl den – jeho královský gambit proti všemu dnes opět nenašel uplatnění.
+            <span style="position:absolute; margin:5px"><i> -jouz- </i></span>
+        </div>
+    </div>
+
+    <div class="article">
+        <br>
+        <h2>Monday Fight sestřelil Lichess</h2>
+        Prvního února 2021 došlo během Monday Fight turnaje k sestřelení Lichess serveru.
+        Američtí vědci z Princetonské univerzity zjistili, že Lichess sestřelil divoký paket obsahující vidličku jezdcem <b>Ne3+</b> na krále a věž.
+        Paket byl nade vší pochybnost odeslán z Mrázkovy šachovnice a měl tvrdě poškodit Bébulovo ego. Další okolnosti zavinění se vyšetřují.
+        <p>
+            Kromě Bebul-<b>Mrázek</b>, hráli ještě Jouzolean-<b>DJ-Strelec</b> a RychlyLenochod-<b>Bukowskic</b>. V obou případech
+            bylo vítězství přiřčeno silnějším hráčům, ačkoli pozice to byla vyrovnaná. Všechny tyto partie lichess označil jako <code>noStart</code>.
+
+        <p> Hrála se však ještě jedna partie a tuto vyhlašujeme jako <b>partii dne</b>: <b>tekele</b>-hrobotron. Černého zde před matem zachránil právě
+            jen pád serveru. Hrobotron pak v diskusi trval na připsání vítězství výbornému tekelovi. Dějiny přepsat nedokážeme, tak alespoň
+            zde, v našich aktualitách, píšeme tekeleho po zásluze tučně, jako vítěze. Ano, stalo se tak v nechvalně pověstném <b><i>třináctém tahu</i></b>.
+            Partii si můžete přehrát kliknutím na obrázek.
+            <span style="position:absolute; margin:5px"><i> -beb- </i></span>
+
+        <p>
+            <a href="https://lichess.org/9y3GwIlj" target="_blank"><img src="img/tekeleHrobotron.png"></a>
+        </p>
+    </div>
+
+    <div class="article">
+        <h2>Řady Královských gambiterů houstnou</h2>
+        A nejen, že houstnou, královskému gambitu se i nečekaně daří. Gratulujeme novému gambiterovi <b>Travinhovi</b> k ukořistěnému sedmitahovému skalpu.
+        <img src="img/hommageKingsGambit.png" width=100%>
+    </div>
+
+    <div class="article">
+        <h2>Překvapivý průběh úvodního turnaje</h2>
+        Takto vypadadá tabulka aktuální sezóny po prvním turnaji. Výkony borců ponecháváme bez komentáře. Za povšimnutí stojí, že barvičky Zlato, Stříbro a Bronz z turnaje neodpovídají pořadí, neboť pořadí pro rok 2021 se nepočítá ani ze score, ani z Jouzacoins, které zanikly, ale z uhraných turnajových bodů, Points, tak, jak je na turnajích zvykem. Pokud se to neosvědčí, lze to kdykoli změnit.
+        <p>
+            <img src="img/uvodniTurnaj.png">
+
+        <h2>Bukowskic potvrdil svou extratřídu</h2>
+        <b>Gratulujeme šampiónovi Bukowskic k vítězství v superturnaji šampionů a slibujeme, že příště mu vášnivou noc nedopřejeme tak snadno ;-).</b>
+        <p>
+            <img src="img/grats-champion.jpg" width=100%>
+
+        <p>
+            <img src="img/turnajPavouk.jpg" width=100%>
+    </div>
+
+</div>
+
+</body>
+</html>
