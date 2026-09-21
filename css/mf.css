@@ -229,7 +229,7 @@ body {
     width:200px;
 }
 
-.topnav #myLinks {
+.topnav [data-mf-menu][hidden] {
     display: none;
 }
 
@@ -253,6 +253,13 @@ body {
 
 .hamburger:hover {
     color: #fdfdfe;
+}
+
+.menu-toggle {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
 }
 
 .second a, .first a, .third a {
