@@ -246,6 +246,41 @@ body {
     color: black;
 }
 
+.topnav .mf-menu-group > summary {
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    font-size: 20px;
+    list-style: none;
+}
+
+.topnav .mf-menu-group > summary::-webkit-details-marker {
+    display: none;
+}
+
+.topnav .mf-menu-group > summary::after {
+    content: "▸";
+    font-size: 0.8em;
+    transition: transform 150ms ease;
+}
+
+.topnav .mf-menu-group[open] > summary::after {
+    transform: rotate(90deg);
+}
+
+.topnav .mf-menu-group > summary:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav .mf-menu-submenu {
+    border-left: 3px solid rgba(255, 255, 255, 0.45);
+    margin-left: 16px;
+}
+
 .hamburger {
     font-size:40px;
     color:#f2c037;
