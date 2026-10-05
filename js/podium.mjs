@@ -1636,11 +1636,12 @@ function selectGame(tournament, gamesData, hideId, boardId, selector) {
     let moves = selectedGame.moves.split(" ")
     moves.forEach((move) => mfChess.move(move))
 
-    let mateBoardWidth = document.getElementById("fastMateId").clientWidth;
+    // The mate card can be hidden when the tournament has no checkmates.
+    let boardWidth = document.getElementById(hideId).clientWidth;
     let config = {...{
         pgn: toPGN(selectedGame),
         showCoords: false, coordsInner: false, headers: true,
-        boardSize: mateBoardWidth - 10,
+        boardSize: boardWidth - 10,
         movesHeight: 50,
         startPlay: `${moves.length}`,
         resizable: false
