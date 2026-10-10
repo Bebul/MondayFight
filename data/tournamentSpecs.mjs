@@ -1585,6 +1585,31 @@ export var tournamentSpec = [
         "<br><br><b>RychlyLenochod</b>: To stejne... se mi u čepování piva třepou ruce z toho 😀" +
         "<br><br><b>bebul</b>: Velká gratulace Tekelemu za fantastický výkon. Nejen, že v závěrečnom tahu na bránu urval bednu, ale třikrát porazit siláka Chmiela a k tomu si připnout skalpy DJ-Strelce a Bukowskice, to se mohlo stát naposledy tak za vlády Jagellovců... Paráda, gratulace! " +
         "<tooltip json='{\"id\":\"Tekele\", \"size\":0.8}' align='center' style='margin:40px 0 0px 0'/>"
+  }, {
+    id: "xcyqwFfb",
+    html: `<b>Bébul:</b> Mrázkovi se dneska, 10. října 2026, narodil synek! ❤️
+      Mega hustokrutá Gratulace celé rodině!
+      Oznámení nám poslal jako dvoustupňový rébus. Ordinérní MondayFighťák si myslí, že
+      to poskládá a bude hotovo! Chááá cháááá! Právěže vůbec!
+      Musíte ještě přijít na jméno, to je přece jasný!
+      <div data-image-puzzle data-image="img/oznameni/obrazek.jpg"
+        data-solution="img/oznameni/reseni.jpg" data-label="Mrázkovo radostné oznámení">
+        <a href="img/oznameni/obrazek.jpg">Prohlédnout oznámení</a> ·
+        <a href="img/oznameni/reseni.jpg">Ukázat řešení rébusu</a>
+      </div>
+      Rébus najdete také v <a href="hallOfFame.html?year=2026#mrazkovo-oznameni">Síni slávy</a>.`,
+    hallOfFame: [101, `<section class="user-top" id="mrazkovo-oznameni">
+      <h2 class="text" data-icon="&#xe016;">
+        <a href="index.html?mf=xcyqwFfb">Mrázkova radost</a>
+      </h2>
+      <div style="margin:10px">
+        <div data-image-puzzle data-image="img/oznameni/obrazek.jpg"
+          data-solution="img/oznameni/reseni.jpg" data-label="Mrázkovo radostné oznámení">
+          <a href="img/oznameni/obrazek.jpg">Prohlédnout oznámení</a> ·
+          <a href="img/oznameni/reseni.jpg">Ukázat řešení rébusu</a>
+        </div>
+      </div>
+    </section>`]
   }
 
 ];

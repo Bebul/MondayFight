@@ -5,6 +5,7 @@ import {LAPI} from "./lichessAPIdownloader.mjs"
 import {addNewGamesStats} from "./analyze.mjs"
 import {Avatars, getTrophies, getTipHtml, MFPodium, collectAchievements} from "./podium.mjs"
 import {tournamentSpec} from "../data/tournamentSpecs.mjs";
+import {initImagePuzzles} from "./imagePuzzle.mjs"
 
 function playerRank(fight, playerName) {
   let player = fight.standing.players.find( pl => pl.name==playerName )
@@ -1027,6 +1028,7 @@ export function createHallOfFame(data, fights, achievementsId, playerListId) {
   achievements.forEach(a => achievementsHtml += achievementsSection(a))
 
   achievementsEl.innerHTML = achievementsHtml
+  initImagePuzzles(achievementsEl)
 }
 
 function collectChessboardStats(data, fights) {
@@ -2187,6 +2189,8 @@ export function updateSpecificTournamentHtml(divId, data, games) {
     else document.getElementById(divId + '-play-off').innerHTML = ""
     if (s.init) s.init()
     init.forEach(f => f())
+    initImagePuzzles(document.getElementById(divId))
+    if (playOFF) initImagePuzzles(document.getElementById(divId + '-play-off'))
   }
   else {
     document.getElementById(divId).innerHTML = ""
